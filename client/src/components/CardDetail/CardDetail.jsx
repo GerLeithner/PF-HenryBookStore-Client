@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
@@ -45,12 +44,3 @@ export default function CardDetail() {
     </div>
   );
 }
-=======
-import React from "react";
-
-const CardDetail = () => {
-  return <div>CardDetail</div>;
-};
-
-export default CardDetail;
->>>>>>> 22f01f3c70b57a6c542f6257872b38f50e8b1740
