@@ -4,7 +4,7 @@ import Card from "../Card/Card";
 const Home = () => {
   return (
   <div>
-    Home
+    <h1>Henry Book Store</h1>
     {/* <Card/> */}
   </div>
   )
