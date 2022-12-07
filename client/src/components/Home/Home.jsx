@@ -2,10 +2,12 @@ import React from "react";
 import Card from "../Card/Card";
 
 const Home = () => {
-  return <div>
+  return (
+  <div>
     Home
     {/* <Card/> */}
-    </div>;
+  </div>
+  )
 };
 
 export default Home;
