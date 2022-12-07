@@ -105,7 +105,7 @@ const AllCards = () => {
             currentBook?.map(el=>{
                 return(
                     <div key={el.id}>
-                        <Card title={el.title} genre={el.genre} img={el.img} key={el.id} id={el.id} rating={el.rating} reviews={el.reviews} authors={el.authors} summary={el.summary} price={el.price}/>
+                        <Card title={el.title} genre={el.genre} cover={el.cover} key={el.id} id={el.id} rating={el.rating} reviews={el.reviews} authors={el.authors} summary={el.summary} price={el.price}/>
 
                     </div>
                 );

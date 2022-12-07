@@ -5,7 +5,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 
-export default function Card({title, img, genre,id,authors,price,reviews,rating,summary}){
+export default function Card({title, cover, genre,id,author,price,reviews,rating,summary}){
     
     
     // const dispatch= useDispatch()
@@ -21,11 +21,11 @@ export default function Card({title, img, genre,id,authors,price,reviews,rating,
                 <Link to={"/home/"+ id} key={id} >
                 <h3>{title}</h3>
                 </Link>
-                <h3>{authors}</h3>
+                <h3>{author}</h3>
                 
                 <div>
                 <Link to={"/home/"+ id} key={id} >
-                <img src={img} alt="img not found" />
+                <img src={cover} alt="img not found" />
                 </Link>
                 </div>
                 <div >
@@ -38,11 +38,11 @@ export default function Card({title, img, genre,id,authors,price,reviews,rating,
                         </div>
                     ))
                 }
-                <h3>${price}</h3>
+                {/* <h3>${price}</h3> */}
                 <h3>Rating</h3>
-                <h2>{reviews.rating}</h2>
-                <h3>Summary</h3>
-                <p>{summary}</p>
+                <h2>{reviews.score}</h2>
+                {/* <h3>Summary</h3>
+                <p>{summary}</p> */}
 
                 
                
