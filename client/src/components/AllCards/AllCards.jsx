@@ -1,10 +1,12 @@
 import React from "react";
 import {useState,useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
-//import actions from "../../redux/actions"
+//import {} from "../../redux/actions"
+import { getBooks, getGenres, getAuthors, filterBookByGenre,sortByTitle,sortByRelease } from "../../redux/actions";
 import { Link } from "react-router-dom";
-import Card from "../Card";
-import Paginado from "./Paginado";
+import Card from "../Card/Card";
+import Paginado from "../Paginado/Paginado";
+import SearchBar from "../SearchBar/SearchBar";
 
 
 const AllCards = () => {
@@ -17,6 +19,11 @@ const AllCards = () => {
     const allGenres=useSelector((state)=>state.genres)
     useEffect(()=>{
         dispatch(getGenres());
+    },[dispatch])
+
+    const allAuthors=useSelector((state)=>state.authors)
+    useEffect(()=>{
+        dispatch(getAuthors());
     },[dispatch])
 
     const[orden,setOrden]=useState('')
@@ -35,26 +42,26 @@ const AllCards = () => {
 
     function handleClick(e){
         e.preventDefault();
-        dispatch(getPokemons());
+        dispatch(getBooks());
 
     }
     function handleFilterGenre(e){
-        dispatch(filterPokeByGenre(e.target.value));
+        dispatch(filterBookByGenre(e.target.value));
         setCurrentPage(1);
 
     }
 
-    function handleSortByName (e){
+    function handleSortByTitle (e){
         e.preventDefault();
-        dispatch(sortByName(e.target.value))
+        dispatch(sortByTitle(e.target.value))
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
         console.log(orden)
     }
 
-    function handleSortByPrice (e){
+    function handleSortByRelease (e){
         e.preventDefault();
-        dispatch(sortByPrice(e.target.value))
+        dispatch(sortByRelease(e.target.value))
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
         console.log(orden)
@@ -63,17 +70,20 @@ const AllCards = () => {
   return (
   <div>
     <div>
+        <Link to={'/home'}><button>Back to Home</button></Link>
+    </div>
+    <div>
     <button onClick={e=>{handleClick(e)}}>Reload Books</button>
     </div>
     <div >
-           <select onChange={e=> handleSortByName(e)}>
+           <select onChange={e=> handleSortByTitle(e)}>
            <option value="" hidden>ABC</option>
             <option value='asc'>Increasing</option>
             <option value='desc'>Decreasing</option>
            </select>
 
-           <select onChange={e=> handleSortByPrice(e)}>
-           <option value="" hidden>Price</option>
+           <select onChange={e=> handleSortByRelease(e)}>
+           <option value="" hidden>Release date</option>
            <option value='asc'>Increasing</option>
             <option value='desc'>Decreasing</option>
            </select>
@@ -94,8 +104,8 @@ const AllCards = () => {
            paginado={paginado}/>
            <div>
            <Paginado
-           pokePerPage={pokePerPage}
-            allPokemons={allPokemons.length}
+           booksPerPage={booksPerPage}
+            allBooks={allBooks.length}
             paginado={paginado}
             currentPage={currentPage}/>
            </div>
@@ -105,7 +115,7 @@ const AllCards = () => {
             currentBook?.map(el=>{
                 return(
                     <div key={el.id}>
-                        <Card title={el.title} genre={el.genre} cover={el.cover} key={el.id} id={el.id} rating={el.rating} reviews={el.reviews} authors={el.authors} summary={el.summary} price={el.price}/>
+                        <Card title={el.title} genre={el.genre} cover={el.cover} key={el.id} id={el.id} rating={el.rating} reviews={el.reviews} authors={el.authors} summary={el.summary}/>
 
                     </div>
                 );
