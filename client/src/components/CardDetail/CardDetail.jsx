@@ -7,6 +7,7 @@ export default function CardDetail() {
 
   let book;
   let reviews;
+  let genre;
 
   useEffect(() => {}, [dispatch]);
 
@@ -18,18 +19,28 @@ export default function CardDetail() {
         <h4>{book.rating}</h4>
       </div>
       <img src={book.cover} alt={book.title} />
-      <h4>ISBN: {book.isbn}</h4>
-
-      <h4>Category: {book.category}</h4>
+      <h4>ISBN: {book.id}</h4>
+      <h4>Genre: {book.genre}</h4>
+      {
+        genre?.map((g)=>(
+          <div>
+            <div>
+              <h4>{g.name}</h4>
+            </div>
+            
+          </div>
+        ))
+       }
       <h4>Publisher: {book.publisher}</h4>
+      <h4>Release Date: {book.releaseDate}</h4>
       <h4>Description: {book.description}</h4>
       <h4>Reviews</h4>
       <div>
         {reviews?.map((r) => (
           <div>
-            <div>{r.rating}</div>
+            <div>{r.score}</div>
             <div>{r.comment}</div>
-            <div>{r.date}</div>
+            <div>{r.create_date}</div>
           </div>
         ))}
       </div>
@@ -37,6 +48,7 @@ export default function CardDetail() {
       <button>
         <h3>Post your review</h3>
       </button>
+
 
       <Link to={"/home"}>
         <button>{"<-"} Volver</button>
