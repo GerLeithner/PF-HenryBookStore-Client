@@ -16,29 +16,39 @@ const AllCards = () => {
         dispatch(getBooks());
     },[dispatch])
 
-    const allGenres=useSelector((state)=>state.genres)
-    useEffect(()=>{
-        dispatch(getGenres());
-    },[dispatch])
+    console.log("allBooks: cards:", allBooks)
+    console.log("allBooks cards[0]: ", allBooks[0])
 
-    const allAuthors=useSelector((state)=>state.authors)
-    useEffect(()=>{
-        dispatch(getAuthors());
-    },[dispatch])
+    // const allGenres=useSelector((state)=>state.genres)
+    // useEffect(()=>{
+    //     dispatch(getGenres());
+    // },[dispatch])
+
+    // const allAuthors=useSelector((state)=>state.authors)
+    // useEffect(()=>{
+    //     dispatch(getAuthors());
+    // },[dispatch])
 
     const[orden,setOrden]=useState('')
     const[currentPage,setCurrentPage]=useState(1)
     const [booksPerPage, setBooksPerPage]=useState(20)
     var indexOfLastBook=currentPage * booksPerPage
+    // console.log("INDEXOFLASTBOOK",indexOfLastBook)
     var indexOfFirstBook=indexOfLastBook - booksPerPage
+    // console.log("INDEXOFFIRSBOOK",indexOfFirstBook)
     var currentBook= allBooks.slice(indexOfFirstBook,indexOfLastBook)
+    // console.log("CURRENTBOOK:",currentBook)
+    // console.log("allBooks.length",allBooks.length)
     var countPages2=Math.ceil(allBooks.length/booksPerPage)
-    
+    // console.log("COUNTPAGES2",countPages2)
+    const allBooksLength= parseInt(allBooks.length)
+    console.log("LENGTH",allBooksLength)
     
     const paginado=(pageNumber)=>{
         if(pageNumber>0 && pageNumber<=countPages2)
         setCurrentPage(pageNumber)
     }
+    
 
     function handleClick(e){
         e.preventDefault();
@@ -92,20 +102,23 @@ const AllCards = () => {
            <select onChange={e=> handleFilterGenre(e)}>
            <option value="" hidden>Genre</option>
             <option value='all' >All</option>
-            {
+            {/* {
                 allGenres?.map(el=>(
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))
 
-            }
+            } */}
            </select>
 
            <SearchBar
            paginado={paginado}/>
            <div>
+
+
+           {/* booksPerPage,allBooks,paginado,currentPage */}
            <Paginado
            booksPerPage={booksPerPage}
-            allBooks={allBooks.length}
+            allBooks={allBooksLength}
             paginado={paginado}
             currentPage={currentPage}/>
            </div>

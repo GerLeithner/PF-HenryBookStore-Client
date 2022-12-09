@@ -2,7 +2,10 @@ import axios from 'axios';
 
 export function getBooks(){
     return async function(dispatch){
-        var json= await axios.get('http://localhost:3001/books');
+        // var json= await axios.get('http://localhost:3001/books');
+        var json= await axios.get('https://run.mocky.io/v3/0098c0b3-30dd-475e-86dd-75df52f889f8')
+        console.log("JSON:",json.data.length)
+        console.log("JSON:[0]",json.data[0])
         return dispatch({
             type:'GET_BOOKS',
             payload:json.data
@@ -10,25 +13,26 @@ export function getBooks(){
     }
 }
 
-export function getGenres(){
-    return async function(dispatch){
-        var json= await axios.get('http://localhost:3001/genres');
-        return dispatch({
-            type:'GET_GENRES',
-            payload:json.data
-        })
-    }
-}
 
-export function getAuthors(){
-    return async function(dispatch){
-        var json= await axios.get('http://localhost:3001/authors');
-        return dispatch({
-            type:'GET_AUTHORS',
-            payload:json.data
-        })
-    }
-}
+// export function getGenres(){
+//     return async function(dispatch){
+//         var json= await axios.get('http://localhost:3001/genres');
+//         return dispatch({
+//             type:'GET_GENRES',
+//             payload:json.data
+//         })
+//     }
+// }
+
+// export function getAuthors(){
+//     return async function(dispatch){
+//         var json= await axios.get('http://localhost:3001/authors');
+//         return dispatch({
+//             type:'GET_AUTHORS',
+//             payload:json.data
+//         })
+//     }
+// }
 
 export function createBook(payload){
     return async function(dispatch){
@@ -64,7 +68,7 @@ export function getBookByTitle(title){
         
         console.log("Searching book", title)
         try{
-    var obj= await axios.get("http://localhost:3001/books?name="+ title); 
+    var obj= await axios.get("http://localhost:3001/books?title="+ title); 
     return dispatch({
         type: 'GET_BY_TITLE',
         payload:obj.data

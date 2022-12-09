@@ -31,16 +31,16 @@ export default function Card({title, cover, genre,id,author,reviews,rating,summa
                 <div >
                 <h3 >Genre:</h3>
                 <div>
-                {
+                {/* {
                     genre.map(el=>(
                         <div key={el.type}>
                             <h4 key={el}>{el}</h4>
                         </div>
                     ))
-                }
+                } */}
                 
                 <h3>Rating</h3>
-                <h2>{reviews.score}</h2>
+                {/* <h2>{reviews.score}</h2> */}
                 {/* <h3>Summary</h3>
                 <p>{summary}</p> */}
 
