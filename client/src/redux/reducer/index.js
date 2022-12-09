@@ -1,12 +1,126 @@
 const initialState={
     books:[],
     allBooks:[],
+    authors:[],
     genres:[],
     detail:[]
 }
 
 function rootReducer(state=initialState,action){
     switch(action.type){
+        case 'GET_BOOKS':
+        return{
+            ...state,
+            allBooks:action.payload,
+            books:action.payload
+        }
+
+        case 'GET_GENRES':
+        return{
+            ...state,
+            types:action.payload
+        }
+
+        case 'FILTER_BY_GENRE':
+        const allBooks=state.allBooks
+        const genreFiltered=action.payload==='all'? allBooks :
+        allBooks.filter((el)=>el.genre.includes(action.payload))
+        
+        return{
+         ...state,
+         books:genreFiltered
+         }
+
+         case 'SORT_BY_TITLE':
+        let sortTitle=action.payload==='asc'?
+        state.books.sort(function (a,b){
+            if(a.title>b.title){
+                return 1;
+            }
+            if(b.title>a.title){
+                return -1;
+            }
+            return 0;
+        }) :
+        state.books.sort(function(a,b){
+            if(a.title>b.title){
+                return -1;
+            }
+            if(b.title>a.title){
+                return 1;
+            }
+            return 0;
+        })
+        return{
+            ...state,
+            books:sortTitle
+        }
+
+        case 'SORT_BY_RELEASE':
+    let sortRelease=action.payload==='asc'?
+        state.books.sort(function (a,b){
+            if(a.release>b.release){
+                return 1;
+            }
+            if(b.release>a.release){
+                return -1;
+            }
+            return 0;
+        }) :
+        state.books.sort(function(a,b){
+            if(a.release>b.release){
+                return -1;
+            }
+            if(b.release>a.release){
+                return 1;
+            }
+            return 0;
+        })
+        return{
+            ...state,
+            books:sortRelease
+        }
+
+        case 'GET_BY_TITLE':
+        return{
+            ...state,
+            books:action.payload
+        }
+
+        case 'GET_BY_AUTHOR':
+        return{
+            ...state,
+            books:action.payload
+        }
+
+        case 'POST_BOOK':
+        return{
+            ...state,
+        }
+
+        case 'GET_DETAILS':
+            return{
+                ...state,
+                detail:action.payload
+            }
+        case 'CLEAN_DETAIL':
+        return{
+            ...state,
+            detail:[]
+        }
+
+        case 'DELETE_BOOK_DB':
+        const allPoke3=state.pokemons
+        const filterDelete=allPoke3.filter(el=>el.id!==action.payload)
+        return{
+            ...state,
+            pokemons:filterDelete
+
+        }
+
+
+
+
         default:
             return state;
     }
