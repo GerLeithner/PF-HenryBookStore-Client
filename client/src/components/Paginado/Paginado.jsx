@@ -3,8 +3,11 @@ import "./Paginado.css"
 
 const Paginado = (booksPerPage,allBooks,paginado,currentPage) => {
     const pageNumbers=[]
+    console.log("ALLBOOKS:",allBooks)
+    console.log("BOOKSPERPAGE:",booksPerPage)
     const countPages=Math.ceil(allBooks/booksPerPage)
-   
+    console.log("countPages:",countPages)
+  
    
     for(let i=1;i<=countPages;i++){
         pageNumbers.push(i)

@@ -110,11 +110,11 @@ function rootReducer(state=initialState,action){
         }
 
         case 'DELETE_BOOK_DB':
-        const allPoke3=state.pokemons
-        const filterDelete=allPoke3.filter(el=>el.id!==action.payload)
+        const allBook3=state.books
+        const filterDelete=allBook3.filter(el=>el.id!==action.payload)
         return{
             ...state,
-            pokemons:filterDelete
+            books:filterDelete
 
         }
 
