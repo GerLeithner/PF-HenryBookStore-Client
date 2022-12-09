@@ -3,9 +3,8 @@ import axios from 'axios';
 export function getBooks(){
     return async function(dispatch){
         // var json= await axios.get('http://localhost:3001/books');
-        var json= await axios.get('https://run.mocky.io/v3/0098c0b3-30dd-475e-86dd-75df52f889f8')
-        console.log("JSON:",json.data.length)
-        console.log("JSON:[0]",json.data[0])
+        var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
+      
         return dispatch({
             type:'GET_BOOKS',
             payload:json.data
