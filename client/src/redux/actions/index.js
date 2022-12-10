@@ -13,15 +13,15 @@ export function getBooks(){
 }
 
 
-// export function getGenres(){
-//     return async function(dispatch){
-//         var json= await axios.get('http://localhost:3001/genres');
-//         return dispatch({
-//             type:'GET_GENRES',
-//             payload:json.data
-//         })
-//     }
-// }
+export function getGenres(){
+    return async function(dispatch){
+        var json= await axios.get('http://localhost:3001/genres');
+        return dispatch({
+            type:'GET_GENRES',
+            payload:json.data
+        })
+    }
+}
 
 // export function getAuthors(){
 //     return async function(dispatch){
@@ -33,6 +33,15 @@ export function getBooks(){
 //     }
 // }
 
+export function getTrendingBooks(payload){
+    return async function(dispatch){
+  
+        return dispatch({
+            type:'GET_TRENDING_BOOKS',
+            payload
+        })
+    }
+}
 export function createBook(payload){
     return async function(dispatch){
         console.log("payload", payload)
