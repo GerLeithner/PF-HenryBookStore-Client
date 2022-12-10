@@ -60,19 +60,19 @@ function rootReducer(state=initialState,action){
         case 'SORT_BY_PUBLISHER_DATE':
     let sortPublisher=action.payload==='asc'?
         state.books.sort(function (a,b){
-            if(a.release>b.release){
+            if(a.publisherDate>b.publishedDate){
                 return 1;
             }
-            if(b.release>a.release){
+            if(b.publishedDate>a.publishedDate){
                 return -1;
             }
             return 0;
         }) :
         state.books.sort(function(a,b){
-            if(a.release>b.release){
+            if(a.publishedDate>b.publishedDate){
                 return -1;
             }
-            if(b.release>a.release){
+            if(b.publishedDate>a.publishedDate){
                 return 1;
             }
             return 0;
