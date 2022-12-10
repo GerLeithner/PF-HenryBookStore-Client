@@ -5,7 +5,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 
 
-export default function Card({title, cover, genre,id,author,reviews,rating,summary}){
+export default function Card({id, title, publishedDate, description, averageRating, cover, genre, author}){
     
     
     // const dispatch= useDispatch()
@@ -13,7 +13,7 @@ export default function Card({title, cover, genre,id,author,reviews,rating,summa
 //         dispatch(bookDelete(e.target.value));
 //         alert("Book deleted")
 //     };
-
+// console.log("PROPS:", id, title, publishedDate, description, averageRating, cover, genre, author)
  
     return(
         <div>
@@ -30,19 +30,20 @@ export default function Card({title, cover, genre,id,author,reviews,rating,summa
                 </div>
                 <div >
                 <h3 >Genre:</h3>
+                
                 <div>
-                {/* {
+                {
                     genre.map(el=>(
                         <div key={el.type}>
                             <h4 key={el}>{el}</h4>
                         </div>
                     ))
-                } */}
+                }
                 
                 <h3>Rating</h3>
-                {/* <h2>{reviews.score}</h2> */}
-                {/* <h3>Summary</h3>
-                <p>{summary}</p> */}
+                <h2>{averageRating}</h2>
+                <h3>Summary</h3>
+                <p>{description}</p>
 
                 
                
@@ -52,7 +53,7 @@ export default function Card({title, cover, genre,id,author,reviews,rating,summa
                 </div>
                 {/* {
                   id.length > 8 && 
-                        <button  value={id} onClick={e=>{handleDeleteClick(e)}}>Delete Pokémon</button>
+                        <button  value={id} onClick={e=>{handleDeleteClick(e)}}>Delete Book</button>
                 }
                  */}
                 

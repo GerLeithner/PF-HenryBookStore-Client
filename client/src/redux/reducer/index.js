@@ -3,7 +3,8 @@ const initialState={
     allBooks:[],
     authors:[],
     genres:[],
-    detail:[]
+    detail:[],
+    trending:[]
 }
 
 function rootReducer(state=initialState,action){
@@ -80,6 +81,33 @@ function rootReducer(state=initialState,action){
             ...state,
             books:sortRelease
         }
+        case 'GET_TRENDING_BOOKS':
+            console.log("ALLBOOKS",state.books)
+
+            const allBooksTrending=state.books
+            console.log("allBooksTrending",allBooksTrending)
+            const sortByTrendings=allBooksTrending.sort(function (a,b){
+
+                if(b.averageRating>a.averageRating){
+                  return 1;
+              }
+              if(a.averageRating>b.averageRating){
+                  return -1;
+              }
+              return 0;
+              })
+              console.log("TRENDINGSORT",sortByTrendings)
+          
+              const trending=[]
+          
+              for(let i=0;i<10;i++){
+                trending.push(sortByTrendings[i])
+                console.log("TRENDINGS:", trending[i])
+              }
+              return{
+                ...state,
+                trending:trending
+              }
 
         case 'GET_BY_TITLE':
         return{

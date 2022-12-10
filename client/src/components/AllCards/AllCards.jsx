@@ -16,8 +16,6 @@ const AllCards = () => {
         dispatch(getBooks());
     },[dispatch])
 
-    console.log("allBooks: cards:", allBooks)
-    console.log("allBooks cards[0]: ", allBooks[0])
 
     // const allGenres=useSelector((state)=>state.genres)
     // useEffect(()=>{
@@ -33,16 +31,15 @@ const AllCards = () => {
     const[currentPage,setCurrentPage]=useState(1)
     const [booksPerPage, setBooksPerPage]=useState(20)
     var indexOfLastBook=currentPage * booksPerPage
-    // console.log("INDEXOFLASTBOOK",indexOfLastBook)
+    
     var indexOfFirstBook=indexOfLastBook - booksPerPage
-    // console.log("INDEXOFFIRSBOOK",indexOfFirstBook)
+  
     var currentBook= allBooks.slice(indexOfFirstBook,indexOfLastBook)
-    // console.log("CURRENTBOOK:",currentBook)
-    // console.log("allBooks.length",allBooks.length)
+    
     var countPages2=Math.ceil(allBooks.length/booksPerPage)
-    // console.log("COUNTPAGES2",countPages2)
-    const allBooksLength= parseInt(allBooks.length)
-    console.log("LENGTH",allBooksLength)
+    
+   
+ 
     
     const paginado=(pageNumber)=>{
         if(pageNumber>0 && pageNumber<=countPages2)
@@ -118,17 +115,18 @@ const AllCards = () => {
            {/* booksPerPage,allBooks,paginado,currentPage */}
            <Paginado
            booksPerPage={booksPerPage}
-            allBooks={allBooksLength}
+            allBooks={allBooks.length}
             paginado={paginado}
             currentPage={currentPage}/>
            </div>
 
            <div>
             {
-            currentBook?.map(el=>{
+            currentBook?.map(b=>{
                 return(
-                    <div key={el.id}>
-                        <Card title={el.title} genre={el.genre} cover={el.cover} key={el.id} id={el.id} rating={el.rating} reviews={el.reviews} authors={el.authors} summary={el.summary}/>
+                    <div key={b.id}>
+                        
+                        <Card id={b.id} title={b.title} publishedDate={b.publishedDate} description={b.description} averageRating={b.averageRating} cover={b.cover} genre={b.genre} author={b.author}/>
 
                     </div>
                 );
