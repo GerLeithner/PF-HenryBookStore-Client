@@ -2,7 +2,7 @@ import React from "react";
 import {useState,useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
 //import {} from "../../redux/actions"
-import { getBooks, getGenres, getAuthors, filterBookByGenre,sortByTitle,sortByRelease } from "../../redux/actions";
+import { getBooks, getGenres, getAuthors, filterBookByGenre,sortByTitle,sortByPublisherDate } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
@@ -66,9 +66,9 @@ const AllCards = () => {
         console.log(orden)
     }
 
-    function handleSortByRelease (e){
+    function handleSortByPublisherDate (e){
         e.preventDefault();
-        dispatch(sortByRelease(e.target.value))
+        dispatch(sortByPublisherDate(e.target.value))
         setCurrentPage(1);
         setOrden(`Ordenado ${e.target.value}`)
         console.log(orden)
@@ -89,8 +89,8 @@ const AllCards = () => {
             <option value='desc'>Decreasing</option>
            </select>
 
-           <select onChange={e=> handleSortByRelease(e)}>
-           <option value="" hidden>Release date</option>
+           <select onChange={e=> handleSortByPublisherDate(e)}>
+           <option value="" hidden>Publisher Date</option>
            <option value='asc'>Increasing</option>
             <option value='desc'>Decreasing</option>
            </select>
@@ -107,8 +107,8 @@ const AllCards = () => {
             } */}
            </select>
 
-           <SearchBar
-           paginado={paginado}/>
+           {/* <SearchBar
+           paginado={paginado}/> */}
            <div>
 
 

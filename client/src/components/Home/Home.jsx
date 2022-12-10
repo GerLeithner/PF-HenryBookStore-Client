@@ -8,6 +8,7 @@ import Card from "../Card/Card";
 import SearchBar from "../SearchBar/SearchBar";
 
 import NavBar from "../NavBar/NavBar";
+import AllCards from "../AllCards/AllCards";
 
 
 const Home = () => {
@@ -66,9 +67,9 @@ console.log("ALLBOOKS HOME:",allBooks)
 
     </div>
     <div>
-      <h3>Trendings</h3>
-      
-      {/* {
+      <h3>Trendings</h3> 
+      {/* <AllCards/> */}
+       {/* {
         trending?.map(b=>{
                 return(
                   // key={b.id}

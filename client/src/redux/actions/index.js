@@ -3,8 +3,9 @@ import axios from 'axios';
 export function getBooks(){
     return async function(dispatch){
         // var json= await axios.get('http://localhost:3001/books');
-        var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
-      
+        
+        // var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
+        var json= await axios.get('https://run.mocky.io/v3/a22c7e5a-69f7-4784-bdfc-641ef666af76')
         return dispatch({
             type:'GET_BOOKS',
             payload:json.data
@@ -64,9 +65,9 @@ export function sortByTitle(payload){
         payload
     }
 }
-export function sortByRelease(payload){
+export function sortByPublisherDate(payload){
     return{
-        type:'SORT_BY_RELEASE',
+        type:'SORT_BY_PUBLISHER_DATE',
         payload
     }
 }

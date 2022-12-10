@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import SearchBar from "../SearchBar/SearchBar";
 
 const NavBar = () => {
   return <div>
@@ -9,7 +9,10 @@ const NavBar = () => {
     <Link to={"/catalogue"} ><button>Complete Catalogue</button></Link>
     <Link to={"/AboutUs"} ><button>About Us</button></Link>
     <Link to={"/create"} ><button>Add a new Book</button></Link>
-    //
+    
+          <div>
+            <SearchBar/>
+           </div>
     
   </div>;
 };
