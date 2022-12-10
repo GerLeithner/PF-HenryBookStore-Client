@@ -8,6 +8,7 @@ const NavBar = () => {
     <Link to={"/catalogue"} ><button>Complete Catalogue</button></Link>
     <Link to={"/AboutUs"} ><button>About Us</button></Link>
     <Link to={"/create"} ><button>Add a new Book</button></Link>
+    //
     
   </div>;
 };
