@@ -4,6 +4,7 @@ import LandingPage from "./components/LandingPage/LandingPage.jsx";
 import Home from "./components/Home/Home.jsx";
 import CardDetail from "./components/CardDetail/CardDetail.jsx";
 import AllCards from "./components/AllCards/AllCards";
+import AboutUs from "./components/AboutUs/AboutUs";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/home/:id" component={CardDetail} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/catalogue" component={AllCards}/>
+        <Route exact path="/AboutUs" component={AboutUs}/>
       </Switch>
     </div>
   );

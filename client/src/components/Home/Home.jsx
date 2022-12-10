@@ -9,6 +9,7 @@ const Home = () => {
     {/* <Card/> */}
     <div>
     <Link to={"/catalogue"} ><button>See Complete Catalogue</button></Link>
+    <Link to={"/AboutUs"} ><button>About Us</button></Link>
     </div>
   </div>
   )

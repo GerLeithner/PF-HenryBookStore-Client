@@ -13,7 +13,7 @@ export default function Card({id, title, publishedDate, description, averageRati
 //         dispatch(bookDelete(e.target.value));
 //         alert("Book deleted")
 //     };
-console.log("PROPS:", id, title, publishedDate, description, averageRating, cover, genre, author)
+// console.log("PROPS:", id, title, publishedDate, description, averageRating, cover, genre, author)
  
     return(
         <div>
