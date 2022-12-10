@@ -3,9 +3,8 @@ import axios from 'axios';
 export function getBooks(){
     return async function(dispatch){
         // var json= await axios.get('http://localhost:3001/books');
-        var json= await axios.get('https://run.mocky.io/v3/0098c0b3-30dd-475e-86dd-75df52f889f8')
-        console.log("JSON:",json.data.length)
-        console.log("JSON:[0]",json.data[0])
+        var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
+      
         return dispatch({
             type:'GET_BOOKS',
             payload:json.data
@@ -14,15 +13,15 @@ export function getBooks(){
 }
 
 
-// export function getGenres(){
-//     return async function(dispatch){
-//         var json= await axios.get('http://localhost:3001/genres');
-//         return dispatch({
-//             type:'GET_GENRES',
-//             payload:json.data
-//         })
-//     }
-// }
+export function getGenres(){
+    return async function(dispatch){
+        var json= await axios.get('http://localhost:3001/genres');
+        return dispatch({
+            type:'GET_GENRES',
+            payload:json.data
+        })
+    }
+}
 
 // export function getAuthors(){
 //     return async function(dispatch){
@@ -34,6 +33,15 @@ export function getBooks(){
 //     }
 // }
 
+export function getTrendingBooks(payload){
+    return async function(dispatch){
+  
+        return dispatch({
+            type:'GET_TRENDING_BOOKS',
+            payload
+        })
+    }
+}
 export function createBook(payload){
     return async function(dispatch){
         console.log("payload", payload)
