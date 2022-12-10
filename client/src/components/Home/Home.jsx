@@ -6,7 +6,9 @@ import { useDispatch,useSelector } from "react-redux";
 import { getBooks, getGenres, getAuthors, getTrendingBooks } from "../../redux/actions";
 import Card from "../Card/Card";
 import SearchBar from "../SearchBar/SearchBar";
+
 import NavBar from "../NavBar/NavBar";
+
 
 const Home = () => {
   const dispatch=useDispatch()
@@ -14,6 +16,7 @@ const Home = () => {
     const allBooks=useSelector((state)=>state.books)
     useEffect(()=>{
       dispatch(getBooks());
+
       
       
   },[dispatch])
@@ -48,15 +51,19 @@ console.log("ALLBOOKS HOME:",allBooks)
     console.log("TRENDINGS:", trending)
     
             
+
+      
   return (
   <div>
     <h1>Henry Book Store</h1>
     {/* <Card/> */}
     <div>
+
       <NavBar/>
     {/* <Link to={"/catalogue"} ><button>See Complete Catalogue</button></Link>
     <Link to={"/aboutUs"} ><button>About Us</button></Link>
     <Link to={"/create"} ><button>Add a new Book</button></Link> */}
+
     </div>
     <div>
       <h3>Trendings</h3>

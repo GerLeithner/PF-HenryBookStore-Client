@@ -83,9 +83,11 @@ function rootReducer(state=initialState,action){
         }
         case 'GET_TRENDING_BOOKS':
             console.log("ALLBOOKS",state.books)
+
             const allBooksTrending=state.books
             console.log("allBooksTrending",allBooksTrending)
             const sortByTrendings=allBooksTrending.sort(function (a,b){
+
                 if(b.averageRating>a.averageRating){
                   return 1;
               }
