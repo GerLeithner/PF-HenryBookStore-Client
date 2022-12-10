@@ -57,8 +57,8 @@ function rootReducer(state=initialState,action){
             books:sortTitle
         }
 
-        case 'SORT_BY_RELEASE':
-    let sortRelease=action.payload==='asc'?
+        case 'SORT_BY_PUBLISHER_DATE':
+    let sortPublisher=action.payload==='asc'?
         state.books.sort(function (a,b){
             if(a.release>b.release){
                 return 1;
@@ -79,7 +79,7 @@ function rootReducer(state=initialState,action){
         })
         return{
             ...state,
-            books:sortRelease
+            books:sortPublisher
         }
         case 'GET_TRENDING_BOOKS':
             console.log("ALLBOOKS",state.books)
