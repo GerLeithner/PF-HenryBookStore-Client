@@ -60,19 +60,19 @@ function rootReducer(state=initialState,action){
         case 'SORT_BY_PUBLISHER_DATE':
     let sortPublisher=action.payload==='asc'?
         state.books.sort(function (a,b){
-            if(a.release>b.release){
+            if(a.publisherDate>b.publishedDate){
                 return 1;
             }
-            if(b.release>a.release){
+            if(b.publishedDate>a.publishedDate){
                 return -1;
             }
             return 0;
         }) :
         state.books.sort(function(a,b){
-            if(a.release>b.release){
+            if(a.publishedDate>b.publishedDate){
                 return -1;
             }
-            if(b.release>a.release){
+            if(b.publishedDate>a.publishedDate){
                 return 1;
             }
             return 0;
@@ -98,15 +98,15 @@ function rootReducer(state=initialState,action){
               })
               console.log("TRENDINGSORT",sortByTrendings)
           
-              const trending=[]
+              const trending2=[]
           
               for(let i=0;i<10;i++){
-                trending.push(sortByTrendings[i])
-                console.log("TRENDINGS:", trending[i])
+                trending2.push(sortByTrendings[i])
+                console.log("TRENDINGSREDUCER[]:", trending2[i])
               }
               return{
                 ...state,
-                trending:trending
+                trending:trending2
               }
 
         case 'GET_BY_TITLE':

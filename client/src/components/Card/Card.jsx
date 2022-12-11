@@ -34,7 +34,7 @@ export default function Card({id, title, publishedDate, description, averageRati
                 <div>
                 {
                     genre.map(el=>(
-                        <div key={el.type}>
+                        <div key={el.genre}>
                             <h4 key={el}>{el}</h4>
                         </div>
                     ))
@@ -44,6 +44,8 @@ export default function Card({id, title, publishedDate, description, averageRati
                 <h2>{averageRating}</h2>
                 <h3>Summary</h3>
                 <p>{description}</p>
+                <h4>Published Date</h4>
+                <h4>{publishedDate}</h4>
 
                 
                
