@@ -98,15 +98,15 @@ function rootReducer(state=initialState,action){
               })
               console.log("TRENDINGSORT",sortByTrendings)
           
-              const trending=[]
+              const trending2=[]
           
               for(let i=0;i<10;i++){
-                trending.push(sortByTrendings[i])
-                console.log("TRENDINGS:", trending[i])
+                trending2.push(sortByTrendings[i])
+                console.log("TRENDINGSREDUCER[]:", trending2[i])
               }
               return{
                 ...state,
-                trending:trending
+                trending:trending2
               }
 
         case 'GET_BY_TITLE':
