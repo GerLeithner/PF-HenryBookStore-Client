@@ -2,10 +2,10 @@ import axios from 'axios';
 
 export function getBooks(){
     return async function(dispatch){
-        // var json= await axios.get('http://localhost:3001/books');
+        var json= await axios.get('http://localhost:3001/books');
         
         // var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
-        var json= await axios.get('https://run.mocky.io/v3/a22c7e5a-69f7-4784-bdfc-641ef666af76')
+        // var json= await axios.get('https://run.mocky.io/v3/a22c7e5a-69f7-4784-bdfc-641ef666af76')
         // console.log("JSON.DATA",json.data)
         return dispatch({
             type:'GET_BOOKS',
@@ -25,15 +25,15 @@ export function getGenres(){
     }
 }
 
-// export function getAuthors(){
-//     return async function(dispatch){
-//         var json= await axios.get('http://localhost:3001/authors');
-//         return dispatch({
-//             type:'GET_AUTHORS',
-//             payload:json.data
-//         })
-//     }
-// }
+export function getAuthors(){
+    return async function(dispatch){
+        var json= await axios.get('http://localhost:3001/authors');
+        return dispatch({
+            type:'GET_AUTHORS',
+            payload:json.data
+        })
+    }
+}
 
 export function getTrendingBooks(){
    return {
@@ -86,21 +86,21 @@ export function getBookByTitle(title){
     }
 }
 
-export function getBookByAuthor(author){
-    return async function(dispatch){
+// export function getBookByAuthor(author){
+//     return async function(dispatch){
         
-        console.log("Searching book", author)
-        try{
-    var obj= await axios.get("http://localhost:3001/books?name="+ author); 
-    return dispatch({
-        type: 'GET_BY_AUTHOR',
-        payload:obj.data
-    })
-        }catch(e){
-            alert(author+" was not found, try another author")
-        }
-    }
-}
+//         console.log("Searching book", author)
+//         try{
+//     var obj= await axios.get("http://localhost:3001/books?name="+ author); 
+//     return dispatch({
+//         type: 'GET_BY_AUTHOR',
+//         payload:obj.data
+//     })
+//         }catch(e){
+//             alert(author+" was not found, try another author")
+//         }
+//     }
+// }
 
 export function bookDetail(id){
     return async function (dispatch){

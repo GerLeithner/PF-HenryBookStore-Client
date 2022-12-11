@@ -10,12 +10,12 @@ import { getBookByAuthor, getBookByTitle } from "../../redux/actions";
 const SearchBar = ({paginado}) => {
   const dispatch=useDispatch()
   const [title,setTitle]=useState('')
-  const [author,setAuthor]=useState('')
+  // const [author,setAuthor]=useState('')
 
   function handleInputChange(e){
     e.preventDefault()
     setTitle(e.target.value)
-    setAuthor(e.target.value)
+    // setAuthor(e.target.value)
   }
 
   function handleSubmit(e){
@@ -24,7 +24,7 @@ const SearchBar = ({paginado}) => {
     // dispatch(getBookByAuthor)  //action que traiga libro por title o accion que traiga libro por autor
     dispatch(getBookByTitle)
     setTitle('');
-    setAuthor('');
+    // setAuthor('');
     paginado(1);
   }
 
