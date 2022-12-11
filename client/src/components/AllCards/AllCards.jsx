@@ -6,6 +6,7 @@ import { getBooks, getGenres, getAuthors, filterBookByGenre,sortByTitle,sortByPu
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
+import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 
 
@@ -107,8 +108,8 @@ const AllCards = () => {
             } */}
            </select>
 
-           {/* <SearchBar
-           paginado={paginado}/> */}
+           <SearchBar
+           paginado={paginado}/>
            <div>
 
 
