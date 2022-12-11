@@ -16,30 +16,41 @@ const Home = () => {
   const dispatch=useDispatch()
     const trending=useSelector((state)=>state.trending)
     const allBooks=useSelector((state)=>state.books)
+    const allGenres=useSelector((state)=>state.genres)
+    const allAuthors=useSelector((state)=>state.authors)
 //  const [allBooks2,setAllBooks2]=useState(allBooks)
 // console.log(allBooks2)
     useEffect(()=>{
-      if(!allBooks.length){
+      
+      if(!allGenres.length){
+        dispatch(getGenres());
+      }
+      if(!allAuthors.length){
+        dispatch(getAuthors());
+      }if(!allBooks.length){
         dispatch(getBooks());
       }
+      
+      
       // dispatch(getTrendingBooks());
   },[dispatch,allBooks,trending])
 console.log("ALLBOOKS HOME:",allBooks)
 
 function handleClick(e){
   e.preventDefault();
+  if(!trending.length)
   dispatch(getTrendingBooks());
-
 }
 
 
-//     useEffect(()=>{
-        
-//     },[dispatch,allBooks])
+
+console.log("ALL AUTHORS:", allAuthors )
+console.log("ALL GENRES:", allGenres)
+console.log("ALLBOOKS",allBooks)
 
     
 
-    console.log("ALLBOOKS",allBooks)
+    
     // console.log("ALLBOOKS2",allBooks2)
     
       const allBooksTrending=allBooks

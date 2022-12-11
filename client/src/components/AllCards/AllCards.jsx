@@ -13,17 +13,26 @@ import SearchBar from "../SearchBar/SearchBar";
 const AllCards = () => {
     const dispatch=useDispatch()
     const allBooks=useSelector((state)=>state.books)
+    const allAuthors=useSelector((state)=>state.authors)
+    const allGenres=useSelector((state)=>state.genres)
     useEffect(()=>{
-        dispatch(getBooks());
+        if(!allGenres.length){
+            dispatch(getGenres());
+          }
+          if(!allAuthors.length){
+            dispatch(getAuthors());
+          }if(!allBooks.length){
+            dispatch(getBooks());
+          }
     },[dispatch])
 
 
-    // const allGenres=useSelector((state)=>state.genres)
+    
     // useEffect(()=>{
     //     dispatch(getGenres());
     // },[dispatch])
 
-    // const allAuthors=useSelector((state)=>state.authors)
+    
     // useEffect(()=>{
     //     dispatch(getAuthors());
     // },[dispatch])
@@ -100,12 +109,12 @@ const AllCards = () => {
            <select onChange={e=> handleFilterGenre(e)}>
            <option value="" hidden>Genre</option>
             <option value='all' >All</option>
-            {/* {
+            {
                 allGenres?.map(el=>(
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))
 
-            } */}
+            }
            </select>
 
            <SearchBar

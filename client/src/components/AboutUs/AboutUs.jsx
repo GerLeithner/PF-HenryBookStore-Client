@@ -5,29 +5,29 @@ import { Link } from "react-router-dom";
 
 const AboutUs = () => {
   const people=[{
-    name:'Germán',
-    picture: '',
-    description:''
+    name:'Germán Leithner',
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   },{
-    name:'Andrea',
-    picture: '',
-    description:''
+    name:'Andrea Palomeque',
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   },{
-    name:'Gabriel',
-    picture: '',
-    description:''
+    name:'Gabriel Basilio',
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   },{
     name:'Adrian Laborde',
-    picture: '',
-    description:''
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   },{
-    name:'Ignacio',
-    picture: '',
-    description:''
+    name:'Ignacio Luna',
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   },{
-    name:'Kevin',
-    picture: '',
-    description:''
+    name:'Kevin Tavara',
+    picture: 'https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg',
+    description:'null'
   }
 ]
 

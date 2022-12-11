@@ -32,13 +32,13 @@ export default function Card({id, title, publishedDate, description, averageRati
                 <h3 >Genre:</h3>
                 
                 <div>
-                {
+                {/* {
                     genre.map(el=>(
                         <div key={el.genre}>
                             <h4 key={el}>{el}</h4>
                         </div>
                     ))
-                }
+                } */}
                 
                 <h3>Rating</h3>
                 <h2>{averageRating}</h2>
