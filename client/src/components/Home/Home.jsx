@@ -21,20 +21,20 @@ const Home = () => {
 //  const [allBooks2,setAllBooks2]=useState(allBooks)
 // console.log(allBooks2)
     useEffect(()=>{
-      dispatch(getGenres());
-      dispatch(getBooks());
-      dispatch(getTrendingBooks());
+      // dispatch(getGenres());
+      // dispatch(getBooks());
+      // dispatch(getTrendingBooks());
 
-      // if(!allGenres.length){
-      //   dispatch(getGenres());
-      // }
-      // if(!allAuthors.length){
-      //   dispatch(getAuthors());
-      // // }if(!allBooks.length){
-      // //   dispatch(getBooks());
-      // }if(!trending.length){
-      //   dispatch(getTrendingBooks());
-      // }
+      if(!allGenres.length){
+        dispatch(getGenres());
+      }
+      if(!allAuthors.length){
+        dispatch(getAuthors());
+      // }if(!allBooks.length){
+      //   dispatch(getBooks());
+      }if(!trending.length){
+        dispatch(getTrendingBooks());
+      }
       
       
       // dispatch(getTrendingBooks());
