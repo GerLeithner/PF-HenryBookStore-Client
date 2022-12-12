@@ -1,5 +1,6 @@
 import React from "react";
 import { ButtonCatalogue } from "../styles/Catalogue";
+import { PaginationUl } from "../styles/Paginado";
 
 const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
   const pageNumbers = [];
@@ -12,7 +13,7 @@ const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
 
   return (
     <div>
-      <ul>
+      <PaginationUl>
         <li>
           <ButtonCatalogue onClick={() => paginado(currentPage - 1)}>
             {"<-"}Prev
@@ -20,7 +21,9 @@ const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
         </li>
         {pageNumbers?.map((number) => (
           <li key={number}>
-            <button onClick={() => paginado(number)}>{number}</button>
+            <ButtonCatalogue onClick={() => paginado(number)}>
+              {number}
+            </ButtonCatalogue>
           </li>
         ))}
         <li>
@@ -28,7 +31,7 @@ const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
             Next{"->"}
           </ButtonCatalogue>
         </li>
-      </ul>
+      </PaginationUl>
     </div>
   );
 };
