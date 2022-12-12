@@ -51,10 +51,10 @@ export default function Card({id, title, publishedDate, description, averageRati
                 
                 <h3>Rating</h3>
                 <h2>{averageRating}</h2>
-                <h3>Summary</h3>
-                <p>{description}</p>
-                <h4>Published Date</h4>
-                <h4>{publishedDate}</h4> 
+                {/* <h3>Summary</h3>
+                <p>{description}</p> */}
+                {/* <h4>Published Date</h4>
+                <h4>{publishedDate}</h4>  */}
        </div> 
       </div>
       {/* {

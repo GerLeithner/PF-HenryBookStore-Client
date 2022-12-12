@@ -20,11 +20,15 @@ function validate(input) {
   }
   if (!input.title) errors.title = "Title is required";
   else if (!regName.test(input.title)) errors.title = "Enter a valid title";
-  if (!input.author) errors.author = "Author is required";
-  else if (!regName.test(input.author)) errors.author = "Enter a valid author";
+  if (!input.authors) errors.authors = "Author is required";
+  else if (!regName.test(input.authors)) errors.authors = "Enter a valid author";
   if (!input.pages) errors.pages = "The number of pages is required";
   else if (input.pages > 20000 || input.pages < 1 || !regNum.test(input.pages))
     errors.pages = "Pages must be a number betwen 1 and 20000";
+  if( input.publishedDate<0 || input.publishedDate>2023)
+    errors.publishedDate= "Published Date must be a number between 0 and 2030";
+    if(input.averageRating<1 || input.averageRating>5)
+    errors.averageRating="Average Rating must be a number between 1 and 5"
   return errors;
 }
 const CreateBook = () => {
@@ -44,7 +48,7 @@ const CreateBook = () => {
     cover: "",
     identifier: "",
     genres: [],
-    author: "",
+    authors: [],
   });
   function handleChange(e) {
     setInput({
@@ -60,6 +64,25 @@ const CreateBook = () => {
     );
     console.log("input", input);
   }
+
+  function handleAuthors(e) {
+    setInput({
+      ...input,
+      authors:[ e.target.value]
+    });
+    console.log("ERRORS", errors);
+    setErrors(
+      validate({
+        ...input,
+        [e.target.name]: e.target.value,
+      })
+    );
+    console.log("input", input);
+  }
+
+
+
+
 
   function handleCheck(e) {
     if (e.target.checked) {
@@ -119,7 +142,7 @@ const CreateBook = () => {
         cover: "",
         identifier: "",
         genres: [],
-        author: "",
+        authors: [],
       });
       history.push("/home");
     }
@@ -127,12 +150,10 @@ const CreateBook = () => {
 
   useEffect(() => {
     setErrors(validate(input));
+    dispatch(getGenres());
   }, [input]);
 
-  useEffect(() => {
-    dispatch(getGenres());
-  }, [dispatch]);
-
+  
   return (
     <div>
       <NavBar />
@@ -156,13 +177,13 @@ const CreateBook = () => {
               <div>
                 <FormInput
                   type="text"
-                  value={input.author}
-                  placeholder="Insert Author"
-                  name="author"
-                  onChange={(e) => handleChange(e)}
+                  value={input.authors}
+                  placeholder="Insert Authors"
+                  name="authors"
+                  onChange={(e) => handleAuthors(e)}
                 />
 
-                {errors.author && <ErrorsForm>{errors.author}</ErrorsForm>}
+                {errors.authors && <ErrorsForm>{errors.authors}</ErrorsForm>}
               </div>
               <div>
                 <FormInput
@@ -179,13 +200,15 @@ const CreateBook = () => {
               <div>
                 <FormInput
                   type="number"
-                  value={input.publisherDate}
-                  name="publisherDate"
-                  placeholder="Insert publisherDate"
+                  value={input.publishedDate}
+                  name="publishedDate"
+                  min={0}
+                  max={2023}
+                  placeholder="Insert publishedDate"
                   onChange={handleChange}
                 />
-                {errors.publisherDate && (
-                  <ErrorsForm>{errors.publisherDate}</ErrorsForm>
+                {errors.publishedDate && (
+                  <ErrorsForm>{errors.publishedDate}</ErrorsForm>
                 )}
               </div>
               <div>
@@ -217,6 +240,8 @@ const CreateBook = () => {
                   type="number"
                   placeholder="Insert averageRating"
                   value={input.averageRating}
+                  min={1}
+                  max={5}
                   name="averageRating"
                   onChange={(e) => handleChange(e)}
                 />

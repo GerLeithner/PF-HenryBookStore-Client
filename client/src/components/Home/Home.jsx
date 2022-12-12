@@ -5,10 +5,10 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getBooks,getGenres,getAuthors,getTrendingBooks,} from "../../redux/actions";
 import Card from "../Card/Card";
-import SearchBar from "../SearchBar/SearchBar";
+// import SearchBar from "../SearchBar/SearchBar";
 import ContainerCards from "../styles/Card";
 import NavBar from "../NavBar/NavBar";
-import Catalogue from "../Catalogue/Catalogue";
+// import Catalogue from "../Catalogue/Catalogue";
 
 
 const Home = () => {
@@ -56,7 +56,7 @@ console.log("ALL GENRES:", allGenres)
   return (
     // onPointerMove={e=>{handleClick(e)}}
   <div>
-    <h1>Henry Book Store</h1>
+   
     {/* <Card/> */}
     <div>
 
@@ -70,26 +70,29 @@ console.log("ALL GENRES:", allGenres)
         <h3>Trendings</h3>
         
         {/* <button onClick={e=>{handleClick(e)}}>cargar trending</button> */}
+        <ContainerCards>
         {trending.length ? (
           trending.map((b) => {
             return (
-              <ContainerCards key={b.id}>
-                <Card
+              
+                <Card 
                   id={b.id}
+                  key={b.id}
                   title={b.title}
                   publishedDate={b.publishedDate}
                   description={b.description}
                   averageRating={b.averageRating}
                   cover={b.cover}
-                  genre={b.genre}
-                  author={b.author}
+                  genres={b.genres}
+                  authors={b.authors}
                 />
-              </ContainerCards>
+              
             );
           })
         ) : (
           <div>{console.log("FALLO TODO")}</div>
         )}
+        </ContainerCards>
       </div>
     </div>
     </div>

@@ -109,14 +109,14 @@ const Catalogue = () => {
             Genre
           </option>
           <option value="all">All</option>
-          {/* {
+          {
 
                 allGenres?.map(el=>(
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))
 
 
-            } */}
+            }
         </select>
 
 
