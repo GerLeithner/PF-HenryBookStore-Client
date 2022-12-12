@@ -36,9 +36,15 @@ export function getAuthors(){
 }
 
 export function getTrendingBooks(){
-   return {
-            type:'GET_TRENDING_BOOKS'
-        }
+    return async function(dispatch){
+        var json= await axios.get('http://localhost:3001/books/trending');
+        console.log("TRENDING REDUCER ",json.data)
+        return dispatch({
+            type:'GET_TRENDING_BOOKS',
+            payload:json.data
+        })
+    }
+   
     }
 
 export function createBook(payload){

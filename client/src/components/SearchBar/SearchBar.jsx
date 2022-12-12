@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { getBookByAuthor, getBookByTitle } from "../../redux/actions";
-// import Paginado from "../Paginado/Paginado";
- import {paginado} from "../AllCards/AllCards"
+import { getBookByTitle } from "../../redux/actions";
+
+
 
 
 
@@ -22,7 +22,7 @@ const SearchBar = ({paginado}) => {
     e.preventDefault()
     // hacer un IF y buscar la forma de diferenciar si la busqueda es un author o un title y luego despachar
     // dispatch(getBookByAuthor)  //action que traiga libro por title o accion que traiga libro por autor
-    dispatch(getBookByTitle)
+    dispatch(getBookByTitle(title));
     setTitle('');
     // setAuthor('');
     paginado(1);
