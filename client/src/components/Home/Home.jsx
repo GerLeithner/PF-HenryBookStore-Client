@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import {getBooks,getGenres,getAuthors,getTrendingBooks,} from "../../redux/actions";
 import Card from "../Card/Card";
 import SearchBar from "../SearchBar/SearchBar";
-import AllCards from "../AllCards/AllCards";
 import ContainerCards from "../styles/Card";
 import NavBar from "../NavBar/NavBar";
 import Catalogue from "../Catalogue/Catalogue";
@@ -69,7 +68,7 @@ console.log("ALL GENRES:", allGenres)
       </div>
       <div>
         <h3>Trendings</h3>
-        {/* <AllCards/> */}
+        
         {/* <button onClick={e=>{handleClick(e)}}>cargar trending</button> */}
         {trending.length ? (
           trending.map((b) => {
