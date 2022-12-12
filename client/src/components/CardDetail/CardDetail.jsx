@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
 import { cleanDetail,getGenres,getAuthors,bookDetail} from "../../redux/actions";
 
 export default function CardDetail(props) {
@@ -27,9 +28,10 @@ export default function CardDetail(props) {
 
   return (
     <div>
+      <NavBar />
       <div>
         <h1>{book.title}</h1>
-        <h4>Author:</h4>
+        <h4>Authors:</h4>
         <div>
         {
         book.authors?.map((a)=>(
@@ -69,7 +71,6 @@ export default function CardDetail(props) {
       {/* <button>
         <h3>Post your review</h3>
       </button> */}
-
 
       <Link to={"/home"}>
         <button>{"<-"} Volver</button>

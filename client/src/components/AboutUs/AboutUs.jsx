@@ -3,6 +3,9 @@ import Card from "../Card/Card";
 import CardAboutUs from "../CardAboutUs/CardAboutUs";
 import { Link } from "react-router-dom";
 
+
+import NavBar from "../NavBar/NavBar";
+
 const AboutUs = () => {
   const people=[{
     name:'Germán Leithner',
@@ -31,26 +34,29 @@ const AboutUs = () => {
   }
 ]
 
-
-// name,picture,description
-  return( 
-  <div>
+  // name,picture,description
+  return (
     <div>
-        <Link to={'/home'}><button>Back to Home</button></Link>
-    </div>
-    <h1>About Us</h1>
-    {
-      people?.map(p=>{
-        return(
+      <NavBar />
+      <div>
+        <Link to={"/home"}>
+          <button>Back to Home</button>
+        </Link>
+      </div>
+      <h1>About Us</h1>
+      {people?.map((p) => {
+        return (
           <div key={p.name}>
-            <CardAboutUs name={p.name} picture={p.picture} description={p.description}/>
+            <CardAboutUs
+              name={p.name}
+              picture={p.picture}
+              description={p.description}
+            />
           </div>
-
-        )
-      })
-      
-      }
-    </div>)
+        );
+      })}
+    </div>
+  );
 };
 
 export default AboutUs;
