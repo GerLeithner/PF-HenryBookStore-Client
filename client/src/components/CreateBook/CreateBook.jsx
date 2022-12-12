@@ -4,8 +4,13 @@ import { getGenres, createBook } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import "./CreateBook.css";
 import NavBar from "../NavBar/NavBar";
-import FormContainer from "../styles/CreateBook";
-import { FormInput, ErrorsForm, H1Form } from "../styles/CreateBook";
+import {
+  FormInput,
+  ErrorsForm,
+  H1Form,
+  FormContainer,
+} from "../styles/CreateBook";
+import { ButtonCatalogue } from "../styles/Catalogue";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
 function validate(input) {
@@ -21,14 +26,15 @@ function validate(input) {
   if (!input.title) errors.title = "Title is required";
   else if (!regName.test(input.title)) errors.title = "Enter a valid title";
   if (!input.authors) errors.authors = "Author is required";
-  else if (!regName.test(input.authors)) errors.authors = "Enter a valid author";
+  else if (!regName.test(input.authors))
+    errors.authors = "Enter a valid author";
   if (!input.pages) errors.pages = "The number of pages is required";
   else if (input.pages > 20000 || input.pages < 1 || !regNum.test(input.pages))
     errors.pages = "Pages must be a number betwen 1 and 20000";
-  if( input.publishedDate<0 || input.publishedDate>2023)
-    errors.publishedDate= "Published Date must be a number between 0 and 2030";
-    if(input.averageRating<1 || input.averageRating>5)
-    errors.averageRating="Average Rating must be a number between 1 and 5"
+  if (input.publishedDate < 0 || input.publishedDate > 2023)
+    errors.publishedDate = "Published Date must be a number between 0 and 2030";
+  if (input.averageRating < 1 || input.averageRating > 5)
+    errors.averageRating = "Average Rating must be a number between 1 and 5";
   return errors;
 }
 const CreateBook = () => {
@@ -68,7 +74,7 @@ const CreateBook = () => {
   function handleAuthors(e) {
     setInput({
       ...input,
-      authors:[ e.target.value]
+      authors: [e.target.value],
     });
     console.log("ERRORS", errors);
     setErrors(
@@ -79,10 +85,6 @@ const CreateBook = () => {
     );
     console.log("input", input);
   }
-
-
-
-
 
   function handleCheck(e) {
     if (e.target.checked) {
@@ -153,7 +155,6 @@ const CreateBook = () => {
     dispatch(getGenres());
   }, [input]);
 
-  
   return (
     <div>
       <NavBar />
@@ -319,9 +320,9 @@ const CreateBook = () => {
           </ul>
         </div>
         <div>
-          <button type="submit" onClick={(e) => handleSubmit(e)}>
+          <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
             Add New Book
-          </button>
+          </ButtonCatalogue>
         </div>
       </FormContainer>
     </div>

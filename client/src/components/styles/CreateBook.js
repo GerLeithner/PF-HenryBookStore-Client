@@ -4,7 +4,7 @@ export const H1Form = styled.h1`
   font-family: "Roboto Condensed", sans-serif;
 `;
 
-const FormContainer = styled.form`
+export const FormContainer = styled.form`
   margin: 0 auto;
   width: 400px;
   background-color: #1b8f2b65;
@@ -44,5 +44,3 @@ export const ErrorsForm = styled.p`
   font-size: 14px;
   color: #ff0000;
 `;
-
-export default FormContainer;
