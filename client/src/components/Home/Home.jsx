@@ -18,17 +18,35 @@ import { H1Form } from "../styles/CreateBook";
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
-  const dispatch = useDispatch();
-  const trending = useSelector((state) => state.trending);
-  // const allBooks=useSelector((state)=>state.books)
-  const allGenres = useSelector((state) => state.genres);
-  const allAuthors = useSelector((state) => state.authors);
-  //  const [allBooks2,setAllBooks2]=useState(allBooks)
-  // console.log(allBooks2)
-  useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getBooks());
-    dispatch(getTrendingBooks());
+
+  const dispatch=useDispatch()
+    const trending=useSelector((state)=>state.trending)
+    // const allBooks=useSelector((state)=>state.books)
+    const allGenres=useSelector((state)=>state.genres)
+    const allAuthors=useSelector((state)=>state.authors)
+//  const [allBooks2,setAllBooks2]=useState(allBooks)
+// console.log(allBooks2)
+    useEffect(()=>{
+      // dispatch(getGenres());
+      // dispatch(getBooks());
+      // dispatch(getTrendingBooks());
+
+      if(!allGenres.length){
+        dispatch(getGenres());
+      }
+      if(!allAuthors.length){
+        dispatch(getAuthors());
+      // }if(!allBooks.length){
+      //   dispatch(getBooks());
+      }if(!trending.length){
+        dispatch(getTrendingBooks());
+      }
+      
+      
+      // dispatch(getTrendingBooks());
+  },[dispatch])
+
+
 
     // if(!allGenres.length){
     //   dispatch(getGenres());
