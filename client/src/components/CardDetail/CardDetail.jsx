@@ -1,53 +1,74 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { cleanDetail,getGenres,getAuthors,bookDetail} from "../../redux/actions";
 
-export default function CardDetail() {
+export default function CardDetail(props) {
   const dispatch = useDispatch();
+  const bookId=props.match.params.id
+  console.log("BOOK ID:",bookId)
 
-  let book;
-  let reviews;
-  let genre;
+  
+  const book=useSelector((state)=>state.detail)
+  
 
-  useEffect(() => {}, [dispatch]);
+  useEffect(() => {
+    dispatch(getGenres());
+    dispatch(getAuthors());
+    dispatch(bookDetail(bookId))
+   
+    return()=>{
+      console.log("Detail Clean Up")
+      dispatch(cleanDetail())
+    }
+  }, [dispatch,bookId]);
+
+  
 
   return (
     <div>
       <div>
         <h1>{book.title}</h1>
-        <h4>Author: {book.author}</h4>
-        <h4>{book.rating}</h4>
-      </div>
-      <img src={book.cover} alt={book.title} />
-      <h4>ISBN: {book.id}</h4>
-      <h4>Genre: {book.genre}</h4>
-      {
-        genre?.map((g)=>(
-          <div>
-            <div>
-              <h4>{g.name}</h4>
-            </div>
-            
-          </div>
+        <h4>Author:</h4>
+        <div>
+        {
+        book.authors?.map((a)=>(
+              <h4>{a.name}</h4>
         ))
        }
+       </div>
+
+
+
+        <h4>{book.averageRating}</h4>
+      </div>
+      <img src={book.cover} alt={book.title} />
+      <h4>ID: {book.id}</h4>
+      <h4>Genre:</h4>
+      <div>
+      {
+        book.genres?.map((g)=>(
+              <h4>{g.name}</h4>
+        ))
+       }
+       </div>
       <h4>Publisher: {book.publisher}</h4>
       <h4>Release Date: {book.releaseDate}</h4>
       <h4>Description: {book.description}</h4>
       <h4>Reviews</h4>
       <div>
-        {reviews?.map((r) => (
+        {/* {reviews?.map((r) => (
           <div>
             <div>{r.score}</div>
             <div>{r.comment}</div>
             <div>{r.create_date}</div>
           </div>
-        ))}
+        ))} */}
       </div>
 
-      <button>
+      {/* <button>
         <h3>Post your review</h3>
-      </button>
+      </button> */}
 
 
       <Link to={"/home"}>

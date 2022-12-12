@@ -1,16 +1,15 @@
 import React from "react";
 import {useState,useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
-//import {} from "../../redux/actions"
 import { getBooks, getGenres, getAuthors, filterBookByGenre,sortByTitle,sortByPublisherDate } from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
-import NavBar from "../NavBar/NavBar";
+// import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 
 
-const AllCards = () => {
+const Catalogue = () => {
     const dispatch=useDispatch()
     const allBooks=useSelector((state)=>state.books)
     const allAuthors=useSelector((state)=>state.authors)
@@ -136,7 +135,15 @@ const AllCards = () => {
                 return(
                     <div key={b.id}>
                         
-                        <Card id={b.id} title={b.title} publishedDate={b.publishedDate} description={b.description} averageRating={b.averageRating} cover={b.cover} genre={b.genre} author={b.author}/>
+                        <Card 
+                        id={b.id} 
+                        title={b.title} 
+                        publishedDate={b.publishedDate} 
+                        description={b.description} 
+                        averageRating={b.averageRating} 
+                        cover={b.cover} 
+                        genres={b.genres} 
+                        authors={b.authors}/>
 
                     </div>
                 );
@@ -148,4 +155,4 @@ const AllCards = () => {
   </div>);
 };
 
-export default AllCards;
+export default Catalogue;
