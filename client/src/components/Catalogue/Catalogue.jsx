@@ -1,39 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import {} from "../../redux/actions"
-import {
-  getBooks,
-  getGenres,
-  getAuthors,
-  filterBookByGenre,
-  sortByTitle,
-  sortByPublisherDate,
-} from "../../redux/actions";
+import {getBooks, getGenres, getAuthors,filterBookByGenre,sortByTitle,sortByPublisherDate,} from "../../redux/actions";
 import { Link } from "react-router-dom";
 import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 
-const AllCards = () => {
 
-  const dispatch = useDispatch();
-  const allBooks = useSelector((state) => state.books);
-  useEffect(() => {
-    dispatch(getBooks());
-  }, [dispatch]);
+const Catalogue = () => {
+    const dispatch=useDispatch()
+    const allBooks=useSelector((state)=>state.books)
+    const allAuthors=useSelector((state)=>state.authors)
+    const allGenres=useSelector((state)=>state.genres)
+    useEffect(()=>{
+        if(!allGenres.length){
+            dispatch(getGenres());
+          }
+          if(!allAuthors.length){
+            dispatch(getAuthors());
+          }if(!allBooks.length){
+            dispatch(getBooks());
+          }
+    },[dispatch])
 
-  // const allGenres=useSelector((state)=>state.genres)
-  // useEffect(()=>{
-  //     dispatch(getGenres());
-  // },[dispatch])
+ 
 
-  // const allAuthors=useSelector((state)=>state.authors)
-  // useEffect(()=>{
-  //     dispatch(getAuthors());
-  // },[dispatch])
-
+  
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
@@ -137,27 +131,29 @@ const AllCards = () => {
           />
         </div>
 
-        <div>
-          {currentBook?.map((b) => {
-            return (
-              <div key={b.id}>
-                <Card
-                  id={b.id}
-                  title={b.title}
-                  publishedDate={b.publishedDate}
-                  description={b.description}
-                  averageRating={b.averageRating}
-                  cover={b.cover}
-                  genre={b.genre}
-                  author={b.author}
-                />
-              </div>
-            );
-          })}
-        </div>
-      </div>
+           <div>
+            {
+            currentBook?.map(b=>{
+                return(
+                    <div key={b.id}>
+                        
+                        <Card 
+                        id={b.id} 
+                        title={b.title} 
+                        publishedDate={b.publishedDate} 
+                        description={b.description} 
+                        averageRating={b.averageRating} 
+                        cover={b.cover} 
+                        genres={b.genres} 
+                        authors={b.authors}/>
+
+                    </div>
+                );
+            })}
+           </div>
+    </div>
     </div>
   );
 };
 
-export default AllCards;
+export default Catalogue;
