@@ -56,7 +56,8 @@ export default function CardDetail(props) {
        </div>
       <h4>Publisher: {book.publisher}</h4>
       <h4>Release Date: {book.releaseDate}</h4>
-      <h4>Description: {book.description}</h4>
+      <h4>Description: </h4>
+      <h4>{book.description}</h4>
       <h4>Reviews</h4>
       <div>
         {/* {reviews?.map((r) => (

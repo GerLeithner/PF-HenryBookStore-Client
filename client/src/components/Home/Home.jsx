@@ -56,7 +56,7 @@ console.log("ALL GENRES:", allGenres)
   return (
     // onPointerMove={e=>{handleClick(e)}}
   <div>
-    <h1>Henry Book Store</h1>
+   
     {/* <Card/> */}
     <div>
 
@@ -70,12 +70,14 @@ console.log("ALL GENRES:", allGenres)
         <h3>Trendings</h3>
         
         {/* <button onClick={e=>{handleClick(e)}}>cargar trending</button> */}
+        <ContainerCards>
         {trending.length ? (
           trending.map((b) => {
             return (
-              <ContainerCards key={b.id}>
-                <Card
+              
+                <Card 
                   id={b.id}
+                  key={b.id}
                   title={b.title}
                   publishedDate={b.publishedDate}
                   description={b.description}
@@ -84,12 +86,13 @@ console.log("ALL GENRES:", allGenres)
                   genres={b.genres}
                   authors={b.authors}
                 />
-              </ContainerCards>
+              
             );
           })
         ) : (
           <div>{console.log("FALLO TODO")}</div>
         )}
+        </ContainerCards>
       </div>
     </div>
     </div>
