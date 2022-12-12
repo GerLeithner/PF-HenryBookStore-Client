@@ -31,7 +31,7 @@ const Catalogue = () => {
     if (!allBooks.length) {
       dispatch(getBooks());
     }
-  }, [dispatch]);
+  }, [dispatch, allGenres.length, allAuthors.length, allBooks.length]);
 
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
