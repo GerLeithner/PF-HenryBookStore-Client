@@ -17,6 +17,7 @@ import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 
 const AllCards = () => {
+
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
   useEffect(() => {
@@ -73,8 +74,10 @@ const AllCards = () => {
     console.log(orden);
   }
 
+
   return (
     <div>
+
       <NavBar />
       <div>
         <Link to={"/home"}>
@@ -113,12 +116,15 @@ const AllCards = () => {
           </option>
           <option value="all">All</option>
           {/* {
+
                 allGenres?.map(el=>(
                     <option key={el.id} value={el.name}>{el.name}</option>
                 ))
 
+
             } */}
         </select>
+
 
         <SearchBar paginado={paginado} />
         <div>

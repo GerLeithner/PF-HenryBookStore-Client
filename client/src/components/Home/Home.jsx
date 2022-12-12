@@ -18,6 +18,7 @@ import ContainerCards from "../styles/Card";
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
+
   const dispatch = useDispatch();
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
@@ -69,6 +70,7 @@ const Home = () => {
 
   // console.log("TRENDINGS:", trending)
   // console.log("TRENDINGSSORTED:", trendingSorted)
+
 
   return (
     <div

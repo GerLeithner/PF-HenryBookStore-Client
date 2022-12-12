@@ -19,7 +19,12 @@ function rootReducer(state=initialState,action){
         case 'GET_GENRES':
         return{
             ...state,
-            types:action.payload
+            genres:action.payload
+        }
+        case 'GET_AUTHORS':
+        return{
+            ...state,
+            authors:action.payload
         }
 
         case 'FILTER_BY_GENRE':

@@ -22,6 +22,7 @@ export default function Card({
   //     };
   // console.log("PROPS:", id, title, publishedDate, description, averageRating, cover, genre, author)
 
+
   return (
     <SingleCard>
       {/* <Link to={"/home/" + id} key={id}>
@@ -45,6 +46,7 @@ export default function Card({
           ))} */}
 
       {/* <h3>Rating</h3>
+
                 <h2>{averageRating}</h2>
                 <h3>Summary</h3>
                 <p>{description}</p>

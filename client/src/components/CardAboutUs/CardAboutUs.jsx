@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const CardAboutUs = ({ name, picture, description }) => {
   return (
     <div>
@@ -8,6 +9,7 @@ const CardAboutUs = ({ name, picture, description }) => {
       <h4>{description}</h4>
     </div>
   );
+
 };
 
 export default CardAboutUs;
