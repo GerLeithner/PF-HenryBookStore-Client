@@ -1,21 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import SearchBar from "../SearchBar/SearchBar";
+import LinkNavBar from "../styles/NavBar";
+import { ContainerNavBar } from "../styles/NavBar";
 
-const NavBar = ({paginado}) => {
-  return <div>
+const NavBar = ({ paginado }) => {
+  return (
+    <ContainerNavBar>
+      <LinkNavBar to={"/home"}>Home</LinkNavBar>
+      <LinkNavBar to={"/catalogue"}>Complete Catalogue</LinkNavBar>
+      <LinkNavBar to={"/create"}>Add a new Book</LinkNavBar>
+      <LinkNavBar to={"/AboutUs"}>About Us</LinkNavBar>
 
-    <Link to={"/home"} ><button>Home</button></Link>
-    <Link to={"/catalogue"} ><button>Complete Catalogue</button></Link>
-    <Link to={"/create"} ><button>Add a new Book</button></Link>
-    <Link to={"/AboutUs"} ><button>About Us</button></Link>
-    
-          {/* <div>
+      {/* <div>
             <SearchBar
             paginado={paginado}/>
            </div> */}
-    
-  </div>;
+    </ContainerNavBar>
+  );
 };
 
 export default NavBar;

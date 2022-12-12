@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import NavBar from "../NavBar/NavBar";
 export default function CardDetail() {
   const dispatch = useDispatch();
 
@@ -13,6 +13,7 @@ export default function CardDetail() {
 
   return (
     <div>
+      <NavBar />
       <div>
         <h1>{book.title}</h1>
         <h4>Author: {book.author}</h4>
@@ -21,16 +22,13 @@ export default function CardDetail() {
       <img src={book.cover} alt={book.title} />
       <h4>ISBN: {book.id}</h4>
       <h4>Genre: {book.genre}</h4>
-      {
-        genre?.map((g)=>(
+      {genre?.map((g) => (
+        <div>
           <div>
-            <div>
-              <h4>{g.name}</h4>
-            </div>
-            
+            <h4>{g.name}</h4>
           </div>
-        ))
-       }
+        </div>
+      ))}
       <h4>Publisher: {book.publisher}</h4>
       <h4>Release Date: {book.releaseDate}</h4>
       <h4>Description: {book.description}</h4>
@@ -48,7 +46,6 @@ export default function CardDetail() {
       <button>
         <h3>Post your review</h3>
       </button>
-
 
       <Link to={"/home"}>
         <button>{"<-"} Volver</button>
