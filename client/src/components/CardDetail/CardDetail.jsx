@@ -2,29 +2,31 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import { cleanDetail,getGenres,getAuthors,bookDetail} from "../../redux/actions";
+import {
+  cleanDetail,
+  getGenres,
+  getAuthors,
+  bookDetail,
+} from "../../redux/actions";
+import { ButtonCatalogue } from "../styles/Catalogue";
 
 export default function CardDetail(props) {
   const dispatch = useDispatch();
-  const bookId=props.match.params.id
-  console.log("BOOK ID:",bookId)
+  const bookId = props.match.params.id;
+  console.log("BOOK ID:", bookId);
 
-  
-  const book=useSelector((state)=>state.detail)
-  
+  const book = useSelector((state) => state.detail);
 
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAuthors());
-    dispatch(bookDetail(bookId))
-   
-    return()=>{
-      console.log("Detail Clean Up")
-      dispatch(cleanDetail())
-    }
-  }, [dispatch,bookId]);
+    dispatch(bookDetail(bookId));
 
-  
+    return () => {
+      console.log("Detail Clean Up");
+      dispatch(cleanDetail());
+    };
+  }, [dispatch, bookId]);
 
   return (
     <div>
@@ -33,14 +35,10 @@ export default function CardDetail(props) {
         <h1>{book.title}</h1>
         <h4>Authors:</h4>
         <div>
-        {
-        book.authors?.map((a)=>(
-              <h4>{a.name}</h4>
-        ))
-       }
-       </div>
-
-
+          {book.authors?.map((a) => (
+            <h4>{a.name}</h4>
+          ))}
+        </div>
 
         <h4>{book.averageRating}</h4>
       </div>
@@ -48,12 +46,10 @@ export default function CardDetail(props) {
       <h4>ID: {book.id}</h4>
       <h4>Genre:</h4>
       <div>
-      {
-        book.genres?.map((g)=>(
-              <h4>{g.name}</h4>
-        ))
-       }
-       </div>
+        {book.genres?.map((g) => (
+          <h4>{g.name}</h4>
+        ))}
+      </div>
       <h4>Publisher: {book.publisher}</h4>
       <h4>Release Date: {book.releaseDate}</h4>
       <h4>Description: </h4>
@@ -74,7 +70,7 @@ export default function CardDetail(props) {
       </button> */}
 
       <Link to={"/home"}>
-        <button>{"<-"} Volver</button>
+        <ButtonCatalogue>{"<-"} Volver</ButtonCatalogue>
       </Link>
     </div>
   );

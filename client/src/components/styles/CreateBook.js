@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const H1Form = styled.h1`
+  padding-top: 25px;
+  padding-bottom: 40px;
+  margin-bottom: 0px;
   font-family: "Roboto Condensed", sans-serif;
+`;
+
+export const H5Form = styled.h5`
+  font-family: "Roboto Condensed", sans-serif;
+  text-decoration: none;
 `;
 
 export const FormContainer = styled.form`
@@ -43,4 +51,21 @@ export const ErrorsForm = styled.p`
   margin-top: 0px;
   font-size: 14px;
   color: #ff0000;
+`;
+
+
+export const GenresContainer= styled.div`
+ display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(5, minmax(80px, 100px));
+  grid-auto-rows: minmax(auto, 50px);
+  gap: 10px;
+  flex-grow: 1;
+`;
+
+export const GenreNameLabel= styled.label`
+ width: 40px;
+ height: 60px;
 `;

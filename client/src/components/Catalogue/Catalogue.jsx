@@ -15,6 +15,7 @@ import Paginado from "../Paginado/Paginado";
 import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import { SelectFilters, ButtonCatalogue } from "../styles/Catalogue";
+import { ContainerCards } from "../styles/Card";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const Catalogue = () => {
     if (!allBooks.length) {
       dispatch(getBooks());
     }
-  }, [dispatch]);
+  }, [dispatch, allGenres.length, allAuthors.length, allBooks.length]);
 
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -132,7 +133,7 @@ const Catalogue = () => {
           />
         </div>
 
-        <div>
+        <ContainerCards>
           {currentBook?.map((b) => {
             return (
               <div key={b.id}>
@@ -149,7 +150,7 @@ const Catalogue = () => {
               </div>
             );
           })}
-        </div>
+        </ContainerCards>
       </div>
     </div>
   );
