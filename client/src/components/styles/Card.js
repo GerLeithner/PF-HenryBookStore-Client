@@ -8,7 +8,7 @@ export const ContainerCards = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: repeat(10, minmax(20px, 100px));
+  grid-template-columns: repeat(5, minmax(20px, 100px));
   grid-auto-rows: minmax(auto, 600px);
   gap: 150px;
   flex-grow: 1;
@@ -26,7 +26,7 @@ export const H2Home = styled.h2`
 color: #020202;
 `;
 
-export const H4CardRating = styled.h5`
+export const H5CardRating = styled.h5`
   font-family: "Roboto Condensed", sans-serif;
   width: 20px;
   height: 20px;
@@ -44,6 +44,13 @@ export const LinkCard = styled.link`
   font-family: "Roboto Condensed", sans-serif;
   text-decoration: none;
 `;
+export const H4Link = styled.h4`
+  font-family: "Roboto Condensed", sans-serif;
+  text-decoration: none;
+  color: black;
+`;
+
+
 
 export const CardImg = styled.img`
   width: 100px;
@@ -64,6 +71,15 @@ export const SingleCardContainer = styled.div`
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   
 `;
+export const SingleAboutCardContainer = styled.div`
+  width: 200px;
+  height: 350px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  
+`;
+
 
 export const TrendingAndNewsContainer =styled.div`
 
