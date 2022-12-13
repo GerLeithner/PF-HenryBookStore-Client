@@ -5,6 +5,7 @@ import "./Card.css";
 import { Link } from "react-router-dom";
 import { CardImg, H4CardRating, ImgContainer, SingleCardContainer } from "../styles/Card";
 import { H5Form } from "../styles/CreateBook";
+
 export default function Card({
   id,
   title,
@@ -16,10 +17,14 @@ export default function Card({
   authors,
 }) {
   return (
+
+
+
+    
     <SingleCardContainer>
       
       {/* <h6>Authors:</h3> */}
-      <H4CardRating>{averageRating}</H4CardRating>
+      {/* <H4CardRating>{averageRating}</H4CardRating> */}
       <ImgContainer>
         <Link to={"/home/" + id} key={id} className="linkCard">
           <CardImg src={cover} alt="img not found" />
@@ -31,11 +36,11 @@ export default function Card({
       <Link to={"/home/" + id} key={id} className="linkCard">
         <H5Form>{title}</H5Form>
       </Link>
-      <div>
+      {/* <div>
         {authors.map((a) => (
           <H5Form key={a.id}>{a.name}</H5Form>
         ))}
-      </div>
+      </div> */}
       {/* <div>
         <h3>Genres:</h3>
 
