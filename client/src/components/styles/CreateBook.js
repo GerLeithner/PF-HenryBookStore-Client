@@ -1,7 +1,15 @@
 import styled from "styled-components";
 
 export const H1Form = styled.h1`
+  padding-top: 75px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
   font-family: "Roboto Condensed", sans-serif;
+`;
+
+export const H5Form = styled.h5`
+  font-family: "Roboto Condensed", sans-serif;
+  text-decoration: none;
 `;
 
 export const FormContainer = styled.form`
