@@ -3,7 +3,7 @@ import "./Card.css";
 // import { bookDelete } from "../actions";
 // import {useDispatch} from 'react-redux'
 import { Link } from "react-router-dom";
-import { CardImg, H4CardRating, ImgContainer, SingleCardContainer } from "../styles/Card";
+import { CardImg, ImgContainer, SingleCardContainer } from "../styles/Card";
 import { H5Form } from "../styles/CreateBook";
 
 export default function Card({
