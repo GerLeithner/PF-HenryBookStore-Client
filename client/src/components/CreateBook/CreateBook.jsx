@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { getGenres, createBook } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./CreateBook.css";
+import { useHistory } from "react-router-dom";
+import { createBook, getGenres } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
-import {
-  FormInput,
-  ErrorsForm,
-  H1Form,
-  FormContainer,
-} from "../styles/CreateBook";
 import { ButtonCatalogue } from "../styles/Catalogue";
+import {
+  ErrorsForm,
+  FormContainer,
+  FormInput,
+  H1Form,
+} from "../styles/CreateBook";
+import "./CreateBook.css";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
 function validate(input) {
@@ -56,6 +56,14 @@ const CreateBook = () => {
     genres: [],
     authors: [],
   });
+
+  useEffect(() => {
+    setErrors(validate(input));
+    if (!genres.length) {
+      dispatch(getGenres());
+    }
+  }, [input]);
+
   function handleChange(e) {
     setInput({
       ...input,
@@ -149,11 +157,6 @@ const CreateBook = () => {
       history.push("/home");
     }
   }
-
-  useEffect(() => {
-    setErrors(validate(input));
-    dispatch(getGenres());
-  }, [input]);
 
   return (
     <div>
@@ -267,6 +270,7 @@ const CreateBook = () => {
                     src="https://www.comunidadbaratz.com/wp-content/uploads/Instrucciones-a-tener-en-cuenta-sobre-como-se-abre-un-libro-nuevo.jpg"
                     width={"100px"}
                     height={"100px"}
+                    alt="BookCover"
                   />
                 </div>
               ) : (
