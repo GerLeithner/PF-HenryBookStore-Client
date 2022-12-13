@@ -11,10 +11,10 @@ import {
 } from "../../redux/actions";
 import Card from "../Card/Card";
 // import SearchBar from "../SearchBar/SearchBar";
-import { ContainerCards } from "../styles/Card";
+import { ContainerCards,H2Home } from "../styles/Card";
 import NavBar from "../NavBar/NavBar";
 // import Catalogue from "../Catalogue/Catalogue";
-import { H1Form } from "../styles/CreateBook";
+
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
@@ -59,9 +59,59 @@ const Home = () => {
 
         <div></div>
         <div>
-          <H1Form>Trendings</H1Form>
 
-          {/* <button onClick={e=>{handleClick(e)}}>cargar trending</button> */}
+        <H2Home>Continue reading...</H2Home>
+
+<ContainerCards>
+  {trending.length ? (
+    trending.map((b) => {
+      return (
+        <Card
+          id={b.id}
+          key={b.id}
+          title={b.title}
+          publishedDate={b.publishedDate}
+          description={b.description}
+          averageRating={b.averageRating}
+          cover={b.cover}
+          genres={b.genres}
+          authors={b.authors}
+        />
+      );
+    })
+  ) : (
+    <div>{console.log("FALLO TODO")}</div>
+  )}
+</ContainerCards>
+
+
+
+          <H2Home>Trendings</H2Home>
+
+          <ContainerCards>
+            {trending.length ? (
+              trending.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                  />
+                );
+              })
+            ) : (
+              <div>{console.log("FALLO TODO")}</div>
+            )}
+          </ContainerCards>
+
+          <H2Home>News</H2Home>
+
           <ContainerCards>
             {trending.length ? (
               trending.map((b) => {
