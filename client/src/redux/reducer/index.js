@@ -33,8 +33,7 @@ function rootReducer(state = initialState, action) {
         action.payload === "all"
           ? allBooks
           : allBooks.filter((g) =>
-              g.genres.find((a) => a.name.includes(action.payload))
-            );
+              g.genres.find((a) => a.name===action.payload));
       return {
         ...state,
         books: genreFiltered,
