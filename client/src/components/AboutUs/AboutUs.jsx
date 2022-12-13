@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import CardAboutUs from "../CardAboutUs/CardAboutUs";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import { ContainerCards,H2Home,H4Link} from "../styles/Card";
+import { ContainerCardsAboutUs,H2Home,H4Link} from "../styles/Card";
 
 const AboutUs = () => {
   const people = [
@@ -16,13 +16,14 @@ const AboutUs = () => {
       gitHub:"https://github.com/GerLeithner"
     },
     {
-      name: "Andrea Palomeque",
+      name: "Adrian Laborde",
       picture:
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/andrea-victoria-lopez-palomeque/",
-      gitHub:"https://github.com/andrealopezpalomeque"
+      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
+      gitHub:"https://github.com/Adrianl93"
     },
+    
     {
       name: "Gabriel Basilio",
       picture:
@@ -32,13 +33,14 @@ const AboutUs = () => {
       gitHub:"https://github.com/GaboBas"
     },
     {
-      name: "Adrian Laborde",
+      name: "Andrea Palomeque",
       picture:
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/Adrianl93"
+      linkedIn:"https://www.linkedin.com/in/andrea-victoria-lopez-palomeque/",
+      gitHub:"https://github.com/andrealopezpalomeque"
     },
+    
     // {
     //   name: "Ignacio Luna",
     //   picture:
@@ -60,7 +62,7 @@ const AboutUs = () => {
     <div>
       <NavBar />
       <H2Home>About Us</H2Home>
-      <ContainerCards>
+      <ContainerCardsAboutUs>
       {people?.map((p) => {
         return (
           <div key={p.name}>
@@ -74,7 +76,7 @@ const AboutUs = () => {
           </div>
         );
       })}
-      </ContainerCards>
+      </ContainerCardsAboutUs>
     </div>
   );
 };

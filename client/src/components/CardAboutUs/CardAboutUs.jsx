@@ -1,5 +1,5 @@
 import React from "react";
-import { CardImg,H4Link, ImgContainer, SingleAboutCardContainer } from "../styles/Card";
+import { CardImgAboutUs,H4Link, ImgContainer, DescriptionCardConteiner, SingleAboutCardContainer } from "../styles/Card";
 import "./CardAboutUs.css";
 const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
 
@@ -8,9 +8,11 @@ const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
     <SingleAboutCardContainer>
       <h3>{name}</h3>
       <ImgContainer>
-      <CardImg src={picture} />
+      <CardImgAboutUs src={picture} />
       </ImgContainer>
+      <DescriptionCardConteiner>
       <h4>{description}</h4>
+      </DescriptionCardConteiner>
       
       <a href={linkedIn} className="linkCard">LinkedIn</a>
       
