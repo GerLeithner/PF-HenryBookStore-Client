@@ -10,9 +10,24 @@ export const ContainerCards = styled.div`
   align-items: center;
   grid-template-columns: repeat(5, minmax(20px, 100px));
   grid-auto-rows: minmax(auto, 600px);
-  gap: 150px;
+  gap: 100px;
   flex-grow: 1;
 `;
+export const ContainerCardsAboutUs = styled.div`
+  padding-top: 25px;
+  padding-bottom: 50px;
+  height: 300px;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, minmax(400px, 500px));
+  grid-auto-rows: minmax(auto, 1000px);
+  gap: 50px;
+  flex-grow: 1;
+`;
+
+
 export const H2Home = styled.h2`
   padding-top: 75px;
   width: 400px;
@@ -50,11 +65,27 @@ export const H4Link = styled.h4`
   color: black;
 `;
 
-
+export const TitleCardConteiner= styled.div`
+ width: 100px;
+ height: 60px;
+`;
+export const DescriptionCardConteiner= styled.div`
+ width: 320px;
+ height: 70px;
+`;
 
 export const CardImg = styled.img`
   width: 100px;
   height: 150px;
+  display: flex;
+  margin: auto;
+  margin-top: 5px;
+  object-fit: scale-down;
+`;
+
+export const CardImgAboutUs = styled.img`
+  width: 200px;
+  height: 200px;
   display: flex;
   margin: auto;
   margin-top: 5px;
@@ -72,8 +103,8 @@ export const SingleCardContainer = styled.div`
   
 `;
 export const SingleAboutCardContainer = styled.div`
-  width: 200px;
-  height: 350px;
+  width: 350px;
+  height: 400px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
