@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getBookByTitle } from "../../redux/actions";
 
 import { ButtonCatalogue } from "../styles/Catalogue";
+import { InputSearch, SearchContainer } from "../styles/SearchBar";
 
 const SearchBar = ({ paginado }) => {
   const dispatch = useDispatch();
@@ -27,8 +28,8 @@ const SearchBar = ({ paginado }) => {
   }
 
   return (
-    <div>
-      <input
+    <SearchContainer>
+      <InputSearch
         placeholder="Search book by Title or Author"
         type="text"
         onChange={(e) => handleInputChange(e)}
@@ -36,7 +37,7 @@ const SearchBar = ({ paginado }) => {
       <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
         Search
       </ButtonCatalogue>
-    </div>
+    </SearchContainer>
   );
 };
 
