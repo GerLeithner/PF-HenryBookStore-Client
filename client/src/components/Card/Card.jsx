@@ -3,7 +3,7 @@ import "./Card.css";
 // import { bookDelete } from "../actions";
 // import {useDispatch} from 'react-redux'
 import { Link } from "react-router-dom";
-import { CardImg, ImgContainer, SingleCardContainer } from "../styles/Card";
+import { CardImg, ImgContainer, SingleCardContainer,TitleCardConteiner} from "../styles/Card";
 import { H5Form } from "../styles/CreateBook";
 
 export default function Card({
@@ -32,10 +32,11 @@ export default function Card({
       </ImgContainer>
 
       
-
+      <TitleCardConteiner>
       <Link to={"/home/" + id} key={id} className="linkCard">
         <H5Form>{title}</H5Form>
       </Link>
+      </TitleCardConteiner>
       {/* <div>
         {authors.map((a) => (
           <H5Form key={a.id}>{a.name}</H5Form>

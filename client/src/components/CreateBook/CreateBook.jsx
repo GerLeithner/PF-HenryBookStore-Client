@@ -9,8 +9,10 @@ import {
   ErrorsForm,
   H1Form,
   FormContainer,
+  GenresContainer,
+  GenreNameLabel,
 } from "../styles/CreateBook";
-import { ButtonCatalogue } from "../styles/Catalogue";
+import { ButtonCatalogue} from "../styles/Catalogue";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
 function validate(input) {
@@ -294,9 +296,9 @@ const CreateBook = () => {
           <label>Select Genre:</label>
           {errors.genres && <ErrorsForm>{errors.genres}</ErrorsForm>}
           <br />
-          <div>
+          <GenresContainer>
             {genres.map((el) => (
-              <label key={el.id}>
+              <GenreNameLabel key={el.id}>
                 <br></br>
                 <input
                   type="checkbox"
@@ -307,9 +309,9 @@ const CreateBook = () => {
                 />
                 <br></br>
                 {el.name}
-              </label>
+              </GenreNameLabel>
             ))}
-          </div>
+          </GenresContainer>
         </div>
         <div>
           <ul>

@@ -50,7 +50,10 @@ export const H4Link = styled.h4`
   color: black;
 `;
 
-
+export const TitleCardConteiner= styled.div`
+ width: 100px;
+ height: 60px;
+`;
 
 export const CardImg = styled.img`
   width: 100px;
