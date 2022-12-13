@@ -12,24 +12,24 @@ const AboutUs = () => {
       picture:
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/Adrianl93"
+      linkedIn:"https://www.linkedin.com/in/german-leithner-a23049150/",
+      gitHub:"https://github.com/GerLeithner"
     },
     {
       name: "Andrea Palomeque",
       picture:
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/Adrianl93"
+      linkedIn:"https://www.linkedin.com/in/andrea-victoria-lopez-palomeque/",
+      gitHub:"https://github.com/andrealopezpalomeque"
     },
     {
       name: "Gabriel Basilio",
       picture:
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/Adrianl93"
+      linkedIn:"https://www.linkedin.com/in/gabriel-basilio-7558a6227/",
+      gitHub:"https://github.com/GaboBas"
     },
     {
       name: "Adrian Laborde",
@@ -51,7 +51,7 @@ const AboutUs = () => {
         "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
       description: "Not description yet",
       linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/Adrianl93"
+      gitHub:"https://github.com/KevinZet"
     },
   ];
 
