@@ -1,14 +1,21 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBookByTitle } from "../../redux/actions";
 
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { InputSearch, SearchContainer } from "../styles/SearchBar";
+import {
+  InputSearch,
+  SearchContainer,
+  DropdownSearch,
+  RowSearchBar,
+} from "../styles/SearchBar";
+import "./SearchBar.css";
 
 const SearchBar = ({ paginado }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
+  const allBooks = useSelector((state) => state.books);
   // const [author,setAuthor]=useState('')
 
   function handleInputChange(e) {
@@ -25,18 +32,40 @@ const SearchBar = ({ paginado }) => {
     setTitle("");
     // setAuthor('');
     paginado(1);
+    console.log(e);
   }
 
   return (
     <SearchContainer>
-      <InputSearch
-        placeholder="Search book by Title or Author"
-        type="text"
-        onChange={(e) => handleInputChange(e)}
-      />
-      <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
-        Search
-      </ButtonCatalogue>
+      <div className="button-search">
+        <InputSearch
+          placeholder="Search book by Title or Author..."
+          type="text"
+          value={title}
+          onChange={(e) => handleInputChange(e)}
+        />
+        <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
+          Search
+        </ButtonCatalogue>
+      </div>
+      <DropdownSearch>
+        {allBooks
+          .filter((book) => {
+            const searchTerm = title.toLowerCase();
+            const titleOfBookSearched = book.title.toLowerCase();
+
+            return (
+              searchTerm &&
+              titleOfBookSearched.startsWith(searchTerm) &&
+              titleOfBookSearched !== searchTerm
+            );
+          })
+          .map((book) => (
+            <RowSearchBar onClick={(e) => handleSubmit(e)} key={book.title}>
+              {book.title}
+            </RowSearchBar>
+          ))}
+      </DropdownSearch>
     </SearchContainer>
   );
 };
