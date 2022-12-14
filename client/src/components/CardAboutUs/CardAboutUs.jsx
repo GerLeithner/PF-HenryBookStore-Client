@@ -17,7 +17,7 @@ const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
       <a href={linkedIn} className="linkCard">LinkedIn</a>
       
       <br></br>
-      <a href={gitHub} className="linkCard">gitHub</a>
+      <a href={gitHub} className="linkCard">GitHub</a>
       
     </SingleAboutCardContainer>
   );

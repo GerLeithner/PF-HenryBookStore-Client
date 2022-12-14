@@ -8,15 +8,23 @@ import {
   getAuthors,
   bookDetail,
 } from "../../redux/actions";
+import {
+  DetailContainer,
+  FormInput,
+  GenresContainer,
+  H1Detail,
+  InfoSeccion,
+} from "../styles/Detail";
 import { ButtonCatalogue } from "../styles/Catalogue";
 
 export default function CardDetail(props) {
   const dispatch = useDispatch();
   const bookId = props.match.params.id;
   console.log("BOOK ID:", bookId);
+  // console.log("PROPS",props)
 
   const book = useSelector((state) => state.detail);
-
+console.log("BOOK",book.genre)
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAuthors());
@@ -31,31 +39,47 @@ export default function CardDetail(props) {
   return (
     <div>
       <NavBar />
-      <div>
-        <h1>{book.title}</h1>
+      <DetailContainer>
+      <InfoSeccion>
+        <H1Detail>{book.title}</H1Detail>
+        </InfoSeccion>
+        <InfoSeccion>
         <h4>Authors:</h4>
-        <div>
           {book.authors?.map((a) => (
             <h4>{a.name}</h4>
           ))}
-        </div>
-
+        </InfoSeccion>
+        <InfoSeccion>
+        <h4>Rating:</h4>
         <h4>{book.averageRating}</h4>
-      </div>
-      <img src={book.cover} alt={book.title} />
+        </InfoSeccion>
+        <InfoSeccion>
+      
+         <img src={book.cover} alt={book.title} />
+      </InfoSeccion>
+      <InfoSeccion>
       <h4>ID: {book.id}</h4>
-      <h4>Genre:</h4>
-      <div>
-        {book.genres?.map((g) => (
+      </InfoSeccion>
+      {/* <InfoSeccion>
+      <h4>Genre:{book.genre[0].name}</h4>
+      
+        {book.genre?.map((g) => (
           <h4>{g.name}</h4>
         ))}
-      </div>
+      </InfoSeccion> */}
+      <InfoSeccion>
       <h4>Publisher: {book.publisher}</h4>
+      </InfoSeccion>
+      <InfoSeccion>
       <h4>Release Date: {book.releaseDate}</h4>
+      </InfoSeccion>
+      <InfoSeccion>
       <h4>Description: </h4>
       <h4>{book.description}</h4>
+      </InfoSeccion>
+      <InfoSeccion>
       <h4>Reviews</h4>
-      <div>
+      
         {/* {reviews?.map((r) => (
           <div>
             <div>{r.score}</div>
@@ -63,12 +87,13 @@ export default function CardDetail(props) {
             <div>{r.create_date}</div>
           </div>
         ))} */}
-      </div>
+      
+      </InfoSeccion>
 
       {/* <button>
         <h3>Post your review</h3>
       </button> */}
-
+</DetailContainer>
       <Link to={"/home"}>
         <ButtonCatalogue>{"<-"} Volver</ButtonCatalogue>
       </Link>

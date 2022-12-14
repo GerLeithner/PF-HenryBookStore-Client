@@ -3,7 +3,7 @@ import Card from "../Card/Card";
 import CardAboutUs from "../CardAboutUs/CardAboutUs";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import { ContainerCardsAboutUs,H2Home,H4Link} from "../styles/Card";
+import { ContainerCardsAboutUs,H2Home,H4Link,ContainerAboutUs} from "../styles/Card";
 
 const AboutUs = () => {
   const people = [
@@ -59,7 +59,7 @@ const AboutUs = () => {
 
   // name,picture,description
   return (
-    <div>
+    <ContainerAboutUs>
       <NavBar />
       <H2Home>About Us</H2Home>
       <ContainerCardsAboutUs>
@@ -77,7 +77,7 @@ const AboutUs = () => {
         );
       })}
       </ContainerCardsAboutUs>
-    </div>
+    </ContainerAboutUs>
   );
 };
 

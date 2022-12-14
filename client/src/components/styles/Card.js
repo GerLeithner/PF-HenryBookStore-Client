@@ -13,10 +13,16 @@ export const ContainerCards = styled.div`
   gap: 100px;
   flex-grow: 1;
 `;
+export const ContainerAboutUs = styled.div`
+height:600px;
+padding-bottom: 550px;
+`;
+
+
 export const ContainerCardsAboutUs = styled.div`
   padding-top: 25px;
-  padding-bottom: 50px;
-  height: 300px;
+  padding-bottom: 150px;
+  height: 500px;
   display: grid;
   justify-content: center;
   justify-items: center;

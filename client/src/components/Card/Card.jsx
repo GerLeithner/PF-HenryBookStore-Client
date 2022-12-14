@@ -15,7 +15,11 @@ export default function Card({
   cover,
   genres,
   authors,
-}) {
+}) 
+
+
+{
+ 
   return (
 
 
@@ -25,6 +29,12 @@ export default function Card({
       
       {/* <h6>Authors:</h3> */}
       {/* <H4CardRating>{averageRating}</H4CardRating> */}
+
+      
+
+
+
+
       <ImgContainer>
         <Link to={"/home/" + id} key={id} className="linkCard">
           <CardImg src={cover} alt="img not found" />
