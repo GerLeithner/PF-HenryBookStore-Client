@@ -1,10 +1,17 @@
 import styled from "styled-components";
 
-export const SearchContainer = styled.div``;
+export const SearchContainer = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 export const InputSearch = styled.input`
-  width: 230px;
+  width: 280px;
   height: 30px;
+  display: flex;
+  flex-direction: column;
   line-height: 28px;
   border: 2px solid transparent;
   border-bottom-color: #777;
@@ -33,4 +40,21 @@ export const InputSearch = styled.input`
     opacity: 0;
     transition: opacity 0.3s;
   }
+`;
+
+export const DropdownSearch = styled.div`
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+
+  &:empty {
+    border: none;
+  }
+`;
+
+export const RowSearchBar = styled.div`
+  cursor: pointer;
+  text-align: center;
+  margin: 2px 0;
 `;
