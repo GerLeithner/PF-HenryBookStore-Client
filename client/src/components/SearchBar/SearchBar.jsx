@@ -60,6 +60,7 @@ const SearchBar = ({ paginado }) => {
               titleOfBookSearched !== searchTerm
             );
           })
+          .slice(0, 10)
           .map((book) => (
             <RowSearchBar onClick={(e) => handleSubmit(e)} key={book.title}>
               {book.title}
