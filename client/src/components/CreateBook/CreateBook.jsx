@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { getGenres, createBook } from "../../redux/actions";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "./CreateBook.css";
+import { useHistory } from "react-router-dom";
+import { createBook, getGenres } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
+import { ButtonCatalogue } from "../styles/Catalogue";
 import {
-  FormInput,
   ErrorsForm,
-  H1Form,
   FormContainer,
+  FormInput,
   GenresContainer,
-  GenreNameLabel,
+  H1Form,
 } from "../styles/CreateBook";
-import { ButtonCatalogue} from "../styles/Catalogue";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
 function validate(input) {
@@ -27,9 +25,9 @@ function validate(input) {
   }
   if (!input.title) errors.title = "Title is required";
   else if (!regName.test(input.title)) errors.title = "Enter a valid title";
-  if (!input.authors) errors.authors = "Author is required";
-  else if (!regName.test(input.authors))
-    errors.authors = "Enter a valid author";
+  if (!input.authorName) errors.authorName = "Author is required";
+  else if (!regName.test(input.authorName))
+    errors.authorName = "Enter a valid author";
   if (!input.pages) errors.pages = "The number of pages is required";
   else if (input.pages > 20000 || input.pages < 1 || !regNum.test(input.pages))
     errors.pages = "Pages must be a number betwen 1 and 20000";
@@ -55,9 +53,17 @@ const CreateBook = () => {
     usersRating: "",
     cover: "",
     identifier: "",
-    genres: [],
-    authors: [],
+    genreId: "",
+    authorName: "",
   });
+
+  useEffect(() => {
+    setErrors(validate(input));
+    if (!genres.length) {
+      dispatch(getGenres());
+    }
+  }, [input]);
+
   function handleChange(e) {
     setInput({
       ...input,
@@ -73,10 +79,10 @@ const CreateBook = () => {
     console.log("input", input);
   }
 
-  function handleAuthors(e) {
+  function handleauthor(e) {
     setInput({
       ...input,
-      authors: [e.target.value],
+      authorName: e.target.value,
     });
     console.log("ERRORS", errors);
     setErrors(
@@ -88,7 +94,22 @@ const CreateBook = () => {
     console.log("input", input);
   }
 
-  function handleCheck(e) {
+  function handleSelect(e) {
+    e.preventDefault();
+    console.log("Entré a select:", e.target.value);
+    setInput({
+      ...input,
+      genreId: e.target.value,
+    });
+    setErrors(
+      validate({
+        ...input,
+        genreId: e.target.value,
+      })
+    );
+  }
+
+  /*   function handleCheck(e) {
     if (e.target.checked) {
       setInput({
         ...input,
@@ -117,7 +138,7 @@ const CreateBook = () => {
         })
       );
     }
-  }
+  } */
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -145,17 +166,12 @@ const CreateBook = () => {
         usersRating: "",
         cover: "",
         identifier: "",
-        genres: [],
-        authors: [],
+        genreId: "",
+        authorName: "",
       });
       history.push("/home");
     }
   }
-
-  useEffect(() => {
-    setErrors(validate(input));
-    dispatch(getGenres());
-  }, [input]);
 
   return (
     <div>
@@ -180,13 +196,15 @@ const CreateBook = () => {
               <div>
                 <FormInput
                   type="text"
-                  value={input.authors}
-                  placeholder="Insert Authors"
-                  name="authors"
-                  onChange={(e) => handleAuthors(e)}
+                  value={input.authorName}
+                  placeholder="Insert Author"
+                  name="authorName"
+                  onChange={(e) => handleChange(e)}
                 />
 
-                {errors.authors && <ErrorsForm>{errors.authors}</ErrorsForm>}
+                {errors.authorName && (
+                  <ErrorsForm>{errors.authorName}</ErrorsForm>
+                )}
               </div>
               <div>
                 <FormInput
@@ -269,6 +287,7 @@ const CreateBook = () => {
                     src="https://www.comunidadbaratz.com/wp-content/uploads/Instrucciones-a-tener-en-cuenta-sobre-como-se-abre-un-libro-nuevo.jpg"
                     width={"100px"}
                     height={"100px"}
+                    alt="BookCover"
                   />
                 </div>
               ) : (
@@ -294,32 +313,19 @@ const CreateBook = () => {
 
         <div>
           <label>Select Genre:</label>
-          {errors.genres && <ErrorsForm>{errors.genres}</ErrorsForm>}
+          {errors.genreId && <ErrorsForm>{errors.genreId}</ErrorsForm>}
           <br />
           <GenresContainer>
-            {genres.map((el) => (
-              <GenreNameLabel key={el.id}>
-                <br></br>
-                <input
-                  type="checkbox"
-                  title={el.name}
-                  value={el.name}
-                  onClick={(e) => handleCheck(e)}
-                  key={el.id}
-                />
-                <br></br>
-                {el.name}
-              </GenreNameLabel>
-            ))}
+            <select onChange={(e) => handleSelect(e)}>
+              {genres.map((el) => {
+                return (
+                  <option name="genreId" value={el.id} key={el.id}>
+                    {el.name}
+                  </option>
+                );
+              })}
+            </select>
           </GenresContainer>
-        </div>
-        <div>
-          <ul>
-            The Book Genre is:
-            {input.genres.map((el) => (
-              <li>{el}</li>
-            ))}
-          </ul>
         </div>
         <div>
           <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
