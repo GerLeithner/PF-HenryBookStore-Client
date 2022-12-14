@@ -114,6 +114,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case "GET_DETAILS":
+      console.log("ACTION.PAYLOAD",action.payload.genre)
       return {
         ...state,
         detail: action.payload,
