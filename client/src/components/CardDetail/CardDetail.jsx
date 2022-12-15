@@ -9,11 +9,16 @@ import {
   bookDetail,
 } from "../../redux/actions";
 import {
-  DetailContainer,
-  FormInput,
-  GenresContainer,
+  CardImgDetail,
+  ImgContainerDetail,
+  SingleCardContainerDetail,
+  DescriptionCardConteinerDetail,
   H1Detail,
-  InfoSeccion,
+  H2Detail,
+  ColumnConteinerDetail,
+  DescriptionPDetail,
+  SubtitleAndYear,
+  TitleAndRating,
 } from "../styles/Detail";
 import { ButtonCatalogue } from "../styles/Catalogue";
 
@@ -37,67 +42,42 @@ export default function CardDetail(props) {
   }, [dispatch, bookId]);
 
   return (
-    <div>
-      <NavBar />
-      <DetailContainer>
-      <InfoSeccion>
-        <H1Detail>{book.title}</H1Detail>
-        </InfoSeccion>
-        {/* <InfoSeccion>
-             <h4>ID: {book.id}</h4>
-      </InfoSeccion> */}
-        <InfoSeccion>
-        <h4>Authors:</h4>
-        {book && book.author &&(
-          <h4>{book.author.name}</h4>
-        )}
-        </InfoSeccion>
-        <InfoSeccion>
-        <h4>Rating:</h4>
-        <h4>{book.averageRating}</h4>
-        </InfoSeccion>
-        <InfoSeccion>
-      
-         <img src={book.cover} alt={book.title} />
-      </InfoSeccion>
-      
-      <InfoSeccion>
-      <h4>Genre:</h4>
-      
-        {book && book.genre &&(
-          <h4>{book.genre.name}</h4>
-        )}
-      </InfoSeccion>
-      <InfoSeccion>
-      <h4>Publisher: {book.publisher}</h4>
-      </InfoSeccion>
-      <InfoSeccion>
-      <h4>Release Date: {book.releaseDate}</h4>
-      </InfoSeccion>
-      <InfoSeccion>
-      <h4>Description: </h4>
-      <h4>{book.description}</h4>
-      </InfoSeccion>
-      <InfoSeccion>
-      <h4>Reviews</h4>
-      
-        {/* {reviews?.map((r) => (
-          <div>
-            <div>{r.score}</div>
-            <div>{r.comment}</div>
-            <div>{r.create_date}</div>
-          </div>
-        ))} */}
-      
-      </InfoSeccion>
+    <SingleCardContainerDetail>
 
-      {/* <button>
-        <h3>Post your review</h3>
-      </button> */}
-</DetailContainer>
+      <ImgContainerDetail>
+        
+          <CardImgDetail src={book.cover} alt="img not found" />
+        
+      </ImgContainerDetail>
+
+      <ColumnConteinerDetail>
+        <TitleAndRating>
+          <H1Detail>{book.title}</H1Detail>
+          <H1Detail>{book.averageRating}</H1Detail>
+
+        </TitleAndRating>
+        <SubtitleAndYear>
+        
+          <H2Detail>
+          {book.subtitle?book.subtitle:`Author: ${book && book.author &&
+          book.author.name}`}
+          
+          </H2Detail>
+
+        <H2Detail>Year: {book.publishedDate}</H2Detail>
+        </SubtitleAndYear>
+       {book.subtitle && (<H2Detail>Author: {book.author.name}</H2Detail>)}
+    
+        {book && book.genre &&(
+          <H2Detail>Genre:{book.genre.name}</H2Detail>
+        )}
+        <DescriptionCardConteinerDetail>
+          <DescriptionPDetail>{book.description}</DescriptionPDetail>
+        </DescriptionCardConteinerDetail>
+      </ColumnConteinerDetail>
       <Link to={"/home"}>
-        <ButtonCatalogue>{"<-"} Volver</ButtonCatalogue>
+        <ButtonCatalogue>X</ButtonCatalogue>
       </Link>
-    </div>
+    </SingleCardContainerDetail>
   );
 }

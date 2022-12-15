@@ -7,20 +7,15 @@ import {
   CardImgRecomended,
   ImgContainerRecomended,
   SingleCardContainerRecomended,
-  TitleCardConteinerRecomended,
   DescriptionCardConteinerRecomended,
   H1Recomended,
-  GridConteinerRecomended,
   H2Recomended,
   ColumnConteinerRecomended,
-  LeftColumnRecomended,
-  RigthColumnRecomended,
   DescriptionPRecomended,
-  H4Recomended,
   SubtitleAndYear,
   TitleAndRating,
 } from "../styles/CardRecomended";
-import { H5Form } from "../styles/CreateBook";
+
 
 export default function Card({
   id,
