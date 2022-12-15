@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createBook, getGenres } from "../../redux/actions";
+import { createBook, getAuthors, getGenres } from "../../redux/actions";
 import NavBar from "../NavBar/NavBar";
 import { ButtonCatalogue } from "../styles/Catalogue";
 import {
   ErrorsForm,
   FormContainer,
   FormInput,
-  GenresContainer,
   H1Form,
 } from "../styles/CreateBook";
+import { DropdownSearch, RowSearchBar } from "../styles/SearchBar";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
 function validate(input) {
@@ -40,6 +40,7 @@ function validate(input) {
 const CreateBook = () => {
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
+  const authors = useSelector((state) => state.authors);
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
@@ -53,18 +54,23 @@ const CreateBook = () => {
     usersRating: "",
     cover: "",
     identifier: "",
-    genreId: "",
+    genreName: "",
     authorName: "",
   });
+  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     setErrors(validate(input));
     if (!genres.length) {
       dispatch(getGenres());
     }
+    if (!authors.length) {
+      dispatch(getAuthors());
+    }
   }, [input]);
 
   function handleChange(e) {
+    console.log(e);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -79,19 +85,63 @@ const CreateBook = () => {
     console.log("input", input);
   }
 
-  function handleauthor(e) {
-    setInput({
-      ...input,
-      authorName: e.target.value,
-    });
-    console.log("ERRORS", errors);
-    setErrors(
-      validate({
+  function handleAuthor(e) {
+    console.log("e.target.value", e.target.value);
+    console.log("e", e);
+    if (e.target.value) {
+      setInput({
         ...input,
-        [e.target.name]: e.target.value,
-      })
-    );
-    console.log("input", input);
+        authorName: e.target.value,
+      });
+      console.log("ERRORS", errors);
+      setErrors(
+        validate({
+          ...input,
+          authorName: e.target.value,
+        })
+      );
+    } else {
+      setInput({
+        ...input,
+        authorName: e.target.textContent,
+      });
+      console.log("ERRORS", errors);
+      setErrors(
+        validate({
+          ...input,
+          authorName: e.target.textContent,
+        })
+      );
+    }
+  }
+  function handleGenre(e) {
+    console.log("e.target.value", e.target.value);
+    console.log("e", e);
+    if (e.target.value) {
+      setInput({
+        ...input,
+        genreName: e.target.value,
+      });
+      console.log("ERRORS", errors);
+      setErrors(
+        validate({
+          ...input,
+          genreName: e.target.value,
+        })
+      );
+    } else {
+      setInput({
+        ...input,
+        genreName: e.target.textContent,
+      });
+      console.log("ERRORS", errors);
+      setErrors(
+        validate({
+          ...input,
+          genreName: e.target.textContent,
+        })
+      );
+    }
   }
 
   function handleSelect(e) {
@@ -99,46 +149,15 @@ const CreateBook = () => {
     console.log("Entré a select:", e.target.value);
     setInput({
       ...input,
-      genreId: e.target.value,
+      genreName: e.target.value,
     });
     setErrors(
       validate({
         ...input,
-        genreId: e.target.value,
+        genreName: e.target.value,
       })
     );
   }
-
-  /*   function handleCheck(e) {
-    if (e.target.checked) {
-      setInput({
-        ...input,
-        genres: [...input.genres, e.target.value],
-      });
-
-      console.log("INPUTCHECK", input);
-      setErrors(
-        validate({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-      console.log(errors);
-    } else if (!e.target.checked) {
-      setInput({
-        ...input,
-        genres: input.genres.filter((t) => t !== e.target.value),
-      });
-
-      console.log("INPUTCHECK", input);
-      setErrors(
-        validate({
-          ...input,
-          [e.target.name]: e.target.value,
-        })
-      );
-    }
-  } */
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -166,12 +185,47 @@ const CreateBook = () => {
         usersRating: "",
         cover: "",
         identifier: "",
-        genreId: "",
+        genreName: "",
         authorName: "",
       });
       history.push("/home");
     }
   }
+
+  let genresDrop = genres
+    .filter((genre) => {
+      console.log(input.genreName);
+      const searchTerm = input.genreName.toLowerCase();
+      const nameOfGenre = genre.name.toLowerCase();
+
+      return (
+        searchTerm &&
+        nameOfGenre.includes(searchTerm) &&
+        nameOfGenre !== searchTerm
+      );
+    })
+    .slice(0, 10)
+    .map((genre, i) => (
+      <RowSearchBar
+        name="genreName"
+        onClick={(e) => handleGenre(e)}
+        key={i}
+        value={input.authorName}
+      >
+        {genre.name}
+      </RowSearchBar>
+    ));
+
+  let dropAllGenres = genres.slice(0, 10).map((genre, i) => (
+    <RowSearchBar
+      name="genreName"
+      onClick={(e) => handleGenre(e)}
+      key={i}
+      value={input.authorName}
+    >
+      {genre.name}
+    </RowSearchBar>
+  ));
 
   return (
     <div>
@@ -199,9 +253,34 @@ const CreateBook = () => {
                   value={input.authorName}
                   placeholder="Insert Author"
                   name="authorName"
-                  onChange={(e) => handleChange(e)}
+                  onChange={(e) => handleAuthor(e)}
+                  autoComplete="off"
                 />
+                <DropdownSearch>
+                  {authors
+                    .filter((author) => {
+                      console.log(input.authorName);
+                      const searchTerm = input.authorName.toLowerCase();
+                      const nameOfAuthor = author.name.toLowerCase();
 
+                      return (
+                        searchTerm &&
+                        nameOfAuthor.includes(searchTerm) &&
+                        nameOfAuthor !== searchTerm
+                      );
+                    })
+                    .slice(0, 10)
+                    .map((author, i) => (
+                      <RowSearchBar
+                        name="authorName"
+                        onClick={(e) => handleAuthor(e)}
+                        key={i}
+                        value={input.authorName}
+                      >
+                        {author.name}
+                      </RowSearchBar>
+                    ))}
+                </DropdownSearch>
                 {errors.authorName && (
                   <ErrorsForm>{errors.authorName}</ErrorsForm>
                 )}
@@ -310,22 +389,16 @@ const CreateBook = () => {
             </div>
           </div>
         </div>
-
         <div>
           <label>Select Genre:</label>
-          {errors.genreId && <ErrorsForm>{errors.genreId}</ErrorsForm>}
-          <br />
-          <GenresContainer>
-            <select onChange={(e) => handleSelect(e)}>
-              {genres.map((el) => {
-                return (
-                  <option name="genreId" value={el.id} key={el.id}>
-                    {el.name}
-                  </option>
-                );
-              })}
-            </select>
-          </GenresContainer>
+          <FormInput
+            type="text"
+            value={input.genreName}
+            placeholder="Insert Genre"
+            name="genreName"
+            onChange={(e) => handleGenre(e)}
+          />
+          {genresDrop.length ? genresDrop : dropAllGenres}
         </div>
         <div>
           <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
@@ -336,5 +409,19 @@ const CreateBook = () => {
     </div>
   );
 };
+
+/* {errors.genreName && <ErrorsForm>{errors.genreName}</ErrorsForm>}
+          <br />
+          <GenresContainer>
+            <select onChange={(e) => handleSelect(e)}>
+              {genres.map((el) => {
+                return (
+                  <option name="genreName" value={el.name} key={el.id}>
+                    {el.name}
+                  </option>
+                );
+              })}
+            </select>
+          </GenresContainer> */
 
 export default CreateBook;
