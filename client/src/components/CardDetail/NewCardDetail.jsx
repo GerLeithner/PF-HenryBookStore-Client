@@ -1,0 +1,80 @@
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import NavBar from "../NavBar/NavBar";
+import {
+  cleanDetail,
+  getGenres,
+  getAuthors,
+  bookDetail,
+} from "../../redux/actions";
+import {
+  CardImgDetail,
+  ImgContainerDetail,
+  SingleCardContainerDetail,
+  DescriptionCardConteinerDetail,
+  H1Detail,
+  H2Detail,
+  ColumnConteinerDetail,
+  DescriptionPDetail,
+  SubtitleAndYear,
+  TitleAndRating,
+} from "../styles/Detail";
+import { ButtonCatalogue } from "../styles/Catalogue";
+
+export default function CardDetail(props) {
+  const dispatch = useDispatch();
+  const bookId = props.match.params.id;
+  console.log("BOOK ID:", bookId);
+  // console.log("PROPS",props)
+
+  const book = useSelector((state) => state.detail);
+
+  useEffect(() => {
+    dispatch(getGenres());
+    dispatch(getAuthors());
+    dispatch(bookDetail(bookId));
+
+    return () => {
+      console.log("Detail Clean Up");
+      dispatch(cleanDetail());
+    };
+  }, [dispatch, bookId]);
+
+  return (
+    <SingleCardContainerDetail>
+
+      <ImgContainerDetail>
+        
+          <CardImgDetail src={book.cover} alt="img not found" />
+        
+      </ImgContainerDetail>
+
+      <ColumnConteinerDetail>
+        <TitleAndRating>
+          <H1Detail>{book.title}</H1Detail>
+          <H1Detail>{book.averageRating}</H1Detail>
+
+        </TitleAndRating>
+        <SubtitleAndYear>
+        
+          <H2Detail>
+          {book.subtitle?book.subtitle:`Author: ${book && book.author &&
+          book.author.name}`}
+          
+          </H2Detail>
+
+        <H2Detail>Year: {book.publishedDate}</H2Detail>
+        </SubtitleAndYear>
+       {book.subtitle && (<H2Detail>Author: {book.author.name}</H2Detail>)}
+    
+        {book && book.genre &&(
+          <H2Detail>Genre:{book.genre.name}</H2Detail>
+        )}
+        <DescriptionCardConteinerDetail>
+          <DescriptionPDetail>{book.description}</DescriptionPDetail>
+        </DescriptionCardConteinerDetail>
+      </ColumnConteinerDetail>
+    </SingleCardContainerDetail>
+  );
+}
