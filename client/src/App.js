@@ -6,15 +6,14 @@ import CardDetail from "./components/CardDetail/CardDetail.jsx";
 import Catalogue from "./components/Catalogue/Catalogue";
 import AboutUs from "./components/AboutUs/AboutUs";
 import CreateBook from "./components/CreateBook/CreateBook";
-import NewCardDetail from "./components/CardDetail/NewCardDetail"
+
 
 function App() {
   return (
     <div className="App">
       <Switch>
         <Route exact path="/" component={LandingPage} />
-        {/* <Route path="/home/:id" component={CardDetail} /> */}
-        <Route path="/home/:id" component={NewCardDetail} />
+        <Route path="/home/:id" component={CardDetail} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/catalogue" component={Catalogue}/>
         <Route exact path="/aboutUs" component={AboutUs}/>
