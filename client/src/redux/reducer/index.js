@@ -5,6 +5,7 @@ const initialState = {
   genres: [],
   detail: [],
   trending: [],
+  recomended:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -94,6 +95,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         trending: action.payload,
+      };
+    case "GET_RECOMENDED_BOOKS":
+      return {
+        ...state,
+        recomended: action.payload,
       };
 
     case "GET_BY_TITLE":

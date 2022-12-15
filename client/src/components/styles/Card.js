@@ -35,7 +35,7 @@ export const ContainerCardsAboutUs = styled.div`
 
 
 export const H2Home = styled.h2`
-  padding-top: 75px;
+  padding-top: 10px;
   width: 400px;
   height: 30px;
   font-family: 'Inter';
