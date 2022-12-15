@@ -24,7 +24,7 @@ export default function CardDetail(props) {
   // console.log("PROPS",props)
 
   const book = useSelector((state) => state.detail);
-console.log("BOOK",book.genre)
+
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAuthors());
@@ -43,11 +43,14 @@ console.log("BOOK",book.genre)
       <InfoSeccion>
         <H1Detail>{book.title}</H1Detail>
         </InfoSeccion>
+        {/* <InfoSeccion>
+             <h4>ID: {book.id}</h4>
+      </InfoSeccion> */}
         <InfoSeccion>
         <h4>Authors:</h4>
-          {book.authors?.map((a) => (
-            <h4>{a.name}</h4>
-          ))}
+        {book && book.author &&(
+          <h4>{book.author.name}</h4>
+        )}
         </InfoSeccion>
         <InfoSeccion>
         <h4>Rating:</h4>
@@ -57,16 +60,14 @@ console.log("BOOK",book.genre)
       
          <img src={book.cover} alt={book.title} />
       </InfoSeccion>
-      <InfoSeccion>
-      <h4>ID: {book.id}</h4>
-      </InfoSeccion>
-      {/* <InfoSeccion>
-      <h4>Genre:{book.genre[0].name}</h4>
       
-        {book.genre?.map((g) => (
-          <h4>{g.name}</h4>
-        ))}
-      </InfoSeccion> */}
+      <InfoSeccion>
+      <h4>Genre:</h4>
+      
+        {book && book.genre &&(
+          <h4>{book.genre.name}</h4>
+        )}
+      </InfoSeccion>
       <InfoSeccion>
       <h4>Publisher: {book.publisher}</h4>
       </InfoSeccion>

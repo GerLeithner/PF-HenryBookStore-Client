@@ -12,8 +12,10 @@ import {
   getGenres,
   getAuthors,
   getTrendingBooks,
+  getRecomendedBooks,
 } from "../../redux/actions";
 import Card from "../Card/Card";
+import CardRecomended from "../CardRecomended/CardRecomended"
 // import SearchBar from "../SearchBar/SearchBar";
 import { ContainerCards,H2Home } from "../styles/Card";
 
@@ -30,6 +32,7 @@ const Home = () => {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
+  const recomended = useSelector((state)=>state.recomended);
   //  const [allBooks2,setAllBooks2]=useState(allBooks)
   // console.log(allBooks2)
   useEffect(() => {
@@ -44,6 +47,9 @@ const Home = () => {
     }
     if (!trending.length) {
       dispatch(getTrendingBooks());
+    }
+    if (!recomended.length){
+      dispatch(getRecomendedBooks());
     }
   }, [dispatch]);
 
@@ -66,8 +72,33 @@ const Home = () => {
         <NavBar />
 
         <div>
+        <H2Home>Recomended to you...</H2Home>
+        <Carousel itemsToShow={1}>
         
-       
+        {recomended.length ? (
+          recomended.map((b) => {
+            return (
+              <CardRecomended
+                id={b.id}
+                key={b.id}
+                title={b.title}
+                subtitle={b.subtitle}
+                publishedDate={b.publishedDate}
+                description={b.description}
+                averageRating={b.averageRating}
+                cover={b.cover}
+                genre={b.genre}
+                author={b.author}
+                back_cover={b.back_cover}
+              />
+            );
+          })
+        ) : (
+          <div>{console.log("FALLO TODO")}</div>
+        )}
+      
+                
+              </Carousel>
         </div>
         <div>
 
