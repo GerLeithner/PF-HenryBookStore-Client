@@ -57,17 +57,15 @@ const CreateBook = () => {
     genreName: "",
     authorName: "",
   });
-  const [suggestions, setSuggestions] = useState([]);
 
   useEffect(() => {
     setErrors(validate(input));
-    if (!genres.length) {
-      dispatch(getGenres());
-    }
-    if (!authors.length) {
-      dispatch(getAuthors());
-    }
   }, [input]);
+
+  useEffect(() => {
+    dispatch(getGenres());
+    dispatch(getAuthors());
+  }, [dispatch]);
 
   function handleChange(e) {
     console.log(e);
