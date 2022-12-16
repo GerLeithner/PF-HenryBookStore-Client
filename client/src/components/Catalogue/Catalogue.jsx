@@ -24,6 +24,8 @@ const Catalogue = () => {
   const allAuthors = useSelector((state) => state.authors);
   const allGenres = useSelector((state) => state.genres);
   const bookDetail=useSelector((state)=>state.detail)
+
+  const [modal,setModal]=useState(false)
   console.log("BOOKCAT",bookDetail)
   useEffect(() => {
     if (!allGenres.length) {
@@ -80,6 +82,7 @@ const Catalogue = () => {
 
   return (
     <div>
+       <CardDetail book={bookDetail} modal={modal} setModal={setModal}/>
       <NavBar />
       {/* <div>
         <Link to={"/home"}>
@@ -140,7 +143,7 @@ const Catalogue = () => {
 <CardDetail/>
   {/* {bookDetail.length&&(<CardDetail/>)
      } */}
-        <ContainerCards>
+        <ContainerCards >
           {currentBook?.map((b) => {
             return (
               <div key={b.id}>
@@ -153,6 +156,8 @@ const Catalogue = () => {
                   cover={b.cover}
                   genres={b.genres}
                   authors={b.authors}
+                  modal={modal}
+                  setModal={setModal}
                 />
               </div>
             );
