@@ -1,32 +1,30 @@
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  filterBookByGenre,
+  getAuthors,
   getBooks,
   getGenres,
-  getAuthors,
-  filterBookByGenre,
-  sortByTitle,
   sortByPublisherDate,
+  sortByTitle,
 } from "../../redux/actions";
-import { Link } from "react-router-dom";
 import Card from "../Card/Card";
-import Paginado from "../Paginado/Paginado";
-import NavBar from "../NavBar/NavBar";
-import SearchBar from "../SearchBar/SearchBar";
-import { SelectFilters, ButtonCatalogue } from "../styles/Catalogue";
-import { ContainerCards } from "../styles/Card";
 import CardDetail from "../CardDetail/CardDetail";
+import NavBar from "../NavBar/NavBar";
+import Paginado from "../Paginado/Paginado";
+import SearchBar from "../SearchBar/SearchBar";
+import { ContainerCards } from "../styles/Card";
+import { ButtonCatalogue, SelectFilters } from "../styles/Catalogue";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
   const allAuthors = useSelector((state) => state.authors);
   const allGenres = useSelector((state) => state.genres);
-  const bookDetail=useSelector((state)=>state.detail)
+  const bookDetail = useSelector((state) => state.detail);
 
-  const [modal,setModal]=useState(false)
-  console.log("BOOKCAT",bookDetail)
+  const [modal, setModal] = useState(false);
+  console.log("BOOKCAT", bookDetail);
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
@@ -56,8 +54,8 @@ const Catalogue = () => {
 
   function handleClick(e) {
     e.preventDefault();
+    console.log("Entré e:", e);
     dispatch(getBooks());
-    
   }
   function handleFilterGenre(e) {
     dispatch(filterBookByGenre(e.target.value));
@@ -82,7 +80,7 @@ const Catalogue = () => {
 
   return (
     <div>
-       <CardDetail book={bookDetail} modal={modal} setModal={setModal}/>
+      <CardDetail book={bookDetail} modal={modal} setModal={setModal} />
       <NavBar />
       {/* <div>
         <Link to={"/home"}>
@@ -129,7 +127,7 @@ const Catalogue = () => {
           </select>
         </SelectFilters>
 
-        <SearchBar paginado={paginado} />
+        <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <div>
           {/* booksPerPage,allBooks,paginado,currentPage */}
           <Paginado
@@ -140,10 +138,10 @@ const Catalogue = () => {
           />
         </div>
 
-<CardDetail/>
-  {/* {bookDetail.length&&(<CardDetail/>)
+        <CardDetail />
+        {/* {bookDetail.length&&(<CardDetail/>)
      } */}
-        <ContainerCards >
+        <ContainerCards>
           {currentBook?.map((b) => {
             return (
               <div key={b.id}>

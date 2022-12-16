@@ -1,18 +1,16 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getBookByTitle } from "../../redux/actions";
-
+import { bookDetail, getBookByTitle } from "../../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
 import {
-  InputSearch,
-  SearchContainer,
   DropdownSearch,
+  InputSearch,
   RowSearchBar,
+  SearchContainer,
 } from "../styles/SearchBar";
 import "./SearchBar.css";
 
-const SearchBar = ({ paginado }) => {
+const SearchBar = ({ paginado, modal, setModal }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.books);
@@ -34,7 +32,13 @@ const SearchBar = ({ paginado }) => {
     paginado(1);
     console.log(e);
   }
-
+  function handleClick(e) {
+    e.preventDefault(e);
+    setModal(true);
+    let id = allBooks.find((book) => book.title === e.target.textContent).id;
+    dispatch(bookDetail(id));
+    setTitle("");
+  }
   return (
     <SearchContainer>
       <div className="button-search">
@@ -62,7 +66,12 @@ const SearchBar = ({ paginado }) => {
           })
           .slice(0, 10)
           .map((book) => (
-            <RowSearchBar onClick={(e) => handleSubmit(e)} key={book.title}>
+            <RowSearchBar
+              onClick={(e) => handleClick(e)}
+              modal={modal}
+              setModal={setModal}
+              key={book.title}
+            >
               {book.title}
             </RowSearchBar>
           ))}
