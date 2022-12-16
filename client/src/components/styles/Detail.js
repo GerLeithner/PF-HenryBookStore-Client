@@ -89,12 +89,7 @@ export const GridConteinerDetail= styled.div`
 
   
 `;
-export const DescriptionCardConteinerDetail= styled.div`
- width: 420px;
- height: 210px;
- padding:0px;
- margin: 0px;
-`;
+
 export const ColumnConteinerDetail= styled.div`
  display:flex;
  flex-direction:column;
@@ -129,11 +124,22 @@ export const CardImgDetail = styled.img`
   margin: 0px;
 
 `;
+export const DescriptionCardConteinerDetail= styled.div`
+ width: 420px;
+ height: 210px;
+ padding:0px;
+ margin: 0px;
+ text-overflow:ellipsis;
+`;
+
 export const DescriptionPDetail= styled.p`
+height: 210px;
+width: 420px;
 padding:0px;
 text-align:justify;
 font-size: small;
 margin:0px;
+text-overflow:ellipsis;
   
 `;
 

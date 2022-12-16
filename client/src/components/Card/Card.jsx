@@ -28,18 +28,15 @@ export default function Card({
 
   
   function handleClick(e) {
-   
-    console.log("EVENT",e)
+    e.preventDefault(e);
     setModal(true);
     dispatch(bookDetail(id));
-    
-
   }
-console.log("MODALCARD",modal)
+
   const dispatch = useDispatch();
   const book = useSelector((state) => state.detail);
 
-  console.log("BOOK:",book)
+
   return (
 
 

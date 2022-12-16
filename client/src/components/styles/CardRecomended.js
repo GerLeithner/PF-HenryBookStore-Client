@@ -91,6 +91,7 @@ export const DescriptionCardConteinerRecomended= styled.div`
  height: max-content;
  padding:0px;
  margin: 0px;
+ text-overflow:ellipsis;
 `;
 export const ColumnConteinerRecomended= styled.div`
  display:flex;
