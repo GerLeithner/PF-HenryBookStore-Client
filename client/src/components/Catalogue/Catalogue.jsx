@@ -16,12 +16,15 @@ import NavBar from "../NavBar/NavBar";
 import SearchBar from "../SearchBar/SearchBar";
 import { SelectFilters, ButtonCatalogue } from "../styles/Catalogue";
 import { ContainerCards } from "../styles/Card";
+import CardDetail from "../CardDetail/CardDetail";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
   const allAuthors = useSelector((state) => state.authors);
   const allGenres = useSelector((state) => state.genres);
+  const bookDetail=useSelector((state)=>state.detail)
+  console.log("BOOKCAT",bookDetail)
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
@@ -52,6 +55,7 @@ const Catalogue = () => {
   function handleClick(e) {
     e.preventDefault();
     dispatch(getBooks());
+    
   }
   function handleFilterGenre(e) {
     dispatch(filterBookByGenre(e.target.value));
@@ -133,6 +137,9 @@ const Catalogue = () => {
           />
         </div>
 
+<CardDetail/>
+  {/* {bookDetail.length&&(<CardDetail/>)
+     } */}
         <ContainerCards>
           {currentBook?.map((b) => {
             return (
