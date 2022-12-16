@@ -26,16 +26,12 @@ const Catalogue = () => {
   const [modal, setModal] = useState(false);
   console.log("BOOKCAT", bookDetail);
   useEffect(() => {
-    if (!allGenres.length) {
-      dispatch(getGenres());
-    }
-    if (!allAuthors.length) {
-      dispatch(getAuthors());
-    }
-    if (!allBooks.length) {
-      dispatch(getBooks());
-    }
-  }, [dispatch, allGenres.length, allAuthors.length, allBooks.length]);
+    dispatch(getGenres());
+
+    dispatch(getAuthors());
+
+    dispatch(getBooks());
+  }, [dispatch]);
 
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
