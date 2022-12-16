@@ -1,10 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
 import "./Card.css";
 // import { bookDelete } from "../actions";
 // import {useDispatch} from 'react-redux'
 import { Link } from "react-router-dom";
 import { CardImg, ImgContainer, SingleCardContainer,TitleCardConteiner} from "../styles/Card";
 import { H5Form } from "../styles/CreateBook";
+import {bookDetail} from "../../redux/actions"
+import { useDispatch, useSelector } from "react-redux";
+import CardDetail from "../CardDetail/CardDetail";
+
+
+
+
 
 export default function Card({
   id,
@@ -15,37 +22,52 @@ export default function Card({
   cover,
   genres,
   authors,
-}) 
+  modal,
+  setModal
+}) {
 
+  
+  function handleClick(e) {
+   
+    console.log("EVENT",e)
+    setModal(true);
+    dispatch(bookDetail(id));
+    
 
-{
- 
+  }
+console.log("MODALCARD",modal)
+  const dispatch = useDispatch();
+  const book = useSelector((state) => state.detail);
+
+  console.log("BOOK:",book)
   return (
 
 
 
-    
+    <>
+    <CardDetail book={book}modal={modal} setModal={setModal}/>
     <SingleCardContainer>
       
       {/* <h6>Authors:</h3> */}
       {/* <H4CardRating>{averageRating}</H4CardRating> */}
 
       
-
+   
 
 
 
       <ImgContainer>
-        <Link to={"/home/" + id} key={id} className="linkCard">
-          <CardImg src={cover} alt="img not found" />
-        </Link>
+         {/* <Link to={"/home/" + id} key={id}>
+         </Link> */}
+          <CardImg src={cover} alt="img not found" onClick={(id) => {handleClick(id)}}/>
+        
       </ImgContainer>
 
       
       <TitleCardConteiner>
-      <Link to={"/home/" + id} key={id} className="linkCard">
+      {/* <Link to={"/home/" + id} key={id} className="linkCard">
         <H5Form>{title}</H5Form>
-      </Link>
+      </Link> */}
       </TitleCardConteiner>
       {/* <div>
         {authors.map((a) => (
@@ -74,5 +96,6 @@ export default function Card({
                 } */}
                 
     </SingleCardContainer>
+    </>
   );
 }

@@ -19,29 +19,53 @@ import {
   DescriptionPDetail,
   SubtitleAndYear,
   TitleAndRating,
+  OverLay,
+  ButtonDetail,
 } from "../styles/Detail";
-import { ButtonCatalogue } from "../styles/Catalogue";
-
-export default function CardDetail(props) {
+export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
-  const bookId = props.match.params.id;
-  console.log("BOOK ID:", bookId);
+  console.log("MODALDETAIL",modal)
+  // const bookId = props.match.params.id;
+  // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
 
-  const book = useSelector((state) => state.detail);
+  // const book = useSelector((state) => state.detail);
 
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAuthors());
-    dispatch(bookDetail(bookId));
+    dispatch(bookDetail(book.id));
 
     return () => {
       console.log("Detail Clean Up");
       dispatch(cleanDetail());
     };
-  }, [dispatch, bookId]);
+  }, [dispatch]);
+
+// export default function CardDetail(props) {
+//   const dispatch = useDispatch();
+  
+//   const bookId = props.match.params.id;
+//   console.log("BOOK ID:", bookId);
+//   console.log("PROPS",props)
+
+//   const book = useSelector((state) => state.detail);
+
+//   useEffect(() => {
+//     dispatch(getGenres());
+//     dispatch(getAuthors());
+//     dispatch(bookDetail(bookId));
+
+//     return () => {
+//       console.log("Detail Clean Up");
+//       dispatch(cleanDetail());
+//     };
+//   }, [dispatch]);
 
   return (
+  <>
+  {modal &&
+  <OverLay>
     <SingleCardContainerDetail>
 
       <ImgContainerDetail>
@@ -75,9 +99,14 @@ export default function CardDetail(props) {
           <DescriptionPDetail>{book.description}</DescriptionPDetail>
         </DescriptionCardConteinerDetail>
       </ColumnConteinerDetail>
-      <Link to={"/home"}>
-        <ButtonCatalogue>X</ButtonCatalogue>
-      </Link>
+      
     </SingleCardContainerDetail>
+    {/* <Link to={"/home"}>
+    </Link> */}
+        <ButtonDetail onClick={()=>setModal(false)}>X</ButtonDetail>
+      
+    </OverLay>
+    }
+    </>
   );
 }

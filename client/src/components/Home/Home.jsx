@@ -13,8 +13,10 @@ import {
   getAuthors,
   getTrendingBooks,
   getRecomendedBooks,
+  bookDetail,
 } from "../../redux/actions";
 import Card from "../Card/Card";
+import CardDetail from "../CardDetail/CardDetail"
 import CardRecomended from "../CardRecomended/CardRecomended"
 // import SearchBar from "../SearchBar/SearchBar";
 import { ContainerCards,H2Home } from "../styles/Card";
@@ -33,6 +35,9 @@ const Home = () => {
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state)=>state.recomended);
+  const detailBook= useSelector((state)=>state.detail)
+  const [modal,setModal]=useState(false)
+  
   //  const [allBooks2,setAllBooks2]=useState(allBooks)
   // console.log(allBooks2)
   useEffect(() => {
@@ -72,6 +77,12 @@ const Home = () => {
         <NavBar />
 
         <div>
+
+
+      
+        
+         <CardDetail book={detailBook} modal={modal} setModal={setModal}/>
+
         <H2Home>Recomended to you...</H2Home>
         <Carousel itemsToShow={1}>
         
@@ -90,6 +101,8 @@ const Home = () => {
                 genre={b.genre}
                 author={b.author}
                 back_cover={b.back_cover}
+               
+                
               />
             );
           })
@@ -119,6 +132,9 @@ const Home = () => {
                 cover={b.cover}
                 genres={b.genres}
                 authors={b.authors}
+                modal={modal}
+                setModal={setModal}
+
               />
             );
           })
@@ -147,6 +163,9 @@ const Home = () => {
                 cover={b.cover}
                 genres={b.genres}
                 authors={b.authors}
+                modal={modal}
+                setModal={setModal}
+               
               />
             );
           })
@@ -174,6 +193,9 @@ const Home = () => {
                 cover={b.cover}
                 genres={b.genres}
                 authors={b.authors}
+                modal={modal}
+                setModal={setModal}
+                
               />
             );
           })

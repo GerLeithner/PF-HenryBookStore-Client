@@ -81,8 +81,8 @@ export const DescriptionCardConteiner= styled.div`
 `;
 
 export const CardImg = styled.img`
-  width: 100px;
-  height: 150px;
+  width: 150px;
+  height: 200px;
   display: flex;
   margin: auto;
   margin-top: 5px;
@@ -98,14 +98,17 @@ export const CardImgAboutUs = styled.img`
   object-fit: scale-down;
 `;
 
-export const ImgContainer = styled.div``;
+export const ImgContainer = styled.div`
+
+`;
 
 export const SingleCardContainer = styled.div`
-  width: 110px;
-  height: 160px;
+  width: 170px;
+  height: 210px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
   
 `;
 export const SingleAboutCardContainer = styled.div`
@@ -115,9 +118,14 @@ export const SingleAboutCardContainer = styled.div`
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   
+  
 `;
 
 
 export const TrendingAndNewsContainer =styled.div`
-
+  width: 150px;
+  height: 200px;
+  margin:0px;
+  padding:0px;
+  
 `;
