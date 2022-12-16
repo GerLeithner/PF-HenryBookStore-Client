@@ -2,80 +2,127 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import NavBar from "../NavBar/NavBar";
-import { cleanDetail,getGenres,getAuthors,bookDetail} from "../../redux/actions";
+import {
+  cleanDetail,
+  getGenres,
+  getAuthors,
+  bookDetail,
+} from "../../redux/actions";
+import {
+  CardImgDetail,
+  ImgContainerDetail,
+  SingleCardContainerDetail,
+  DescriptionCardConteinerDetail,
+  H1Detail,
+  H2Detail,
+  ColumnConteinerDetail,
+  DescriptionPDetail,
+  SubtitleAndYear,
+  TitleAndRating,
+  OverLay,
+  ButtonDetail,
+} from "../styles/Detail";
 
-export default function CardDetail(props) {
+
+export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
-  const bookId=props.match.params.id
-  console.log("BOOK ID:",bookId)
-
   
-  const book=useSelector((state)=>state.detail)
-  
+  // const bookId = props.match.params.id;
+  // console.log("BOOK ID:", bookId);
+  // console.log("PROPS",props)
 
-  useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getAuthors());
-    dispatch(bookDetail(bookId))
-   
-    return()=>{
-      console.log("Detail Clean Up")
-      dispatch(cleanDetail())
-    }
-  }, [dispatch,bookId]);
+  // const book = useSelector((state) => state.detail);
 
+  // useEffect(() => {
+  //   dispatch(bookDetail(book.id));
+
+  //   return () => {
+  //     console.log("Detail Clean Up");
+  //     dispatch(cleanDetail());
+  //   };
+  // }, [dispatch]);
+    var bookSliced=""
+    var points="..."
+    book && book.description &&
+     (book.description<950?bookSliced=book.description: bookSliced=book.description.slice(0,950).concat(points))
+console.log("BOOKSLICED",bookSliced)
+
+
+  function handleCloseClick(e) {
+    e.preventDefault(e);
+    setModal(false);
+    dispatch(cleanDetail());
+  }
+ 
+// export default function CardDetail(props) {
+//   const dispatch = useDispatch();
   
+//   const bookId = props.match.params.id;
+//   console.log("BOOK ID:", bookId);
+//   console.log("PROPS",props)
+
+//   const book = useSelector((state) => state.detail);
+
+//   useEffect(() => {
+//     dispatch(getGenres());
+//     dispatch(getAuthors());
+//     dispatch(bookDetail(bookId));
+
+//     return () => {
+//       console.log("Detail Clean Up");
+//       dispatch(cleanDetail());
+//     };
+//   }, [dispatch]);
+
+
+
+
 
   return (
-    <div>
-      <NavBar />
-      <div>
-        <h1>{book.title}</h1>
-        <h4>Authors:</h4>
-        <div>
-        {
-        book.authors?.map((a)=>(
-              <h4>{a.name}</h4>
-        ))
-       }
-       </div>
+  <>
+  {modal &&
+  <OverLay>
+    <SingleCardContainerDetail>
 
+      <ImgContainerDetail>
+        
+          <CardImgDetail src={book.cover} alt="img not found" />
+        
+      </ImgContainerDetail>
 
+      <ColumnConteinerDetail>
+        <TitleAndRating>
+          <H1Detail>{book.title}</H1Detail>
+          <H1Detail>{book.averageRating}</H1Detail>
 
-        <h4>{book.averageRating}</h4>
-      </div>
-      <img src={book.cover} alt={book.title} />
-      <h4>ID: {book.id}</h4>
-      <h4>Genre:</h4>
-      <div>
-      {
-        book.genres?.map((g)=>(
-              <h4>{g.name}</h4>
-        ))
-       }
-       </div>
-      <h4>Publisher: {book.publisher}</h4>
-      <h4>Release Date: {book.releaseDate}</h4>
-      <h4>Description: </h4>
-      <h4>{book.description}</h4>
-      <h4>Reviews</h4>
-      <div>
-        {/* {reviews?.map((r) => (
-          <div>
-            <div>{r.score}</div>
-            <div>{r.comment}</div>
-            <div>{r.create_date}</div>
-          </div>
-        ))} */}
-      </div>
+        </TitleAndRating>
+        <SubtitleAndYear>
+        
+          <H2Detail>
+          {book.subtitle?book.subtitle:`Author: ${book && book.author &&
+          book.author.name}`}
+          
+          </H2Detail>
 
-      {/* <button>
-        <h3>Post your review</h3>
-      </button> */}
-
-      <Link to={"/home"}>
-        <button>{"<-"} Volver</button>
-      </Link>
-    </div>
+        <H2Detail>Year: {book.publishedDate}</H2Detail>
+        </SubtitleAndYear>
+       {book.subtitle && (<H2Detail>Author: {book.author.name}</H2Detail>)}
+    
+        {book && book.genre &&(
+          <H2Detail>Genre:{book.genre.name}</H2Detail>
+        )}
+        <DescriptionCardConteinerDetail>
+          <DescriptionPDetail>{bookSliced}</DescriptionPDetail>
+        </DescriptionCardConteinerDetail>
+      </ColumnConteinerDetail>
+      
+    </SingleCardContainerDetail>
+    {/* <Link to={"/home"}>
+    </Link> */}
+        <ButtonDetail onClick={e=>{handleCloseClick(e)}}>X</ButtonDetail>
+      
+    </OverLay>
+    }
+    </>
   );
 }

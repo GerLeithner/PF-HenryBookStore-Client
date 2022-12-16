@@ -1,30 +1,39 @@
 import React from "react";
-import "./Paginado.css"
+import { ButtonCatalogue } from "../styles/Catalogue";
+import { PaginationUl } from "../styles/Paginado";
 
-const Paginado = ({booksPerPage,allBooks,paginado,currentPage}) => {
-    const pageNumbers=[]
-    
-    const countPages=Math.ceil(allBooks/booksPerPage)
-    
-  
-   
-    for(let i=1;i<=countPages;i++){
-        pageNumbers.push(i)
-    }
-    
-  return( 
-  <div>
-    <ul>
-                <li><button onClick={()=>paginado(currentPage-1)}>{"<-"}Prev</button></li>
-                {pageNumbers?.map(number =>(
-                    <li key={number} >
-                        <button onClick={()=>paginado(number)}>{number}</button>
-                    </li>
-                    
-                ))}
-                <li><button onClick={()=>paginado(currentPage+1)}>Next{"->"}</button></li>
-            </ul>
-    </div>)
+const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
+  const pageNumbers = [];
+
+  const countPages = Math.ceil(allBooks / booksPerPage);
+
+  for (let i = 1; i <= countPages; i++) {
+    pageNumbers.push(i);
+  }
+
+  return (
+    <div>
+      <PaginationUl>
+        <li>
+          <ButtonCatalogue onClick={() => paginado(currentPage - 1)}>
+            {"<-"}Prev
+          </ButtonCatalogue>
+        </li>
+        {pageNumbers?.map((number) => (
+          <li key={number}>
+            <ButtonCatalogue onClick={() => paginado(number)}>
+              {number}
+            </ButtonCatalogue>
+          </li>
+        ))}
+        <li>
+          <ButtonCatalogue onClick={() => paginado(currentPage + 1)}>
+            Next{"->"}
+          </ButtonCatalogue>
+        </li>
+      </PaginationUl>
+    </div>
+  );
 };
 
 export default Paginado;

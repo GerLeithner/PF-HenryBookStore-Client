@@ -1,13 +1,25 @@
 import React from "react";
+import { CardImgAboutUs,H4Link, ImgContainer, DescriptionCardConteiner, SingleAboutCardContainer } from "../styles/Card";
+import "./CardAboutUs.css";
+const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
 
-
-const CardAboutUs = ({ name, picture, description }) => {
+  console.log ("PROPS:",linkedIn,gitHub)
   return (
-    <div>
+    <SingleAboutCardContainer>
       <h3>{name}</h3>
-      <img src={picture} />
+      <ImgContainer>
+      <CardImgAboutUs src={picture} />
+      </ImgContainer>
+      <DescriptionCardConteiner>
       <h4>{description}</h4>
-    </div>
+      </DescriptionCardConteiner>
+      
+      <a href={linkedIn} className="linkCard">LinkedIn</a>
+      
+      <br></br>
+      <a href={gitHub} className="linkCard">GitHub</a>
+      
+    </SingleAboutCardContainer>
   );
 
 };
