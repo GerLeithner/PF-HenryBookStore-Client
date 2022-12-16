@@ -26,7 +26,7 @@ import {
 
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
-  console.log("MODALDETAIL",modal)
+  
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)

@@ -38,7 +38,6 @@ export function getAuthors(){
 export function getTrendingBooks(){
     return async function(dispatch){
         var json= await axios.get('http://localhost:3001/books/trending');
-        console.log("TRENDING REDUCER ",json.data)
         return dispatch({
             type:'GET_TRENDING_BOOKS',
             payload:json.data
@@ -48,7 +47,6 @@ export function getTrendingBooks(){
         return async function(dispatch){
             // https://run.mocky.io/v3/ee8aed61-ae4c-426a-841d-536cb9c00383
             var json= await axios.get('https://run.mocky.io/v3/3d8c1ef9-8e9a-428d-95ba-11d5e3d6e874');
-            console.log("RECOMENDED REDUCER ",json.data)
             return dispatch({
                 type:'GET_RECOMENDED_BOOKS',
                 payload:json.data

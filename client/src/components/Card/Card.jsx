@@ -32,11 +32,11 @@ export default function Card({
     setModal(true);
     dispatch(bookDetail(id));
   }
-console.log("MODALCARD",modal)
+
   const dispatch = useDispatch();
   const book = useSelector((state) => state.detail);
 
-  console.log("BOOK:",book)
+
   return (
 
 
