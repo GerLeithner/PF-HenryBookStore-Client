@@ -22,6 +22,8 @@ import {
   OverLay,
   ButtonDetail,
 } from "../styles/Detail";
+
+
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
   console.log("MODALDETAIL",modal)
@@ -31,17 +33,27 @@ export default function CardDetail({book,modal,setModal}) {
 
   // const book = useSelector((state) => state.detail);
 
-  useEffect(() => {
-    dispatch(getGenres());
-    dispatch(getAuthors());
-    dispatch(bookDetail(book.id));
+  // useEffect(() => {
+  //   dispatch(bookDetail(book.id));
 
-    return () => {
-      console.log("Detail Clean Up");
-      dispatch(cleanDetail());
-    };
-  }, [dispatch]);
+  //   return () => {
+  //     console.log("Detail Clean Up");
+  //     dispatch(cleanDetail());
+  //   };
+  // }, [dispatch]);
+  // var bookSliced=""
+  
+//     book && book.description &&
+//      (book.description<900?bookSliced=book.description: bookSliced=book.description.slice(0,900))
+// console.log("BOOKSLICED",bookSliced)
 
+
+  function handleCloseClick(e) {
+    e.preventDefault(e);
+    setModal(false);
+    dispatch(cleanDetail());
+  }
+ 
 // export default function CardDetail(props) {
 //   const dispatch = useDispatch();
   
@@ -61,6 +73,10 @@ export default function CardDetail({book,modal,setModal}) {
 //       dispatch(cleanDetail());
 //     };
 //   }, [dispatch]);
+
+
+
+
 
   return (
   <>
@@ -103,7 +119,7 @@ export default function CardDetail({book,modal,setModal}) {
     </SingleCardContainerDetail>
     {/* <Link to={"/home"}>
     </Link> */}
-        <ButtonDetail onClick={()=>setModal(false)}>X</ButtonDetail>
+        <ButtonDetail onClick={e=>{handleCloseClick(e)}}>X</ButtonDetail>
       
     </OverLay>
     }
