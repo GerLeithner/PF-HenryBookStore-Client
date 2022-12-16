@@ -29,6 +29,14 @@ export default function Card({
   author,
   back_cover,
 }) {
+  var bookSliced=""
+  var points="..."
+  description &&
+  (description<950?bookSliced=description: bookSliced=description.slice(0,950).concat(points));
+console.log("BOOKSLICED",bookSliced)
+
+
+
   return (
     <SingleCardContainerRecomended>
 
@@ -53,7 +61,7 @@ export default function Card({
         <H2Recomended>Genre: {genre.name}</H2Recomended>
 
         <DescriptionCardConteinerRecomended>
-          <DescriptionPRecomended>{description}</DescriptionPRecomended>
+          <DescriptionPRecomended>{bookSliced}</DescriptionPRecomended>
         </DescriptionCardConteinerRecomended>
       </ColumnConteinerRecomended>
     </SingleCardContainerRecomended>

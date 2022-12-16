@@ -38,20 +38,12 @@ export default function Card({
 
 
   return (
-
-
-
     <>
     <CardDetail book={book}modal={modal} setModal={setModal}/>
     <SingleCardContainer>
       
       {/* <h6>Authors:</h3> */}
       {/* <H4CardRating>{averageRating}</H4CardRating> */}
-
-      
-   
-
-
 
       <ImgContainer>
          {/* <Link to={"/home/" + id} key={id}>
