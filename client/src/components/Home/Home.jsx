@@ -38,8 +38,8 @@ const Home = () => {
   const detailBook= useSelector((state)=>state.detail)
   const [modal,setModal]=useState(false)
   
-  //  const [allBooks2,setAllBooks2]=useState(allBooks)
-  // console.log(allBooks2)
+  
+  
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
@@ -64,8 +64,7 @@ const Home = () => {
   //   dispatch(getTrendingBooks());
   // }
 
-  console.log("ALL AUTHORS:", allAuthors);
-  console.log("ALL GENRES:", allGenres);
+ 
 
   return (
     
