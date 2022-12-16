@@ -41,11 +41,11 @@ export default function CardDetail({book,modal,setModal}) {
   //     dispatch(cleanDetail());
   //   };
   // }, [dispatch]);
-  // var bookSliced=""
-  
-//     book && book.description &&
-//      (book.description<900?bookSliced=book.description: bookSliced=book.description.slice(0,900))
-// console.log("BOOKSLICED",bookSliced)
+    var bookSliced=""
+    var points="..."
+    book && book.description &&
+     (book.description<950?bookSliced=book.description: bookSliced=book.description.slice(0,950).concat(points))
+console.log("BOOKSLICED",bookSliced)
 
 
   function handleCloseClick(e) {
@@ -112,7 +112,7 @@ export default function CardDetail({book,modal,setModal}) {
           <H2Detail>Genre:{book.genre.name}</H2Detail>
         )}
         <DescriptionCardConteinerDetail>
-          <DescriptionPDetail>{book.description}</DescriptionPDetail>
+          <DescriptionPDetail>{bookSliced}</DescriptionPDetail>
         </DescriptionCardConteinerDetail>
       </ColumnConteinerDetail>
       
