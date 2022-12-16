@@ -13,13 +13,13 @@ export const SingleCardContainerDetail = styled.div`
   padding: 40px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   margin:10px;
-  background-color: rgba(0, 0, 0, 0.7);
- 
+  background-color: white;
+
 
 `;
 export const H1Detail=styled.h1`
 font-family: Inter;
-font-size: 24px;
+font-size: 20px;
 font-style: italic;
 font-weight: 500;
 line-height: 29px;
@@ -139,7 +139,8 @@ margin:0px;
 
 
 export const ImgContainerDetail = styled.div`
- 
+  width: 150px;
+  height: 200px;
   gap:0px;
   margin:0px;
   
@@ -150,4 +151,52 @@ export const DetailContainer=styled.div`
 `;
 
 export const InfoSeccion=styled.div`
+`;
+
+export const OverLay=styled.div`
+width: 100vw;
+height: 100vh;
+position: fixed;
+top:0;
+left:0;
+display:flex;
+align-items:center;
+justify-content: center;
+/* background-color:rgba(0, 0, 0, 0.7); */
+backdrop-filter: blur(2px);
+`;
+
+
+export const ButtonDetail = styled.button`
+  margin: 10px;
+  padding: 1em 1em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 200;
+  color: red;
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 2px 3px rgba(0.2, 0.2, 0.2, 0.3);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+  font-family: "Roboto Condensed", sans-serif;
+  font-weight: bold;
+  top: 110px;
+  right: 270px;
+  position: absolute;
+
+
+  &:hover {
+    background-color: red;
+    box-shadow: 0px 15px 20px rgba(255, 125, 0, 0.4);
+    color: #fff;
+    //transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
 `;
