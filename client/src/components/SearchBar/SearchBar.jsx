@@ -60,17 +60,17 @@ const SearchBar = ({ paginado, modal, setModal }) => {
 
             return (
               searchTerm &&
-              titleOfBookSearched.startsWith(searchTerm) &&
+              titleOfBookSearched.includes(searchTerm) &&
               titleOfBookSearched !== searchTerm
             );
           })
           .slice(0, 10)
-          .map((book) => (
+          .map((book, i) => (
             <RowSearchBar
               onClick={(e) => handleClick(e)}
               modal={modal}
               setModal={setModal}
-              key={book.title}
+              key={i}
             >
               {book.title}
             </RowSearchBar>
