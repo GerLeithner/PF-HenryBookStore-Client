@@ -1,12 +1,11 @@
 import "./App.css";
 import { Route, Switch } from "react-router-dom";
-import LandingPage from "./components/LandingPage/LandingPage.jsx";
-import Home from "./components/Home/Home.jsx";
-import CardDetail from "./components/CardDetail/CardDetail.jsx";
-import Catalogue from "./components/Catalogue/Catalogue";
-import AboutUs from "./components/AboutUs/AboutUs";
-import CreateBook from "./components/CreateBook/CreateBook";
-
+import LandingPage from "./components/LandingPage.jsx";
+import Home from "./components/Home.jsx";
+import CardDetail from "./components/CardDetail.jsx";
+import Catalogue from "./components/Catalogue.jsx";
+import AboutUs from "./components/AboutUs.jsx";
+import CreateBook from "./components/CreateBook.jsx";
 
 function App() {
   return (

@@ -1,6 +1,5 @@
 import React from "react";
-import { CardImgAboutUs,H4Link, ImgContainer, DescriptionCardConteiner, SingleAboutCardContainer } from "../styles/Card";
-import "./CardAboutUs.css";
+import { CardImgAboutUs, ImgContainer, DescriptionCardConteiner, SingleAboutCardContainer } from "../styles/Card";
 const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
 
   console.log ("PROPS:",linkedIn,gitHub)

@@ -1,9 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import SearchBar from "../SearchBar/SearchBar";
 import { ContainerNavBar, LinkNavBar, Wrapper } from "../styles/NavBar";
 
-const NavBar = ({ paginado }) => {
+const NavBar = () => {
   return (
     <ContainerNavBar>
       <Wrapper>
