@@ -7,19 +7,18 @@ import {
   getGenres,
   sortByPublisherDate,
   sortByTitle,
-} from "../../redux/actions";
-import Card from "../Card/Card";
-import CardDetail from "../CardDetail/CardDetail";
-import NavBar from "../NavBar/NavBar";
-import Paginado from "../Paginado/Paginado";
-import SearchBar from "../SearchBar/SearchBar";
+} from "../redux/actions";
+import Card from "./Card.jsx";
+import CardDetail from "./CardDetail.jsx";
+import NavBar from "./NavBar.jsx";
+import Paginado from "./Paginado.jsx";
+import SearchBar from "./SearchBar.jsx";
 import { ContainerCards } from "../styles/Card";
 import { ButtonCatalogue, SelectFilters } from "../styles/Catalogue";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
-  const allAuthors = useSelector((state) => state.authors);
   const allGenres = useSelector((state) => state.genres);
   const bookDetail = useSelector((state) => state.detail);
 

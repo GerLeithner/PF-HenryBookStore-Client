@@ -1,30 +1,20 @@
 import React from "react";
-// import Card from "../Card/Card";
-import { Link } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Carousel from "react-elastic-carousel";
-// import Carousel from "../../src/react-elastic-carousel/components/Carousel";
-// import {Layout, ControlsLayout,DemoApp, StyledControlFields,CheckBox} from "../styles/Carousel"
-import styled from "styled-components"; 
+import styled from "styled-components";
 import {
   getBooks,
   getGenres,
   getAuthors,
   getTrendingBooks,
   getRecomendedBooks,
-  bookDetail,
-} from "../../redux/actions";
-import Card from "../Card/Card";
-import CardDetail from "../CardDetail/CardDetail"
-import CardRecomended from "../CardRecomended/CardRecomended"
-// import SearchBar from "../SearchBar/SearchBar";
-import { ContainerCards,H2Home } from "../styles/Card";
-
-
-import NavBar from "../NavBar/NavBar";
-// import Catalogue from "../Catalogue/Catalogue";
-
+} from "../redux/actions";
+import Card from "./Card.jsx";
+import CardDetail from "./CardDetail.jsx";
+import CardRecomended from "./CardRecomended.jsx";
+import { H2Home } from "../styles/Card";
+import NavBar from "./NavBar.jsx";
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
@@ -34,12 +24,10 @@ const Home = () => {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
-  const recomended = useSelector((state)=>state.recomended);
-  const detailBook= useSelector((state)=>state.detail)
-  const [modal,setModal]=useState(false)
-  
-  
-  
+  const recomended = useSelector((state) => state.recomended);
+  const detailBook = useSelector((state) => state.detail);
+  const [modal, setModal] = useState(false);
+
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
@@ -53,7 +41,7 @@ const Home = () => {
     if (!trending.length) {
       dispatch(getTrendingBooks());
     }
-    if (!recomended.length){
+    if (!recomended.length) {
       dispatch(getRecomendedBooks());
     }
   }, [dispatch]);
@@ -64,146 +52,119 @@ const Home = () => {
   //   dispatch(getTrendingBooks());
   // }
 
- 
-
   return (
-    
     // onPointerMove={e=>{handleClick(e)}}
     <div>
-     
       {/* <Card/> */}
       <div>
         <NavBar />
 
         <div>
+          <CardDetail book={detailBook} modal={modal} setModal={setModal} />
 
-
-      
-        
-         <CardDetail book={detailBook} modal={modal} setModal={setModal}/>
-
-        <H2Home>Recomended to you...</H2Home>
-        <Carousel itemsToShow={1}>
-        
-        {recomended.length ? (
-          recomended.map((b) => {
-            return (
-              <CardRecomended
-                id={b.id}
-                key={b.id}
-                title={b.title}
-                subtitle={b.subtitle}
-                publishedDate={b.publishedDate}
-                description={b.description}
-                averageRating={b.averageRating}
-                cover={b.cover}
-                genre={b.genre}
-                author={b.author}
-                back_cover={b.back_cover}
-               
-                
-              />
-            );
-          })
-        ) : (
-          <div>{console.log("FALLO TODO")}</div>
-        )}
-      
-                
-              </Carousel>
+          <H2Home>Recomended to you...</H2Home>
+          <Carousel itemsToShow={1}>
+            {recomended.length ? (
+              recomended.map((b) => {
+                return (
+                  <CardRecomended
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    subtitle={b.subtitle}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genre={b.genre}
+                    author={b.author}
+                    back_cover={b.back_cover}
+                  />
+                );
+              })
+            ) : (
+              <div>{console.log("FALLO TODO")}</div>
+            )}
+          </Carousel>
         </div>
         <div>
+          <H2Home>Continue reading...</H2Home>
 
-        <H2Home>Continue reading...</H2Home>
-
-        <Carousel itemsToShow={5}>
-        
-        {trending.length ? (
-          trending.map((b) => {
-            return (
-              <Card
-                id={b.id}
-                key={b.id}
-                title={b.title}
-                publishedDate={b.publishedDate}
-                description={b.description}
-                averageRating={b.averageRating}
-                cover={b.cover}
-                genres={b.genres}
-                authors={b.authors}
-                modal={modal}
-                setModal={setModal}
-
-              />
-            );
-          })
-        ) : (
-          <div>{console.log("FALLO TODO")}</div>
-        )}
-      
-                
-              </Carousel>
-
+          <Carousel itemsToShow={5}>
+            {trending.length ? (
+              trending.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                );
+              })
+            ) : (
+              <div>{console.log("FALLO TODO")}</div>
+            )}
+          </Carousel>
 
           <H2Home>Trendings</H2Home>
 
           <Carousel itemsToShow={5}>
-        
-        {trending.length ? (
-          trending.map((b) => {
-            return (
-              <Card
-                id={b.id}
-                key={b.id}
-                title={b.title}
-                publishedDate={b.publishedDate}
-                description={b.description}
-                averageRating={b.averageRating}
-                cover={b.cover}
-                genres={b.genres}
-                authors={b.authors}
-                modal={modal}
-                setModal={setModal}
-               
-              />
-            );
-          })
-        ) : (
-          <div>{console.log("FALLO TODO")}</div>
-        )}
-      
-                
-              </Carousel>
+            {trending.length ? (
+              trending.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                );
+              })
+            ) : (
+              <div>{console.log("FALLO TODO")}</div>
+            )}
+          </Carousel>
 
           <H2Home>News</H2Home>
 
           <Carousel itemsToShow={5}>
-        
-        {trending.length ? (
-          trending.map((b) => {
-            return (
-              <Card
-                id={b.id}
-                key={b.id}
-                title={b.title}
-                publishedDate={b.publishedDate}
-                description={b.description}
-                averageRating={b.averageRating}
-                cover={b.cover}
-                genres={b.genres}
-                authors={b.authors}
-                modal={modal}
-                setModal={setModal}
-                
-              />
-            );
-          })
-        ) : (
-          <div>{console.log("FALLO TODO")}</div>
-        )}
-      
-                
-              </Carousel>
+            {trending.length ? (
+              trending.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                );
+              })
+            ) : (
+              <div>{console.log("FALLO TODO")}</div>
+            )}
+          </Carousel>
         </div>
       </div>
     </div>
@@ -347,11 +308,5 @@ const DemoApp = () => {
     </Layout>
   );
 };
-
-
-    
-
-
-
 
 export default Home;

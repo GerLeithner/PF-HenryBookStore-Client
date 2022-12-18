@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bookDetail, getBookByTitle } from "../../redux/actions";
+import { bookDetail, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
 import {
   DropdownSearch,
@@ -8,7 +8,7 @@ import {
   RowSearchBar,
   SearchContainer,
 } from "../styles/SearchBar";
-import "./SearchBar.css";
+
 
 const SearchBar = ({ paginado, modal, setModal }) => {
   const dispatch = useDispatch();

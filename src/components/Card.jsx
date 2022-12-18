@@ -1,30 +1,14 @@
-import React,{useState} from "react";
-import "./Card.css";
-// import { bookDelete } from "../actions";
-// import {useDispatch} from 'react-redux'
-import { Link } from "react-router-dom";
+import React from "react";
 import { CardImg, ImgContainer, SingleCardContainer,TitleCardConteiner} from "../styles/Card";
-import { H5Form } from "../styles/CreateBook";
-import {bookDetail} from "../../redux/actions"
+import { bookDetail } from "../redux/actions"
 import { useDispatch, useSelector } from "react-redux";
-import CardDetail from "../CardDetail/CardDetail";
+import CardDetail from "./CardDetail.jsx";
 
 
 
 
 
-export default function Card({
-  id,
-  title,
-  publishedDate,
-  description,
-  averageRating,
-  cover,
-  genres,
-  authors,
-  modal,
-  setModal
-}) {
+export default function Card({ id, cover, modal, setModal }) {
 
   
   function handleClick(e) {

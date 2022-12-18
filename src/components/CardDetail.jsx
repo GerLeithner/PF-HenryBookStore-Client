@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
-import {
-  cleanDetail,
-  getGenres,
-  getAuthors,
-  bookDetail,
-} from "../../redux/actions";
+import React from "react";
+import { useDispatch } from "react-redux";
+
+import { cleanDetail } from "../redux/actions";
 import {
   CardImgDetail,
   ImgContainerDetail,

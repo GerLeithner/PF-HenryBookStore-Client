@@ -1,9 +1,7 @@
 import React from "react";
-import Card from "../Card/Card";
-import CardAboutUs from "../CardAboutUs/CardAboutUs";
-import { Link } from "react-router-dom";
-import NavBar from "../NavBar/NavBar";
-import { ContainerCardsAboutUs,H2Home,H4Link,ContainerAboutUs} from "../styles/Card";
+import CardAboutUs from "./CardAboutUs.jsx";
+import NavBar from "./NavBar.jsx";
+import { ContainerCardsAboutUs,H2Home,ContainerAboutUs} from "../styles/Card";
 
 const AboutUs = () => {
   const people = [

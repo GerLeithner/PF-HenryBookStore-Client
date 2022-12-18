@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { createBook, getAuthors, getGenres } from "../../redux/actions";
-import NavBar from "../NavBar/NavBar";
+import { createBook, getAuthors, getGenres } from "../redux/actions";
+import NavBar from "./NavBar.jsx"
 import { ButtonCatalogue } from "../styles/Catalogue";
 import {
   ErrorsForm,
@@ -142,20 +142,20 @@ const CreateBook = () => {
     }
   }
 
-  function handleSelect(e) {
-    e.preventDefault();
-    console.log("Entré a select:", e.target.value);
-    setInput({
-      ...input,
-      genreName: e.target.value,
-    });
-    setErrors(
-      validate({
-        ...input,
-        genreName: e.target.value,
-      })
-    );
-  }
+  // function handleSelect(e) {
+  //   e.preventDefault();
+  //   console.log("Entré a select:", e.target.value);
+  //   setInput({
+  //     ...input,
+  //     genreName: e.target.value,
+  //   });
+  //   setErrors(
+  //     validate({
+  //       ...input,
+  //       genreName: e.target.value,
+  //     })
+  //   );
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -190,20 +190,17 @@ const CreateBook = () => {
     }
   }
 
-  let genresDrop = genres
-    .filter((genre) => {
-      console.log(input.genreName);
-      const searchTerm = input.genreName.toLowerCase();
-      const nameOfGenre = genre.name.toLowerCase();
+  let genresDrop = genres.filter((genre) => {
+    console.log(input.genreName);
+    const searchTerm = input.genreName.toLowerCase();
+    const nameOfGenre = genre.name.toLowerCase();
 
-      return (
-        searchTerm &&
-        nameOfGenre.includes(searchTerm) &&
-        nameOfGenre !== searchTerm
-      );
-    })
-    .slice(0, 10)
-    .map((genre, i) => (
+    return (
+      searchTerm &&
+      nameOfGenre.includes(searchTerm) &&
+      nameOfGenre !== searchTerm
+    );
+  }).slice(0, 10).map((genre, i) => (
       <RowSearchBar
         name="genreName"
         onClick={(e) => handleGenre(e)}
@@ -212,7 +209,7 @@ const CreateBook = () => {
       >
         {genre.name}
       </RowSearchBar>
-    ));
+  ));
 
   let dropAllGenres = genres.slice(0, 10).map((genre, i) => (
     <RowSearchBar

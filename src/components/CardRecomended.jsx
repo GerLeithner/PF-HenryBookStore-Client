@@ -1,8 +1,4 @@
 import React from "react";
-import "./CardRecomended.css";
-// import { bookDelete } from "../actions";
-// import {useDispatch} from 'react-redux'
-import { Link } from "react-router-dom";
 import {
   CardImgRecomended,
   ImgContainerRecomended,
@@ -67,35 +63,3 @@ console.log("BOOKSLICED",bookSliced)
     </SingleCardContainerRecomended>
   );
 }
-
-{
-  /* {
-                  id.length > 8 && 
-                        <button  value={id} onClick={e=>{handleDeleteClick(e)}}>Delete Book</button>
-                }  */
-}
-
-
-
-
-{/* <GridConteinerRecomended>
-          <LeftColumnRecomended>
-            <TitleCardConteinerRecomended>
-              <Link to={"/home/" + id} key={id} className="linkCard">
-                <H1Recomended>{title}</H1Recomended>
-              </Link>
-            </TitleCardConteinerRecomended>
-            <TitleCardConteinerRecomended>
-              <H2Recomended>{subtitle}</H2Recomended>
-            </TitleCardConteinerRecomended>
-            <TitleCardConteinerRecomended>
-              <H2Recomended>{author.name}</H2Recomended>
-            </TitleCardConteinerRecomended>
-          </LeftColumnRecomended>
-
-          <RigthColumnRecomended>
-            <H4Recomended>{averageRating}</H4Recomended>
-            <H4Recomended>{publishedDate}</H4Recomended>
-            <H4Recomended>{genre.name}</H4Recomended>
-          </RigthColumnRecomended>
-        </GridConteinerRecomended> */}
