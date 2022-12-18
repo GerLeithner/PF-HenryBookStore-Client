@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 export const ContainerNavBar = styled.div`
   z-index: 1;
   width: 100%;
+  position: fixed;
   padding: 0px 30px 0px 30px;
   height: 50px;
   background-color: green;
