@@ -15,6 +15,8 @@ import CardDetail from "./CardDetail.jsx";
 import CardRecomended from "./CardRecomended.jsx";
 import { H2Home } from "../styles/Card";
 import NavBar from "./NavBar.jsx";
+import "../styles/Carousel.css";
+
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
@@ -53,17 +55,14 @@ const Home = () => {
   // }
 
   return (
-    // onPointerMove={e=>{handleClick(e)}}
+
     <div>
-      {/* <Card/> */}
+
       <div>
         <NavBar />
-
         <div>
           <CardDetail book={detailBook} modal={modal} setModal={setModal} />
-
-          <H2Home>Recomended to you...</H2Home>
-          <Carousel itemsToShow={1}>
+          <Carousel itemsToShow={1} className="top-rec-wrapper">
             {recomended.length ? (
               recomended.map((b) => {
                 return (
@@ -89,8 +88,7 @@ const Home = () => {
         </div>
         <div>
           <H2Home>Continue reading...</H2Home>
-
-          <Carousel itemsToShow={5}>
+          <Carousel itemsToShow={4}>
             {trending.length ? (
               trending.map((b) => {
                 return (
