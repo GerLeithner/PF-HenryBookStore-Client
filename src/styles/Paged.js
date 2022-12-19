@@ -6,5 +6,7 @@ export const PaginationUl = styled.ul`
   list-style-type: none;
   justify-content: center;
   margin: 0px;
-  padding-top: 50px;
+  padding-top: 70px;
+  padding-left: 240px;
+  gap: 30px;
 `;

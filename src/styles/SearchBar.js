@@ -5,10 +5,19 @@ export const SearchContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+`;
+
+export const InputAndButton = styled.div`
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 `;
 
 export const InputSearch = styled.input`
-  width: 280px;
+  width: 200px;
   height: 30px;
   display: flex;
   flex-direction: column;

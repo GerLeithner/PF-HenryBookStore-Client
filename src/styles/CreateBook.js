@@ -1,5 +1,19 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+  display: flex;
+  justify-content: center;
+  items-align: center;
+  padding-top: 80px;
+`;
+
+export const FormContainer = styled.form`
+  width: 400px;
+  background-color: #1b8f2b65;
+  padding: 15px;
+  border-radius: 10px;
+`;
+
 export const H1Form = styled.h1`
   padding-top: 25px;
   padding-bottom: 40px;
@@ -7,17 +21,12 @@ export const H1Form = styled.h1`
   font-family: "Roboto Condensed", sans-serif;
 `;
 
-export const H5Form = styled.h5`
-  font-family: "Roboto Condensed", sans-serif;
-  text-decoration: none;
-`;
-
-export const FormContainer = styled.form`
-  margin: 0 auto;
-  width: 400px;
-  background-color: #1b8f2b65;
-  padding: 15px;
-  border-radius: 10px;
+export const H3Form = styled.h3`
+  margin: 0px 0px 15px 0px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: left;
+  font-style: italic;
 `;
 
 export const FormInput = styled.input`
@@ -52,7 +61,6 @@ export const ErrorsForm = styled.p`
   font-size: 14px;
   color: #ff0000;
 `;
-
 
 export const GenresContainer= styled.div`
  display: grid;

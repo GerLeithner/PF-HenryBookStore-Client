@@ -11,7 +11,6 @@ export const SingleCardContainerRecomended = styled.div`
   align-items: center;
   margin: 0px;
   border: 1px solid #ccc;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 `;
 
 
