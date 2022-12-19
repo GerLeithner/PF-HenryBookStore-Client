@@ -2,14 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createBook, getAuthors, getGenres } from "../redux/actions";
-import NavBar from "./NavBar.jsx"
 import { ButtonCatalogue } from "../styles/Catalogue";
-import {
-  ErrorsForm,
-  FormContainer,
-  FormInput,
-  H1Form,
-} from "../styles/CreateBook";
+import { ErrorsForm, FormContainer, FormInput, Container } from "../styles/CreateBook";
 import { DropdownSearch, RowSearchBar } from "../styles/SearchBar";
 // const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
 
@@ -44,7 +38,6 @@ const CreateBook = () => {
   const history = useHistory();
   const [errors, setErrors] = useState({});
   const [input, setInput] = useState({
-    // id,title,publishedDate,publisher,description,pages,averageRating,usersRating, cover, identifier,genres,author
     title: "",
     publishedDate: "",
     publisher: "",
@@ -86,7 +79,7 @@ const CreateBook = () => {
   function handleAuthor(e) {
     console.log("e.target.value", e.target.value);
     console.log("e", e);
-    if (e.target.value) {
+    if(e.target.value) {
       setInput({
         ...input,
         authorName: e.target.value,
@@ -112,6 +105,7 @@ const CreateBook = () => {
       );
     }
   }
+
   function handleGenre(e) {
     console.log("e.target.value", e.target.value);
     console.log("e", e);
@@ -223,11 +217,7 @@ const CreateBook = () => {
   ));
 
   return (
-    <div>
-      <NavBar />
-
-      <H1Form>Add a new Book</H1Form>
-
+    <Container>
       <FormContainer>
         <div>
           <div>
@@ -401,7 +391,7 @@ const CreateBook = () => {
           </ButtonCatalogue>
         </div>
       </FormContainer>
-    </div>
+    </Container>
   );
 };
 

@@ -14,7 +14,7 @@ import NavBar from "./NavBar.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { ContainerCards } from "../styles/Card";
-import { ButtonCatalogue, SelectFilters, SideBarContainer } from "../styles/Catalogue";
+import { ButtonCatalogue, SelectFilters, SideBarContainer, CatalogueSelects } from "../styles/Catalogue";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -81,24 +81,25 @@ const Catalogue = () => {
         <ButtonCatalogue onClick={(e) => handleClick(e)} >
           Reload Books
         </ButtonCatalogue>
+        <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <SelectFilters>
-          <select onChange={(e) => handleSortByTitle(e)}>
+          <CatalogueSelects onChange={(e) => handleSortByTitle(e)}>
             <option value="" hidden>
               ABC
             </option>
             <option value="asc">Increasing</option>
             <option value="desc">Decreasing</option>
-          </select>
+          </CatalogueSelects>
 
-          <select onChange={(e) => handleSortByPublisherDate(e)}>
+          <CatalogueSelects onChange={(e) => handleSortByPublisherDate(e)}>
             <option value="" hidden>
               Publisher Date
             </option>
             <option value="asc">Increasing</option>
             <option value="desc">Decreasing</option>
-          </select>
+          </CatalogueSelects>
 
-          <select onChange={(e) => handleFilterGenre(e)}>
+          <CatalogueSelects onChange={(e) => handleFilterGenre(e)}>
             <option value="" hidden>
               Genre
             </option>
@@ -108,9 +109,8 @@ const Catalogue = () => {
                 {el.name}
               </option>
             ))}
-          </select>
+          </CatalogueSelects>
         </SelectFilters>
-        <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
       </SideBarContainer>
       <div>
         <div>

@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
 export const ContainerCards = styled.div`
-  padding-top: 25px;
+  padding-top: 30px;
   padding-bottom: 50px;
+  padding-left: 240px;
   height: 300px;
   display: grid;
   justify-content: center;

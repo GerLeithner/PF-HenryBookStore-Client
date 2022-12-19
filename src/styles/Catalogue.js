@@ -3,9 +3,9 @@ import styled from "styled-components";
 export const SideBarContainer = styled.div`
   position: fixed;
   height: 100vh;
-  width: 200px;
+  width: 250px;
   background-color: #efefef;
-  padding: 85px 15px 0px 15px;
+  padding: 70px 15px 0px 15px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -24,8 +24,14 @@ export const SelectFilters = styled.div`
   margin-top: 20px;
 `;
 
+export const CatalogueSelects = styled.select`
+width: 150px;
+height: 23px;
+outline: none;
+border: none; 
+`;
+
 export const ButtonCatalogue = styled.button`
-  margin: 10px;
   padding: 1em 1em;
   font-size: 12px;
   text-transform: uppercase;
@@ -39,7 +45,6 @@ export const ButtonCatalogue = styled.button`
   transition: all 0.3s ease 0s;
   cursor: pointer;
   outline: none;
-  font-family: "Roboto Condensed", sans-serif;
 
   &:hover {
     background-color: #1b8f2b;
@@ -52,3 +57,5 @@ export const ButtonCatalogue = styled.button`
     transform: translateY(-1px);
   }
 `;
+
+//  font-family: "Roboto Condensed", sans-serif;

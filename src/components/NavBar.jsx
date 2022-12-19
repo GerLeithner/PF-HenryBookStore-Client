@@ -8,7 +8,7 @@ const NavBar = () => {
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
           <LinkNavBar to={"/create"}>New Book</LinkNavBar>
-          <LinkNavBar to={"/AboutUs"}>About Us</LinkNavBar>
+          <LinkNavBar to={"/about"}>About Us</LinkNavBar>
         </SubContainerNavBar>
 
     </ContainerNavBar>

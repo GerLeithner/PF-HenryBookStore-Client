@@ -1,6 +1,5 @@
 import React from "react";
 import CardAboutUs from "./CardAboutUs.jsx";
-import NavBar from "./NavBar.jsx";
 import { ContainerCardsAboutUs,H2Home,ContainerAboutUs} from "../styles/Card";
 
 const AboutUs = () => {
@@ -58,7 +57,6 @@ const AboutUs = () => {
   // name,picture,description
   return (
     <ContainerAboutUs>
-      <NavBar />
       <H2Home>About Us</H2Home>
       <ContainerCardsAboutUs>
       {people?.map((p) => {

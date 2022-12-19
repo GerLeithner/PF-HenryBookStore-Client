@@ -14,7 +14,6 @@ import Card from "./Card.jsx";
 import CardDetail from "./CardDetail.jsx";
 import CardRecomended from "./CardRecomended.jsx";
 import { H2Home } from "../styles/Card";
-import NavBar from "./NavBar.jsx";
 import "../styles/Carousel.css";
 
 
@@ -59,7 +58,6 @@ const Home = () => {
     <div>
 
       <div>
-        <NavBar />
         <div>
           <CardDetail book={detailBook} modal={modal} setModal={setModal} />
           <Carousel itemsToShow={1} className="top-rec-wrapper " >

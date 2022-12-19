@@ -7,6 +7,7 @@ import {
   InputSearch,
   RowSearchBar,
   SearchContainer,
+  InputAndButton,
 } from "../styles/SearchBar";
 
 
@@ -41,7 +42,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
   }
   return (
     <SearchContainer>
-      <div className="button-search">
+      <InputAndButton>
         <InputSearch
           placeholder="Search book by Title or Author..."
           type="text"
@@ -51,7 +52,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
         <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
           Search
         </ButtonCatalogue>
-      </div>
+      </InputAndButton>
       <DropdownSearch>
         {allBooks
           .filter((book) => {
