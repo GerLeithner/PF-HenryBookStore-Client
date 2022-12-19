@@ -1,12 +1,25 @@
 import styled from "styled-components";
 
+export const SideBarContainer = styled.div`
+  position: fixed;
+  height: 100vh;
+  width: 200px;
+  background-color: #efefef;
+  padding: 85px 15px 0px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+`;
+
 export const SelectFilters = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: auto;
-  width: 25%;
+  justify-content: space-between;
+  gap: 20px;
+  margin: 0px;
+  width: max-content;
   margin-bottom: 20px;
   margin-top: 20px;
 `;

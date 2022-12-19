@@ -34,12 +34,12 @@ export const ContainerCardsAboutUs = styled.div`
 `;
 
 export const H2Home = styled.h2`
-  margin: 10px 0px 15px 0px;
+  margin: 0px 0px 15px 0px;
   font-weight: 500;
   line-height: 29px;
   text-align: left;
   font-style: italic;
-  padding-left: 100px;
+  padding-left: 50px;
 `;
 
 export const H5CardRating = styled.h5`
@@ -73,9 +73,10 @@ export const DescriptionCardConteiner= styled.div`
 export const CardImg = styled.img`
   width: 150px;
   height: 200px;
-  display: flex;
-  margin: 5px;
-  object-fit: scale-down;
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin: 0px 50px 0px 50px;
 `;
 
 export const CardImgAboutUs = styled.img`

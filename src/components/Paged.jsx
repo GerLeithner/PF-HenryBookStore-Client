@@ -1,8 +1,8 @@
 import React from "react";
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { PaginationUl } from "../styles/Paginado";
+import { PaginationUl } from "../styles/Paged";
 
-const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
+const Paged = ({ booksPerPage, allBooks, paginado, currentPage }) => {
   const pageNumbers = [];
 
   const countPages = Math.ceil(allBooks / booksPerPage);
@@ -36,4 +36,4 @@ const Paginado = ({ booksPerPage, allBooks, paginado, currentPage }) => {
   );
 };
 
-export default Paginado;
+export default Paged;
