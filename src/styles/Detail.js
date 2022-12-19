@@ -2,19 +2,32 @@ import styled from "styled-components";
 
 export const SingleCardContainerDetail = styled.div`
   display:grid;
-  align-items: center;
-  grid-template-columns: 0.25fr 0.25fr;
-  gap: 40px;
-  width: 600px;
-  height: 300px;
+  grid-template-rows: 0.25fr 0.25fr;
+  gap: 10px;
+  width: 800px;
+  height: 650px;
   border: 1px solid #ccc;
   align-items: center;
-  border-radius: 10px;
   padding: 40px;
+  border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  margin:10px;
+  margin: 10px;
+  padding-top: 0px;
+  margin-top: 0px;
   background-color: white;
 `;
+
+export const ImgAndInfo=styled.div`
+padding-top: 80px;
+height: 400px;
+width: 720px;
+display:grid;
+align-items: center;
+grid-template-columns: 0.25fr 0.25fr;
+gap: 40px;
+padding-bottom: 0px;
+`
+
 
 export const H1Detail=styled.h1`
   font-family: Inter;
@@ -69,6 +82,19 @@ export const H4Detail=styled.h4`
   margin:0px;
 `;
 
+export const H5Detail=styled.h5`
+  font-family: 'Inter';
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0em;
+  text-align: left;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  margin:10px;
+  background-color: white;
+`;
+
 export const TitleCardConteinerDetail= styled.div`
   width: 300px;
   margin:0px;
@@ -118,7 +144,7 @@ export const CardImgDetail = styled.img`
 `;
 
 export const DescriptionCardConteinerDetail= styled.div`
- width: 420px;
+ width: 520px;
  height: 210px;
  padding:0px;
  margin: 0px;
@@ -127,7 +153,7 @@ export const DescriptionCardConteinerDetail= styled.div`
 
 export const DescriptionPDetail= styled.p`
 height: 210px;
-width: 420px;
+width: 520px;
 padding:0px;
 text-align:justify;
 font-size: small;
@@ -161,6 +187,15 @@ justify-content: center;
 backdrop-filter: blur(2px);
 `;
 
+export const ReviewConteiner=styled.div`
+display: flex;
+flex-direction: column;
+height: 700px;
+width: 730px;
+margin:0px;
+padding: 0px;
+`;
+
 
 export const ButtonDetail = styled.button`
   margin: 10px;
@@ -179,8 +214,8 @@ export const ButtonDetail = styled.button`
   outline: none;
   font-family: "Roboto Condensed", sans-serif;
   font-weight: bold;
-  top: 110px;
-  right: 270px;
+  top: 65px;
+  right: 300px;
   position: absolute;
 
   &:hover {

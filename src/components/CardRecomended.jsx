@@ -16,9 +16,11 @@ import {
 export default function Card({ title, publishedDate, description, averageRating, cover, genre, author, back_cover }) {
 
   let bookSliced = "";
-
+  let bookConcat = "";
   description &&
-  (description < 700 ? bookSliced=description: bookSliced=description.slice(0,700).concat("..."));
+  (description < 600 ? bookSliced=description: bookSliced=description.slice(0,600));
+  bookSliced[bookSliced.length-1]!=="."? bookConcat=bookSliced.concat("...")
+  :bookConcat=bookSliced;
 
 
   return (
@@ -40,7 +42,7 @@ export default function Card({ title, publishedDate, description, averageRating,
         </SubtitleAndYear>
         <H2Recomended>Genre: {genre.name}</H2Recomended>
         <DescriptionCardConteinerRecomended>
-          <DescriptionRecomended>{bookSliced}</DescriptionRecomended>
+          <DescriptionRecomended>{bookConcat}</DescriptionRecomended>
         </DescriptionCardConteinerRecomended>
       </ColumnConteinerRecomended>
     </SingleCardContainerRecomended>
