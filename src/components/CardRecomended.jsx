@@ -13,7 +13,7 @@ import {
 } from "../styles/CardRecomended";
 
 
-export default function Card({ id, title, publishedDate, description, averageRating, subtitle, cover, genre, author, back_cover }) {
+export default function Card({ title, publishedDate, description, averageRating, cover, genre, author, back_cover }) {
 
   let bookSliced = "";
 
@@ -35,13 +35,10 @@ export default function Card({ id, title, publishedDate, description, averageRat
         </TitleAndRating>
 
         <SubtitleAndYear>
-        <H2Recomended>{subtitle?subtitle:`Author: ${author.name}`}</H2Recomended>
+        <H2Recomended>Author: {author.name}</H2Recomended>
         <H2Recomended>Year: {publishedDate}</H2Recomended>
         </SubtitleAndYear>
-
-       {subtitle && (<H2Recomended>Author: {author.name}</H2Recomended>)}
         <H2Recomended>Genre: {genre.name}</H2Recomended>
-
         <DescriptionCardConteinerRecomended>
           <DescriptionRecomended>{bookSliced}</DescriptionRecomended>
         </DescriptionCardConteinerRecomended>

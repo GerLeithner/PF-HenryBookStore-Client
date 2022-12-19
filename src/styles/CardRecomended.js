@@ -4,14 +4,13 @@ export const SingleCardContainerRecomended = styled.div`
   display:grid;
   align-items: center;
   grid-template-columns: 0.25fr 0.25fr;
-  padding: 30px 50px 30px 50px;
+  padding: 10px 30px 10px 30px;
   gap: 100px;
   width: max-content;
   height: max-content;
   align-items: center;
   margin: 0px;
   border: 1px solid #ccc;
-  border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 `;
 
@@ -102,7 +101,7 @@ export const CardImgRecomended = styled.img`
 
 export const H1Recomended = styled.h1`
   font-style: italic;
-  font-weight: 600;
+  font-weight: 500;
   text-align: left;
   margin:0px;
 `;

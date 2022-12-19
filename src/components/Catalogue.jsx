@@ -11,10 +11,10 @@ import {
 import Card from "./Card.jsx";
 import CardDetail from "./CardDetail.jsx";
 import NavBar from "./NavBar.jsx";
-import Paginado from "./Paginado.jsx";
+import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { ContainerCards } from "../styles/Card";
-import { ButtonCatalogue, SelectFilters } from "../styles/Catalogue";
+import { ButtonCatalogue, SelectFilters, SideBarContainer } from "../styles/Catalogue";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -77,21 +77,10 @@ const Catalogue = () => {
     <div>
       <CardDetail book={bookDetail} modal={modal} setModal={setModal} />
       <NavBar />
-      {/* <div>
-        <Link to={"/home"}>
-          <button>Back to Home</button>
-        </Link>
-      </div> */}
-      <div>
-        <ButtonCatalogue
-          onClick={(e) => {
-            handleClick(e);
-          }}
-        >
+      <SideBarContainer>
+        <ButtonCatalogue onClick={(e) => handleClick(e)} >
           Reload Books
         </ButtonCatalogue>
-      </div>
-      <div>
         <SelectFilters>
           <select onChange={(e) => handleSortByTitle(e)}>
             <option value="" hidden>
@@ -121,21 +110,17 @@ const Catalogue = () => {
             ))}
           </select>
         </SelectFilters>
-
         <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
+      </SideBarContainer>
+      <div>
         <div>
-          {/* booksPerPage,allBooks,paginado,currentPage */}
-          <Paginado
+          <Paged
             booksPerPage={booksPerPage}
             allBooks={allBooks.length}
             paginado={paginado}
             currentPage={currentPage}
           />
         </div>
-
-        <CardDetail />
-        {/* {bookDetail.length&&(<CardDetail/>)
-     } */}
         <ContainerCards>
           {currentBook?.map((b) => {
             return (

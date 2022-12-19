@@ -62,7 +62,7 @@ const Home = () => {
         <NavBar />
         <div>
           <CardDetail book={detailBook} modal={modal} setModal={setModal} />
-          <Carousel itemsToShow={1} className="top-rec-wrapper">
+          <Carousel itemsToShow={1} className="top-rec-wrapper " >
             {recomended.length ? (
               recomended.map((b) => {
                 return (
@@ -87,8 +87,8 @@ const Home = () => {
           </Carousel>
         </div>
         <div>
-          <H2Home>Continue reading...</H2Home>
-          <Carousel itemsToShow={4}>
+          <H2Home>Continue reading</H2Home>
+          <Carousel itemsToShow={5}>
             {trending.length ? (
               trending.map((b) => {
                 return (
