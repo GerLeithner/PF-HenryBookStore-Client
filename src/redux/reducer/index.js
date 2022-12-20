@@ -5,7 +5,8 @@ const initialState = {
   genres: [],
   detail: [],
   trending: [],
-  recomended:[],
+  recomended: [],
+  user: {},
 };
 
 function rootReducer(state = initialState, action) {
@@ -34,7 +35,8 @@ function rootReducer(state = initialState, action) {
         action.payload === "all"
           ? allBooks
           : allBooks.filter((g) =>
-              g.genres.find((a) => a.name===action.payload));
+              g.genres.find((a) => a.name === action.payload)
+            );
       return {
         ...state,
         books: genreFiltered,
@@ -136,6 +138,12 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         books: filterDelete,
+      };
+
+    case "GET_USER":
+      return {
+        ...state,
+        user: action.payload,
       };
 
     default:
