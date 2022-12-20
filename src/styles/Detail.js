@@ -12,7 +12,7 @@ export const SingleCardContainerDetail = styled.div`
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   margin: 10px;
-  padding-top: 0px;
+  padding-top: 30px;
   margin-top: 0px;
   background-color: white;
 `;
@@ -144,7 +144,7 @@ export const CardImgDetail = styled.img`
 `;
 
 export const DescriptionCardConteinerDetail= styled.div`
- width: 520px;
+ width: 480px;
  height: 210px;
  padding:0px;
  margin: 0px;
@@ -153,7 +153,7 @@ export const DescriptionCardConteinerDetail= styled.div`
 
 export const DescriptionPDetail= styled.p`
 height: 210px;
-width: 520px;
+width: 480px;
 padding:0px;
 text-align:justify;
 font-size: small;
@@ -197,23 +197,23 @@ padding: 0px;
 `;
 
 
-export const ButtonDetail = styled.button`
+export const ButtonCloseDetail = styled.button`
   margin: 10px;
-  padding: 1em 1em;
+  padding: 0.5em 0.5em;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
   font-weight: 200;
+  font-weight: bolder;
   color: red;
   background-color: white;
   border: none;
   border-radius: 10px;
   box-shadow: 0px 2px 3px rgba(0.2, 0.2, 0.2, 0.3);
-  transition: all 0.3s ease 0s;
+  transition: all 0.1s ease 0s;
   cursor: pointer;
   outline: none;
-  font-family: "Roboto Condensed", sans-serif;
-  font-weight: bold;
+  font-weight: bolder;
   top: 65px;
   right: 300px;
   position: absolute;
@@ -221,6 +221,38 @@ export const ButtonDetail = styled.button`
   &:hover {
     background-color: red;
     box-shadow: 0px 15px 20px rgba(255, 125, 0, 0.4);
+    color: #fff;
+    //transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
+export const ButtonOptionsDetail = styled.button`
+  margin: 10px;
+  padding: 0.5em 0.5em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 200;
+  color: black;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease 0s;
+  cursor: pointer;
+  outline: none;
+  font-weight: bolder;
+  top: 65px;
+  right: 340px;
+  position: absolute;
+
+  &:hover {
+    background-color: #1b8f2b;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
     color: #fff;
     //transform: translateY(-7px);
   }
