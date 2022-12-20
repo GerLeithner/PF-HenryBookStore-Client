@@ -100,7 +100,7 @@ export const CardImgRecomended = styled.img`
 
 export const H1Recomended = styled.h1`
   font-style: italic;
-  font-weight: 500;
+  font-weight: 300;
   text-align: left;
   margin:0px;
 `;

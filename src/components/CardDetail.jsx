@@ -15,7 +15,12 @@ import {
   TitleAndRating,
   OverLay,
   ButtonDetail,
+  H5Detail,
+  ReviewConteiner,
+  H4Detail,
+  ImgAndInfo
 } from "../styles/Detail";
+import {ButtonCatalogue} from "../styles/Catalogue"
 
 
 export default function CardDetail({book,modal,setModal}) {
@@ -37,9 +42,13 @@ export default function CardDetail({book,modal,setModal}) {
   // }, [dispatch]);
     var bookSliced=""
     var points="..."
+    var bookConcat=""
     book && book.description &&
-     (book.description<950?bookSliced=book.description: bookSliced=book.description.slice(0,950).concat(points))
-console.log("BOOKSLICED",bookSliced)
+     (book.description<950?bookSliced=book.description: 
+      bookSliced=(book.description.slice(0,950)))
+
+    bookSliced[bookSliced.length-1]!=="."? bookConcat=bookSliced.concat(points)
+    :bookConcat=bookSliced;
 
 
   function handleCloseClick(e) {
@@ -77,7 +86,7 @@ console.log("BOOKSLICED",bookSliced)
   {modal &&
   <OverLay>
     <SingleCardContainerDetail>
-
+      <ImgAndInfo>
       <ImgContainerDetail>
         
           <CardImgDetail src={book.cover} alt="img not found" />
@@ -85,6 +94,8 @@ console.log("BOOKSLICED",bookSliced)
       </ImgContainerDetail>
 
       <ColumnConteinerDetail>
+    <ButtonDetail onClick={e=>{handleCloseClick(e)}}>X</ButtonDetail>
+
         <TitleAndRating>
           <H1Detail>{book.title}</H1Detail>
           <H1Detail>{book.averageRating}</H1Detail>
@@ -106,14 +117,25 @@ console.log("BOOKSLICED",bookSliced)
           <H2Detail>Genre:{book.genre.name}</H2Detail>
         )}
         <DescriptionCardConteinerDetail>
-          <DescriptionPDetail>{bookSliced}</DescriptionPDetail>
+          <DescriptionPDetail>{bookConcat}</DescriptionPDetail>
         </DescriptionCardConteinerDetail>
       </ColumnConteinerDetail>
+      </ImgAndInfo>
+      <ReviewConteiner>
+          <H4Detail>Review by User 1</H4Detail>
+          <H5Detail>Review 1 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, perferendis dolorum. Assumenda quibusdam sit illo fuga consectetur illum quis dicta nihil a! Facilis culpa quaerat at asperiores harum. Accusamus, error!</H5Detail>
+          <H4Detail>Review by User 2</H4Detail>
+          <H5Detail>Review 2 Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias, perferendis dolorum. Assumenda quibusdam sit illo fuga consectetur illum quis dicta nihil a! Facilis culpa quaerat at asperiores harum. Accusamus, error!</H5Detail>
+          <div>
+          <ButtonCatalogue>Show More Reviews</ButtonCatalogue>
+          <ButtonCatalogue>Leave a Review</ButtonCatalogue>
+        </div>
+        </ReviewConteiner>
       
     </SingleCardContainerDetail>
     {/* <Link to={"/home"}>
     </Link> */}
-        <ButtonDetail onClick={e=>{handleCloseClick(e)}}>X</ButtonDetail>
+        
       
     </OverLay>
     }
