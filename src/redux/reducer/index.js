@@ -6,7 +6,7 @@ const initialState = {
   detail: [],
   trending: [],
   recomended: [],
-  user: {},
+  user: null,
 };
 
 function rootReducer(state = initialState, action) {

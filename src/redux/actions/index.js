@@ -160,7 +160,7 @@ export function getUser(payload) {
       );
       return dispatch({
         type: "GET_USER",
-        payload: user,
+        payload: user.data,
       });
     } catch (e) {
       console.log(e);
