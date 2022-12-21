@@ -413,8 +413,8 @@ export default function CreateBook() {
               <div>input</div>
             </PropAndInput>
             <PropAndInput>
-              <>Published Year</>
-              <>input</>
+              <div>Published Year</div>
+              <div>input</div>
             </PropAndInput>
           </InfoContainer>
         </ImageAndInfoContainer>
@@ -423,17 +423,17 @@ export default function CreateBook() {
           <div>input</div>
         </PropAndInput>
         <PropAndInput>
-          <>Genre</>
-          <>input</>
+          <div>Genre</div>
+          <div>input</div>
         </PropAndInput>
-        <>Description</>
-        <>Description TextArea</>
+        <div>Description</div>
+        <div>Description TextArea</div>
         <PropAndInput>
           <PropAndInput>
-            <>boton reset</>
-            <>boton save</>
+            <div>boton reset</div>
+            <div>boton save</div>
           </PropAndInput>
-          <>boton delete</>
+          <div>boton delete</div>
         </PropAndInput>
       </FormContainer>
     </Container>
