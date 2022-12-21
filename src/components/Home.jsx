@@ -1,21 +1,19 @@
-import React from "react";
-import { useState, useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef, useState } from "react";
 import Carousel from "react-elastic-carousel";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import {
+  getAuthors,
   getBooks,
   getGenres,
-  getAuthors,
-  getTrendingBooks,
   getRecomendedBooks,
+  getTrendingBooks,
 } from "../redux/actions";
+import { H2Home } from "../styles/Card";
+import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardDetail from "./CardDetail.jsx";
 import CardRecomended from "./CardRecomended.jsx";
-import { H2Home } from "../styles/Card";
-import "../styles/Carousel.css";
-
 
 const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
@@ -54,13 +52,11 @@ const Home = () => {
   // }
 
   return (
-
     <div>
-
       <div>
         <div>
           <CardDetail book={detailBook} modal={modal} setModal={setModal} />
-          <Carousel itemsToShow={1} className="top-rec-wrapper " >
+          <Carousel itemsToShow={1} className="top-rec-wrapper ">
             {recomended.length ? (
               recomended.map((b) => {
                 return (
@@ -306,3 +302,7 @@ const DemoApp = () => {
 };
 
 export default Home;
+
+/* export default withAuthenticationRequired(Home, {
+  onRedirecting: () => <LandingPage />,
+}); */
