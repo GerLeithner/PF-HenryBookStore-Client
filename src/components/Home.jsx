@@ -76,7 +76,7 @@ const Home = () => {
                 );
               })
             ) : (
-              <div>{console.log("FALLO TODO")}</div>
+              <></>
             )}
           </Carousel>
         </div>
