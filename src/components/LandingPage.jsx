@@ -1,32 +1,34 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getUser } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { Login } from "./LogIn";
+import { Login } from "./Login";
 import { Logout } from "./Logout";
+import { getUser } from "../redux/actions";
+import { useEffect } from "react";
 
 const LandingPage = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const currentUser = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  if (!isAuthenticated && currentUser) {
-    dispatch(getUser(null));
-  }
+  useEffect(() => {
+    if (!isAuthenticated && currentUser) {
+      dispatch(getUser(null));
+    }
+    if (isAuthenticated && !currentUser) {
+      console.log(user);
+      const { email, nickname } = user;
 
-  if (isAuthenticated && !currentUser) {
-    console.log(user);
-    const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
 
-    const userDb = {
-      email,
-      nickname,
-    };
-
-    dispatch(getUser(userDb));
-  }
+      dispatch(getUser(userDb));
+    }
+  }, [dispatch, isAuthenticated]);
 
   console.log("state user: ", currentUser);
 
