@@ -77,7 +77,7 @@ export const CardImg = styled.img`
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  margin: 0px 50px 0px 50px;
+  margin: 0px 20px 0px 20px;
 `;
 
 export const CardImgAboutUs = styled.img`
