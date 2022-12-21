@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { getUser } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { Login } from "./Login";
+import { Login } from "./LogIn";
 import { Logout } from "./Logout";
 
 const LandingPage = () => {

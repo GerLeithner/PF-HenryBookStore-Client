@@ -230,7 +230,40 @@ export const ButtonCloseDetail = styled.button`
   }
 `;
 
-export const ButtonOptionsDetail = styled.button`
+export const ButtonSelectDetail = styled.select`
+  margin: 10px;
+  padding: 0.5em 0.5em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 200;
+  color: black;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.1s ease 0s;
+  cursor: pointer;
+  outline: none;
+  font-weight: bolder;
+  top: 65px;
+  right: 340px;
+  position: absolute;
+  
+
+  &:hover {
+    background-color: #1b8f2b;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    //transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
+export const ButtonOptionsDetail = styled.option`
   margin: 10px;
   padding: 0.5em 0.5em;
   font-size: 12px;
