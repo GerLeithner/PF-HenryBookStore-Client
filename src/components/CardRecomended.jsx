@@ -37,8 +37,8 @@ export default function Card({ title, publishedDate, description, averageRating,
         </TitleAndRating>
 
         <SubtitleAndYear>
-        <H2Recomended>Author: {author.name}</H2Recomended>
-        <H2Recomended>Year: {publishedDate}</H2Recomended>
+          <H2Recomended>Author: {author.name}</H2Recomended>
+          <H2Recomended>Year: {publishedDate}</H2Recomended>
         </SubtitleAndYear>
         <H2Recomended>Genre: {genre.name}</H2Recomended>
         <DescriptionCardConteinerRecomended>

@@ -3,9 +3,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { createBook, getAuthors, getGenres } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { ErrorsForm, FormContainer, FormInput, Container } from "../styles/CreateBook";
 import { DropdownSearch, RowSearchBar } from "../styles/SearchBar";
-// const imgVal = /(https?:\/\/)?([\w\-])+\.{1}([a-zA-Z]{2,63})([\/\w-]*)*\/?\??([^#\n\r]*)?#?([^\n\r]*)/;
+import { 
+  FormInput, 
+  ErrorsForm,
+  Container,
+  FormContainer, 
+  ImageAndInfoContainer,
+  BookImage,
+  InfoContainer,
+  PropAndInput
+  } from "../styles/CreateBook";
+
 
 function validate(input) {
   const imgVal =
@@ -31,12 +40,17 @@ function validate(input) {
     errors.averageRating = "Average Rating must be a number between 1 and 5";
   return errors;
 }
-const CreateBook = () => {
+
+export default function CreateBook() {
+
   const dispatch = useDispatch();
+  const history = useHistory();
+  
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
-  const history = useHistory();
+  
   const [errors, setErrors] = useState({});
+
   const [input, setInput] = useState({
     title: "",
     publishedDate: "",
@@ -136,21 +150,6 @@ const CreateBook = () => {
     }
   }
 
-  // function handleSelect(e) {
-  //   e.preventDefault();
-  //   console.log("Entré a select:", e.target.value);
-  //   setInput({
-  //     ...input,
-  //     genreName: e.target.value,
-  //   });
-  //   setErrors(
-  //     validate({
-  //       ...input,
-  //       genreName: e.target.value,
-  //     })
-  //   );
-  // }
-
   function handleSubmit(e) {
     e.preventDefault();
     setErrors(
@@ -217,196 +216,227 @@ const CreateBook = () => {
   ));
 
   return (
+    // <Container>
+    //   <FormContainer>
+    //     <div>
+    //       <div>
+    //         <div>
+    //           <div>
+    //             <FormInput
+    //               type="text"
+    //               value={input.title}
+    //               name="title"
+    //               placeholder="Insert Title"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //             {errors.title && <ErrorsForm>{errors.title}</ErrorsForm>}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="text"
+    //               value={input.authorName}
+    //               placeholder="Insert Author"
+    //               name="authorName"
+    //               onChange={(e) => handleAuthor(e)}
+    //               autoComplete="off"
+    //             />
+    //             <DropdownSearch>
+    //               {authors
+    //                 .filter((author) => {
+    //                   console.log(input.authorName);
+    //                   const searchTerm = input.authorName.toLowerCase();
+    //                   const nameOfAuthor = author.name.toLowerCase();
+
+    //                   return (
+    //                     searchTerm &&
+    //                     nameOfAuthor.includes(searchTerm) &&
+    //                     nameOfAuthor !== searchTerm
+    //                   );
+    //                 })
+    //                 .slice(0, 10)
+    //                 .map((author, i) => (
+    //                   <RowSearchBar
+    //                     name="authorName"
+    //                     onClick={(e) => handleAuthor(e)}
+    //                     key={i}
+    //                     value={input.authorName}
+    //                   >
+    //                     {author.name}
+    //                   </RowSearchBar>
+    //                 ))}
+    //             </DropdownSearch>
+    //             {errors.authorName && (
+    //               <ErrorsForm>{errors.authorName}</ErrorsForm>
+    //             )}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="text"
+    //               value={input.description}
+    //               name="description"
+    //               placeholder="Insert Description"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //             {errors.Description && (
+    //               <ErrorsForm>{errors.description}</ErrorsForm>
+    //             )}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="number"
+    //               value={input.publishedDate}
+    //               name="publishedDate"
+    //               min={0}
+    //               max={2023}
+    //               placeholder="Insert publishedDate"
+    //               onChange={handleChange}
+    //             />
+    //             {errors.publishedDate && (
+    //               <ErrorsForm>{errors.publishedDate}</ErrorsForm>
+    //             )}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="text"
+    //               value={input.publisher}
+    //               name="publisher"
+    //               placeholder="Insert Publisher"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //             {errors.publisher && (
+    //               <ErrorsForm>{errors.publisher}</ErrorsForm>
+    //             )}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="number"
+    //               max={20000}
+    //               min={1}
+    //               value={input.pages}
+    //               name="pages"
+    //               placeholder="Insert Pages"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //             {errors.pages && <ErrorsForm>{errors.pages}</ErrorsForm>}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="number"
+    //               placeholder="Insert averageRating"
+    //               value={input.averageRating}
+    //               min={1}
+    //               max={5}
+    //               name="averageRating"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //             {errors.averageRating && (
+    //               <ErrorsForm>{errors.averageRating}</ErrorsForm>
+    //             )}
+    //           </div>
+    //           <div>
+    //             <FormInput
+    //               type="text"
+    //               placeholder="Insert a link to a Cover image"
+    //               value={input.cover}
+    //               name="cover"
+    //               onChange={(e) => handleChange(e)}
+    //             />
+    //           </div>
+    //           {errors.cover ? (
+    //             <div>
+    //               <ErrorsForm>{errors.cover}</ErrorsForm>
+    //               <img
+    //                 src="https://www.comunidadbaratz.com/wp-content/uploads/Instrucciones-a-tener-en-cuenta-sobre-como-se-abre-un-libro-nuevo.jpg"
+    //                 width={"100px"}
+    //                 height={"100px"}
+    //                 alt="BookCover"
+    //               />
+    //             </div>
+    //           ) : (
+    //             <div>
+    //               <br />
+    //               <br />
+    //               <ul>
+    //                 The chosen image is:
+    //                 <li>
+    //                   <img
+    //                     src={input.cover}
+    //                     alt="img not found"
+    //                     width={"100px"}
+    //                     height={"100px"}
+    //                   />
+    //                 </li>
+    //               </ul>
+    //             </div>
+    //           )}
+    //         </div>
+    //       </div>
+    //     </div>
+    //     <div>
+    //       <label>Select Genre:</label>
+    //       <FormInput
+    //         type="text"
+    //         value={input.genreName}
+    //         placeholder="Insert Genre"
+    //         name="genreName"
+    //         onChange={(e) => handleGenre(e)}
+    //       />
+    //       {genresDrop.length ? genresDrop : dropAllGenres}
+    //     </div>
+    //     <div>
+    //       <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
+    //         Add New Book
+    //       </ButtonCatalogue>
+    //     </div>
+    //   </FormContainer>
+    // </Container>
+
     <Container>
       <FormContainer>
-        <div>
-          <div>
-            <div>
-              <div>
-                <FormInput
-                  type="text"
-                  value={input.title}
-                  name="title"
-                  placeholder="Insert Title"
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.title && <ErrorsForm>{errors.title}</ErrorsForm>}
-              </div>
-              <div>
-                <FormInput
-                  type="text"
-                  value={input.authorName}
-                  placeholder="Insert Author"
-                  name="authorName"
-                  onChange={(e) => handleAuthor(e)}
-                  autoComplete="off"
-                />
-                <DropdownSearch>
-                  {authors
-                    .filter((author) => {
-                      console.log(input.authorName);
-                      const searchTerm = input.authorName.toLowerCase();
-                      const nameOfAuthor = author.name.toLowerCase();
-
-                      return (
-                        searchTerm &&
-                        nameOfAuthor.includes(searchTerm) &&
-                        nameOfAuthor !== searchTerm
-                      );
-                    })
-                    .slice(0, 10)
-                    .map((author, i) => (
-                      <RowSearchBar
-                        name="authorName"
-                        onClick={(e) => handleAuthor(e)}
-                        key={i}
-                        value={input.authorName}
-                      >
-                        {author.name}
-                      </RowSearchBar>
-                    ))}
-                </DropdownSearch>
-                {errors.authorName && (
-                  <ErrorsForm>{errors.authorName}</ErrorsForm>
-                )}
-              </div>
-              <div>
-                <FormInput
-                  type="text"
-                  value={input.description}
-                  name="description"
-                  placeholder="Insert Description"
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.Description && (
-                  <ErrorsForm>{errors.description}</ErrorsForm>
-                )}
-              </div>
-              <div>
-                <FormInput
-                  type="number"
-                  value={input.publishedDate}
-                  name="publishedDate"
-                  min={0}
-                  max={2023}
-                  placeholder="Insert publishedDate"
-                  onChange={handleChange}
-                />
-                {errors.publishedDate && (
-                  <ErrorsForm>{errors.publishedDate}</ErrorsForm>
-                )}
-              </div>
-              <div>
-                <FormInput
-                  type="text"
-                  value={input.publisher}
-                  name="publisher"
-                  placeholder="Insert Publisher"
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.publisher && (
-                  <ErrorsForm>{errors.publisher}</ErrorsForm>
-                )}
-              </div>
-              <div>
-                <FormInput
-                  type="number"
-                  max={20000}
-                  min={1}
-                  value={input.pages}
-                  name="pages"
-                  placeholder="Insert Pages"
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.pages && <ErrorsForm>{errors.pages}</ErrorsForm>}
-              </div>
-              <div>
-                <FormInput
-                  type="number"
-                  placeholder="Insert averageRating"
-                  value={input.averageRating}
-                  min={1}
-                  max={5}
-                  name="averageRating"
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.averageRating && (
-                  <ErrorsForm>{errors.averageRating}</ErrorsForm>
-                )}
-              </div>
-              <div>
-                <FormInput
-                  type="text"
-                  placeholder="Insert a link to a Cover image"
-                  value={input.cover}
-                  name="cover"
-                  onChange={(e) => handleChange(e)}
-                />
-              </div>
-
-              {errors.cover ? (
-                <div>
-                  <ErrorsForm>{errors.cover}</ErrorsForm>
-                  <img
-                    src="https://www.comunidadbaratz.com/wp-content/uploads/Instrucciones-a-tener-en-cuenta-sobre-como-se-abre-un-libro-nuevo.jpg"
-                    width={"100px"}
-                    height={"100px"}
-                    alt="BookCover"
-                  />
-                </div>
-              ) : (
-                <div>
-                  <br />
-                  <br />
-                  <ul>
-                    The chosen image is:
-                    <li>
-                      <img
-                        src={input.cover}
-                        alt="img not found"
-                        width={"100px"}
-                        height={"100px"}
-                      />
-                    </li>
-                  </ul>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-        <div>
-          <label>Select Genre:</label>
-          <FormInput
-            type="text"
-            value={input.genreName}
-            placeholder="Insert Genre"
-            name="genreName"
-            onChange={(e) => handleGenre(e)}
-          />
-          {genresDrop.length ? genresDrop : dropAllGenres}
-        </div>
-        <div>
-          <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
-            Add New Book
-          </ButtonCatalogue>
-        </div>
+        <ImageAndInfoContainer>
+          <BookImage/>
+          <InfoContainer>
+            <PropAndInput>
+              <div>Title</div>
+              <div>input</div>
+            </PropAndInput>
+            <PropAndInput>
+              <div>Subtitle</div>
+              <div>input</div>
+            </PropAndInput>
+            <PropAndInput>
+              <div>Author</div>
+              <div>input</div>
+            </PropAndInput>
+            <PropAndInput>
+              <div>Publisher</div>
+              <div>input</div>
+            </PropAndInput>
+            <PropAndInput>
+              <div>Published Year</div>
+              <div>input</div>
+            </PropAndInput>
+          </InfoContainer>
+        </ImageAndInfoContainer>
+        <PropAndInput>
+          <div>Cover</div>
+          <div>input</div>
+        </PropAndInput>
+        <PropAndInput>
+          <div>Genre</div>
+          <div>input</div>
+        </PropAndInput>
+        <div>Description</div>
+        <div>Description TextArea</div>
+        <PropAndInput>
+          <PropAndInput>
+            <div>boton reset</div>
+            <div>boton save</div>
+          </PropAndInput>
+          <div>boton delete</div>
+        </PropAndInput>
       </FormContainer>
     </Container>
   );
 };
 
-/* {errors.genreName && <ErrorsForm>{errors.genreName}</ErrorsForm>}
-          <br />
-          <GenresContainer>
-            <select onChange={(e) => handleSelect(e)}>
-              {genres.map((el) => {
-                return (
-                  <option name="genreName" value={el.name} key={el.id}>
-                    {el.name}
-                  </option>
-                );
-              })}
-            </select>
-          </GenresContainer> */
-
-export default CreateBook;
