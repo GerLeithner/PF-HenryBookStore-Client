@@ -45,9 +45,9 @@ export function getTrendingBooks() {
 }
 export function getRecomendedBooks() {
   return async function (dispatch) {
-    // https://run.mocky.io/v3/ee8aed61-ae4c-426a-841d-536cb9c00383
+    
     var json = await axios.get(
-      "https://run.mocky.io/v3/3d8c1ef9-8e9a-428d-95ba-11d5e3d6e874"
+      "https://run.mocky.io/v3/0878ae9e-bfe0-4867-ae1d-247b0e265ed2"
     );
     return dispatch({
       type: "GET_RECOMENDED_BOOKS",
