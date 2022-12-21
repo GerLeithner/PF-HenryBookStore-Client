@@ -13,8 +13,6 @@ export const SingleCardContainerRecomended = styled.div`
   border: 1px solid #ccc;
 `;
 
-
-
 export const TitleAndRating = styled.div`
   display:flex;
   flex-direction: row;

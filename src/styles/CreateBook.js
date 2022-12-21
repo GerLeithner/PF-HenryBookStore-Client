@@ -8,11 +8,68 @@ export const Container = styled.div`
 `;
 
 export const FormContainer = styled.form`
-  width: 400px;
-  background-color: #1b8f2b65;
-  padding: 15px;
+  margin: 0px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border: 1px solid #ccc;
   border-radius: 10px;
+  width: max-content;
 `;
+
+export const ImageAndInfoContainer = styled.form`
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const BookImage = styled.img`
+  width: 150px;
+  height: 200px;
+  border: 1px solid #ccc;
+  margin: 0px;
+`;
+
+export const InfoContainer = styled.div`
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+`;
+
+export const PropAndInput = styled.div`
+  background-color: red;
+  margin: 0px;
+  padding:0px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+  width: 100%;
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const H1Form = styled.h1`
   padding-top: 25px;
