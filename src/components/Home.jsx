@@ -76,7 +76,7 @@ const Home = () => {
                 );
               })
             ) : (
-              <div>{console.log("FALLO TODO")}</div>
+              <></>
             )}
           </Carousel>
         </div>
@@ -102,7 +102,7 @@ const Home = () => {
                 );
               })
             ) : (
-              <div>{console.log("FALLO TODO")}</div>
+              <></>
             )}
           </Carousel>
 
@@ -128,7 +128,7 @@ const Home = () => {
                 );
               })
             ) : (
-              <div>{console.log("FALLO TODO")}</div>
+              <></>
             )}
           </Carousel>
 
@@ -154,7 +154,7 @@ const Home = () => {
                 );
               })
             ) : (
-              <div>{console.log("FALLO TODO")}</div>
+              <></>
             )}
           </Carousel>
         </div>
