@@ -16,11 +16,10 @@ export const ContainerCards = styled.div`
 `;
 
 export const ContainerAboutUs = styled.div`
-  height:600px;
-  padding-bottom: 550px;
+  padding-top: 60px;
 `;
 
-export const ContainerCardsAboutUs = styled.div`
+export const CardsAboutUsContainer = styled.div`
   padding-top: 25px;
   padding-bottom: 150px;
   height: 500px;
@@ -74,7 +73,14 @@ export const DescriptionCardConteiner= styled.div`
 export const CardImg = styled.img`
   width: 150px;
   height: 200px;
-  
+
+
+  border: 1px solid #ccc;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin: 0px 20px 0px 20px;
+
+
 `;
 
 export const CardImgAboutUs = styled.img`

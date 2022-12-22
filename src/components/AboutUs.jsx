@@ -1,8 +1,9 @@
 import React from "react";
 import CardAboutUs from "./CardAboutUs.jsx";
-import { ContainerCardsAboutUs,H2Home,ContainerAboutUs} from "../styles/Card";
+import { CardsAboutUsContainer, ContainerAboutUs } from "../styles/Card";
 
 const AboutUs = () => {
+  
   const people = [
     {
       name: "Germán Leithner",
@@ -57,8 +58,7 @@ const AboutUs = () => {
   // name,picture,description
   return (
     <ContainerAboutUs>
-      <H2Home>About Us</H2Home>
-      <ContainerCardsAboutUs>
+      <CardsAboutUsContainer>
       {people?.map((p) => {
         return (
           <div key={p.name}>
@@ -72,7 +72,7 @@ const AboutUs = () => {
           </div>
         );
       })}
-      </ContainerCardsAboutUs>
+      </CardsAboutUsContainer>
     </ContainerAboutUs>
   );
 };

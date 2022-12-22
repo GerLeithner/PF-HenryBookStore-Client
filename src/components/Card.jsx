@@ -67,7 +67,6 @@ export default function Card({ id, cover, modal, setModal }) {
 function DropdownItem(props) {
   return (
     <li>
-      
       <img src={props.icon} alt="n" />
     </li>
   );
