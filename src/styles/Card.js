@@ -73,21 +73,37 @@ export const DescriptionCardConteiner= styled.div`
 export const CardImg = styled.img`
   width: 150px;
   height: 200px;
+
+
   border: 1px solid #ccc;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   cursor: pointer;
   margin: 0px 20px 0px 20px;
+
+
 `;
 
 export const CardImgAboutUs = styled.img`
-  width: 200px;
-  height: 200px;
   display: flex;
+  height: 200px;
   margin: 5px;
   object-fit: scale-down;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  padding: 0px;
 `;
 
 export const ImgContainer = styled.div`
+display: flex;
+flex-direction: row;
+border: 1px solid #ccc;
+box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+cursor: pointer;
+margin: 0px 20px 0px 20px;
+justify-content: flex-end;
+
 `;
 
 export const SingleCardContainer = styled.div`
@@ -174,4 +190,49 @@ export const ButtonOptionsCard = styled.option`
   &:active {
     transform: translateY(-1px);
   }
+`;
+
+
+export const MenuConteiner =styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 26px;
+  height: 100px;
+  margin:0px;
+  padding:0px;
+  position: absolute;
+  cursor: pointer;
+ 
+ 
+  
+`;
+
+
+export const MenuTrigger =styled.div`
+  cursor: pointer;
+  opacity:0.7;
+  color: grey;
+  
+`;
+
+export const DropDownMenu =styled.div`
+  cursor: pointer;
+  display:flex;
+  flex-direction: column;
+  margin:0px;
+  padding:0px;
+  text-decoration: none;
+  list-style-type: none;
+`;
+
+export const UlCard =styled.ul`
+  display: flex;
+  flex-direction: column;
+  width: 20px;
+  height: 150px;
+  margin:0px;
+  padding:0px;
+  
+  list-style-type: none;
+  
 `;
