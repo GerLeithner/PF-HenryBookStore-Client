@@ -32,6 +32,7 @@ border: none;
 `;
 
 export const ButtonCatalogue = styled.button`
+  width: ${({ ancho }) => ancho || "max-content"};
   padding: 1em 1em;
   font-size: 12px;
   text-transform: uppercase;

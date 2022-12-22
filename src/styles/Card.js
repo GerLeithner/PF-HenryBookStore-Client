@@ -16,11 +16,10 @@ export const ContainerCards = styled.div`
 `;
 
 export const ContainerAboutUs = styled.div`
-  height:600px;
-  padding-bottom: 550px;
+  padding-top: 60px;
 `;
 
-export const ContainerCardsAboutUs = styled.div`
+export const CardsAboutUsContainer = styled.div`
   padding-top: 25px;
   padding-bottom: 150px;
   height: 500px;
