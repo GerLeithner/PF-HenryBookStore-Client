@@ -6,9 +6,9 @@ const CardAboutUs = ({ name, picture, description,linkedIn,gitHub }) => {
   return (
     <SingleAboutCardContainer>
       <h3>{name}</h3>
-      <ImgContainer>
+     
       <CardImgAboutUs src={picture} />
-      </ImgContainer>
+      
       <DescriptionCardConteiner>
       <h4>{description}</h4>
       </DescriptionCardConteiner>
