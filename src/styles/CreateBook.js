@@ -3,50 +3,106 @@ import styled from "styled-components";
 export const Container = styled.div`
   display: flex;
   justify-content: center;
-  items-align: center;
+  align-items: center;
   padding-top: 80px;
 `;
 
 export const FormContainer = styled.form`
-  width: 400px;
-  background-color: #1b8f2b65;
-  padding: 15px;
+  margin: 0px;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: left;
+  border-radius: 10px;
+  width: max-content;
+  text-align: left;
+  border: 1px solid #ccc;
   border-radius: 10px;
 `;
 
-export const H1Form = styled.h1`
-  padding-top: 25px;
-  padding-bottom: 40px;
-  margin-bottom: 0px;
-  font-family: "Roboto Condensed", sans-serif;
+export const ImageAndInfoContainer = styled.form`
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 30px;
 `;
 
-export const H3Form = styled.h3`
-  margin: 0px 0px 15px 0px;
-  font-weight: 500;
-  line-height: 20px;
-  text-align: left;
-  font-style: italic;
+export const BookImage = styled.img`
+  width: 200px;
+  height: 260px;
+  border: 1px solid #ccc;
+  margin: 0px;
+`;
+
+export const InfoContainer = styled.div`
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+`;
+
+export const PropAndInputAndError = styled.div`
+  margin: 0px;
+  padding:0px;
+  display:flex;
+  flex-direction: column;
+  height: 40px;
+  align-items: flex-end;
+`;
+
+export const PropAndInput = styled.div`
+  margin: 0px;
+  padding:0px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items:center;
+  width: ${({ width }) => width || "100%"};
 `;
 
 export const FormInput = styled.input`
-  font-family: "Roboto Condensed", sans-serif;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 1.5px solid lightgrey;
+  height: 20px;
+  width: ${({ ancho }) => ancho || "250px"};
+  margin-left: 20px;
+  border: 1.5px solid #ccc;
   outline: none;
-  padding: 10px;
-  width: 380px;
-  border-radius: 10px;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0px 0px 20px -18px;
+  text-align: right;
+  padding-right: 30px;
 
   &:hover {
-    border: 2px solid lightgrey;
     box-shadow: 0px 0px 20px -17px;
   }
+  &:active {
+    transform: scale(0.95);
+  }
+  &:focus {
+    border: 2px solid #ccc;
+  }
+`;
 
+export const DescriptionContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+`;
+
+export const FormTextArea = styled.textarea`
+  border: 1.5px solid #ccc;
+  outline: none;
+  height: 100px;
+  width: 100%;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+
+  &:hover {
+    box-shadow: 0px 0px 20px -17px;
+  }
   &:active {
     transform: scale(0.95);
   }
@@ -55,25 +111,82 @@ export const FormInput = styled.input`
   }
 `;
 
-export const ErrorsForm = styled.p`
-  font-family: "Roboto Condensed", sans-serif;
-  margin-top: 0px;
-  font-size: 14px;
+export const H3Form = styled.span`
+  margin: 0px 0px 0px 0px;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 16px;
+  text-align: left;
+  font-style: italic;
+`;
+
+export const ErrorsForm = styled.span`
+  margin: 0px;
   color: #ff0000;
+  font-size: 14px;
 `;
 
-export const GenresContainer= styled.div`
- display: grid;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  grid-template-columns: repeat(5, minmax(80px, 100px));
-  grid-auto-rows: minmax(auto, 50px);
-  gap: 10px;
-  flex-grow: 1;
+export const DropDownSelect = styled.div`
+  position: relative;
+  z-index: 1;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  &:empty {
+    border: none;
+  }
 `;
 
-export const GenreNameLabel= styled.label`
- width: 40px;
- height: 60px;
+export const ButtonForm = styled.button`
+  width: ${({ ancho }) => ancho || "max-content"};
+  padding: 5px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #111;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: ${({ color }) => color || "#1b8f2b"};
+    /* box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); */
+    color: #fff;
+    //transform: translateY(-7px);
+    border: none;
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
 `;
+
+
+
+
+
+// export const H1Form = styled.h1`
+//   padding-top: 25px;
+//   padding-bottom: 40px;
+//   margin-bottom: 0px;
+//   font-family: "Roboto Condensed", sans-serif;
+// `;
+
+// export const GenresContainer= styled.div`
+//  display: grid;
+//   justify-content: center;
+//   justify-items: center;
+//   align-items: center;
+//   grid-template-columns: repeat(5, minmax(80px, 100px));
+//   grid-auto-rows: minmax(auto, 50px);
+//   gap: 10px;
+//   flex-grow: 1;
+// `;
+
+// export const GenreNameLabel= styled.label`
+//  width: 40px;
+//  height: 60px;
+// `;

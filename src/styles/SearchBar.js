@@ -62,11 +62,12 @@ export const InputSearch = styled.input`
 `;
 
 export const DropdownSearch = styled.div`
+  z-index: 1;
+  /* position: relative; */
   background-color: white;
   display: flex;
   flex-direction: column;
-  border: 1px solid gray;
-
+  border: 1px solid #ccc;
   &:empty {
     border: none;
   }

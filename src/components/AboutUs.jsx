@@ -1,8 +1,9 @@
 import React from "react";
 import CardAboutUs from "./CardAboutUs.jsx";
-import { ContainerCardsAboutUs,H2Home,ContainerAboutUs} from "../styles/Card";
+import { CardsAboutUsContainer, ContainerAboutUs } from "../styles/Card";
 
 const AboutUs = () => {
+  
   const people = [
     {
       name: "Germán Leithner",
@@ -44,21 +45,20 @@ const AboutUs = () => {
     //     "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
     //   description: "Not description yet",
     // },
-    {
-      name: "Kevin Tavara",
-      picture:
-        "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
-      description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/KevinZet"
-    },
+    // {
+    //   name: "Kevin Tavara",
+    //   picture:
+    //     "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
+    //   description: "Not description yet",
+    //   linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
+    //   gitHub:"https://github.com/KevinZet"
+    // },
   ];
 
   // name,picture,description
   return (
     <ContainerAboutUs>
-      <H2Home>About Us</H2Home>
-      <ContainerCardsAboutUs>
+      <CardsAboutUsContainer>
       {people?.map((p) => {
         return (
           <div key={p.name}>
@@ -72,7 +72,7 @@ const AboutUs = () => {
           </div>
         );
       })}
-      </ContainerCardsAboutUs>
+      </CardsAboutUsContainer>
     </ContainerAboutUs>
   );
 };
