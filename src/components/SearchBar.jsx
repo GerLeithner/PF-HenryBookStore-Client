@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bookDetail, getBookByTitle } from "../redux/actions";
-import { ButtonCatalogue } from "../styles/Catalogue";
+//import { ButtonCatalogue } from "../styles/Catalogue";
 import {
   DropdownSearch,
   InputSearch,
@@ -9,7 +9,6 @@ import {
   SearchContainer,
   InputAndButton,
 } from "../styles/SearchBar";
-
 
 const SearchBar = ({ paginado, modal, setModal }) => {
   const dispatch = useDispatch();
@@ -49,9 +48,9 @@ const SearchBar = ({ paginado, modal, setModal }) => {
           value={title}
           onChange={(e) => handleInputChange(e)}
         />
-        <ButtonCatalogue type="submit" onClick={(e) => handleSubmit(e)}>
+        <button type="submit" onClick={(e) => handleSubmit(e)}>
           Search
-        </ButtonCatalogue>
+        </button>
       </InputAndButton>
       <DropdownSearch>
         {allBooks
