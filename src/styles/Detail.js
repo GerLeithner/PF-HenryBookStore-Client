@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SingleCardContainerDetail = styled.div`
-  display:grid;
+  display: grid;
   grid-template-rows: 0.25fr 0.25fr;
   gap: 10px;
   width: 800px;
@@ -17,19 +17,18 @@ export const SingleCardContainerDetail = styled.div`
   background-color: white;
 `;
 
-export const ImgAndInfo=styled.div`
-padding-top: 80px;
-height: 400px;
-width: 720px;
-display:grid;
-align-items: center;
-grid-template-columns: 0.25fr 0.25fr;
-gap: 40px;
-padding-bottom: 0px;
-`
+export const ImgAndInfo = styled.div`
+  padding-top: 80px;
+  height: 400px;
+  width: 720px;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 0.25fr 0.25fr;
+  gap: 40px;
+  padding-bottom: 0px;
+`;
 
-
-export const H1Detail=styled.h1`
+export const H1Detail = styled.h1`
   font-family: Inter;
   font-size: 20px;
   font-style: italic;
@@ -37,41 +36,41 @@ export const H1Detail=styled.h1`
   line-height: 29px;
   letter-spacing: 0em;
   text-align: left;
-  margin:0px;
+  margin: 0px;
 `;
 
-export const TitleAndRating=styled.div`
-  display:flex;
+export const TitleAndRating = styled.div`
+  display: flex;
   flex-direction: row;
-  margin:0px;
+  margin: 0px;
   justify-content: space-between;
-  padding:0px;
-  align-items:center;
+  padding: 0px;
+  align-items: center;
 `;
 
-export const SubtitleAndYear=styled.div`
-  display:flex;
+export const SubtitleAndYear = styled.div`
+  display: flex;
   flex-direction: row;
-  margin:0px;
+  margin: 0px;
   justify-content: space-between;
-  padding:0px;
-  align-items:center;
+  padding: 0px;
+  align-items: center;
 `;
 
-export const H2Detail=styled.h2`
-  font-family: 'Inter';
+export const H2Detail = styled.h2`
+  font-family: "Inter";
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
   line-height: 29px;
   letter-spacing: 0em;
   text-align: left;
-  margin:0px;
-  text-transform:capitalize;
+  margin: 0px;
+  text-transform: capitalize;
 `;
 
-export const H4Detail=styled.h4`
-  font-family: 'Inter';
+export const H4Detail = styled.h4`
+  font-family: "Inter";
   font-size: 15px;
   font-style: normal;
   font-weight: 500;
@@ -79,11 +78,11 @@ export const H4Detail=styled.h4`
   letter-spacing: 0em;
   text-align: left;
   text-transform: capitalize;
-  margin:0px;
+  margin: 0px;
 `;
 
-export const H5Detail=styled.h5`
-  font-family: 'Inter';
+export const H5Detail = styled.h5`
+  font-family: "Inter";
   font-size: 13px;
   font-style: normal;
   font-weight: 500;
@@ -91,50 +90,50 @@ export const H5Detail=styled.h5`
   letter-spacing: 0em;
   text-align: left;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  margin:10px;
+  margin: 10px;
   background-color: white;
 `;
 
-export const TitleCardConteinerDetail= styled.div`
+export const TitleCardConteinerDetail = styled.div`
   width: 300px;
-  margin:0px;
+  margin: 0px;
 `;
-export const GridConteinerDetail= styled.div`
+export const GridConteinerDetail = styled.div`
   display: grid;
-  padding-top:0px;
-  padding-bottom:0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
   grid-template-columns: repeat(2, minmax(60px, 500px));
   grid-auto-rows: minmax(auto, 100px);
   gap: 0px;
   flex-grow: 1;
-  margin:0px;
+  margin: 0px;
 `;
 
-export const ColumnConteinerDetail= styled.div`
-  display:flex;
-  flex-direction:column;
+export const ColumnConteinerDetail = styled.div`
+  display: flex;
+  flex-direction: column;
   height: 300px;
   justify-content: space-between;
-  margin:0px;
-  padding:0px;
+  margin: 0px;
+  padding: 0px;
 `;
 
-export const LeftColumnDetail= styled.div`
+export const LeftColumnDetail = styled.div`
   grid-template-rows: repeat(2, minmax(60px, 300px));
   grid-auto-rows: minmax(auto, 200px);
   gap: 0px;
   flex-grow: 1;
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
 `;
 
-export const RigthColumnDetail= styled.div`
+export const RigthColumnDetail = styled.div`
   grid-template-rows: repeat(2, minmax(60px, 300px));
   grid-auto-rows: minmax(auto, 200px);
   gap: 0px;
   flex-grow: 1;
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
 `;
 
 export const CardImgDetail = styled.img`
@@ -142,6 +141,9 @@ export const CardImgDetail = styled.img`
   height: 200px;
   margin: 0px;
 `;
+
+
+
 
 export const DescriptionCardConteinerDetail= styled.div`
  width: 480px;
@@ -164,37 +166,36 @@ text-overflow:ellipsis;
 export const ImgContainerDetail = styled.div`
   width: 150px;
   height: 200px;
-  gap:0px;
-  margin:0px;
+  gap: 0px;
+  margin: 0px;
 `;
 
-export const DetailContainer=styled.div`
+export const DetailContainer = styled.div``;
+
+export const InfoSeccion = styled.div``;
+
+export const OverLay = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* background-color:rgba(0, 0, 0, 0.7); */
+  backdrop-filter: blur(2px);
 `;
 
-export const InfoSeccion=styled.div`
+export const ReviewConteiner = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 700px;
+  width: 730px;
+  margin: 0px;
+  padding: 0px;
 `;
 
-export const OverLay=styled.div`
-width: 100vw;
-height: 100vh;
-position: fixed;
-top:0;
-left:0;
-display:flex;
-align-items:center;
-justify-content: center;
-/* background-color:rgba(0, 0, 0, 0.7); */
-backdrop-filter: blur(2px);
-`;
-
-export const ReviewConteiner=styled.div`
-display: flex;
-flex-direction: column;
-height: 700px;
-width: 730px;
-margin:0px;
-padding: 0px;
-`;
 
 
 export const ButtonCloseDetail = styled.button`
@@ -229,6 +230,8 @@ export const ButtonCloseDetail = styled.button`
     transform: translateY(-1px);
   }
 `;
+
+
 
 export const ButtonSelectDetail = styled.select`
   margin: 10px;
@@ -294,3 +297,4 @@ export const ButtonOptionsDetail = styled.option`
     transform: translateY(-1px);
   }
 `;
+
