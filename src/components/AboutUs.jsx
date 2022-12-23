@@ -45,14 +45,14 @@ const AboutUs = () => {
     //     "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
     //   description: "Not description yet",
     // },
-    {
-      name: "Kevin Tavara",
-      picture:
-        "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
-      description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
-      gitHub:"https://github.com/KevinZet"
-    },
+    // {
+    //   name: "Kevin Tavara",
+    //   picture:
+    //     "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
+    //   description: "Not description yet",
+    //   linkedIn:"https://www.linkedin.com/in/adrian-laborde-732091199/",
+    //   gitHub:"https://github.com/KevinZet"
+    // },
   ];
 
   // name,picture,description

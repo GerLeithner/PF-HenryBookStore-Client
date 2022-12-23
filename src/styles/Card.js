@@ -15,23 +15,7 @@ export const ContainerCards = styled.div`
   flex-grow: 1;
 `;
 
-export const ContainerAboutUs = styled.div`
-  padding-top: 60px;
-`;
 
-export const CardsAboutUsContainer = styled.div`
-  padding-top: 25px;
-  padding-bottom: 150px;
-  height: 500px;
-  display: grid;
-  justify-content: center;
-  justify-items: center;
-  align-items: center;
-  grid-template-columns: repeat(3, minmax(400px, 500px));
-  grid-auto-rows: minmax(auto, 1000px);
-  gap: 50px;
-  flex-grow: 1;
-`;
 
 export const H2Home = styled.h2`
   margin: 0px 0px 15px 0px;
@@ -83,17 +67,7 @@ export const CardImg = styled.img`
 
 `;
 
-export const CardImgAboutUs = styled.img`
-  display: flex;
-  height: 200px;
-  margin: 5px;
-  object-fit: scale-down;
-  justify-content: center;
-  align-items: center;
-  justify-items: center;
-  align-content: center;
-  padding: 0px;
-`;
+
 
 export const ImgContainer = styled.div`
 display: flex;
@@ -116,11 +90,41 @@ export const SingleCardContainer = styled.div`
 `;
 
 export const SingleAboutCardContainer = styled.div`
-  width: 350px;
+  width: 310px;
   height: 400px;
   border: 1px solid #ccc;
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+`;
+
+export const CardImgAboutUs = styled.img`
+  display: flex;
+  height: 200px;
+  margin: 5px;
+  object-fit: scale-down;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  padding: 0px;
+`;
+
+export const ContainerAboutUs = styled.div`
+  padding-top: 60px;
+`;
+
+export const CardsAboutUsContainer = styled.div`
+  padding-top: 25px;
+  padding-bottom: 150px;
+  height: 500px;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(4, minmax(200px, 280px));
+  grid-auto-rows: minmax(auto, 1000px);
+  gap: 50px;
+  flex-grow: 1;
 `;
 
 export const TrendingAndNewsContainer =styled.div`
@@ -202,7 +206,8 @@ export const MenuConteiner =styled.div`
   padding:0px;
   position: absolute;
   cursor: pointer;
- 
+  right: ${props => props.right || ""};
+  top: ${props => props.top || ""};
  
   
 `;
