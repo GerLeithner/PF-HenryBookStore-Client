@@ -25,6 +25,7 @@ const Home = () => {
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state) => state.recomended);
   const detailBook = useSelector((state) => state.detail);
+  const news = useSelector((state) => state.news);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -135,8 +136,8 @@ const Home = () => {
           <H2Home>News</H2Home>
 
           <Carousel itemsToShow={5}>
-            {trending.length ? (
-              trending.map((b) => {
+            {news.length ? (
+              news.map((b) => {
                 return (
                   <Card
                     id={b.id}

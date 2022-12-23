@@ -43,6 +43,18 @@ export function getTrendingBooks() {
     });
   };
 }
+
+export function getNewsBooks() {
+  return async function (dispatch) {
+    var json = await axios.get("http://localhost:3001/books/news");
+    return dispatch({
+      type: "GET_NEW_BOOKS",
+      payload: json.data,
+    });
+  };
+}
+
+
 export function getRecomendedBooks() {
   return async function (dispatch) {
     //
@@ -55,6 +67,8 @@ export function getRecomendedBooks() {
     });
   };
 }
+
+
 
 export function createBook(payload) {
   return async function (dispatch) {

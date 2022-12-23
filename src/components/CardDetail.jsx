@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import { useDispatch } from "react-redux";
 
 import { cleanDetail } from "../redux/actions";
@@ -22,15 +22,33 @@ import {
   ButtonOptionsDetail,
   ButtonSelectDetail,
 } from "../styles/Detail";
-
-
+import {
+  UlCard,
+  MenuConteiner,
+  MenuTrigger,
+  DropDownMenu,
+} from "../styles/Card";
+import caretIcon from "../icons/caretIcon.svg";
+import favoriteIcon from "../icons/favoriteIcon.svg";
+import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
+import readedIcon from "../icons/readedIcon.svg";
+import reviewIcon from "../icons/reviewIcon.svg";
 import {StarsContainer} from "../styles/CardRecomended"
 import {ButtonCatalogue} from "../styles/Catalogue"
 
 
+function DropdownItem(props) {
+  return (
+    <li>
+      <img src={props.icon} alt="n" />
+    </li>
+  );
+}
+
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
   
+  const [open,setOpen]=useState(false)
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
@@ -86,16 +104,25 @@ var mod=book.averageRating % rating
       </ImgContainerDetail>
 
       <ColumnConteinerDetail>
+      
     <ButtonCloseDetail onClick={e=>{handleCloseClick(e)}}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
   <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
 </svg></ButtonCloseDetail>
-    <ButtonSelectDetail>
-      <ButtonOptionsDetail value="" hidden>Options</ButtonOptionsDetail>
-      <ButtonOptionsDetail value="review">Review</ButtonOptionsDetail>
-      <ButtonOptionsDetail value="readed">Readed</ButtonOptionsDetail>
-      <ButtonOptionsDetail value="favorite">Favorite</ButtonOptionsDetail>
-    
-</ButtonSelectDetail>
+<MenuConteiner right={"310px"} top={"120px"} >
+          <MenuTrigger
+            onClick={() => {setOpen(!open);}}>
+            <img src={caretIcon} />
+          </MenuTrigger>
+          <DropDownMenu
+            className={`dropdown-menu ${open ? "active" : "inactive"}`}
+          >
+            <UlCard>
+              <DropdownItem icon={reviewIcon}/>
+              <DropdownItem icon={readedIcon}/>
+              <DropdownItem icon={favoriteIcon}/>
+            </UlCard>
+          </DropDownMenu>
+        </MenuConteiner>
 
 
 

@@ -6,6 +6,7 @@ const initialState = {
   detail: [],
   trending: [],
   recomended: [],
+  news:[],
   user: null,
 };
 
@@ -97,6 +98,11 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         trending: action.payload,
+      };
+      case "GET_NEW_BOOKS":
+      return {
+        ...state,
+        news: action.payload,
       };
     case "GET_RECOMENDED_BOOKS":
       return {
