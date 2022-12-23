@@ -8,6 +8,7 @@ import {
   getGenres,
   getRecomendedBooks,
   getTrendingBooks,
+  getNewsBooks,
 } from "../redux/actions";
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
@@ -40,6 +41,9 @@ const Home = () => {
     }
     if (!trending.length) {
       dispatch(getTrendingBooks());
+    }
+    if (!news.length) {
+      dispatch(getNewsBooks());
     }
     if (!recomended.length) {
       dispatch(getRecomendedBooks());
