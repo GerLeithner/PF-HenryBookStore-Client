@@ -193,14 +193,14 @@ export const OverLay = styled.div`
 export const ReviewConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100 px;
-  width: 730 px;
-  padding:0 px;
-  border-radius: 5 px;
+  height: 80px;
+  width: 730px;
+  padding:0px;
+  border-radius: 5px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   margin: 0px;
-  margin-top: 50px;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 1px;
   background-color: white;
   padding-left: 0px;
   padding-right: 0px;
@@ -208,7 +208,6 @@ export const ReviewConteiner = styled.div`
   overflow-x: hidden ;
   overflow-y: auto;
   text-overflow:ellipsis; 
-
   
 `;
 

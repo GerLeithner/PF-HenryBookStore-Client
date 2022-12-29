@@ -8,6 +8,8 @@ const initialState = {
   recomended: [],
   news:[],
   user: null,
+  favorites:[],
+  readed:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -151,6 +153,33 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+    
+    case "ADD_FAVORITE":
+      return {
+        ...state,
+        favorites:[...state.favorites,action.payload]
+      }
+    case "DELETE_FAVORITE":
+      const allFavorites=state.favorites;
+      const filterDeleteFavorite=allFavorites.filter((el)=>el.id !== action.payload);
+      return{
+        ...state,
+        favorites:[filterDeleteFavorite]
+      }
+    
+    case "ADD_READED":
+      return {
+        ...state,
+        readed:[...state.readed,action.payload]
+      }
+
+    case "DELETE_READED":
+      const allReaded=state.readed;
+      const filterDeleteReaded=allReaded.filter((el)=>el.id !== action.payload);
+      return{
+        ...state,
+        readed:[filterDeleteReaded]
+      }
 
     default:
       return state;

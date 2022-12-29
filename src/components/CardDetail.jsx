@@ -31,6 +31,14 @@ import {
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
+import {
+  addFavorite,
+  addReaded,
+  addReading,
+  deleteFavorite,
+  deleteReading,
+  deleteReaded
+} from "../redux/actions";
 import caretIcon from "../icons/caretIcon.svg";
 import favoriteIcon from "../icons/favoriteIcon.svg";
 import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
@@ -48,10 +56,17 @@ function DropdownItem(props) {
   );
 }
 
+
+
+
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
   
   const [open,setOpen]=useState(false)
+  const [favorite,setFavorite]=useState(false)
+  const [readed,setReaded]=useState(false)
+  const [reading,setReading]=useState(false)
+  
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
@@ -75,15 +90,40 @@ export default function CardDetail({book,modal,setModal}) {
     dispatch(cleanDetail());
   }
  
+  function handleFavorite(e) {
+    e.preventDefault();
+    console.log("Entré e:", e);
+    if(!favorite){
+      dispatch(addFavorite());
+      setFavorite(!favorite)
+      console.log("FAV1",favorite)
+    }
+    if(favorite){
+      dispatch(deleteFavorite());
+      setFavorite(!favorite)
+      console.log("FAV2",favorite)
+    }
+    
+  }
+  
+  function handleReaded(e) {
+    e.preventDefault();
+    console.log("Entré e:", e);
+    if(!readed){
+      dispatch(addReaded());
+      setReaded(!readed)
+      console.log("READ1",readed)
+    }
+    if(readed){
+      dispatch(deleteReaded());
+      setReaded(!readed)
+      console.log("READ2",readed)
+    }
+    
+  }
 
 
-// var rating=Math.floor(book.averageRating)
 
-// var stars=[]
-// for(let i=0;i<rating;i++){
-// stars.push("star")
-// }
-// var mod=book.averageRating % rating
 
 
 
@@ -105,13 +145,13 @@ return stars
 }
 
 var starAverage=book && book.averageRating && starRating(book.averageRating)
-book && console.log("starAverage",starAverage)
+
 
 
 var review1Star=book && book.reviews && book.reviews[0] && starRating(book.reviews[0].score)
-console.log("REVIEWSTAR",review1Star)
+
 var review2Star=book && book.reviews && book.reviews[1] && starRating(book.reviews[1].score)
-console.log("REVIEWSTAR",review2Star)
+
 
   return (
   <>
@@ -140,8 +180,8 @@ console.log("REVIEWSTAR",review2Star)
           >
             <UlCard>
               <DropdownItem icon={reviewIcon}/>
-              <DropdownItem icon={readedIcon}/>
-              <DropdownItem icon={favoriteIcon}/>
+              <DropdownItem icon={readedIcon} onClick={e=>{handleReaded(e)}}/>
+              <DropdownItem icon={favoriteIcon} onClick={e=>{handleFavorite(e)}}/>
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>
@@ -196,7 +236,7 @@ console.log("REVIEWSTAR",review2Star)
           {book && book.reviews && book.reviews[0]?(
             <>
             <UserAndStars>
-            <H4Detail>Review by User 1</H4Detail>
+            <H4Detail>Review by {book.reviews[1].user.userName}</H4Detail>
 
             <StarsContainer>
           {
@@ -221,7 +261,7 @@ console.log("REVIEWSTAR",review2Star)
              <ReviewConteiner>
            
             <UserAndStars>
-              <H4Detail>Review by User 2</H4Detail>
+              <H4Detail>Review by {book.reviews[1].user.userName}</H4Detail>
             <StarsContainer>
           {
             review2Star && review2Star.map(s=>(s==="star"?

@@ -181,3 +181,94 @@ export function getUser(payload) {
     }
   };
 }
+
+export function addFavorite(id) {
+  return async function (dispatch) {
+    try {
+      const favorite = await axios.post(
+        "http://localhost:3001/books/" + id + "/favorite"
+      );
+      return dispatch({
+        type: "ADD_FAVORITE",
+        payload: favorite.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function deleteFavorite(id){
+  return async function(dispatch){
+    try{
+      await axios.delete("http://localhost:3001/books/" + id +"/favorite");
+      return dispatch({
+        type:"DELETE_FAVORITE",
+        payload:id,
+      });
+    }catch(e){
+      console.log(e);
+    }
+  }
+}
+
+export function addReaded(id) {
+  return async function (dispatch) {
+    try {
+      const readed = await axios.post(
+        "http://localhost:3001/books/" + id + "/read"
+      );
+      return dispatch({
+        type: "ADD_READED",
+        payload: readed.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function deleteReaded(id){
+  return async function(dispatch){
+    try{
+      await axios.delete("http://localhost:3001/books/" + id +"/read");
+      return dispatch({
+        type:"DELETE_READED",
+        payload:id,
+      });
+    }catch(e){
+      console.log(e);
+    }
+  }
+}
+
+export function addReading(id) {
+  return async function (dispatch) {
+    try {
+      const reading = await axios.post(
+        "http://localhost:3001/books/" + id + "/reading"
+      );
+      return dispatch({
+        type: "ADD_READING",
+        payload: reading.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function deleteReading(id){
+  return async function(dispatch){
+    try{
+      await axios.delete("http://localhost:3001/books/" + id +"/reading");
+      return dispatch({
+        type:"DELETE_READING",
+        payload:id,
+      });
+    }catch(e){
+      console.log(e);
+    }
+  }
+}
+
