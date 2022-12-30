@@ -144,6 +144,12 @@ export const CardImgDetail = styled.img`
   margin: 0px;
 `;
 
+export const StarDetail = styled.img`
+  width: 15px;
+  height: 15px;
+  margin: 0px;
+  
+`;
 
 
 
