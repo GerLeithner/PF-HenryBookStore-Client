@@ -182,16 +182,16 @@ export function getUser(payload) {
   };
 }
 
-export function addFavorite(id) {
+
+
+export function addFavorite(id,payload) {
   return async function (dispatch) {
     try {
-      const favorite = await axios.post(
-        "http://localhost:3001/books/" + id + "/favorite"
-      );
-      return dispatch({
-        type: "ADD_FAVORITE",
-        payload: favorite.data,
-      });
+        console.log("payload", payload)
+        const response= await axios.post("http://localhost:3001/books/" + id + "/favorite",payload);
+        console.log("response:", response)
+        return response;
+      
     } catch (e) {
       console.log(e);
     }
@@ -212,16 +212,16 @@ export function deleteFavorite(id){
   }
 }
 
-export function addReaded(id) {
+
+
+export function addReaded(id,payload) {
   return async function (dispatch) {
     try {
-      const readed = await axios.post(
-        "http://localhost:3001/books/" + id + "/read"
-      );
-      return dispatch({
-        type: "ADD_READED",
-        payload: readed.data,
-      });
+        console.log("payload", payload)
+        const response= await axios.post("http://localhost:3001/books/" + id + "/read", payload);
+        console.log("response:", response)
+        return response;
+      
     } catch (e) {
       console.log(e);
     }
@@ -242,21 +242,20 @@ export function deleteReaded(id){
   }
 }
 
-export function addReading(id) {
+export function addReading(id,payload) {
   return async function (dispatch) {
     try {
-      const reading = await axios.post(
-        "http://localhost:3001/books/" + id + "/reading"
-      );
-      return dispatch({
-        type: "ADD_READING",
-        payload: reading.data,
-      });
+        console.log("payload", payload)
+        const response= await axios.post("http://localhost:3001/books/" + id + "/reading",payload);
+        console.log("response:", response)
+        return response;
+      
     } catch (e) {
       console.log(e);
     }
   };
 }
+
 
 export function deleteReading(id){
   return async function(dispatch){
