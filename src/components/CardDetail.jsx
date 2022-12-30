@@ -1,7 +1,6 @@
 import React,{useState} from "react";
 import { useDispatch } from "react-redux";
 
-import { cleanDetail } from "../redux/actions";
 import {
   CardImgDetail,
   ImgContainerDetail,
@@ -24,6 +23,7 @@ import {
   ButtonSelectDetail,
   UserAndStars,
   ButtonsConteiner,
+  StarDetail,
 } from "../styles/Detail";
 import {
   UlCard,
@@ -31,11 +31,24 @@ import {
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
+import {
+  cleanDetail,
+  addFavorite,
+  addReaded,
+  addReading,
+  deleteFavorite,
+  deleteReading,
+  deleteReaded
+} from "../redux/actions";
 import caretIcon from "../icons/caretIcon.svg";
 import favoriteIcon from "../icons/favoriteIcon.svg";
 import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
 import readedIcon from "../icons/readedIcon.svg";
 import reviewIcon from "../icons/reviewIcon.svg";
+import readedIconFill from "../icons/readedIconFill.svg";
+import starFill from "../icons/starFill.svg";
+import starHalf from "../icons/starHalf.svg";
+import closeIcon from "../icons/closeIcon.svg";
 import {StarsContainer} from "../styles/CardRecomended"
 
 
@@ -43,15 +56,22 @@ import {StarsContainer} from "../styles/CardRecomended"
 function DropdownItem(props) {
   return (
     <li>
-      <img src={props.icon} alt="n" />
+      <img src={props.icon} alt="n" role="button" onClick={props.handle} value={props.id}/>
     </li>
   );
 }
+
+
+
 
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
   
   const [open,setOpen]=useState(false)
+  const [favorite,setFavorite]=useState(false)
+  const [readed,setReaded]=useState(false)
+  const [reading,setReading]=useState(false)
+  console.log("BOOKID",book.id)
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
@@ -72,18 +92,50 @@ export default function CardDetail({book,modal,setModal}) {
   function handleCloseClick(e) {
     e.preventDefault(e);
     setModal(false);
-    dispatch(cleanDetail());
+    console.log("e.target.value",e.target.value)
+    dispatch(cleanDetail(e.target.value));
   }
  
+  function handleFavorite(id) {
+    // e.preventDefault();
+    // console.log("e.target.value",e.target.value)
+    console.log("Entré a favorite:", id);
+    if(!favorite){
+      setFavorite(!favorite)
+      console.log("FAV+",favorite)
+      dispatch(addFavorite(id));
+      
+    }
+    if(favorite){
+      setFavorite(!favorite)
+      console.log("FAV-",favorite)
+      dispatch(deleteFavorite(id));
+      
+    }
+    
+  }
+  
+  function handleReaded(id) {
+    // e.preventDefault();
+    // console.log("e.target.value",e.target.value)
+    console.log("Entré a readed:", id);
+    if(!readed){
+      setReaded(!readed)
+      console.log("READ+",readed)
+      dispatch(addReaded(id));
+     
+    }
+    if(readed){
+      setReaded(!readed)
+      console.log("READ-",readed)
+      dispatch(deleteReaded(id));
+      
+    }
+    
+  }
 
 
-// var rating=Math.floor(book.averageRating)
 
-// var stars=[]
-// for(let i=0;i<rating;i++){
-// stars.push("star")
-// }
-// var mod=book.averageRating % rating
 
 
 
@@ -105,13 +157,13 @@ return stars
 }
 
 var starAverage=book && book.averageRating && starRating(book.averageRating)
-book && console.log("starAverage",starAverage)
+
 
 
 var review1Star=book && book.reviews && book.reviews[0] && starRating(book.reviews[0].score)
-console.log("REVIEWSTAR",review1Star)
+
 var review2Star=book && book.reviews && book.reviews[1] && starRating(book.reviews[1].score)
-console.log("REVIEWSTAR",review2Star)
+
 
   return (
   <>
@@ -127,9 +179,7 @@ console.log("REVIEWSTAR",review2Star)
 
       <ColumnConteinerDetail>
       
-    <ButtonCloseDetail onClick={e=>{handleCloseClick(e)}}><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-</svg></ButtonCloseDetail>
+    <ButtonCloseDetail onClick={e=>{handleCloseClick(e)}}><img src={closeIcon} alt="n" /></ButtonCloseDetail>
 <MenuConteiner right={"310px"} top={"120px"} >
           <MenuTrigger
             onClick={() => {setOpen(!open);}}>
@@ -139,9 +189,9 @@ console.log("REVIEWSTAR",review2Star)
             className={`dropdown-menu ${open ? "active" : "inactive"}`}
           >
             <UlCard>
-              <DropdownItem icon={reviewIcon}/>
-              <DropdownItem icon={readedIcon}/>
-              <DropdownItem icon={favoriteIcon}/>
+              <DropdownItem icon={reviewIcon} value={book.id}/>
+              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={book.id} handle={e=>{handleReaded(book.id)}} role="button"/>
+              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={book.id} handle={e=>{handleFavorite(book.id)}} role="button"/>
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>
@@ -156,12 +206,8 @@ console.log("REVIEWSTAR",review2Star)
           <StarsContainer>
           {
             starAverage && starAverage.map(s=>(s==="star"?
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-            </svg>:
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-                <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-              </svg>
+            <StarDetail src={starFill} alt="n" />:
+            <StarDetail src={starHalf} alt="n" />
             ))
             
             } 
@@ -196,17 +242,13 @@ console.log("REVIEWSTAR",review2Star)
           {book && book.reviews && book.reviews[0]?(
             <>
             <UserAndStars>
-            <H4Detail>Review by User 1</H4Detail>
+            <H4Detail>Review by {book.reviews[1].user.userName}</H4Detail>
 
             <StarsContainer>
           {
             review1Star && review1Star.map(s=>(s==="star"?
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-            </svg>:
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-                <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-              </svg>
+            <StarDetail src={starFill} alt="n" />:
+            <StarDetail src={starHalf} alt="n" />
             ))
             }
           </StarsContainer>
@@ -221,16 +263,12 @@ console.log("REVIEWSTAR",review2Star)
              <ReviewConteiner>
            
             <UserAndStars>
-              <H4Detail>Review by User 2</H4Detail>
+              <H4Detail>Review by {book.reviews[1].user.userName}</H4Detail>
             <StarsContainer>
           {
             review2Star && review2Star.map(s=>(s==="star"?
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
-              <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
-            </svg>:
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-                <path d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"/>
-              </svg>
+            <StarDetail src={starFill} alt="n" />:
+            <StarDetail src={starHalf} alt="n" />
             ))
             } 
           </StarsContainer>
