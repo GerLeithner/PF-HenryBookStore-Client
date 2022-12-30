@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-
+import React, { useState, useEffect } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   bookDetail,
   addFavorite,
@@ -7,7 +7,8 @@ import {
   addReading,
   deleteFavorite,
   deleteReading,
-  deleteReaded
+  deleteReaded,
+  getUser,
 } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import CardDetail from "./CardDetail.jsx";
@@ -34,6 +35,19 @@ export default function Card({ id, cover, modal, setModal }) {
   const [favorite,setFavorite]=useState(false)
   const [readed,setReaded]=useState(false)
   const [reading,setReading]=useState(false)
+  const { isAuthenticated, user, isLoading } = useAuth0();
+  
+  // useEffect(() => {
+    
+  //     const { email, nickname } = user;
+
+  //     const userDb = {
+  //       email,
+  //       nickname,
+  //     };
+
+  //     dispatch(getUser(userDb));
+  //   }, [dispatch, isAuthenticated]);
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -43,40 +57,45 @@ export default function Card({ id, cover, modal, setModal }) {
 
   const dispatch = useDispatch();
   const book = useSelector((state) => state.detail);
+  const currentUser = useSelector((state) => state.user);
+  console.log("STATEUSER",currentUser)
+  const userId={id:currentUser && currentUser.id};
+  userId && console.log("USERID",userId)
 
-  function handleFavorite(id) {
+
+  function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
     console.log("Entré a favorite:", id);
     if(!favorite){
       setFavorite(!favorite)
       console.log("FAV+",favorite)
-      dispatch(addFavorite(id));
+      dispatch(addFavorite(id,userId));
       
     }
     if(favorite){
       setFavorite(!favorite)
       console.log("FAV-",favorite)
-      dispatch(deleteFavorite(id));
+      dispatch(deleteFavorite(id,userId));
       
     }
     
   }
   
-  function handleReaded(id) {
+  function handleReaded(id, userId) {
     
     // console.log("e.target.value",e.target.value)
     console.log("Entré a readed:", id);
     if(!readed){
       setReaded(!readed)
       console.log("READ+",readed)
-      dispatch(addReaded(id));
+      dispatch(addReaded(id, userId));
       
     }
     if(readed){
       setReaded(!readed)
       console.log("READ-",readed)
-      dispatch(deleteReaded(id));
+      dispatch(deleteReaded(id,userId));
       
     }
     
