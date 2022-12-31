@@ -147,7 +147,7 @@ export const ButtonForm = styled.button`
   background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 10px;
-  transition: all 0.3s ease 0s;
+  transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
 

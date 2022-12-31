@@ -12,20 +12,21 @@ export const SingleCardContainerDetail = styled.div`
   border-radius: 10px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   margin: 10px;
-  padding-top: 30px;
+  padding-top: 20px;
   margin-top: 0px;
   background-color: white;
 `;
 
 export const ImgAndInfo = styled.div`
   padding-top: 80px;
-  height: 400px;
+  height: 350px;
   width: 720px;
   display: grid;
   align-items: center;
   grid-template-columns: 0.25fr 0.25fr;
-  gap: 40px;
+  gap: 30px;
   padding-bottom: 0px;
+
 `;
 
 export const H1Detail = styled.h1`
@@ -89,9 +90,10 @@ export const H5Detail = styled.h5`
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  margin: 10px;
-  background-color: white;
+  padding:0px;
+  padding-left: 20px;
+  margin:0px;
+ 
 `;
 
 export const TitleCardConteinerDetail = styled.div`
@@ -142,24 +144,31 @@ export const CardImgDetail = styled.img`
   margin: 0px;
 `;
 
+export const StarDetail = styled.img`
+  width: 15px;
+  height: 15px;
+  margin: 0px;
+  
+`;
 
 
 
 export const DescriptionCardConteinerDetail= styled.div`
- width: 480px;
+ width: 500px;
  height: 210px;
  padding:0px;
  margin: 0px;
- text-overflow:ellipsis;
 `;
 
 export const DescriptionPDetail= styled.p`
-height: 210px;
-width: 480px;
+height: 150px;
+width: 550px;
 padding:0px;
 text-align:justify;
 font-size: small;
 margin:0px;
+overflow-x: hidden ;
+overflow-y: auto;
 text-overflow:ellipsis;
 `;
 
@@ -190,11 +199,39 @@ export const OverLay = styled.div`
 export const ReviewConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  height: 700px;
+  height: 80px;
+  width: 730px;
+  padding:0px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  margin: 0px;
+  margin-top: 10px;
+  margin-bottom: 1px;
+  background-color: white;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-bottom: 10px;
+  overflow-x: hidden ;
+  overflow-y: auto;
+  text-overflow:ellipsis; 
+  
+`;
+
+export const UserAndStars = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
   width: 730px;
   margin: 0px;
   padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  
+  
 `;
+
 
 
 
@@ -211,7 +248,7 @@ export const ButtonCloseDetail = styled.button`
   border: none;
   border-radius: 10px;
   box-shadow: 0px 2px 3px rgba(0.2, 0.2, 0.2, 0.3);
-  transition: all 0.1s ease 0s;
+  transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
   font-weight: bolder;
@@ -245,7 +282,7 @@ export const ButtonSelectDetail = styled.select`
   border: none;
   border-radius: 10px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s ease 0s;
+  transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
   font-weight: bolder;
@@ -278,7 +315,7 @@ export const ButtonOptionsDetail = styled.option`
   border: none;
   border-radius: 10px;
   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  transition: all 0.1s ease 0s;
+  transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
   font-weight: bolder;
@@ -298,3 +335,44 @@ export const ButtonOptionsDetail = styled.option`
   }
 `;
 
+export const ButtonDetail = styled.button`
+  width: ${({ width }) => width || "max-content"};
+  height: ${({ height }) => height || "30px"};
+  padding: 0.3em;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 50px;
+  color: #111;
+  background-color: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.01s ease 0s;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    background-color: #1b8f2b;
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+    color: #fff;
+    //transform: translateY(-7px);
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
+
+export const ButtonsConteiner = styled.div`
+  padding-top: 0px;
+  height: 50px;
+  width: 720px;
+  display: flex;
+  flex: 1;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding-bottom: 0px;
+  align-self:flex-end;
+`;

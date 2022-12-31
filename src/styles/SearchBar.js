@@ -39,7 +39,7 @@ export const InputSearch = styled.input`
   outline: none;
   background-color: #fff;
   color: #0d0c22;
-  transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: 0.01s cubic-bezier(0.645, 0.045, 0.355, 1);
 
   outline: none;
   padding: 0.2rem 1rem;

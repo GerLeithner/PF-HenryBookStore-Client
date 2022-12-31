@@ -120,6 +120,7 @@ export const DescriptionRecomended = styled.p`
   padding:0px;
   margin:0px;
   text-align: left;
+  
 `;
 export const StarsContainer = styled.div`
   height: 20px;
