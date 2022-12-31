@@ -1,6 +1,6 @@
 import React,{useState} from "react";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
 import {
   CardImgDetail,
   ImgContainerDetail,
@@ -66,16 +66,18 @@ function DropdownItem(props) {
 
 export default function CardDetail({book,modal,setModal}) {
   const dispatch = useDispatch();
-  
+  const currentUser = useSelector((state) => state.user);
   const [open,setOpen]=useState(false)
   const [favorite,setFavorite]=useState(false)
   const [readed,setReaded]=useState(false)
   const [reading,setReading]=useState(false)
+  const { isAuthenticated, user, isLoading } = useAuth0();
   console.log("BOOKID",book.id)
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
-
+  const userId={userId:currentUser && currentUser.id};
+  userId && console.log("USERID",userId)
   // const book = useSelector((state) => state.detail);
 
   // useEffect(() => {
@@ -96,39 +98,39 @@ export default function CardDetail({book,modal,setModal}) {
     dispatch(cleanDetail(e.target.value));
   }
  
-  function handleFavorite(id) {
+  function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
     console.log("Entré a favorite:", id);
     if(!favorite){
       setFavorite(!favorite)
       console.log("FAV+",favorite)
-      dispatch(addFavorite(id));
+      dispatch(addFavorite(id, userId));
       
     }
     if(favorite){
       setFavorite(!favorite)
       console.log("FAV-",favorite)
-      dispatch(deleteFavorite(id));
+      dispatch(deleteFavorite(id, userId));
       
     }
     
   }
   
-  function handleReaded(id) {
+  function handleReaded(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
     console.log("Entré a readed:", id);
     if(!readed){
       setReaded(!readed)
       console.log("READ+",readed)
-      dispatch(addReaded(id));
+      dispatch(addReaded(id, userId));
      
     }
     if(readed){
       setReaded(!readed)
       console.log("READ-",readed)
-      dispatch(deleteReaded(id));
+      dispatch(deleteReaded(id, userId));
       
     }
     
@@ -189,9 +191,9 @@ var review2Star=book && book.reviews && book.reviews[1] && starRating(book.revie
             className={`dropdown-menu ${open ? "active" : "inactive"}`}
           >
             <UlCard>
-              <DropdownItem icon={reviewIcon} value={book.id}/>
-              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={book.id} handle={e=>{handleReaded(book.id)}} role="button"/>
-              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={book.id} handle={e=>{handleFavorite(book.id)}} role="button"/>
+              <DropdownItem icon={reviewIcon} value={book.id} role="button"/>
+              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={book.id} handle={e=>{handleReaded(book.id,userId)}} role="button"/>
+              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={book.id} handle={e=>{handleFavorite(book.id,userId)}} role="button"/>
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>

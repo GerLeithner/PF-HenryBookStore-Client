@@ -58,18 +58,20 @@ export default function Card({ id, cover, modal, setModal }) {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.detail);
   const currentUser = useSelector((state) => state.user);
-  console.log("STATEUSER",currentUser)
-  const userId={id:currentUser && currentUser.id};
+  
+
+  const userId={userId:currentUser && currentUser.id};
   userId && console.log("USERID",userId)
 
 
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
-    console.log("Entré a favorite:", id);
+    console.log("Entré a favorite, bookId:", id);
     if(!favorite){
       setFavorite(!favorite)
       console.log("FAV+",favorite)
+      console.log("USER ID HANDLE:",userId)
       dispatch(addFavorite(id,userId));
       
     }
@@ -89,6 +91,7 @@ export default function Card({ id, cover, modal, setModal }) {
     if(!readed){
       setReaded(!readed)
       console.log("READ+",readed)
+      
       dispatch(addReaded(id, userId));
       
     }
@@ -123,8 +126,8 @@ export default function Card({ id, cover, modal, setModal }) {
           >
             <UlCard>
               <DropdownItem icon={reviewIcon} value={id} role="button" />
-              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id)}} role="button"/>
-              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id)}} role="button"/>
+              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
+              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>
