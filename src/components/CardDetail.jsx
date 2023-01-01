@@ -54,6 +54,7 @@ import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 import closeIcon from "../icons/closeIcon.svg";
 import { StarsContainer } from "../styles/CardRecomended";
+import BookReviews from "../components/BookReviews.jsx"
 
 function DropdownItem(props) {
   return (
@@ -76,6 +77,7 @@ export default function CardDetail({ book, modal, setModal }) {
 
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
+  const [allReviews,setAllReviews]=useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
 
@@ -86,6 +88,8 @@ export default function CardDetail({ book, modal, setModal }) {
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
   const userId={userId:currentUser && currentUser.id};
+
+  
   // userId && console.log("USERID",userId)
 
   // const book = useSelector((state) => state.detail);
@@ -257,6 +261,11 @@ export default function CardDetail({ book, modal, setModal }) {
               </ColumnConteinerDetail>
             </ImgAndInfo>
             <ReviewConteiner>
+            { book && book.reviews && <BookReviews/> }
+            </ReviewConteiner>
+            
+            {/* <ReviewConteiner>
+            
               {book && book.reviews && book.reviews[0] ? (
                 <>
                   <UserAndStars>
@@ -304,7 +313,7 @@ export default function CardDetail({ book, modal, setModal }) {
 
                 <H5Detail>{book.reviews[1].comment}</H5Detail>
               </ReviewConteiner>
-            ) : <></> }
+            ) : <></> } */}
             <ButtonsConteiner>
               <ButtonDetail>Show More Reviews</ButtonDetail>
               <ButtonDetail>Leave a Review</ButtonDetail>
