@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAuthors, getGenres, createBook, editBook, disableBook, cleanDetail } from "../redux/actions";
+import { getAuthors, getGenres, createBook, editBook, disableBook, cleanBookDetail } from "../redux/actions";
 import BookReviews from "./BookReviews";
 import {
   DescriptionContainer,
@@ -316,7 +316,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
 
   function close(e) {
     e.preventDefault();
-    dispatch(cleanDetail())
+    dispatch(cleanBookDetail())
     setModal(false);
   }
 

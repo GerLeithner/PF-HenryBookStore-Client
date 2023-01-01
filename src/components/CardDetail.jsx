@@ -3,6 +3,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import {
+  cleanBookDetail,
+  addFavorite,
+  addReaded,
+  addReading,
+  deleteFavorite,
+  deleteReading,
+  deleteReaded,
+} from "../redux/actions";
+
+import {
   CardImgDetail,
   ImgContainerDetail,
   SingleCardContainerDetail,
@@ -26,21 +36,14 @@ import {
   ButtonsConteiner,
   StarDetail,
 } from "../styles/Detail";
+
 import {
   UlCard,
   MenuConteiner,
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
-import {
-  cleanDetail,
-  addFavorite,
-  addReaded,
-  addReading,
-  deleteFavorite,
-  deleteReading,
-  deleteReaded,
-} from "../redux/actions";
+
 import caretIcon from "../icons/caretIcon.svg";
 import favoriteIcon from "../icons/favoriteIcon.svg";
 import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
@@ -68,13 +71,16 @@ function DropdownItem(props) {
 
 export default function CardDetail({ book, modal, setModal }) {
   const dispatch = useDispatch();
+
   const currentUser = useSelector((state) => state.currentUser);
+
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
+
   const { isAuthenticated, user, isLoading } = useAuth0();
-  console.log("BOOKID", book.id);
+
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
@@ -87,7 +93,7 @@ export default function CardDetail({ book, modal, setModal }) {
 
   //   return () => {
   //     console.log("Detail Clean Up");
-  //     dispatch(cleanDetail());
+  //     dispatch(cleanBookDetail());
   //   };
   // }, [dispatch]);
 
@@ -95,7 +101,7 @@ export default function CardDetail({ book, modal, setModal }) {
     e.preventDefault(e);
     setModal(false);
     console.log("e.target.value", e.target.value);
-    dispatch(cleanDetail(e.target.value));
+    dispatch(cleanBookDetail(e.target.value));
   }
 
   function handleFavorite(id, userId) {
@@ -220,11 +226,11 @@ export default function CardDetail({ book, modal, setModal }) {
 
                   <StarsContainer>
                     {starAverage &&
-                      starAverage.map((s) =>
+                      starAverage.map((s, i) =>
                         s === "star" ? (
-                          <StarDetail src={starFill} alt="n" />
+                          <StarDetail key={i} src={starFill} alt="n" />
                         ) : (
-                          <StarDetail src={starHalf} alt="n" />
+                          <StarDetail key={i} src={starHalf} alt="n" />
                         )
                       )}
                   </StarsContainer>

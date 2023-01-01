@@ -1,6 +1,7 @@
-
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import {
   getBookById,
   addFavorite,
@@ -9,9 +10,9 @@ import {
   deleteFavorite,
   // deleteReading,
   deleteReaded,
-  // getUser,
+  getUser,
 } from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
+
 import CardDetail from "./CardDetail.jsx";
 import caretIcon from "../icons/caretIcon.svg";
 import favoriteIcon from "../icons/favoriteIcon.svg";
@@ -31,9 +32,10 @@ import {
 } from "../styles/Card";
 
 export default function Card({ id, cover, modal, setModal }) {
+
   const [open, setOpen] = useState(false);
-  const [favorite,setFavorite]=useState(false)
-  const [readed,setReaded]=useState(false)
+  const [favorite, setFavorite]=useState(false)
+  const [readed, setReaded]=useState(false)
   // const [reading,setReading]=useState(false)
   // const { isAuthenticated, user, isLoading } = useAuth0();
 

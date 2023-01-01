@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterByGenre,
+  filterBooksByGenre,
   getAuthors,
   getBooks,
   getGenres,
-  sortByPublisherDate,
-  sortByTitle,
+  sortBooksByPublishedDate,
+  sortBooksByTitle,
 } from "../redux/actions";
 import Card from "./Card.jsx";
 import Paged from "./Paged.jsx";
@@ -53,21 +53,21 @@ const Catalogue = () => {
   }
 
   function handleFilterGenre(e) {
-    dispatch(filterByGenre(e.target.value));
+    dispatch(filterBooksByGenre(e.target.value));
     setCurrentPage(1);
   }
 
-  function handleSortByTitle(e) {
+  function handlesortBooksByTitle(e) {
     e.preventDefault();
-    dispatch(sortByTitle(e.target.value));
+    dispatch(sortBooksByTitle(e.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
     console.log(orden);
   }
 
-  function handleSortByPublisherDate(e) {
+  function handlesortBooksByPublishedDate(e) {
     e.preventDefault();
-    dispatch(sortByPublisherDate(e.target.value));
+    dispatch(sortBooksByPublishedDate(e.target.value));
     setCurrentPage(1);
     setOrden(`Ordenado ${e.target.value}`);
     console.log(orden);
@@ -81,7 +81,7 @@ const Catalogue = () => {
         </ButtonCatalogue>
         <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <SelectFilters>
-          <CatalogueSelects onChange={(e) => handleSortByTitle(e)}>
+          <CatalogueSelects onChange={(e) => handlesortBooksByTitle(e)}>
             <option value="" hidden>
               ABC
             </option>
@@ -89,7 +89,7 @@ const Catalogue = () => {
             <option value="desc">Decreasing</option>
           </CatalogueSelects>
 
-          <CatalogueSelects onChange={(e) => handleSortByPublisherDate(e)}>
+          <CatalogueSelects onChange={(e) => handlesortBooksByPublishedDate(e)}>
             <option value="" hidden>
               Publisher Date
             </option>

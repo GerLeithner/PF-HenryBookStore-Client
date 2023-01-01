@@ -111,37 +111,37 @@ export function getRecomendedBooks() {
 }
 
 // ------------------- BOOK SORTS AND FILTERS ------------------------------------
-export function sortByTitle(payload) {
+export function sortBooksByTitle(payload) {
   return {
-    type: "SORT_BY_TITLE",
+    type: "SORT_BOOKS_BY_TITLE",
     payload,
   };
 }
 
-export function sortByPublisherDate(payload) {
+export function sortBooksByPublishedDate(payload) {
   return {
-    type: "SORT_BY_PUBLISHER_DATE",
+    type: "SORT_BOOKS_BY_PUBLISHED_DATE",
     payload,
   };
 }
 
-export function filterByGenre(payload) {
+export function filterBooksByGenre(payload) {
   return {
-    type: "FILTER_BY_GENRE",
+    type: "FILTER_BOOKS_BY_GENRE",
     payload,
   };
 }
 
-export function filterByStatus(payload) {
+export function filterBooksByStatus(payload) {
   return {
-    type: "FILTER_BY_STATUS",
+    type: "FILTER_BOOKS_BY_STATUS",
     payload,
   };
 }
 
-export function cleanDetail(payload) {
+export function cleanBookDetail(payload) {
   return {
-    type: "CLEAN_DETAIL",
+    type: "CLEAN_BOOK_DETAIL",
     payload,
   };
 }
@@ -194,14 +194,30 @@ export function getAllUsers(payload) {
   };
 }
 
-export function getUser(payload) {
+export function getUserById(id) {
+  return async function (dispatch) {
+    try {
+      const user = await axios.get(
+        `http://localhost:3001/user/${id}`
+      );
+      return dispatch({
+        type: "GET_USER_BY_ID",
+        payload: user.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
       const user = await axios.post(
         "http://localhost:3001/user/register", payload
       );
       return dispatch({
-        type: "GET_USER",
+        type: "GET_CURRENT_USER",
         payload: user.data,
       });
     } catch (e) {

@@ -7,7 +7,7 @@ import {
 } from "../styles/NavBar";
 import SearchBar from "./SearchBar.jsx";
 import CardDetail from "./CardDetail.jsx";
-import { getUser } from "../redux/actions/index.js";
+import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
@@ -18,7 +18,7 @@ const NavBar = () => {
   const currentUser = useSelector((state) => state.user);
   useEffect(() => {
     if (!isAuthenticated && currentUser) {
-      dispatch(getUser(null));
+      dispatch(getCurrentUser(null));
     }
     if (isAuthenticated && !currentUser) {
       console.log(user);
@@ -29,7 +29,7 @@ const NavBar = () => {
         nickname,
       };
 
-      dispatch(getUser(userDb));
+      dispatch(getCurrentUser(userDb));
     }
   }, [dispatch, isAuthenticated]);
 

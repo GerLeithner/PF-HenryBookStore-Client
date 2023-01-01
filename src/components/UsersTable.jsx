@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers } from "../redux/actions";
+import { getAllUsers, getUserById, cleanUserDetail } from "../redux/actions";
 
 import EditUser from "./EditUser";
 import TablePaged from "./TablePaged";
@@ -28,22 +28,22 @@ export default function Catalogue() {
   const [currentPage, setCurrentPage] = useState(1);
   const [usersXPage, ] = useState(20);
 
-  let indexOfLastBook = currentPage * usersXPage;
-  let indexOfFirstBook = indexOfLastBook - usersXPage;
-  let currentBook = allUsers.slice(indexOfFirstBook, indexOfLastBook);
-  let countPages2 = Math.ceil(allUsers.length / usersXPage);
+  let indexLastUser = currentPage * usersXPage;
+  let indexFirstUser = indexLastUser - usersXPage;
+  let currentUsers = allUsers.slice(indexFirstUser, indexLastUser);
+  let countPages = Math.ceil(allUsers.length / usersXPage);
 
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch, modal]);
 
   const paginado = (pageNumber) => {
-    if (pageNumber > 0 && pageNumber <= countPages2) setCurrentPage(pageNumber);
+    if (pageNumber > 0 && pageNumber <= countPages) setCurrentPage(pageNumber);
   };
 
   function handleReload(e) {
     e.preventDefault();
-    dispatch(getBooks());
+    dispatch(getAllUsers());
     setModal(false);
     setCurrentPage(1);
     setHeader("ALL BOOKS");
@@ -53,45 +53,35 @@ export default function Catalogue() {
   function handleSort(e) {
     e.preventDefault();
 
-    if(e.target.name === "Sort By Title") {
-      dispatch(sortByTitle(e.target.innerText));
-    }
-    if(e.target.name === "Sort By Year") {
-      dispatch(sortByPublisherDate(e.target.innerText));
-    }
-    setSort({ name: e.target.name, option: e.target.innerText });
-    setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
-    setCurrentPage(1);
+    // if(e.target.name === "Sort By Title") {
+    //   dispatch(sortBooksByTitle(e.target.innerText));
+    // }
+    // if(e.target.name === "Sort By Year") {
+    //   dispatch(sortBooksByPublisherDate(e.target.innerText));
+    // }
+    // setSort({ name: e.target.name, option: e.target.innerText });
+    // setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
+    // setCurrentPage(1);
   }
 
   function handleFilter(e) {
     e.preventDefault();
 
-    if(e.target.name === "Filter By Genre") {
-      dispatch(filterByGenre(e.target.innerText));
-    }
-    if(e.target.name === "Filter By Status") {
-      dispatch(filterByStatus(e.target.innerText));
-    }
-    setFilter({ name: e.target.name, option: e.target.innerText });
-    setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
-    setCurrentPage(1);
+    // if(e.target.name === "Filter By Genre") {
+    //   dispatch(filterBooksByGenre(e.target.innerText));
+    // }
+    // if(e.target.name === "Filter By Status") {
+    //   dispatch(filterBooksByStatus(e.target.innerText));
+    // }
+    // setFilter({ name: e.target.name, option: e.target.innerText });
+    // setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
+    // setCurrentPage(1);
   }
 
-  function handleCreateBook(e) {
+  function handleEditUser(e) {
     e.preventDefault();
 
-    dispatch(cleanDetail());
-    setNewBook(true);
-    if(!modal) setModal(true);
-    window.scrollTo(0, 0);
-  }
-
-  function handleEditBook(e) {
-    e.preventDefault();
-
-    setNewBook(false);
-    dispatch(getBookById(e.target.value))
+    dispatch(getUserById(e.target.value))
     setModal(true);
     window.scrollTo(0, 0);
   }
@@ -104,23 +94,18 @@ export default function Catalogue() {
         </SideButton>
         <SelectFilters>
           <SortOrFilter 
-            name="Sort By Title" 
+            name="Sort By Name" 
             options={["Ascending", "Descending"]} 
             onButton={handleSort}
           />
           <SortOrFilter 
-            name="Sort By Year" 
-            options={["Oldest", "Newest"]} 
-            onButton={handleSort}
-          />
-          <SortOrFilter 
-            name="Filter By Genre" 
-            options={allGenres.map(g => g.name)}
+            name="Filter By Status" 
+            options={["active", "disabled"]}
             onButton={handleFilter} 
           />
           <SortOrFilter 
-            name="Filter By Status" 
-            options={["active", "disabled"]}
+            name="Subscriptions" 
+            options={["One Month", "Six Months", "A Year"]}
             onButton={handleFilter} 
           />
         </SelectFilters>
@@ -128,12 +113,8 @@ export default function Catalogue() {
       <BooksContainer>
         { modal && 
         <>
-          <H3Form margenIzq="0px">{newBook ? "NEW BOOK" : "EDIT BOOK"}</H3Form>
-          <EditUser> 
-            setModal={setModal} 
-            newBook={newBook} 
-            setNewBook={setNewBook}
-          </EditUser>
+          <H3Form margenIzq="0px">EDIT USERS</H3Form>
+          <EditUser setModal={setModal}/> 
         </>
         }
         <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "60%"}}>
@@ -150,30 +131,30 @@ export default function Catalogue() {
         <Table>
           <thead style={{backgroundColor: "#ccc", height: "30px"}}>
             <tr style={{height: "40px"}}>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Year</th>
-              <th>Publisher</th>
-              <th>Genre</th>
-              <th>Identifier</th>
+              <th>User Name</th>
+              <th>Email</th>
+              <th>Subscription</th>
+              <th>Payment Mod</th>
+              <th>Act. Date</th>
+              <th>Exp. Date</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            { currentBook?.map(book => {
+            { currentUsers?.map(user => {
               return(
-                <tr key={book.id} style={{height: "40px"}}>
+                <tr key={user.id} style={{height: "40px"}}>
                   <td>
-                    <PagedButton value={book.id} onClick={(e) => handleEditBook(e)}>
-                      {book.title}
+                    <PagedButton value={user.id} onClick={(e) => handleEditUser(e)}>
+                      {user.userName}
                     </PagedButton>
                   </td>
-                  <td>{book.author.name}</td>
-                  <td>{book.publishedDate}</td>
-                  <td>{book.publisher}</td>
-                  <td>{book.genre.name}</td>
-                  <td>{book.identifier}</td>
-                  <td>{book.active ? "active" : "disabled"}</td>
+                  <td>{user.email}</td>
+                  <td>1 month</td>
+                  <td>mod 1</td>
+                  <td>dd/mm/yyyy</td>
+                  <td>dd/mm/yyyy</td>
+                  <td>{user.active ? "active" : "disabled"}</td>
                 </tr>
               )
             })}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export function EditUser() {
+export default function EditUser() {
   return (
     <>User edit modal</>
   );

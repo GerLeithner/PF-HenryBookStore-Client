@@ -5,11 +5,11 @@ import {
   getBookById,
   getAuthors,
   getGenres,
-  filterByStatus,
-  sortByPublisherDate,
-  sortByTitle,
-  filterByGenre,
-  cleanDetail,
+  filterBooksByStatus,
+  filterBooksByGenre,
+  sortBooksByPublishedDate,
+  sortBooksByTitle,
+  cleanBookDetail,
 } from "../redux/actions";
 
 import CreateBook from "./CreateBook";
@@ -67,10 +67,10 @@ export default function Catalogue() {
     e.preventDefault();
 
     if(e.target.name === "Sort By Title") {
-      dispatch(sortByTitle(e.target.innerText));
+      dispatch(sortBooksByTitle(e.target.innerText));
     }
     if(e.target.name === "Sort By Year") {
-      dispatch(sortByPublisherDate(e.target.innerText));
+      dispatch(sortBooksByPublishedDate(e.target.innerText));
     }
     setSort({ name: e.target.name, option: e.target.innerText });
     setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
@@ -81,10 +81,10 @@ export default function Catalogue() {
     e.preventDefault();
 
     if(e.target.name === "Filter By Genre") {
-      dispatch(filterByGenre(e.target.innerText));
+      dispatch(filterBooksByGenre(e.target.innerText));
     }
     if(e.target.name === "Filter By Status") {
-      dispatch(filterByStatus(e.target.innerText));
+      dispatch(filterBooksByStatus(e.target.innerText));
     }
     setFilter({ name: e.target.name, option: e.target.innerText });
     setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
@@ -94,7 +94,7 @@ export default function Catalogue() {
   function handleCreateBook(e) {
     e.preventDefault();
 
-    dispatch(cleanDetail());
+    dispatch(cleanBookDetail());
     setNewBook(true);
     if(!modal) setModal(true);
     window.scrollTo(0, 0);
