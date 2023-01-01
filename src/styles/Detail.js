@@ -199,7 +199,7 @@ export const OverLay = styled.div`
 export const ReviewConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  height: 80px;
+  height: 180px;
   width: 730px;
   padding:0px;
   border-radius: 5px;

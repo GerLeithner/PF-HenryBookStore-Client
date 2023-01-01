@@ -34,6 +34,7 @@ export default function Card({ id, cover, modal, setModal }) {
   const [open, setOpen] = useState(false);
   const [favorite,setFavorite]=useState(false)
   const [readed,setReaded]=useState(false)
+  
   // const [reading,setReading]=useState(false)
   // const { isAuthenticated, user, isLoading } = useAuth0();
 
