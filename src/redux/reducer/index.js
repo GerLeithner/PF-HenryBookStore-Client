@@ -3,7 +3,7 @@ const initialState = {
   allBooks: [],
   authors: [],
   genres: [],
-  detail: [],
+  detail: {},
   trending: [],
   recomended: [],
   news:[],
@@ -18,7 +18,12 @@ const initialState = {
 // console.log("READED:",state.readed)
 
 function rootReducer(state = initialState, action) {
+  let allBooks = state.allBooks;
+  let sortedBooks = state.books;
+  let filteredBooks = state.books;
+  
   switch (action.type) {
+
     case "GET_BOOKS":
       return {
         ...state,
@@ -31,126 +36,47 @@ function rootReducer(state = initialState, action) {
         ...state,
         genres: action.payload,
       };
+
     case "GET_AUTHORS":
       return {
         ...state,
         authors: action.payload,
       };
 
-    case "FILTER_BY_GENRE":
-      const allBooks = state.allBooks;
-      const genreFiltered =
-        action.payload === "all"
-          ? allBooks
-          : allBooks.filter((g) =>
-              g.genres.find((a) => a.name === action.payload)
-            );
-      return {
-        ...state,
-        books: genreFiltered,
-      };
-
-    case "SORT_BY_TITLE":
-      let sortTitle =
-        action.payload === "asc"
-          ? state.books.sort(function (a, b) {
-              if (a.title > b.title) {
-                return 1;
-              }
-              if (b.title > a.title) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.books.sort(function (a, b) {
-              if (a.title > b.title) {
-                return -1;
-              }
-              if (b.title > a.title) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        books: sortTitle,
-      };
-
-    case "SORT_BY_PUBLISHER_DATE":
-      let sortPublisher =
-        action.payload === "asc"
-          ? state.books.sort(function (a, b) {
-              if (a.publisherDate > b.publishedDate) {
-                return 1;
-              }
-              if (b.publishedDate > a.publishedDate) {
-                return -1;
-              }
-              return 0;
-            })
-          : state.books.sort(function (a, b) {
-              if (a.publishedDate > b.publishedDate) {
-                return -1;
-              }
-              if (b.publishedDate > a.publishedDate) {
-                return 1;
-              }
-              return 0;
-            });
-      return {
-        ...state,
-        books: sortPublisher,
-      };
     case "GET_TRENDING_BOOKS":
       return {
         ...state,
         trending: action.payload,
       };
-      case "GET_NEW_BOOKS":
+
+    case "GET_NEW_BOOKS":
       return {
         ...state,
         news: action.payload,
       };
+
     case "GET_RECOMENDED_BOOKS":
       return {
         ...state,
         recomended: action.payload,
       };
 
-    case "GET_BY_TITLE":
+    case "GET_BOOK_BY_TITLE":
       return {
         ...state,
         books: action.payload,
       };
 
-    case "GET_BY_AUTHOR":
-      return {
-        ...state,
-        books: action.payload,
-      };
-
-    case "POST_BOOK":
-      return {
-        ...state,
-      };
-
-    case "GET_DETAILS":
+    case "GET_BOOK_BY_ID":
       return {
         ...state,
         detail: action.payload,
       };
+
     case "CLEAN_DETAIL":
       return {
         ...state,
-        detail: [],
-      };
-
-    case "DELETE_BOOK_DB":
-      const allBook3 = state.books;
-      const filterDelete = allBook3.filter((el) => el.id !== action.payload);
-      return {
-        ...state,
-        books: filterDelete,
+        detail: {},
       };
 
     case "GET_USER":
@@ -165,6 +91,7 @@ function rootReducer(state = initialState, action) {
         ...state,
         favorites:[...state.favorites,action.payload]
       }
+
     case "DELETE_FAVORITE":
       const allFavorites=state.favorites;
 
@@ -194,12 +121,13 @@ function rootReducer(state = initialState, action) {
         readed:filterDeleteReaded
       }
 
-      case "ADD_READING":
-        return {
-          ...state,
-          readed:[...state.readed,action.payload]
-        }
+    case "ADD_READING":
+      return {
+        ...state,
+        readed:[...state.readed,action.payload]
+      }
   
+
       case "DELETE_READING":
         const allReading=state.reading;
 
@@ -211,6 +139,60 @@ function rootReducer(state = initialState, action) {
         
         }
 
+
+    case "FILTER_BY_GENRE":
+      filteredBooks = allBooks.filter(b => b.genre.name.toLowerCase() === action.payload.toLowerCase());
+      return {
+        ...state,
+        books: filteredBooks
+      }
+
+    case "FILTER_BY_STATUS":
+      if (action.payload.toLowerCase() === "active") {
+        filteredBooks = allBooks.filter(b => b.active);
+      } 
+      else {
+        filteredBooks = allBooks.filter(b => !b.active);
+      }
+      return {
+        ...state,
+        books: filteredBooks
+      }
+    
+    case "SORT_BY_TITLE":
+      sortedBooks = action.payload === "Ascending" ? 
+      state.books.sort((a, b) => {
+        if(a.title.toLowerCase() > b.title.toLowerCase()) return 1;
+        if(a.title.toLowerCase() < b.title.toLowerCase()) return -1;
+        return 0;
+      }) :
+      state.books.sort((a, b) => {
+        if(a.title.toLowerCase() < b.title.toLowerCase()) return 1;
+        if(a.title.toLowerCase() > b.title.toLowerCase()) return -1;
+        return 0;
+      });
+      return {
+        ...state,
+        books: sortedBooks
+      };   
+
+    case "SORT_BY_PUBLISHER_DATE":
+      sortedBooks = action.payload === "Oldest" ? 
+      state.books.sort((a, b) => {
+        if(a.publishedDate.toLowerCase() > b.publishedDate.toLowerCase()) return 1;
+        if(a.publishedDate.toLowerCase() < b.publishedDate.toLowerCase()) return -1;
+        return 0;
+      }) :
+      state.books.sort((a, b) => {
+        if(a.publishedDate.toLowerCase() < b.publishedDate.toLowerCase()) return 1;
+        if(a.publishedDate.toLowerCase() > b.publishedDate.toLowerCase()) return -1;
+        return 0;
+      });
+      return {
+        ...state,
+        books: sortedBooks
+      };
+  
     default:
       return state;
   }

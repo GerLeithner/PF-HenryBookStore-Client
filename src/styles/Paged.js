@@ -6,7 +6,18 @@ export const PaginationUl = styled.ul`
   list-style-type: none;
   justify-content: center;
   margin: 0px;
-  padding-top: 70px;
-  padding-left: 240px;
-  gap: 30px;
+  padding-top: 0px;
+  gap: 20px;
+  align-self: center;
+`;
+
+export const PagedButton = styled.button`
+  border: none;
+  background-color: white;
+  display: contents;
+  margin: 0px;
+  padding: 0px;
+  color: ${({ color }) => color || "black"};
+  cursor: pointer;
+  font: inherit;
 `;

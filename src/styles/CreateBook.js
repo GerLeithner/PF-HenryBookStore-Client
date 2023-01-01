@@ -1,38 +1,29 @@
 import styled from "styled-components";
 
-export const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: 80px;
-`;
-
 export const FormContainer = styled.form`
   margin: 0px;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   gap: 20px;
   align-items: left;
-  border-radius: 10px;
-  width: max-content;
+  width: 100%;
   text-align: left;
   border: 1px solid #ccc;
-  border-radius: 10px;
 `;
 
-export const ImageAndInfoContainer = styled.form`
+export const ImageAndInfoContainer = styled.div`
   padding: 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  gap: 30px;
+  gap: 50px;
 `;
 
 export const BookImage = styled.img`
-  width: 200px;
-  height: 260px;
+  width: 170px;
+  height: 220px;
   border: 1px solid #ccc;
   margin: 0px;
 `;
@@ -50,7 +41,7 @@ export const PropAndInputAndError = styled.div`
   padding:0px;
   display:flex;
   flex-direction: column;
-  height: 40px;
+  height: ${({ alto }) => alto || "40px"};
   align-items: flex-end;
 `;
 
@@ -65,9 +56,9 @@ export const PropAndInput = styled.div`
 `;
 
 export const FormInput = styled.input`
-  height: 20px;
-  width: ${({ ancho }) => ancho || "250px"};
-  margin-left: 20px;
+  height: 23px;
+  width: ${({ ancho }) => ancho || "675px"};
+  margin-left: ${({ margen }) => margen || "20px"};
   border: 1.5px solid #ccc;
   outline: none;
   outline: none;
@@ -89,13 +80,13 @@ export const FormInput = styled.input`
 export const DescriptionContainer = styled.div`
   display: flex;
   flex-direction: column;
-
+  gap: 5px;
 `;
 
 export const FormTextArea = styled.textarea`
   border: 1.5px solid #ccc;
   outline: none;
-  height: 100px;
+  height: ${({ alto }) => alto || "100px"};
   width: 100%;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
@@ -112,7 +103,9 @@ export const FormTextArea = styled.textarea`
 `;
 
 export const H3Form = styled.span`
-  margin: 0px 0px 0px 0px;
+  margin: 0px;
+  margin-left: ${({ margenIzq }) => margenIzq || "20px"};
+  margin-right: ${({ margenRig }) => margenRig || "0px"};;
   font-weight: 500;
   line-height: 20px;
   font-size: 16px;

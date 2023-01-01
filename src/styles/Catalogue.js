@@ -5,10 +5,10 @@ export const SideBarContainer = styled.div`
   height: 100vh;
   width: 250px;
   background-color: #efefef;
-  padding: 70px 15px 0px 15px;
+  padding: 90px 15px 0px 15px;
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 20px;
   align-items: center;
 `;
 
@@ -21,7 +21,7 @@ export const SelectFilters = styled.div`
   margin: 0px;
   width: max-content;
   margin-bottom: 20px;
-  margin-top: 20px;
+  margin-top: 0px;
 `;
 
 export const CatalogueSelects = styled.select`
