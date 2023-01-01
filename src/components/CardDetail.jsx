@@ -77,7 +77,6 @@ export default function CardDetail({ book, modal, setModal }) {
 
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [allReviews,setAllReviews]=useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
 

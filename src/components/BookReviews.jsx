@@ -12,11 +12,11 @@ import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 
 export default function BookReviews() {
-    
-    const reviews = useSelector(state => state.detail.reviews);
-    let ratingFloor=Math.floor(reviews.score)
-    
-    console.log("length",reviews.length)
+    const detail = useSelector(state=>state.bookDetail);
+    const reviews = useSelector(state => state.bookDetail.reviews);
+  
+    console.log("State detail",detail)
+    console.log("REVIEWS",reviews)
     let reviewsScore=[]
     let reviewsScoreFloor=[]
     let stars=[]
@@ -42,7 +42,8 @@ console.log("STARS",stars)
     console.log("REVIEWS",reviews[0])
     return (
         <>
-            { reviews.length ? reviews.map(r => {
+            
+             { reviews.length ? reviews.map(r => {
                 return (
                     <DescriptionContainer>
                         <PropAndInput>
@@ -73,7 +74,7 @@ console.log("STARS",stars)
                 
             }) :
             <H3Form margenIzq="0px">The book hasn't users reviews yet</H3Form>
-            }
+            } 
         </>
     )
 }
