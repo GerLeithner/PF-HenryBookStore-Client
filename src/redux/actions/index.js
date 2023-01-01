@@ -59,7 +59,7 @@ export function getRecomendedBooks() {
   return async function (dispatch) {
     //
     var json = await axios.get(
-      "https://run.mocky.io/v3/87017539-3122-4979-a8de-ffba523ca1c5"
+      "https://run.mocky.io/v3/8ae4e29e-1eb4-4930-ac19-049a097c7989"
     );
     return dispatch({
       type: "GET_RECOMENDED_BOOKS",
@@ -200,16 +200,14 @@ export function addFavorite(id,userId) {
   };
 }
 
-export function deleteFavorite(id,userId){
+export function deleteFavorite(id, userId){
   return async function(dispatch){
     try{
-      console.log("payload ID:",id)
-      console.log("payload USERID", userId)
-      await axios.delete("http://localhost:3001/books/" + id +"/favorite",userId);
-      return dispatch({
-        type:"DELETE_FAVORITE",
-        payload:id,
-      });
+      console.log("payload ID DELETE:",id)
+      console.log("payload USERID DELETE", userId)
+      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/favorite", {data:{userId}});
+      console.log("RESPONSE DELETE",deleteResponse)
+      return deleteResponse.data.json;
     }catch(e){
       console.log(e);
     }
@@ -236,7 +234,7 @@ export function addReaded(id,userId) {
 export function deleteReaded(id,userId){
   return async function(dispatch){
     try{
-      await axios.delete("http://localhost:3001/books/" + id +"/read",userId);
+      await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
       return dispatch({
         type:"DELETE_READED",
         payload:id,
@@ -268,7 +266,7 @@ export function deleteReading(id,userId){
     try{
       console.log("payload ID:",id)
       console.log("payload USERID", userId)
-      await axios.delete("http://localhost:3001/books/" + id +"/reading");
+      await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
       return dispatch({
         type:"DELETE_READING",
         payload:id,

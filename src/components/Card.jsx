@@ -37,8 +37,13 @@ export default function Card({ id, cover, modal, setModal }) {
   const [reading,setReading]=useState(false)
   const { isAuthenticated, user, isLoading } = useAuth0();
   
+
   // useEffect(() => {
-    
+  //   if (!isAuthenticated && currentUser) {
+  //     dispatch(getUser(null));
+  //   }
+  //   if (isAuthenticated && !currentUser) {
+  //     console.log(user);
   //     const { email, nickname } = user;
 
   //     const userDb = {
@@ -47,7 +52,17 @@ export default function Card({ id, cover, modal, setModal }) {
   //     };
 
   //     dispatch(getUser(userDb));
-  //   }, [dispatch, isAuthenticated]);
+  //   }
+  // }, [dispatch, isAuthenticated]);
+
+  // useEffect(() => {    
+  //     const { email, nickname } = user;
+  //     const userDb = {
+  //       email,
+  //       nickname,
+  //     }
+  //     dispatch(getUser(userDb));
+  //   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -67,18 +82,20 @@ export default function Card({ id, cover, modal, setModal }) {
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
-    console.log("Entré a favorite, bookId:", id);
+    
     if(!favorite){
+      console.log("Entré a add favorite, bookId:", id);
       setFavorite(!favorite)
       console.log("FAV+",favorite)
       console.log("USER ID HANDLE:",userId)
-      dispatch(addFavorite(id,userId));
+      dispatch(addFavorite(id, userId));
       
     }
     if(favorite){
+      console.log("Entré a delete favorite, bookId:", id);
       setFavorite(!favorite)
       console.log("FAV-",favorite)
-      dispatch(deleteFavorite(id,userId));
+      dispatch(deleteFavorite(id, userId));
       
     }
     
@@ -87,8 +104,9 @@ export default function Card({ id, cover, modal, setModal }) {
   function handleReaded(id, userId) {
     
     // console.log("e.target.value",e.target.value)
-    console.log("Entré a readed:", id);
+    
     if(!readed){
+      console.log("Entré a add readed :", id);
       setReaded(!readed)
       console.log("READ+",readed)
       
@@ -96,9 +114,10 @@ export default function Card({ id, cover, modal, setModal }) {
       
     }
     if(readed){
+      console.log("Entré a delete readed :", id);
       setReaded(!readed)
       console.log("READ-",readed)
-      dispatch(deleteReaded(id,userId));
+      dispatch(deleteReaded(id, userId));
       
     }
     

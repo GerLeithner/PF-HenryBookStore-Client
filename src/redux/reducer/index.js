@@ -162,7 +162,7 @@ function rootReducer(state = initialState, action) {
       }
     case "DELETE_FAVORITE":
       const allFavorites=state.favorites;
-      const filterDeleteFavorite=allFavorites.filter((el)=>el.id !== action.payload);
+      const filterDeleteFavorite=allFavorites.filter((el)=>el.userId !== action.payload);
       return{
         ...state,
         favorites:[filterDeleteFavorite]
@@ -176,15 +176,34 @@ function rootReducer(state = initialState, action) {
 
     case "DELETE_READED":
       const allReaded=state.readed;
-      const filterDeleteReaded=allReaded.filter((el)=>el.id !== action.payload);
+      const filterDeleteReaded=allReaded.filter((el)=>el.userId !== action.payload);
       return{
         ...state,
         readed:[filterDeleteReaded]
       }
 
+      case "ADD_READING":
+        return {
+          ...state,
+          readed:[...state.readed,action.payload]
+        }
+  
+      case "DELETE_READING":
+        const allReading=state.reading;
+        const filterDeleteReading=allReading.filter((el)=>el.userId !== action.payload);
+        return{
+          ...state,
+          reading:[filterDeleteReading]
+        }
+
     default:
       return state;
   }
 }
+
+   
+
+   
+
 
 export default rootReducer;
