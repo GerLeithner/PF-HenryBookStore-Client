@@ -12,21 +12,20 @@ import { BooksContainer, Table } from "../styles/BooksTable";
 import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
-
 export default function Catalogue() {
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
 
-  const [, setSort] = useState({ name: "", option: ""});
-  const [, setFilter] = useState({ name: "", option: ""});
+  const currentUser = useSelector((state) => state.currentUser);
+  const [, setSort] = useState({ name: "", option: "" });
+  const [, setFilter] = useState({ name: "", option: "" });
   const [header, setHeader] = useState("ALL USERS");
 
   const [modal, setModal] = useState(false);
 
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersXPage, ] = useState(20);
+  const [usersXPage] = useState(20);
 
   let indexLastUser = currentPage * usersXPage;
   let indexFirstUser = indexLastUser - usersXPage;
@@ -81,86 +80,106 @@ export default function Catalogue() {
   function handleEditUser(e) {
     e.preventDefault();
 
-    dispatch(getUserById(e.target.value))
+    dispatch(getUserById(e.target.value));
     setModal(true);
     window.scrollTo(0, 0);
   }
 
   return (
     <div>
-      <SideBarContainer>
-        <SideButton onClick={(e) => handleReload(e)} ancho="163px">
-          RELOAD USERS
-        </SideButton>
-        <SelectFilters>
-          <SortOrFilter 
-            name="Sort By Name" 
-            options={["Ascending", "Descending"]} 
-            onButton={handleSort}
-          />
-          <SortOrFilter 
-            name="Filter By Status" 
-            options={["active", "disabled"]}
-            onButton={handleFilter} 
-          />
-          <SortOrFilter 
-            name="Subscriptions" 
-            options={["One Month", "Six Months", "A Year"]}
-            onButton={handleFilter} 
-          />
-        </SelectFilters>
-      </SideBarContainer>
-      <BooksContainer>
-        { modal && 
-        <>
-          <H3Form margenIzq="0px">EDIT USERS</H3Form>
-          <EditUser setModal={setModal}/> 
-        </>
-        }
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "60%"}}>
-          <H3Form margenIzq="0px">
-            {header}
-          </H3Form>
-          <TablePaged
-            usersXPage={usersXPage}
-            allUsers={allUsers.length}
-            paginado={paginado}
-            currentPage={currentPage}
-          />
-        </div>
-        <Table>
-          <thead style={{backgroundColor: "#ccc", height: "30px"}}>
-            <tr style={{height: "40px"}}>
-              <th>User Name</th>
-              <th>Email</th>
-              <th>Subscription</th>
-              <th>Payment Mod</th>
-              <th>Act. Date</th>
-              <th>Exp. Date</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            { currentUsers?.map(user => {
-              return(
-                <tr key={user.id} style={{height: "40px"}}>
-                  <td>
-                    <PagedButton value={user.id} onClick={(e) => handleEditUser(e)}>
-                      {user.userName}
-                    </PagedButton>
-                  </td>
-                  <td>{user.email}</td>
-                  <td>1 month</td>
-                  <td>mod 1</td>
-                  <td>dd/mm/yyyy</td>
-                  <td>dd/mm/yyyy</td>
-                  <td>{user.active ? "active" : "disabled"}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table>
-      </BooksContainer>
+      {currentUser ? (
+        currentUser.admin ? (
+          <div>
+            <SideBarContainer>
+              <SideButton onClick={(e) => handleReload(e)} ancho="163px">
+                RELOAD USERS
+              </SideButton>
+              <SelectFilters>
+                <SortOrFilter
+                  name="Sort By Name"
+                  options={["Ascending", "Descending"]}
+                  onButton={handleSort}
+                />
+                <SortOrFilter
+                  name="Filter By Status"
+                  options={["active", "disabled"]}
+                  onButton={handleFilter}
+                />
+                <SortOrFilter
+                  name="Subscriptions"
+                  options={["One Month", "Six Months", "A Year"]}
+                  onButton={handleFilter}
+                />
+              </SelectFilters>
+            </SideBarContainer>
+            <BooksContainer>
+              {modal && (
+                <>
+                  <H3Form margenIzq="0px">EDIT USERS</H3Form>
+                  <EditUser setModal={setModal} />
+                </>
+              )}
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  width: "60%",
+                }}
+              >
+                <H3Form margenIzq="0px">{header}</H3Form>
+                <TablePaged
+                  usersXPage={usersXPage}
+                  allUsers={allUsers.length}
+                  paginado={paginado}
+                  currentPage={currentPage}
+                />
+              </div>
+              <Table>
+                <thead style={{ backgroundColor: "#ccc", height: "30px" }}>
+                  <tr style={{ height: "40px" }}>
+                    <th>User Name</th>
+                    <th>Email</th>
+                    <th>Subscription</th>
+                    <th>Payment Mod</th>
+                    <th>Act. Date</th>
+                    <th>Exp. Date</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {currentUsers?.map((user) => {
+                    return (
+                      <tr key={user.id} style={{ height: "40px" }}>
+                        <td>
+                          <PagedButton
+                            value={user.id}
+                            onClick={(e) => handleEditUser(e)}
+                          >
+                            {user.userName}
+                          </PagedButton>
+                        </td>
+                        <td>{user.email}</td>
+                        <td>1 month</td>
+                        <td>mod 1</td>
+                        <td>dd/mm/yyyy</td>
+                        <td>dd/mm/yyyy</td>
+                        <td>{user.active ? "active" : "disabled"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
+            </BooksContainer>
+          </div>
+        ) : (
+          <BooksContainer>
+            <h1>404 Page not Found</h1>
+          </BooksContainer>
+        )
+      ) : (
+        <></>
+      )}
     </div>
   );
-};
+}
