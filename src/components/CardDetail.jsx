@@ -72,12 +72,12 @@ export default function CardDetail({book,modal,setModal}) {
   const [readed,setReaded]=useState(false)
   const [reading,setReading]=useState(false)
   const { isAuthenticated, user, isLoading } = useAuth0();
-  console.log("BOOKID",book.id)
+ 
   // const bookId = props.match.params.id;
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
   const userId={userId:currentUser && currentUser.id};
-  userId && console.log("USERID",userId)
+  // userId && console.log("USERID",userId)
   // const book = useSelector((state) => state.detail);
 
   // useEffect(() => {

@@ -12,6 +12,11 @@ const initialState = {
   readed:[],
 };
 
+
+  
+// console.log("FAVORITES:",state.favorites)
+// console.log("READED:",state.readed)
+
 function rootReducer(state = initialState, action) {
   switch (action.type) {
     case "GET_BOOKS":
@@ -155,20 +160,22 @@ function rootReducer(state = initialState, action) {
       };
     
     case "ADD_FAVORITE":
-      
+     
       return {
         ...state,
         favorites:[...state.favorites,action.payload]
       }
     case "DELETE_FAVORITE":
       const allFavorites=state.favorites;
-      const filterDeleteFavorite=allFavorites.filter((el)=>el.userId !== action.payload);
+      const filterDeleteFavorite=allFavorites.filter((el)=>el.id !== action.payload.id);
+      
       return{
         ...state,
-        favorites:[filterDeleteFavorite]
+        favorites:filterDeleteFavorite
       }
     
     case "ADD_READED":
+      
       return {
         ...state,
         readed:[...state.readed,action.payload]
@@ -176,10 +183,11 @@ function rootReducer(state = initialState, action) {
 
     case "DELETE_READED":
       const allReaded=state.readed;
-      const filterDeleteReaded=allReaded.filter((el)=>el.userId !== action.payload);
+      const filterDeleteReaded=allReaded.filter((el)=>el.id !== action.payload.id);
+      
       return{
         ...state,
-        readed:[filterDeleteReaded]
+        readed:filterDeleteReaded
       }
 
       case "ADD_READING":
@@ -190,10 +198,10 @@ function rootReducer(state = initialState, action) {
   
       case "DELETE_READING":
         const allReading=state.reading;
-        const filterDeleteReading=allReading.filter((el)=>el.userId !== action.payload);
+        const filterDeleteReading=allReading.filter((el)=>el.id !== action.payload.id);
         return{
           ...state,
-          reading:[filterDeleteReading]
+          reading:filterDeleteReading
         }
 
     default:
