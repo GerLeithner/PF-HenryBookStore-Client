@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAuthors, getGenres, createBook, editBook, disableBook, cleanDetail } from "../redux/actions";
+import { getAuthors, getGenres, createBook, editBook, disableBook, cleanBookDetail } from "../redux/actions";
 import BookReviews from "./BookReviews";
 import {
   DescriptionContainer,
@@ -78,7 +78,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
 
   const genres = useSelector(state => state.genres);
   const authors = useSelector(state => state.authors);
-  const book = useSelector(state => state.detail);
+  const book = useSelector(state => state.bookDetail);
 
   const [input, setInput] = useState({
     id: "",
@@ -316,7 +316,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
 
   function close(e) {
     e.preventDefault();
-    dispatch(cleanDetail())
+    dispatch(cleanBookDetail())
     setModal(false);
   }
 
