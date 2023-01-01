@@ -30,7 +30,6 @@ const SearchBar = ({ paginado, modal, setModal }) => {
     setTitle("");
     // setAuthor('');
     paginado(1);
-    console.log(e);
   }
   function handleClick(e) {
     e.preventDefault(e);
