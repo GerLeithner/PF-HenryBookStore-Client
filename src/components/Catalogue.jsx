@@ -12,7 +12,12 @@ import Card from "./Card.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { ContainerCards } from "../styles/Card";
-import { ButtonCatalogue, SelectFilters, SideBarContainer, CatalogueSelects } from "../styles/Catalogue";
+import {
+  ButtonCatalogue,
+  SelectFilters,
+  SideBarContainer,
+  CatalogueSelects,
+} from "../styles/Catalogue";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -71,7 +76,7 @@ const Catalogue = () => {
   return (
     <div>
       <SideBarContainer>
-        <ButtonCatalogue onClick={(e) => handleClick(e)} >
+        <ButtonCatalogue onClick={(e) => handleClick(e)}>
           Reload Books
         </ButtonCatalogue>
         <SearchBar paginado={paginado} modal={modal} setModal={setModal} />

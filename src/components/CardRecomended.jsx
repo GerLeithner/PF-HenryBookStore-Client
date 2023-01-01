@@ -10,8 +10,12 @@ import {
   DescriptionRecomended,
   SubtitleAndYear,
   TitleAndRating,
+  StarsContainer,
 } from "../styles/CardRecomended";
 
+import {StarDetail} from "../styles/Detail"
+import starFill from "../icons/starFill.svg";
+import starHalf from "../icons/starHalf.svg"
 
 export default function Card({ title, publishedDate, description, averageRating, cover, genre, author, back_cover }) {
 
@@ -23,6 +27,16 @@ export default function Card({ title, publishedDate, description, averageRating,
   :bookConcat=bookSliced;
 
 
+  var rating=Math.floor(averageRating)
+
+  var stars=[] 
+  for(let i=0;i<rating;i++){
+    stars.push("star")
+  }
+  if(averageRating>rating){
+    stars.push("half")
+  }
+
   return (
     <SingleCardContainerRecomended>
       <ImgContainerRecomended>
@@ -33,7 +47,17 @@ export default function Card({ title, publishedDate, description, averageRating,
       <ColumnConteinerRecomended>
         <TitleAndRating>
           <H1Recomended>{title}</H1Recomended>
-          <H1Recomended>{averageRating}</H1Recomended>
+          <StarsContainer>
+          {
+            
+              stars && stars.map(s=>(s==="star"?<StarDetail src={starFill} alt="n" />:
+              <StarDetail src={starHalf} alt="n" />
+              ))
+              
+              
+            }
+            
+          </StarsContainer>
         </TitleAndRating>
 
         <SubtitleAndYear>

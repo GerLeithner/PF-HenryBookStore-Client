@@ -5,9 +5,10 @@ import Home from "./components/Home.jsx";
 import CardDetail from "./components/CardDetail.jsx";
 import Catalogue from "./components/Catalogue.jsx";
 import AboutUs from "./components/AboutUs.jsx";
-import CreateBook from "./components/CreateBook.jsx";
 import NavBar from "./components/NavBar.jsx";
 import BooksTable from "./components/BooksTable.jsx";
+import ProtectedRoute from "./auth/protected-route";
+
 
 function App() {
   return (
@@ -27,3 +28,11 @@ function App() {
 }
 
 export default App;
+
+/* {
+  <ProtectedRoute exact path="/home" component={Home} />
+      <ProtectedRoute path="/home/:id" component={CardDetail} />
+      <ProtectedRoute exact path="/catalogue" component={Catalogue} />
+      <ProtectedRoute exact path="/about" component={AboutUs} />
+      <ProtectedRoute exact path="/create" component={CreateBook} />
+} */

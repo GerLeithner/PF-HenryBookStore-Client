@@ -108,6 +108,7 @@ export const H2Recomended = styled.h2`
   line-height: 29px;
   text-align: left;
   margin:0px;
+  text-transform: capitalize;
 `;
 
 export const H4Recomended=styled.h4`
@@ -119,8 +120,16 @@ export const DescriptionRecomended = styled.p`
   padding:0px;
   margin:0px;
   text-align: left;
+  
 `;
-
+export const StarsContainer = styled.div`
+  height: 20px;
+  width: 150px;
+  padding:0px;
+  margin:0px;
+  text-align: right;
+  position: relative;
+`;
 
 
 

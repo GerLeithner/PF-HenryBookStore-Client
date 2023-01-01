@@ -6,7 +6,10 @@ const initialState = {
   detail: {},
   trending: [],
   recomended: [],
+  news:[],
   user: null,
+  favorites:[],
+  readed:[],
 };
 
 function rootReducer(state = initialState, action) {
@@ -41,27 +44,22 @@ function rootReducer(state = initialState, action) {
         trending: action.payload,
       };
 
+    case "GET_NEW_BOOKS":
+      return {
+        ...state,
+        news: action.payload,
+      };
+
     case "GET_RECOMENDED_BOOKS":
       return {
         ...state,
         recomended: action.payload,
       };
 
-    case "GET_BY_TITLE":
+    case "GET_BOOK_BY_TITLE":
       return {
         ...state,
         books: action.payload,
-      };
-
-    case "GET_BY_AUTHOR":
-      return {
-        ...state,
-        books: action.payload,
-      };
-
-    case "POST_BOOK":
-      return {
-        ...state,
       };
 
     case "GET_BOOK_BY_ID":
@@ -81,6 +79,49 @@ function rootReducer(state = initialState, action) {
         ...state,
         user: action.payload,
       };
+    
+    case "ADD_FAVORITE":
+      
+      return {
+        ...state,
+        favorites:[...state.favorites,action.payload]
+      }
+
+    case "DELETE_FAVORITE":
+      const allFavorites=state.favorites;
+      const filterDeleteFavorite=allFavorites.filter((el)=>el.userId !== action.payload);
+      return{
+        ...state,
+        favorites:[filterDeleteFavorite]
+      }
+    
+    case "ADD_READED":
+      return {
+        ...state,
+        readed:[...state.readed,action.payload]
+      }
+
+    case "DELETE_READED":
+      const allReaded=state.readed;
+      const filterDeleteReaded=allReaded.filter((el)=>el.userId !== action.payload);
+      return{
+        ...state,
+        readed:[filterDeleteReaded]
+      }
+
+    case "ADD_READING":
+      return {
+        ...state,
+        readed:[...state.readed,action.payload]
+      }
+  
+    case "DELETE_READING":
+      const allReading=state.reading;
+      const filterDeleteReading=allReading.filter((el)=>el.userId !== action.payload);
+      return{
+        ...state,
+        reading:[filterDeleteReading]
+      }
 
     case "FILTER_BY_GENRE":
       filteredBooks = allBooks.filter(b => b.genre.name.toLowerCase() === action.payload.toLowerCase());
@@ -139,5 +180,10 @@ function rootReducer(state = initialState, action) {
       return state;
   }
 }
+
+   
+
+   
+
 
 export default rootReducer;
