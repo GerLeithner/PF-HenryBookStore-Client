@@ -78,7 +78,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
 
   const genres = useSelector(state => state.genres);
   const authors = useSelector(state => state.authors);
-  const book = useSelector(state => state.detail);
+  const book = useSelector(state => state.bookDetail);
 
   const [input, setInput] = useState({
     id: "",

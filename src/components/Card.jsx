@@ -72,8 +72,8 @@ export default function Card({ id, cover, modal, setModal }) {
   }
 
   const dispatch = useDispatch();
-  const book = useSelector((state) => state.detail);
-  const currentUser = useSelector((state) => state.user);
+  const book = useSelector((state) => state.bookDetail);
+  const currentUser = useSelector((state) => state.currentUser);
   
 
   const userId={userId:currentUser && currentUser.id};

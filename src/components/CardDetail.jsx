@@ -68,7 +68,7 @@ function DropdownItem(props) {
 
 export default function CardDetail({ book, modal, setModal }) {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);

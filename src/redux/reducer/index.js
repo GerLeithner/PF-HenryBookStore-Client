@@ -3,11 +3,14 @@ const initialState = {
   allBooks: [],
   authors: [],
   genres: [],
-  detail: {},
+  bookDetail: {},
   trending: [],
   recomended: [],
   news:[],
-  user: null,
+  allUsers: [],
+  users: [],
+  userDetail: {},
+  currentUser: null,
   favorites:[],
   readed:[],
 };
@@ -74,10 +77,16 @@ function rootReducer(state = initialState, action) {
         detail: {},
       };
 
-    case "GET_USER":
+    case "GET_ALL_USERS":
       return {
         ...state,
-        user: action.payload,
+        allUsers: action.payload,
+      };
+
+    case "GET_CURRENT_USER":
+      return {
+        ...state,
+        currentUser: action.payload,
       };
     
     case "ADD_FAVORITE":

@@ -58,6 +58,7 @@ const NavBar = () => {
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
           <LinkNavBar to={"/books"}>Books</LinkNavBar>
+          <LinkNavBar to={"/users"}>Users</LinkNavBar>
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
         </SubContainerNavBar>
       </ContainerNavBar>

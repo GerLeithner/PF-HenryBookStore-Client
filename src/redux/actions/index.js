@@ -178,6 +178,22 @@ export function getAuthors() {
   };
 }
 
+export function getAllUsers(payload) {
+  return async function (dispatch) {
+    try {
+      const users = await axios.get(
+        "http://localhost:3001/user", payload
+      );
+      return dispatch({
+        type: "GET_ALL_USERS",
+        payload: users.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function getUser(payload) {
   return async function (dispatch) {
     try {

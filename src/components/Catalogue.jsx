@@ -11,6 +11,7 @@ import {
 import Card from "./Card.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
+import { BooksContainer } from "../styles/BooksTable"
 import { ContainerCards } from "../styles/Card";
 import {
   ButtonCatalogue,
@@ -23,7 +24,6 @@ const Catalogue = () => {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
-  const bookDetail = useSelector((state) => state.detail);
 
   const [modal, setModal] = useState(false);
 
@@ -110,7 +110,7 @@ const Catalogue = () => {
           </CatalogueSelects>
         </SelectFilters>
       </SideBarContainer>
-      <div>
+      <BooksContainer>
         <div>
           <Paged
             booksPerPage={booksPerPage}
@@ -139,7 +139,7 @@ const Catalogue = () => {
             );
           })}
         </ContainerCards>
-      </div>
+      </BooksContainer>
     </div>
   );
 };
