@@ -193,7 +193,7 @@ export const OverLay = styled.div`
   align-items: center;
   justify-content: center;
   /* background-color:rgba(0, 0, 0, 0.7); */
-  backdrop-filter: blur(2px);
+  /* backdrop-filter: blur(2px); */
 `;
 
 export const ReviewConteiner = styled.div`
@@ -217,19 +217,6 @@ export const ReviewConteiner = styled.div`
   
 `;
 
-<<<<<<< HEAD
-export const OverLay=styled.div`
-width: 100vw;
-height: 100vh;
-position: fixed;
-top:0;
-left:0;
-display:flex;
-align-items:center;
-justify-content: center;
-/* background-color:rgba(0, 0, 0, 0.7); */
-/* backdrop-filter: blur(2px); */
-=======
 export const UserAndStars = styled.div`
   display: flex;
   flex-direction: row;
@@ -241,12 +228,8 @@ export const UserAndStars = styled.div`
   padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
-  
-  
->>>>>>> 7175a749af5e6a93e0732da76a023330d130569f
+
 `;
-
-
 
 
 export const ButtonCloseDetail = styled.button`
@@ -281,8 +264,6 @@ export const ButtonCloseDetail = styled.button`
     transform: translateY(-1px);
   }
 `;
-
-
 
 export const ButtonSelectDetail = styled.select`
   margin: 10px;
@@ -377,7 +358,6 @@ export const ButtonDetail = styled.button`
     transform: translateY(-1px);
   }
 `;
-
 
 export const ButtonsConteiner = styled.div`
   padding-top: 0px;

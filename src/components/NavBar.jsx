@@ -56,7 +56,6 @@ const NavBar = () => {
       <ContainerNavBar>
         <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
         <SubContainerNavBar>
-          <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
           <LinkNavBar to={"/books"}>Books</LinkNavBar>
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>

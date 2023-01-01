@@ -29,15 +29,15 @@ export default function Catalogue() {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
 
-  const [sort, setSort] = useState({ name: "", option: ""});
-  const [filter, setFilter] = useState({ name: "", option: ""});
+  const [, setSort] = useState({ name: "", option: ""});
+  const [, setFilter] = useState({ name: "", option: ""});
   const [header, setHeader] = useState("ALL BOOKS");
 
   const [modal, setModal] = useState(false);
   const [newBook, setNewBook] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage, setBooksPerPage] = useState(20);
+  const [booksPerPage, ] = useState(20);
 
   let indexOfLastBook = currentPage * booksPerPage;
   let indexOfFirstBook = indexOfLastBook - booksPerPage;

@@ -1,15 +1,15 @@
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import {
   getBookById,
   addFavorite,
   addReaded,
-  addReading,
+  // addReading,
   deleteFavorite,
-  deleteReading,
+  // deleteReading,
   deleteReaded,
-  getUser,
+  // getUser,
 } from "../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
 import CardDetail from "./CardDetail.jsx";
@@ -19,12 +19,11 @@ import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
 import readedIcon from "../icons/readedIcon.svg";
 import readedIconFill from "../icons/readedIconFill.svg";
 import reviewIcon from "../icons/reviewIcon.svg";
-import CardMenu from "./CardMenu.css";
 import {
   CardImg,
   UlCard,
-  ButtonSelectCard,
-  ButtonOptionsCard,
+  // ButtonSelectCard,
+  // ButtonOptionsCard,
   MenuConteiner,
   ImgContainer,
   MenuTrigger,
@@ -35,8 +34,8 @@ export default function Card({ id, cover, modal, setModal }) {
   const [open, setOpen] = useState(false);
   const [favorite,setFavorite]=useState(false)
   const [readed,setReaded]=useState(false)
-  const [reading,setReading]=useState(false)
-  const { isAuthenticated, user, isLoading } = useAuth0();
+  // const [reading,setReading]=useState(false)
+  // const { isAuthenticated, user, isLoading } = useAuth0();
 
   
 
