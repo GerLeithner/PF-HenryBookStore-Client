@@ -205,6 +205,7 @@ export function addFavorite(id,userId) {
 export function deleteFavorite(id, userId){
   return async function(dispatch){
     try{
+
       
       const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/favorite", {data:{userId}});
       console.log("RESPONSE DELETE",deleteResponse)
@@ -212,6 +213,7 @@ export function deleteFavorite(id, userId){
         type: "DELETE_FAVORITE",
         payload: deleteResponse.data,
       });
+
     }catch(e){
       console.log(e);
     }
@@ -240,7 +242,9 @@ export function addReaded(id,userId) {
 export function deleteReaded(id,userId){
   return async function(dispatch){
     try{
+
       const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
+
       return dispatch({
         type:"DELETE_READED",
         payload:deleteResponse.data,
@@ -272,8 +276,10 @@ export function addReading(id,userId) {
 export function deleteReading(id,userId){
   return async function(dispatch){
     try{
+
   
       const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
+
       return dispatch({
         type: "DELETE_READING",
         payload: deleteResponse.data,

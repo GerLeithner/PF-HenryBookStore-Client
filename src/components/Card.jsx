@@ -89,7 +89,7 @@ export default function Card({ id, cover, modal, setModal }) {
       console.log("Entré a add favorite, bookId:", id);
       setFavorite(!favorite)
       console.log("FAV+",favorite)
-      
+
       dispatch(addFavorite(id, userId));
       
     }
