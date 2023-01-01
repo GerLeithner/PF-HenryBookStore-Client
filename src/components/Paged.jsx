@@ -16,7 +16,7 @@ const Paged = ({ booksPerPage, allBooks, paginado, currentPage }) => {
       <PaginationUl>
         <li>
           <ButtonCatalogue onClick={() => paginado(currentPage - 1)}>
-            {"<-"}Prev
+            {"<- prev"}
           </ButtonCatalogue>
         </li>
         {pageNumbers?.map((number) => (

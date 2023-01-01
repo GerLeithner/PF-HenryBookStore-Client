@@ -7,10 +7,9 @@ const NavBar = () => {
         <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
-          <LinkNavBar to={"/create"}>New Book</LinkNavBar>
+          <LinkNavBar to={"/books"}>Books</LinkNavBar>
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
         </SubContainerNavBar>
-
     </ContainerNavBar>
   );
 };

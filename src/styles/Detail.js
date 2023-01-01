@@ -10,7 +10,7 @@ export const SingleCardContainerDetail = styled.div`
   align-items: center;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 2px 2px 6px 0px #ccc; */
   margin: 10px;
   padding-top: 30px;
   margin-top: 0px;
@@ -184,7 +184,7 @@ display:flex;
 align-items:center;
 justify-content: center;
 /* background-color:rgba(0, 0, 0, 0.7); */
-backdrop-filter: blur(2px);
+/* backdrop-filter: blur(2px); */
 `;
 
 export const ReviewConteiner=styled.div`
