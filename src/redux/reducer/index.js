@@ -3,11 +3,14 @@ const initialState = {
   allBooks: [],
   authors: [],
   genres: [],
-  detail: {},
+  bookDetail: {},
   trending: [],
   recomended: [],
   news:[],
-  user: null,
+  allUsers: [],
+  users: [],
+  userDetail: {},
+  currentUser: null,
   favorites:[],
   readed:[],
 };
@@ -70,19 +73,37 @@ function rootReducer(state = initialState, action) {
     case "GET_BOOK_BY_ID":
       return {
         ...state,
-        detail: action.payload,
+        bookDetail: action.payload,
       };
 
-    case "CLEAN_DETAIL":
+    case "CLEAN_BOOK_DETAIL":
       return {
         ...state,
         detail: {},
       };
 
-    case "GET_USER":
+    case "GET_ALL_USERS":
       return {
         ...state,
-        user: action.payload,
+        allUsers: action.payload,
+      };
+    
+    case "GET_USER_BY_ID":
+      return {
+        ...state,
+        userDetail: action.payload,
+      };
+
+    case "GET_CURRENT_USER":
+      return {
+        ...state,
+        currentUser: action.payload,
+      };
+
+    case "CLEAN_USER_DETAIL":
+      return {
+        ...state,
+        userDetail: {},
       };
     
     case "ADD_FAVORITE":
@@ -140,14 +161,14 @@ function rootReducer(state = initialState, action) {
         }
 
 
-    case "FILTER_BY_GENRE":
+    case "FILTER_BOOKS_BY_GENRE":
       filteredBooks = allBooks.filter(b => b.genre.name.toLowerCase() === action.payload.toLowerCase());
       return {
         ...state,
         books: filteredBooks
       }
 
-    case "FILTER_BY_STATUS":
+    case "FILTER_BOOKS_BY_STATUS":
       if (action.payload.toLowerCase() === "active") {
         filteredBooks = allBooks.filter(b => b.active);
       } 
@@ -159,7 +180,7 @@ function rootReducer(state = initialState, action) {
         books: filteredBooks
       }
     
-    case "SORT_BY_TITLE":
+    case "SORT_BOOKS_BY_TITLE":
       sortedBooks = action.payload === "Ascending" ? 
       state.books.sort((a, b) => {
         if(a.title.toLowerCase() > b.title.toLowerCase()) return 1;
@@ -176,7 +197,7 @@ function rootReducer(state = initialState, action) {
         books: sortedBooks
       };   
 
-    case "SORT_BY_PUBLISHER_DATE":
+    case "SORT_BOOKS_BY_PUBLISHED_DATE":
       sortedBooks = action.payload === "Oldest" ? 
       state.books.sort((a, b) => {
         if(a.publishedDate.toLowerCase() > b.publishedDate.toLowerCase()) return 1;
