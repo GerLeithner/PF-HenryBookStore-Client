@@ -7,7 +7,7 @@ import {
 } from "../styles/NavBar";
 import SearchBar from "./SearchBar.jsx";
 import CardDetail from "./CardDetail.jsx";
-import { getUser } from "../redux/actions/index.js";
+import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect } from "react";
@@ -15,13 +15,12 @@ import { useEffect } from "react";
 const NavBar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user, isLoading } = useAuth0();
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
   useEffect(() => {
     if (!isAuthenticated && currentUser) {
-      dispatch(getUser(null));
+      dispatch(getCurrentUser(null));
     }
     if (isAuthenticated && !currentUser) {
-      console.log(user);
       const { email, nickname } = user;
 
       const userDb = {
@@ -29,7 +28,7 @@ const NavBar = () => {
         nickname,
       };
 
-      dispatch(getUser(userDb));
+      dispatch(getCurrentUser(userDb));
     }
   }, [dispatch, isAuthenticated]);
 
@@ -57,7 +56,12 @@ const NavBar = () => {
         <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
-          <LinkNavBar to={"/books"}>Books</LinkNavBar>
+          {currentUser && currentUser.admin && (
+            <>
+              <LinkNavBar to={"/books"}>Books</LinkNavBar>
+              <LinkNavBar to={"/users"}>Users</LinkNavBar>
+            </>
+          )}
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
         </SubContainerNavBar>
       </ContainerNavBar>

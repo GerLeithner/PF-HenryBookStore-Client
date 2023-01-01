@@ -25,7 +25,7 @@ const Home = () => {
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state) => state.recomended);
-  const detailBook = useSelector((state) => state.detail);
+  const detailBook = useSelector((state) => state.bookDetail);
   const news = useSelector((state) => state.news);
   const [modal, setModal] = useState(false);
 
