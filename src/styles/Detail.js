@@ -10,7 +10,7 @@ export const SingleCardContainerDetail = styled.div`
   align-items: center;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
+  /* box-shadow: 2px 2px 6px 0px #ccc; */
   margin: 10px;
   padding-top: 20px;
   margin-top: 0px;
@@ -193,7 +193,7 @@ export const OverLay = styled.div`
   align-items: center;
   justify-content: center;
   /* background-color:rgba(0, 0, 0, 0.7); */
-  backdrop-filter: blur(2px);
+  /* backdrop-filter: blur(2px); */
 `;
 
 export const ReviewConteiner = styled.div`
@@ -228,11 +228,8 @@ export const UserAndStars = styled.div`
   padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
-  
-  
+
 `;
-
-
 
 
 export const ButtonCloseDetail = styled.button`
@@ -267,8 +264,6 @@ export const ButtonCloseDetail = styled.button`
     transform: translateY(-1px);
   }
 `;
-
-
 
 export const ButtonSelectDetail = styled.select`
   margin: 10px;
@@ -363,7 +358,6 @@ export const ButtonDetail = styled.button`
     transform: translateY(-1px);
   }
 `;
-
 
 export const ButtonsConteiner = styled.div`
   padding-top: 0px;

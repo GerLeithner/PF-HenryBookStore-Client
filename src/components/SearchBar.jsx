@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { bookDetail, getBookByTitle } from "../redux/actions";
-//import { ButtonCatalogue } from "../styles/Catalogue";
+import { getBookById, getBookByTitle } from "../redux/actions";
+import { ButtonCatalogue } from "../styles/Catalogue";
+
 import {
   DropdownSearch,
   InputSearch,
@@ -35,7 +36,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
     e.preventDefault(e);
     setModal(true);
     let id = allBooks.find((book) => book.title === e.target.textContent).id;
-    dispatch(bookDetail(id));
+    dispatch(getBookById(id));
     setTitle("");
   }
   return (

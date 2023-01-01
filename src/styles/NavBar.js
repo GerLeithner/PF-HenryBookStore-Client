@@ -7,7 +7,7 @@ export const ContainerNavBar = styled.div`
   position: fixed;
   padding: 0px 30px 0px 30px;
   height: 50px;
-  background-color: green;
+  background-color: black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;   
@@ -37,7 +37,7 @@ export const HomeLinkNavBar = styled(Link)`
 
   &:hover {
     color: #ffffff;
-    background-color: #5ca91d;
+    background-color: #3f3f3f;
   }
 `;
 
@@ -54,7 +54,7 @@ export const LinkNavBar = styled(Link)`
 
   &:hover {
     color: #ffffff;
-    background-color: #5ca91d;
+    background-color: #3f3f3f;
   }
 `;
 

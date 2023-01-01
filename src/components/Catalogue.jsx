@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterBookByGenre,
+  filterByGenre,
   getAuthors,
   getBooks,
   getGenres,
@@ -9,8 +9,6 @@ import {
   sortByTitle,
 } from "../redux/actions";
 import Card from "./Card.jsx";
-import CardDetail from "./CardDetail.jsx";
-import NavBar from "./NavBar.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
 import { ContainerCards } from "../styles/Card";
@@ -28,7 +26,7 @@ const Catalogue = () => {
   const bookDetail = useSelector((state) => state.detail);
 
   const [modal, setModal] = useState(false);
-  console.log("BOOKCAT", bookDetail);
+
   useEffect(() => {
     dispatch(getGenres());
 
@@ -40,13 +38,10 @@ const Catalogue = () => {
   const [orden, setOrden] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
-  var indexOfLastBook = currentPage * booksPerPage;
-
-  var indexOfFirstBook = indexOfLastBook - booksPerPage;
-
-  var currentBook = allBooks.slice(indexOfFirstBook, indexOfLastBook);
-
-  var countPages2 = Math.ceil(allBooks.length / booksPerPage);
+  let indexOfLastBook = currentPage * booksPerPage;
+  let indexOfFirstBook = indexOfLastBook - booksPerPage;
+  let currentBook = allBooks.slice(indexOfFirstBook, indexOfLastBook);
+  let countPages2 = Math.ceil(allBooks.length / booksPerPage);
 
   const paginado = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= countPages2) setCurrentPage(pageNumber);
@@ -54,11 +49,11 @@ const Catalogue = () => {
 
   function handleClick(e) {
     e.preventDefault();
-    console.log("Entré e:", e);
     dispatch(getBooks());
   }
+
   function handleFilterGenre(e) {
-    dispatch(filterBookByGenre(e.target.value));
+    dispatch(filterByGenre(e.target.value));
     setCurrentPage(1);
   }
 
@@ -80,8 +75,6 @@ const Catalogue = () => {
 
   return (
     <div>
-      <CardDetail book={bookDetail} modal={modal} setModal={setModal} />
-      <NavBar />
       <SideBarContainer>
         <ButtonCatalogue onClick={(e) => handleClick(e)}>
           Reload Books

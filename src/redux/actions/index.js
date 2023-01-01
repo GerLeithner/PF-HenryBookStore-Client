@@ -1,12 +1,9 @@
 import axios from "axios";
 
+// ------------------- BOOK CRUD ------------------------------------
 export function getBooks() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/books");
-
-    // var json= await axios.get('https://run.mocky.io/v3/dc992cfc-8e36-40eb-b392-dd52ba109e26')
-    // var json= await axios.get('https://run.mocky.io/v3/a22c7e5a-69f7-4784-bdfc-641ef666af76')
-    // console.log("JSON.DATA",json.data)
     return dispatch({
       type: "GET_BOOKS",
       payload: json.data,
@@ -14,26 +11,72 @@ export function getBooks() {
   };
 }
 
-export function getGenres() {
+export function getBookById(id) {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/genres");
-    return dispatch({
-      type: "GET_GENRES",
-      payload: json.data,
-    });
+    try {
+      var obj = await axios.get("http://localhost:3001/books/" + id);
+      return dispatch({
+        type: "GET_BOOK_BY_ID",
+        payload: obj.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
-export function getAuthors() {
+export function getBookByTitle(title) {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/authors");
-    return dispatch({
-      type: "GET_AUTHORS",
-      payload: json.data,
-    });
+    console.log("Searching book", title);
+    try {
+      var obj = await axios.get("http://localhost:3001/books?title=" + title);
+      return dispatch({
+        type: "GET_BOOK_BY_TITLE",
+        payload: obj.data,
+      });
+    } catch (e) {
+      alert(title + " was not found, try another title");
+    }
   };
 }
 
+export function createBook(payload) {
+  return async function () {
+    try {
+      console.log("payload", payload);
+      const response = await axios.post("http://localhost:3001/books", payload);
+      console.log("response:", response);
+      return response;
+    }
+    catch(e) {
+      console.log(e);
+    }
+  };
+}
+
+export function editBook(payload) {
+  return async function () {
+    console.log("payload", payload);
+    const response = await axios.put("http://localhost:3001/books", payload);
+    console.log("response:", response);
+    return response;
+  };
+}
+
+export function disableBook(id) {
+  return async function () {
+    try {
+      console.log("id ", id);
+      const response = await axios.delete("http://localhost:3001/books/" + id);
+      console.log("response:", response);
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+// ------------------- BOOK CUSTOM GETS ------------------------------------
 export function getTrendingBooks() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/books/trending");
@@ -54,7 +97,6 @@ export function getNewsBooks() {
   };
 }
 
-
 export function getRecomendedBooks() {
   return async function (dispatch) {
     //
@@ -68,30 +110,14 @@ export function getRecomendedBooks() {
   };
 }
 
-
-
-export function createBook(payload) {
-  return async function (dispatch) {
-    console.log("payload", payload);
-    const response = await axios.post("http://localhost:3001/books", payload);
-    console.log("response:", response);
-    return response;
-  };
-}
-
-export function filterBookByGenre(payload) {
-  return {
-    type: "FILTER_BY_GENRE",
-    payload,
-  };
-}
-
+// ------------------- BOOK SORTS AND FILTERS ------------------------------------
 export function sortByTitle(payload) {
   return {
     type: "SORT_BY_TITLE",
     payload,
   };
 }
+
 export function sortByPublisherDate(payload) {
   return {
     type: "SORT_BY_PUBLISHER_DATE",
@@ -99,48 +125,17 @@ export function sortByPublisherDate(payload) {
   };
 }
 
-export function getBookByTitle(title) {
-  return async function (dispatch) {
-    console.log("Searching book", title);
-    try {
-      var obj = await axios.get("http://localhost:3001/books?title=" + title);
-      return dispatch({
-        type: "GET_BY_TITLE",
-        payload: obj.data,
-      });
-    } catch (e) {
-      alert(title + " was not found, try another title");
-    }
+export function filterByGenre(payload) {
+  return {
+    type: "FILTER_BY_GENRE",
+    payload,
   };
 }
 
-// export function getBookByAuthor(author){
-//     return async function(dispatch){
-
-//         console.log("Searching book", author)
-//         try{
-//     var obj= await axios.get("http://localhost:3001/books?name="+ author);
-//     return dispatch({
-//         type: 'GET_BY_AUTHOR',
-//         payload:obj.data
-//     })
-//         }catch(e){
-//             alert(author+" was not found, try another author")
-//         }
-//     }
-// }
-
-export function bookDetail(id) {
-  return async function (dispatch) {
-    try {
-      var obj = await axios.get("http://localhost:3001/books/" + id);
-      return dispatch({
-        type: "GET_DETAILS",
-        payload: obj.data,
-      });
-    } catch (e) {
-      console.log(e);
-    }
+export function filterByStatus(payload) {
+  return {
+    type: "FILTER_BY_STATUS",
+    payload,
   };
 }
 
@@ -151,15 +146,33 @@ export function cleanDetail(payload) {
   };
 }
 
-export function bookDelete(id) {
+// ------------------- OTHER MODELS ------------------------------------
+
+export function getGenres() {
   return async function (dispatch) {
     try {
-      await axios.delete("http://localhost:3001/books/" + id);
+      var json = await axios.get("http://localhost:3001/genres");
       return dispatch({
-        type: "DELETE_BOOK_DB",
-        payload: id,
+        type: "GET_GENRES",
+        payload: json.data,
       });
-    } catch (e) {
+    }
+    catch(e) {
+      console.log(e);
+    }
+  };
+}
+
+export function getAuthors() {
+  return async function (dispatch) {
+    try {
+      var json = await axios.get("http://localhost:3001/authors");
+      return dispatch({
+        type: "GET_AUTHORS",
+        payload: json.data,
+      });
+    }
+    catch(e) {
       console.log(e);
     }
   };
@@ -169,8 +182,7 @@ export function getUser(payload) {
   return async function (dispatch) {
     try {
       const user = await axios.post(
-        "http://localhost:3001/user/register",
-        payload
+        "http://localhost:3001/user/register", payload
       );
       return dispatch({
         type: "GET_USER",
@@ -181,8 +193,6 @@ export function getUser(payload) {
     }
   };
 }
-
-
 
 export function addFavorite(id,userId) {
   return async function (dispatch) {
@@ -213,8 +223,6 @@ export function deleteFavorite(id, userId){
     }
   }
 }
-
-
 
 export function addReaded(id,userId) {
   return async function (dispatch) {
@@ -260,7 +268,6 @@ export function addReading(id,userId) {
   };
 }
 
-
 export function deleteReading(id,userId){
   return async function(dispatch){
     try{
@@ -277,3 +284,18 @@ export function deleteReading(id,userId){
   }
 }
 
+// export function getBookByAuthor(author){
+//     return async function(dispatch){
+
+//         console.log("Searching book", author)
+//         try{
+//     var obj= await axios.get("http://localhost:3001/books?name="+ author);
+//     return dispatch({
+//         type: 'GET_BY_AUTHOR',
+//         payload:obj.data
+//     })
+//         }catch(e){
+//             alert(author+" was not found, try another author")
+//         }
+//     }
+// }
