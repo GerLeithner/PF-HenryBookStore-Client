@@ -12,6 +12,11 @@ const initialState = {
   readed:[],
 };
 
+
+  
+// console.log("FAVORITES:",state.favorites)
+// console.log("READED:",state.readed)
+
 function rootReducer(state = initialState, action) {
   let allBooks = state.allBooks;
   let sortedBooks = state.books;
@@ -81,7 +86,7 @@ function rootReducer(state = initialState, action) {
       };
     
     case "ADD_FAVORITE":
-      
+     
       return {
         ...state,
         favorites:[...state.favorites,action.payload]
@@ -89,13 +94,17 @@ function rootReducer(state = initialState, action) {
 
     case "DELETE_FAVORITE":
       const allFavorites=state.favorites;
-      const filterDeleteFavorite=allFavorites.filter((el)=>el.userId !== action.payload);
+
+      const filterDeleteFavorite=allFavorites.filter((el)=>el.id !== action.payload.id);
+      
+
       return{
         ...state,
-        favorites:[filterDeleteFavorite]
+        favorites:filterDeleteFavorite
       }
     
     case "ADD_READED":
+      
       return {
         ...state,
         readed:[...state.readed,action.payload]
@@ -103,10 +112,13 @@ function rootReducer(state = initialState, action) {
 
     case "DELETE_READED":
       const allReaded=state.readed;
-      const filterDeleteReaded=allReaded.filter((el)=>el.userId !== action.payload);
+
+      const filterDeleteReaded=allReaded.filter((el)=>el.id !== action.payload.id);
+      
+
       return{
         ...state,
-        readed:[filterDeleteReaded]
+        readed:filterDeleteReaded
       }
 
     case "ADD_READING":
@@ -115,13 +127,18 @@ function rootReducer(state = initialState, action) {
         readed:[...state.readed,action.payload]
       }
   
-    case "DELETE_READING":
-      const allReading=state.reading;
-      const filterDeleteReading=allReading.filter((el)=>el.userId !== action.payload);
-      return{
-        ...state,
-        reading:[filterDeleteReading]
-      }
+
+      case "DELETE_READING":
+        const allReading=state.reading;
+
+        const filterDeleteReading=allReading.filter((el)=>el.id !== action.payload.id);
+        return{
+          ...state,
+          reading:filterDeleteReading
+
+        
+        }
+
 
     case "FILTER_BY_GENRE":
       filteredBooks = allBooks.filter(b => b.genre.name.toLowerCase() === action.payload.toLowerCase());

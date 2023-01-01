@@ -74,10 +74,12 @@ export default function Card({ id, cover, modal, setModal }) {
   const dispatch = useDispatch();
   const book = useSelector((state) => state.detail);
   const currentUser = useSelector((state) => state.user);
+
+
   
 
   const userId={userId:currentUser && currentUser.id};
-  userId && console.log("USERID",userId)
+  // userId && console.log("USERID",userId)
 
 
   function handleFavorite(id, userId) {
@@ -88,7 +90,7 @@ export default function Card({ id, cover, modal, setModal }) {
       console.log("Entré a add favorite, bookId:", id);
       setFavorite(!favorite)
       console.log("FAV+",favorite)
-      console.log("USER ID HANDLE:",userId)
+
       dispatch(addFavorite(id, userId));
       
     }

@@ -197,12 +197,14 @@ export function getUser(payload) {
 export function addFavorite(id,userId) {
   return async function (dispatch) {
     try {
-        console.log("BOOKIDACTION:",id)
-        console.log("payload USERID", userId)
+       
         const response= await axios.post("http://localhost:3001/books/" + id + "/favorite", userId);
-        console.log("response:", response)
+        console.log("RESPONSE:", response)
         
-        return response;
+        return dispatch({
+          type: "ADD_FAVORITE",
+          payload: response.data,
+        });
       
     } catch (e) {
       console.log(e);
@@ -213,11 +215,15 @@ export function addFavorite(id,userId) {
 export function deleteFavorite(id, userId){
   return async function(dispatch){
     try{
-      console.log("payload ID DELETE:",id)
-      console.log("payload USERID DELETE", userId)
+
+      
       const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/favorite", {data:{userId}});
       console.log("RESPONSE DELETE",deleteResponse)
-      return deleteResponse.data.json;
+      return dispatch({
+        type: "DELETE_FAVORITE",
+        payload: deleteResponse.data,
+      });
+
     }catch(e){
       console.log(e);
     }
@@ -227,11 +233,13 @@ export function deleteFavorite(id, userId){
 export function addReaded(id,userId) {
   return async function (dispatch) {
     try {
-      console.log("payload ID:",id)
-      console.log("payload USERID", userId)
+     
         const response= await axios.post("http://localhost:3001/books/" + id + "/read", userId);
         console.log("response:", response)
-        return response;
+        return dispatch({
+          type: "ADD_READED",
+          payload: response.data,
+        });
       
     } catch (e) {
       console.log(e);
@@ -242,10 +250,12 @@ export function addReaded(id,userId) {
 export function deleteReaded(id,userId){
   return async function(dispatch){
     try{
-      await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
+
+      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
+
       return dispatch({
         type:"DELETE_READED",
-        payload:id,
+        payload:deleteResponse.data,
       });
     }catch(e){
       console.log(e);
@@ -256,11 +266,13 @@ export function deleteReaded(id,userId){
 export function addReading(id,userId) {
   return async function (dispatch) {
     try {
-      console.log("payload ID:",id)
-      console.log("payload USERID", userId)
+     
         const response= await axios.post("http://localhost:3001/books/" + id + "/reading",userId);
         console.log("response:", response)
-        return response;
+        return dispatch({
+          type: "ADD_READING",
+          payload: response.data,
+        });
       
     } catch (e) {
       console.log(e);
@@ -271,12 +283,13 @@ export function addReading(id,userId) {
 export function deleteReading(id,userId){
   return async function(dispatch){
     try{
-      console.log("payload ID:",id)
-      console.log("payload USERID", userId)
-      await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
+
+  
+      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
+
       return dispatch({
-        type:"DELETE_READING",
-        payload:id,
+        type: "DELETE_READING",
+        payload: deleteResponse.data,
       });
     }catch(e){
       console.log(e);
