@@ -13,6 +13,7 @@ const initialState = {
   currentUser: null,
   favorites:[],
   readed:[],
+  reading:[],
 };
 
 
@@ -232,7 +233,7 @@ function rootReducer(state = initialState, action) {
     case "ADD_READING":
       return {
         ...state,
-        readed:[...state.readed,action.payload]
+        readed:[...state.reading,action.payload]
       }
   
     case "DELETE_READING":

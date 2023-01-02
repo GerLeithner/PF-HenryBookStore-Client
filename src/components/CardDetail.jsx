@@ -53,6 +53,8 @@ import readedIconFill from "../icons/readedIconFill.svg";
 import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 import closeIcon from "../icons/closeIcon.svg";
+import bookIcon from "../icons/bookIcon.svg";
+import bookHalfIcon from "../icons/bookHalfIcon.svg"
 import { StarsContainer } from "../styles/CardRecomended";
 import BookReviews from "../components/BookReviews.jsx"
 
