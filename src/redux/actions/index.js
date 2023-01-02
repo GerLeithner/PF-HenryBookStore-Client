@@ -1,6 +1,7 @@
 import axios from "axios";
 
 // ------------------- BOOK CRUD ------------------------------------
+
 export function getBooks() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/books");
@@ -77,6 +78,7 @@ export function disableBook(id) {
 }
 
 // ------------------- BOOK CUSTOM GETS ------------------------------------
+
 export function getTrendingBooks() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/books/trending");
@@ -111,6 +113,7 @@ export function getRecomendedBooks() {
 }
 
 // ------------------- BOOK SORTS AND FILTERS ------------------------------------
+
 export function sortBooksByTitle(payload) {
   return {
     type: "SORT_BOOKS_BY_TITLE",
@@ -146,7 +149,7 @@ export function cleanBookDetail(payload) {
   };
 }
 
-// ------------------- OTHER MODELS ------------------------------------
+// ------------------- AUTHORS & GENRES ------------------------------------
 
 export function getGenres() {
   return async function (dispatch) {
@@ -177,6 +180,8 @@ export function getAuthors() {
     }
   };
 }
+
+// ---------------------------- USER -----------------------------------------
 
 export function getAllUsers(payload) {
   return async function (dispatch) {
@@ -225,6 +230,16 @@ export function getCurrentUser(payload) {
     }
   };
 }
+
+export function sortUsersByName(payload) {
+  return {
+    type: "SORT_USERS_BY_NAME",
+    payload,
+  };
+}
+
+
+// ------------------- OTHER MODELS ------------------------------------
 
 export function addFavorite(id,userId) {
   return async function (dispatch) {
