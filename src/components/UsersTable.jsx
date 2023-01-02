@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getUserById, cleanUserDetail } from "../redux/actions";
+import { getAllUsers, getUserById, sortUsersByName, cleanUserDetail } from "../redux/actions";
 
 import EditUser from "./EditUser";
 import TablePaged from "./TablePaged";
@@ -17,6 +17,7 @@ export default function Catalogue() {
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
+  console.log(allUsers);
 
   const [, setSort] = useState({ name: "", option: ""});
   const [, setFilter] = useState({ name: "", option: ""});
@@ -46,22 +47,19 @@ export default function Catalogue() {
     dispatch(getAllUsers());
     setModal(false);
     setCurrentPage(1);
-    setHeader("ALL BOOKS");
+    setHeader("ALL USERS");
     window.scrollTo(0, 0);
   }
 
   function handleSort(e) {
     e.preventDefault();
 
-    // if(e.target.name === "Sort By Title") {
-    //   dispatch(sortBooksByTitle(e.target.innerText));
-    // }
-    // if(e.target.name === "Sort By Year") {
-    //   dispatch(sortBooksByPublisherDate(e.target.innerText));
-    // }
-    // setSort({ name: e.target.name, option: e.target.innerText });
-    // setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
-    // setCurrentPage(1);
+    if(e.target.name === "Sort By Name") {
+      dispatch(sortUsersByName(e.target.innerText));
+    }
+    setSort({ name: e.target.name, option: e.target.innerText });
+    setHeader(`USERS - ${e.target.name} - ${e.target.innerText}`);
+    setCurrentPage(1);
   }
 
   function handleFilter(e) {
@@ -100,7 +98,7 @@ export default function Catalogue() {
           />
           <SortOrFilter 
             name="Filter By Status" 
-            options={["active", "disabled"]}
+            options={["Active", "Disabled"]}
             onButton={handleFilter} 
           />
           <SortOrFilter 
