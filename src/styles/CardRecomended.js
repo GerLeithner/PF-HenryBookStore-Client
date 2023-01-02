@@ -129,6 +129,7 @@ export const StarsContainer = styled.div`
   margin:0px;
   text-align: right;
   position: relative;
+ 
 `;
 
 

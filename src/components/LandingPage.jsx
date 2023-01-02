@@ -10,7 +10,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const LandingPage = () => {
   const { isAuthenticated, user, isLoading } = useAuth0();
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
   const dispatch = useDispatch();
 
   useEffect(() => {

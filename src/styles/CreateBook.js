@@ -114,6 +114,7 @@ export const H3Form = styled.span`
 `;
 
 export const ErrorsForm = styled.span`
+  display: flex;
   margin: 0px;
   color: ${({ color }) => color || "#ff0000"};
   font-size: 14px;

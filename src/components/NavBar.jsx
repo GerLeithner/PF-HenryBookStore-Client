@@ -15,13 +15,16 @@ import { useEffect } from "react";
 const NavBar = () => {
   const dispatch = useDispatch();
   const { isAuthenticated, user, isLoading } = useAuth0();
-  const currentUser = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.currentUser);
   useEffect(() => {
     if (!isAuthenticated && currentUser) {
       dispatch(getCurrentUser(null));
     }
     if (isAuthenticated && !currentUser) {
+<<<<<<< HEAD
       
+=======
+>>>>>>> b61963571556e7a594a129e55f3640ef52ca5d5a
       const { email, nickname } = user;
       const userDb = {
         email,
@@ -56,8 +59,12 @@ const NavBar = () => {
         <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
-          <LinkNavBar to={"/books"}>Books</LinkNavBar>
-          <LinkNavBar to={"/users"}>Users</LinkNavBar>
+          {currentUser && currentUser.admin && (
+            <>
+              <LinkNavBar to={"/books"}>Books</LinkNavBar>
+              <LinkNavBar to={"/users"}>Users</LinkNavBar>
+            </>
+          )}
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
         </SubContainerNavBar>
       </ContainerNavBar>
