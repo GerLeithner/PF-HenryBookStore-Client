@@ -343,12 +343,12 @@ export function deleteReading(id,userId){
   return async function(dispatch){
     try{
 
-  
       const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
 
       return dispatch({
-        type: "DELETE_READING",
-        payload: deleteResponse.data,
+        type:"DELETE_READING",
+        payload:deleteResponse.data,
+     
       });
     }catch(e){
       console.log(e);
