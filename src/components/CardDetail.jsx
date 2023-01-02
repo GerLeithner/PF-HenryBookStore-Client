@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import "./CardMenu.css";
 import {
   cleanBookDetail,
   addFavorite,
@@ -77,7 +77,6 @@ export default function CardDetail({ book, modal, setModal }) {
 
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
-  const [allReviews,setAllReviews]=useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
 
@@ -315,7 +314,7 @@ export default function CardDetail({ book, modal, setModal }) {
               </ReviewConteiner>
             ) : <></> } */}
             <ButtonsConteiner>
-              <ButtonDetail>Show More Reviews</ButtonDetail>
+              {/* <ButtonDetail>Show More Reviews</ButtonDetail> */}
               <ButtonDetail>Leave a Review</ButtonDetail>
             </ButtonsConteiner>
           </SingleCardContainerDetail>
