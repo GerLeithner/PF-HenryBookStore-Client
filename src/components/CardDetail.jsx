@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-
+import "./CardMenu.css";
 import {
   cleanBookDetail,
   addFavorite,
@@ -54,6 +54,7 @@ import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 import closeIcon from "../icons/closeIcon.svg";
 import { StarsContainer } from "../styles/CardRecomended";
+import BookReviews from "../components/BookReviews.jsx"
 
 function DropdownItem(props) {
   return (
@@ -86,6 +87,8 @@ export default function CardDetail({ book, modal, setModal }) {
   // console.log("BOOK ID:", bookId);
   // console.log("PROPS",props)
   const userId={userId:currentUser && currentUser.id};
+
+  
   // userId && console.log("USERID",userId)
 
   // const book = useSelector((state) => state.detail);
@@ -257,6 +260,11 @@ export default function CardDetail({ book, modal, setModal }) {
               </ColumnConteinerDetail>
             </ImgAndInfo>
             <ReviewConteiner>
+            { book && book.reviews && <BookReviews/> }
+            </ReviewConteiner>
+            
+            {/* <ReviewConteiner>
+            
               {book && book.reviews && book.reviews[0] ? (
                 <>
                   <UserAndStars>
@@ -304,9 +312,9 @@ export default function CardDetail({ book, modal, setModal }) {
 
                 <H5Detail>{book.reviews[1].comment}</H5Detail>
               </ReviewConteiner>
-            ) : <></> }
+            ) : <></> } */}
             <ButtonsConteiner>
-              <ButtonDetail>Show More Reviews</ButtonDetail>
+              {/* <ButtonDetail>Show More Reviews</ButtonDetail> */}
               <ButtonDetail>Leave a Review</ButtonDetail>
             </ButtonsConteiner>
           </SingleCardContainerDetail>

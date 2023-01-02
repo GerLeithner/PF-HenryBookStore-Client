@@ -12,22 +12,21 @@ import { BooksContainer, Table } from "../styles/BooksTable";
 import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
-
 export default function Catalogue() {
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
   console.log(allUsers);
 
-  const [, setSort] = useState({ name: "", option: ""});
-  const [, setFilter] = useState({ name: "", option: ""});
+  const currentUser = useSelector((state) => state.currentUser);
+  const [, setSort] = useState({ name: "", option: "" });
+  const [, setFilter] = useState({ name: "", option: "" });
   const [header, setHeader] = useState("ALL USERS");
 
   const [modal, setModal] = useState(false);
 
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [usersXPage, ] = useState(20);
+  const [usersXPage] = useState(20);
 
   let indexLastUser = currentPage * usersXPage;
   let indexFirstUser = indexLastUser - usersXPage;
@@ -79,7 +78,7 @@ export default function Catalogue() {
   function handleEditUser(e) {
     e.preventDefault();
 
-    dispatch(getUserById(e.target.value))
+    dispatch(getUserById(e.target.value));
     setModal(true);
     window.scrollTo(0, 0);
   }
@@ -159,6 +158,7 @@ export default function Catalogue() {
           </tbody>
         </Table>
       </BooksContainer>
+
     </div>
   );
-};
+}

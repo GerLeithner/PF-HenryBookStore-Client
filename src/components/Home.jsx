@@ -20,6 +20,7 @@ const Home = () => {
   // const [trendingSorted,setTrendingSorted]=useState([])
 
   const dispatch = useDispatch();
+  const currentUser = useSelector((state) => state.currentUser);
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
@@ -86,30 +87,32 @@ const Home = () => {
           </Carousel>
         </div>
         <div>
-          <H2Home>Continue reading</H2Home>
-          <Carousel itemsToShow={5}>
-            {trending.length ? (
-              trending.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                  />
-                );
-              })
-            ) : (
-              <></>
-            )}
-          </Carousel>
+          {currentUser && currentUser.Reading.length ? (
+            <>
+              <H2Home>Continue reading</H2Home>
+              <Carousel itemsToShow={5}>
+                {currentUser.Reading.map((b) => {
+                  return (
+                    <Card
+                      id={b.id}
+                      key={b.id}
+                      title={b.title}
+                      publishedDate={b.publishedDate}
+                      description={b.description}
+                      averageRating={b.averageRating}
+                      cover={b.cover}
+                      genres={b.genres}
+                      authors={b.authors}
+                      modal={modal}
+                      setModal={setModal}
+                    />
+                  );
+                })}
+              </Carousel>
+            </>
+          ) : (
+            <></>
+          )}
 
           <H2Home>Trendings</H2Home>
 
