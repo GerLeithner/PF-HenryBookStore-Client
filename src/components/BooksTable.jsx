@@ -111,7 +111,8 @@ export default function BooksTable() {
     setModal(true);
     window.scrollTo(0, 0);
   }
-
+  
+  // HACER AL USER AMDMIN ANTES DE DESCOMENTAR LA AUTENTIFICACION
   return (
     !currentUser ? 
     <></>

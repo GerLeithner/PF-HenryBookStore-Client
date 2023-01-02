@@ -7,10 +7,10 @@ import {
   FormTextArea,
   ErrorsForm,
 } from "../styles/CreateBook";
-import { StarDetail } from "../styles/Detail";
-import { StarsContainer } from "../styles/CardRecomended";
-import starFill from "../icons/starFill.svg";
-import starHalf from "../icons/starHalf.svg";
+// import { StarDetail } from "../styles/Detail";
+// import { StarsContainer } from "../styles/CardRecomended";
+// import starFill from "../icons/starFill.svg";
+// import starHalf from "../icons/starHalf.svg";
 
 export default function BookReviews() {
   const detail = useSelector((state) => state.bookDetail);
@@ -18,9 +18,9 @@ export default function BookReviews() {
 
   console.log("State detail", detail);
   console.log("REVIEWS", reviews);
-  let reviewsScore = [];
-  let reviewsScoreFloor = [];
-  let stars = [];
+  // let reviewsScore = [];
+  // let reviewsScoreFloor = [];
+  // let stars = [];
 
   //     for (let i=0; i<reviews.length; i++){
   //         reviewsScore.push(reviews[i].score)

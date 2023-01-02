@@ -18,12 +18,9 @@ import { BooksContainer, Table } from "../styles/BooksTable";
 import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
-<<<<<<< HEAD
 
 export default function UserTable() {
-=======
-export default function Catalogue() {
->>>>>>> b61963571556e7a594a129e55f3640ef52ca5d5a
+
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
@@ -86,12 +83,8 @@ export default function Catalogue() {
 
   function handleEditUser(e) {
     e.preventDefault();
-<<<<<<< HEAD
-    dispatch(getUserById(e.target.value))
-=======
 
-    dispatch(getUserById(e.target.value));
->>>>>>> b61963571556e7a594a129e55f3640ef52ca5d5a
+    dispatch(getUserById(e.target.value))
     setModal(true);
     window.scrollTo(0, 0);
   }

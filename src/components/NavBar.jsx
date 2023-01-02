@@ -21,10 +21,6 @@ const NavBar = () => {
       dispatch(getCurrentUser(null));
     }
     if (isAuthenticated && !currentUser) {
-<<<<<<< HEAD
-      
-=======
->>>>>>> b61963571556e7a594a129e55f3640ef52ca5d5a
       const { email, nickname } = user;
       const userDb = {
         email,
