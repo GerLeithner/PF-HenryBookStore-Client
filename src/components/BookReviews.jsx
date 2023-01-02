@@ -70,7 +70,7 @@ export default function BookReviews() {
                     <ErrorsForm>{r.create_date}</ErrorsForm> */}
                 </div>
               </PropAndInput>
-              <FormTextArea type="text" value={r.comment} alto="40px" />
+              <FormTextArea type="text" value={r.comment} alto="80px" />
             </DescriptionContainer>
           );
         })

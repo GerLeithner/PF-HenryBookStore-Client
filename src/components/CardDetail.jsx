@@ -157,7 +157,27 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     return stars;
   }
-
+  function handleReading(id, userId) {
+    
+    // console.log("e.target.value",e.target.value)
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(!reading)
+      console.log("READ+",reading)
+      
+      dispatch(addReading(id, userId));
+      
+    }
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(!reading)
+      console.log("READ-",reading)
+      dispatch(deleteReading(id, userId));
+      
+    }
+    
+  }
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
@@ -224,6 +244,10 @@ export default function CardDetail({ book, modal, setModal }) {
                         }}
                         role="button"
                       />
+                      <DropdownItem 
+                      icon={!reading?bookIcon:bookHalfIcon} 
+                      value={book.id} 
+                      handle={e=>{handleReading(book.id,userId)}}role="button" />
                     </UlCard>
                   </DropDownMenu>
                 </MenuConteiner>
