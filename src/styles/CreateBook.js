@@ -52,6 +52,7 @@ export const PropAndInput = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items:center;
+  height: ${({ alto }) => alto || "40px"};
   width: ${({ width }) => width || "100%"};
 `;
 
