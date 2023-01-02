@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const ContainerCards = styled.div`
   padding-top: 30px;
   padding-bottom: 50px;
-  padding-left: 240px;
   height: 300px;
   display: grid;
   justify-content: center;
@@ -57,14 +56,6 @@ export const DescriptionCardConteiner= styled.div`
 export const CardImg = styled.img`
   width: 150px;
   height: 200px;
-
-
-  border: 1px solid #ccc;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  margin: 0px 20px 0px 20px;
-
-
 `;
 
 
@@ -75,7 +66,7 @@ flex-direction: row;
 border: 1px solid #ccc;
 box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 cursor: pointer;
-margin: 0px 20px 0px 20px;
+padding: 0px;
 justify-content: flex-end;
 
 `;

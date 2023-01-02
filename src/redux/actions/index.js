@@ -142,10 +142,9 @@ export function filterBooksByStatus(payload) {
   };
 }
 
-export function cleanBookDetail(payload) {
+export function cleanBookDetail() {
   return {
     type: "CLEAN_BOOK_DETAIL",
-    payload,
   };
 }
 
@@ -235,6 +234,19 @@ export function sortUsersByName(payload) {
   return {
     type: "SORT_USERS_BY_NAME",
     payload,
+  };
+}
+
+export function filterUsersByStatus(payload) {
+  return {
+    type: "FILTER_USERS_BY_STATUS",
+    payload,
+  };
+}
+
+export function cleanUserDetail() {
+  return {
+    type: "CLEAN_USER_DETAIL",
   };
 }
 

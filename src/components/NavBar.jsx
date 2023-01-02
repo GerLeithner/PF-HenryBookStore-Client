@@ -22,7 +22,6 @@ const NavBar = () => {
     }
     if (isAuthenticated && !currentUser) {
       const { email, nickname } = user;
-
       const userDb = {
         email,
         nickname,

@@ -33,7 +33,7 @@ export const InfoContainer = styled.div`
   padding: 0px;
   display: flex;
   flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-around;
 `;
 
 export const PropAndInputAndError = styled.div`
@@ -116,7 +116,7 @@ export const H3Form = styled.span`
 export const ErrorsForm = styled.span`
   display: flex;
   margin: 0px;
-  color: #ff0000;
+  color: ${({ color }) => color || "#ff0000"};
   font-size: 14px;
 `;
 
@@ -134,6 +134,7 @@ export const DropDownSelect = styled.div`
 
 export const ButtonForm = styled.button`
   width: ${({ ancho }) => ancho || "max-content"};
+  margin-left: ${({ margenIzq }) => margenIzq || "0px"};
   padding: 5px;
   font-size: 14px;
   font-weight: 300;
@@ -158,29 +159,3 @@ export const ButtonForm = styled.button`
   }
 `;
 
-
-
-
-
-// export const H1Form = styled.h1`
-//   padding-top: 25px;
-//   padding-bottom: 40px;
-//   margin-bottom: 0px;
-//   font-family: "Roboto Condensed", sans-serif;
-// `;
-
-// export const GenresContainer= styled.div`
-//  display: grid;
-//   justify-content: center;
-//   justify-items: center;
-//   align-items: center;
-//   grid-template-columns: repeat(5, minmax(80px, 100px));
-//   grid-auto-rows: minmax(auto, 50px);
-//   gap: 10px;
-//   flex-grow: 1;
-// `;
-
-// export const GenreNameLabel= styled.label`
-//  width: 40px;
-//  height: 60px;
-// `;

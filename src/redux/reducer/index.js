@@ -148,6 +148,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         allUsers: action.payload,
+        users: action.payload
       };
     
     case "GET_USER_BY_ID":
@@ -177,7 +178,7 @@ function rootReducer(state = initialState, action) {
       }
       return {
         ...state,
-        books: filteredUsers
+        users: filteredUsers
       }
 
     case "SORT_USERS_BY_NAME":
