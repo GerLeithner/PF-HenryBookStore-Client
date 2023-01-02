@@ -86,7 +86,7 @@ const Home = () => {
           </Carousel>
         </div>
         <div>
-          <H2Home>Continue reading</H2Home>
+          {/* <H2Home>Continue reading</H2Home>
           <Carousel itemsToShow={5}>
             {trending.length ? (
               trending.map((b) => {
@@ -109,7 +109,7 @@ const Home = () => {
             ) : (
               <></>
             )}
-          </Carousel>
+          </Carousel> */}
 
           <H2Home>Trendings</H2Home>
 

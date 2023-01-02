@@ -15,6 +15,7 @@ import {
 import CreateBook from "./CreateBook";
 import TablePaged from "./TablePaged";
 import SortOrFilter from "./SortOrFilter";
+import SearchBar from "./SearchBar";
 
 import { SideButton } from "../styles/SortOrFilter";
 import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
@@ -23,7 +24,7 @@ import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
 
-export default function Catalogue() {
+export default function BooksTable() {
   const dispatch = useDispatch();
 
   const allBooks = useSelector((state) => state.books);
@@ -112,12 +113,13 @@ export default function Catalogue() {
   return (
     <div>
       <SideBarContainer>
-        <SideButton onClick={(e) => handleCreateBook(e)} ancho="163px">
+        <SideButton onClick={(e) => handleCreateBook(e)} ancho="170px">
           ADD NEW BOOK
         </SideButton>
-        <SideButton onClick={(e) => handleReload(e)} ancho="163px">
+        <SideButton onClick={(e) => handleReload(e)} ancho="170px">
           RELOAD BOOKS
         </SideButton>
+        <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <SelectFilters>
           <SortOrFilter 
             name="Sort By Title" 

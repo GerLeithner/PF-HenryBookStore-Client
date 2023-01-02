@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  filterBooksByGenre,
-  getAuthors,
   getBooks,
+  getAuthors,
   getGenres,
   sortBooksByPublishedDate,
   sortBooksByTitle,
+  filterBooksByStatus,
+  filterBooksByGenre
 } from "../redux/actions";
+
 import Card from "./Card.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
+import SortOrFilter from "./SortOrFilter.jsx";
+
+import { SideButton } from "../styles/SortOrFilter";
 import { BooksContainer } from "../styles/BooksTable"
 import { ContainerCards } from "../styles/Card";
-import {
-  ButtonCatalogue,
-  SelectFilters,
-  SideBarContainer,
-  CatalogueSelects,
-} from "../styles/Catalogue";
+import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
+import { H3Form } from "../styles/CreateBook";
+
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -35,9 +37,13 @@ const Catalogue = () => {
     dispatch(getBooks());
   }, [dispatch]);
 
-  const [orden, setOrden] = useState("");
+  const [, setSort] = useState({ name: "", option: ""});
+  const [, setFilter] = useState({ name: "", option: ""});
+  const [header, setHeader] = useState("ALL BOOKS");
+
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
+
   let indexOfLastBook = currentPage * booksPerPage;
   let indexOfFirstBook = indexOfLastBook - booksPerPage;
   let currentBook = allBooks.slice(indexOfFirstBook, indexOfLastBook);
@@ -52,62 +58,70 @@ const Catalogue = () => {
     dispatch(getBooks());
   }
 
-  function handleFilterGenre(e) {
-    dispatch(filterBooksByGenre(e.target.value));
+  function handleSort(e) {
+    e.preventDefault();
+
+    if(e.target.name === "Sort By Title") {
+      dispatch(sortBooksByTitle(e.target.innerText));
+    }
+    if(e.target.name === "Sort By Year") {
+      dispatch(sortBooksByPublishedDate(e.target.innerText));
+    }
+    setSort({ name: e.target.name, option: e.target.innerText });
+    setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
     setCurrentPage(1);
   }
 
-  function handlesortBooksByTitle(e) {
+  function handleFilter(e) {
     e.preventDefault();
-    dispatch(sortBooksByTitle(e.target.value));
-    setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
-    console.log(orden);
-  }
 
-  function handlesortBooksByPublishedDate(e) {
-    e.preventDefault();
-    dispatch(sortBooksByPublishedDate(e.target.value));
+    if(e.target.name === "Filter By Genre") {
+      dispatch(filterBooksByGenre(e.target.innerText));
+    }
+    if(e.target.name === "Filter By Status") {
+      dispatch(filterBooksByStatus(e.target.innerText));
+    }
+    setFilter({ name: e.target.name, option: e.target.innerText });
+    setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
     setCurrentPage(1);
-    setOrden(`Ordenado ${e.target.value}`);
-    console.log(orden);
   }
 
   return (
     <div>
       <SideBarContainer>
-        <ButtonCatalogue onClick={(e) => handleClick(e)}>
-          Reload Books
-        </ButtonCatalogue>
+        <SideButton onClick={(e) => handleClick(e)} ancho={"170px"}>
+          RELOAD BOOKS
+        </SideButton>
         <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <SelectFilters>
-          <CatalogueSelects onChange={(e) => handlesortBooksByTitle(e)}>
-            <option value="" hidden>
-              ABC
-            </option>
-            <option value="asc">Increasing</option>
-            <option value="desc">Decreasing</option>
-          </CatalogueSelects>
-
-          <CatalogueSelects onChange={(e) => handlesortBooksByPublishedDate(e)}>
-            <option value="" hidden>
-              Publisher Date
-            </option>
-            <option value="asc">Increasing</option>
-            <option value="desc">Decreasing</option>
-          </CatalogueSelects>
-
-          <CatalogueSelects onChange={(e) => handleFilterGenre(e)}>
-            <option value="" hidden>
-              Genre
-            </option>
-            <option value="all">All</option>
-            {allGenres?.map((el) => (
-              <option key={el.id} value={el.name}>
-                {el.name}
-              </option>
-            ))}
-          </CatalogueSelects>
+          <SortOrFilter 
+            name="Sort By Title" 
+            options={["Ascending", "Descending"]} 
+            onButton={handleSort}
+          />
+          <SortOrFilter 
+            name="Sort By Year" 
+            options={["Oldest", "Newest"]} 
+            onButton={handleSort}
+          />
+          {/* <Sort By Popularity 
+            name="Filter By Size" 
+            options={["More Populars", "Less Populars"]} 
+          /> */}
+          {/* <SortOrFilter 
+            name="Filter By Size" 
+            options={["Large", "Medium", "Short"]} 
+          /> */}
+          <SortOrFilter 
+            name="Filter By Genre" 
+            options={allGenres.map(g => g.name)}
+            onButton={handleFilter} 
+          />
+          <SortOrFilter 
+            name="Filter By Status" 
+            options={["active", "disabled"]}
+            onButton={handleFilter} 
+          />
         </SelectFilters>
       </SideBarContainer>
       <BooksContainer>
@@ -118,6 +132,7 @@ const Catalogue = () => {
             paginado={paginado}
             currentPage={currentPage}
           />
+        <div/>
         </div>
         <ContainerCards>
           {currentBook?.map((b) => {

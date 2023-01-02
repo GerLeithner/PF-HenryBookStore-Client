@@ -9,7 +9,7 @@ import {
 
 export default function BookReviews() {
     
-    const reviews = useSelector(state => state.detail.reviews);
+    const reviews = useSelector(state => state.bookDetail.reviews);
 
     return (
         <>
@@ -17,10 +17,10 @@ export default function BookReviews() {
                 return (
                     <DescriptionContainer>
                         <PropAndInput>
-                            <H3Form margenIzq="0px">{r.user.userName}</H3Form>
+                            <ErrorsForm color={"black"} margenIzq="0px">{r.user.userName}</ErrorsForm>
                             <div style={{display: "flex", flexDirection: "row", gap: "70px"}}>
-                                <ErrorsForm>Score: {r.score}</ErrorsForm>
-                                <ErrorsForm>{r.create_date}</ErrorsForm>
+                                <ErrorsForm color={"black"}>Score: {r.score}</ErrorsForm>
+                                <ErrorsForm color={"black"}>{r.create_date}</ErrorsForm>
                             </div>
                         </PropAndInput>
                         <FormTextArea type="text" value={r.comment} alto="40px"/>
@@ -28,7 +28,7 @@ export default function BookReviews() {
                 )
                 
             }) :
-            <H3Form margenIzq="0px">The book hasn't users reviews yet</H3Form>
+            <ErrorsForm>The book hasn't users reviews yet</ErrorsForm>
             }
         </>
     )

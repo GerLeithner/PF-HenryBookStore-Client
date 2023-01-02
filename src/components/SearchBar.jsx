@@ -43,39 +43,50 @@ const SearchBar = ({ paginado, modal, setModal }) => {
     <SearchContainer>
       <InputAndButton>
         <InputSearch
-          placeholder="Search book by Title or Author..."
+          placeholder="By Title or Author"
           type="text"
           value={title}
           onChange={(e) => handleInputChange(e)}
         />
-        <button type="submit" onClick={(e) => handleSubmit(e)}>
-          Search
+        <button 
+          type="submit" 
+          onClick={(e) => handleSubmit(e)}
+          style={{
+            backgroundColor: "white", 
+            border: "1px solid #ccc", 
+            height: "32px", 
+            borderRadius: "0px 10px 10px 0px"
+          }}>
+          Go
         </button>
       </InputAndButton>
-      <DropdownSearch>
-        {allBooks
-          .filter((book) => {
-            const searchTerm = title.toLowerCase();
-            const titleOfBookSearched = book.title.toLowerCase();
+      <div>
+        <DropdownSearch>
+          {allBooks
+            .filter((book) => {
+              const searchTerm = title.toLowerCase();
+              const titleOfBookSearched = book.title.toLowerCase();
 
-            return (
-              searchTerm &&
-              titleOfBookSearched.includes(searchTerm) &&
-              titleOfBookSearched !== searchTerm
-            );
-          })
-          .slice(0, 10)
-          .map((book, i) => (
-            <RowSearchBar
-              onClick={(e) => handleClick(e)}
-              modal={modal}
-              setModal={setModal}
-              key={i}
-            >
-              {book.title}
-            </RowSearchBar>
-          ))}
-      </DropdownSearch>
+              return (
+                searchTerm &&
+                titleOfBookSearched.includes(searchTerm) &&
+                titleOfBookSearched !== searchTerm
+              );
+            })
+            .slice(0, 10)
+            .map((book, i) => (
+              <RowSearchBar
+                onClick={(e) => handleClick(e)}
+                modal={modal}
+                setModal={setModal}
+                key={i}
+              >
+                {book.title}
+              </RowSearchBar>
+            ))}
+        </DropdownSearch>
+      </div>
+
     </SearchContainer>
   );
 };

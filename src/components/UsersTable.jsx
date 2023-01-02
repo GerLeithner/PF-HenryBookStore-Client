@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllUsers, getUserById, sortUsersByName, cleanUserDetail } from "../redux/actions";
+
+import { 
+  getAllUsers,
+  getUserById,
+  sortUsersByName, 
+  filterUsersByStatus, 
+} from "../redux/actions";
 
 import EditUser from "./EditUser";
 import TablePaged from "./TablePaged";
@@ -13,11 +19,11 @@ import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
 
-export default function Catalogue() {
+export default function UserTable() {
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
-  console.log(allUsers);
+  console.log("ALL USERS: ", allUsers);
 
   const [, setSort] = useState({ name: "", option: ""});
   const [, setFilter] = useState({ name: "", option: ""});
@@ -33,6 +39,7 @@ export default function Catalogue() {
   let indexFirstUser = indexLastUser - usersXPage;
   let currentUsers = allUsers.slice(indexFirstUser, indexLastUser);
   let countPages = Math.ceil(allUsers.length / usersXPage);
+  console.log("CURRENT USERS: ", currentUsers);
 
   useEffect(() => {
     dispatch(getAllUsers());
@@ -65,20 +72,16 @@ export default function Catalogue() {
   function handleFilter(e) {
     e.preventDefault();
 
-    // if(e.target.name === "Filter By Genre") {
-    //   dispatch(filterBooksByGenre(e.target.innerText));
-    // }
-    // if(e.target.name === "Filter By Status") {
-    //   dispatch(filterBooksByStatus(e.target.innerText));
-    // }
-    // setFilter({ name: e.target.name, option: e.target.innerText });
-    // setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
-    // setCurrentPage(1);
+    if(e.target.name === "Filter By Status") {
+      dispatch(filterUsersByStatus(e.target.innerText));
+    }
+    setFilter({ name: e.target.name, option: e.target.innerText });
+    setHeader(`USERS - ${e.target.name} - ${e.target.innerText}`);
+    setCurrentPage(1);
   }
 
   function handleEditUser(e) {
     e.preventDefault();
-
     dispatch(getUserById(e.target.value))
     setModal(true);
     window.scrollTo(0, 0);
@@ -106,12 +109,17 @@ export default function Catalogue() {
             options={["One Month", "Six Months", "A Year"]}
             onButton={handleFilter} 
           />
+          <SortOrFilter 
+            name="Payment Mod" 
+            options={["Mod 1", "Mod 2", "Mod 3", "Mod 4"]}
+            onButton={handleFilter} 
+          />
         </SelectFilters>
       </SideBarContainer>
       <BooksContainer>
         { modal && 
         <>
-          <H3Form margenIzq="0px">EDIT USERS</H3Form>
+          <H3Form margenIzq="0px">EDIT USER</H3Form>
           <EditUser setModal={setModal}/> 
         </>
         }
@@ -148,7 +156,7 @@ export default function Catalogue() {
                     </PagedButton>
                   </td>
                   <td>{user.email}</td>
-                  <td>1 month</td>
+                  <td>One month</td>
                   <td>mod 1</td>
                   <td>dd/mm/yyyy</td>
                   <td>dd/mm/yyyy</td>

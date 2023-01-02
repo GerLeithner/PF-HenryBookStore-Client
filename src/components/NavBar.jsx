@@ -21,9 +21,8 @@ const NavBar = () => {
       dispatch(getCurrentUser(null));
     }
     if (isAuthenticated && !currentUser) {
-      console.log(user);
+      
       const { email, nickname } = user;
-
       const userDb = {
         email,
         nickname,
