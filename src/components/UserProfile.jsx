@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+// import { 
+//     getAllUsers,
+//     getUserById,
+//     sortUsersByName, 
+//     filterUsersByStatus, 
+// } from "../redux/actions";
 
 import { InfoContainer } from "../styles/UserProfile";
-
+import { SideBarContainer } from "../styles/Catalogue";
 
 export default function UserProfile() {
 

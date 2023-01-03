@@ -20,11 +20,9 @@ import { H3Form } from "../styles/CreateBook";
 
 
 export default function UserTable() {
-
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
-  console.log("ALL USERS: ", allUsers);
 
   const [, setSort] = useState({ name: "", option: "" });
   const [, setFilter] = useState({ name: "", option: "" });
