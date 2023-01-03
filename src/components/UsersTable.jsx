@@ -26,7 +26,6 @@ export default function UserTable() {
   const allUsers = useSelector((state) => state.users);
   console.log("ALL USERS: ", allUsers);
 
-  const currentUser = useSelector((state) => state.currentUser);
   const [, setSort] = useState({ name: "", option: "" });
   const [, setFilter] = useState({ name: "", option: "" });
   const [header, setHeader] = useState("ALL USERS");

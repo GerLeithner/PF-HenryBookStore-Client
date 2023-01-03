@@ -34,11 +34,8 @@ import {
 export default function Card({ id, cover, modal, setModal }) {
 
   const [open, setOpen] = useState(false);
-
-  const [favorite,setFavorite]=useState(false)
-  const [readed,setReaded]=useState(false)
-  
-
+  const [favorite, setFavorite] = useState(false);
+  const [readed, setReaded] = useState(false);
 
   // const [reading,setReading]=useState(false)
   // const { isAuthenticated, user, isLoading } = useAuth0();
@@ -81,8 +78,6 @@ export default function Card({ id, cover, modal, setModal }) {
 
   const book = useSelector((state) => state.bookDetail);
   const currentUser = useSelector((state) => state.currentUser);
-
-  
 
   const userId={userId:currentUser && currentUser.id};
   // userId && console.log("USERID",userId)
@@ -143,7 +138,6 @@ export default function Card({ id, cover, modal, setModal }) {
             handleClick(id);
           }}
         />
-
         <MenuConteiner>
           <MenuTrigger
             onClick={() => {setOpen(!open);}}>
