@@ -33,11 +33,12 @@ border: none;
 
 export const ButtonCatalogue = styled.button`
   width: ${({ ancho }) => ancho || "max-content"};
-  padding: 1em 1em;
-  font-size: 12px;
+  height: ${({ alto }) => alto || "max-content"};
+  padding: ${({ padding }) => padding || "1em 1em"};
+  font-size: ${({ fontSize }) => fontSize || "12px"};
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  font-weight: 200;
+  font-weight: ${({ fontWeight }) => fontWeight || "200"};
   color: #111;
   background-color: #fff;
   border: none;
