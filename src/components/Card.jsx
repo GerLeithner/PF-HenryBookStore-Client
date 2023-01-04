@@ -151,7 +151,7 @@ export default function Card({ id, cover, modal, setModal }) {
             className={`dropdown-menu ${open ? "active" : "inactive"}`}
           >
             <UlCard>
-              <DropdownItem icon={reviewIcon} value={id} role="button" />
+              {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
               <DropdownItem icon={!reading?bookIcon:bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
               <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
               <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>

@@ -192,14 +192,14 @@ export const OverLay = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color:rgba(0, 0, 0, 0.7); */
-  /* backdrop-filter: blur(2px); */
+  /* background-color:rgba(0, 0, 0, 0.7);  */
+  backdrop-filter: blur(1px);
 `;
 
 export const ReviewConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  height: 180px;
+  height: 110px;
   width: 730px;
   padding:0px;
   border-radius: 5px;
@@ -210,7 +210,7 @@ export const ReviewConteiner = styled.div`
   background-color: white;
   padding-left: 0px;
   padding-right: 0px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
   overflow-x: hidden ;
   overflow-y: auto;
   text-overflow:ellipsis; 
@@ -369,4 +369,12 @@ export const ButtonsConteiner = styled.div`
   justify-content: space-around;
   padding-bottom: 0px;
   align-self:flex-end;
+`;
+
+export const InfoContainerReview = styled.div`
+  margin: 0px;
+  padding: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;

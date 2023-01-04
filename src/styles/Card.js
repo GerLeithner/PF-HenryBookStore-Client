@@ -112,7 +112,7 @@ export const CardsAboutUsContainer = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: repeat(4, minmax(200px, 280px));
+  grid-template-columns: repeat(3, minmax(150px, 350px));
   grid-auto-rows: minmax(auto, 1000px);
   gap: 50px;
   flex-grow: 1;

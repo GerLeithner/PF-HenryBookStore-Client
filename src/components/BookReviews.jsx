@@ -6,6 +6,8 @@ import {
   H3Form,
   FormTextArea,
   ErrorsForm,
+  ReviewBox,
+ 
 } from "../styles/CreateBook";
 // import { StarDetail } from "../styles/Detail";
 // import { StarsContainer } from "../styles/CardRecomended";
@@ -43,8 +45,8 @@ export default function BookReviews() {
       {reviews.length ? (
         reviews.map((r) => {
           return (
-            <DescriptionContainer>
-              <PropAndInput>
+            <DescriptionContainer >
+              <PropAndInput >
                 <ErrorsForm color={"black"} margenIzq="0px">
                   {r.user.userName}
                 </ErrorsForm>

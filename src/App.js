@@ -8,6 +8,7 @@ import AboutUs from "./components/AboutUs.jsx";
 import NavBar from "./components/NavBar.jsx";
 import BooksTable from "./components/BooksTable.jsx";
 import UsersTable from "./components/UsersTable.jsx";
+import CreateReview from "./components/CreateReview";
 import ProtectedRoute from "./auth/protected-route";
 
 
@@ -25,6 +26,8 @@ function App() {
         <Route exact path="/about" component={ AboutUs}/>
         <Route exact path="/books" component={ BooksTable }/>
         <Route exact path="/users" component={ UsersTable }/>
+        <Route exact path="/review" component={ CreateReview}/>
+
     </div>
   );
 }
