@@ -47,6 +47,7 @@ export const ButtonCatalogue = styled.button`
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
+  margin:0px;
 
   &:hover {
     background-color: #1b8f2b;

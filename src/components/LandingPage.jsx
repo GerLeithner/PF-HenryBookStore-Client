@@ -80,9 +80,9 @@ const LandingPage = () => {
         {!isAuthenticated && !isLoading ? (
           <Login />
         ) : (
-          <ButtonsConteiner>
+          <>
             <Link to="/home">
-              <ButtonCatalogue>Start Exploring</ButtonCatalogue>
+              <ButtonCatalogue >Start Exploring</ButtonCatalogue>
             </Link>
             <Logout />
             
@@ -91,9 +91,7 @@ const LandingPage = () => {
             ) : (
               <div />
             )} */}
-            
-          </ButtonsConteiner>
-          
+          </>
         )}
       </ButtonsConteiner>
       

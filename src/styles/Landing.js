@@ -25,11 +25,12 @@ export const BoxContainer = styled.div`
 export const ButtonsConteiner = styled.div`
      display: flex;
      flex-direction: column;
-     height: 150px;
+     height: 100px;
      align-items: center;
      justify-content: space-around;
      padding: 10px;
-     margin: 10px;
+     margin: 0px;
+    
      
     
 `;
