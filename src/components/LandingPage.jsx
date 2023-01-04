@@ -5,6 +5,9 @@ import { ButtonCatalogue } from "../styles/Catalogue";
 import {OverLay} from "../styles/Detail"
 import {BoxContainer,
         ButtonsConteiner,
+        PromotionalConteiner,
+        H4Landing,
+        BackgroundConteiner,
 } from "../styles/Landing"
 import { Login } from "./Login";
 import { Logout } from "./Logout";
@@ -44,9 +47,11 @@ const LandingPage = () => {
 
   
   
-  let concatTitles="Cat's Eye, All the Devils Are Here, The essential Neruda, Harlan Coben Spring , Harry Potter and the Goblet of Fire, Ficciones"
+  // let concatTitles="Cat's Eye, All the Devils Are Here, The essential Neruda, Harlan Coben Spring , Harry Potter and the Goblet of Fire, Ficciones"
 
-  var promotionalBooks=concatTitles
+  var promotionalBooks=["Cat's Eye", "All the Devils Are Here","The essential Neruda","Harlan Coben Spring","Harry Potter and the Goblet of Fire","Ficciones"]
+
+
     //  recomended && recomended.length && recomended.map(b=>{
     //   concatTitles=concatTitles + b.title + ", "
     //  })
@@ -56,7 +61,7 @@ const LandingPage = () => {
 
 
   return (
-    <OverLay>
+    <BackgroundConteiner>
     <BoxContainer>
       <div>
         <h1>Book Explorer</h1>
@@ -64,29 +69,35 @@ const LandingPage = () => {
       {/* {currentUser && currentUser.userName} */}
       <h2>Welcome to the best place to find incredible books to feed your mind</h2>
       <h3>Our catalog is full of classic and trendy books like:</h3>
-      <h4>{promotionalBooks}</h4>
+      <PromotionalConteiner>
+      {promotionalBooks && promotionalBooks.map(e=>(
+        <H4Landing>{e}</H4Landing>
+      ))}
+      </PromotionalConteiner>
+      {/* <h4>{promotionalBooks}</h4> */}
       
       <ButtonsConteiner>
         {!isAuthenticated && !isLoading ? (
           <Login />
         ) : (
-          <ButtonsConteiner>
+          <>
             <Link to="/home">
-              <ButtonCatalogue>Start Exploring</ButtonCatalogue>
+              <ButtonCatalogue >Start Exploring</ButtonCatalogue>
             </Link>
-           
+            <Logout />
             
             {/* {currentUser ? (
               <div> Welcome {currentUser.userName} </div>
             ) : (
               <div />
             )} */}
-            <Logout />
-          </ButtonsConteiner>
+          </>
         )}
       </ButtonsConteiner>
+      
     </BoxContainer>
-    </OverLay>
+    
+    </BackgroundConteiner>
   );
 };
 
