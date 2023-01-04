@@ -26,7 +26,7 @@ function App() {
         <Route exact path="/about" component={ AboutUs}/>
         <Route exact path="/books" component={ BooksTable }/>
         <Route exact path="/users" component={ UsersTable }/>
-        <Route exact path="/review" component={ CreateReview}/>
+        
 
     </div>
   );
