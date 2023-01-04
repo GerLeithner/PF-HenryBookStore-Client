@@ -1,20 +1,18 @@
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
-const { REACT_APP_PAYPAL_CLIENT_ID, REACT_APP_AUTH_CLIENTID } = process.env;
+const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
-console.log("Paypal ID:", REACT_APP_AUTH_CLIENTID);
-
-export default function PaypalButton(plan) {
+export default function PaypalButton({ plan }) {
   let planId;
 
   switch (plan) {
-    case "1 month":
+    case "One month":
       planId = "P-4BM16965TV4364835MO25WMQ";
       break;
-    case "6 months":
+    case "Six months":
       planId = "P-5KR316110V1111814MO26ERI";
       break;
-    case "1 year":
+    case "One year":
       planId = "P-5TM174603V808780KMO26GMY";
       break;
     default:
@@ -31,11 +29,10 @@ export default function PaypalButton(plan) {
     >
       <PayPalButtons
         style={{
-          color: "gold",
-          shape: "rect",
-          height: 40,
-          label: "subscribe",
+          //shape: "pill",
+          color: "silver",
           layout: "vertical",
+          label: "subscribe",
         }}
         createSubscription={(data, actions) => {
           return actions.subscription.create({
