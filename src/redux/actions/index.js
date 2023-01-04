@@ -356,6 +356,24 @@ export function deleteReading(id,userId){
   }
 }
 
+export function addReview(id,payload) {
+  return async function (dispatch) {
+    try {
+      
+     
+        const response= await axios.post("http://localhost:3001/books/" + id + "/review", payload);
+        console.log("response:", response)
+        return dispatch({
+          type: "ADD_REVIEW",
+          payload: response.data,
+        });
+      
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 // export function getBookByAuthor(author){
 //     return async function(dispatch){
 

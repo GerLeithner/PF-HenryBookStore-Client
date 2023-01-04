@@ -36,11 +36,8 @@ import {
 export default function Card({ id, cover, modal, setModal }) {
 
   const [open, setOpen] = useState(false);
-
-  const [favorite,setFavorite]=useState(false)
-  const [readed,setReaded]=useState(false)
-  
-
+  const [favorite, setFavorite] = useState(false);
+  const [readed, setReaded] = useState(false);
 
   const [reading,setReading]=useState(false)
   // const { isAuthenticated, user, isLoading } = useAuth0();
@@ -57,8 +54,6 @@ export default function Card({ id, cover, modal, setModal }) {
 
   const book = useSelector((state) => state.bookDetail);
   const currentUser = useSelector((state) => state.currentUser);
-
-  
 
   const userId={userId:currentUser && currentUser.id};
   // userId && console.log("USERID",userId)
@@ -141,7 +136,6 @@ export default function Card({ id, cover, modal, setModal }) {
             handleClick(id);
           }}
         />
-
         <MenuConteiner>
           <MenuTrigger
             onClick={() => {setOpen(!open);}}>
@@ -151,7 +145,7 @@ export default function Card({ id, cover, modal, setModal }) {
             className={`dropdown-menu ${open ? "active" : "inactive"}`}
           >
             <UlCard>
-              <DropdownItem icon={reviewIcon} value={id} role="button" />
+              {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
               <DropdownItem icon={!reading?bookIcon:bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
               <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
               <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
