@@ -55,9 +55,7 @@ export const SideButton = styled.button`
 
   &:hover {
     background-color: ${({ color }) => color || "#1b8f2b"};
-    /* box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4); */
     color: #fff;
-    //transform: translateY(-7px);
     border: none;
   }
 
