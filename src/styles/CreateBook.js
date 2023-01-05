@@ -5,33 +5,20 @@ export const FormContainer = styled.form`
   padding: 20px;
   display: flex;
   flex-direction: column;
-  justify-content: ${({ justify }) => justify || "space-between"};
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 20px;
   align-items: left;
-  width: ${({ ancho }) => ancho || "100%"};
-  height: ${({ alto }) => alto || "40px"};
+  width: 100%;
   text-align: left;
-
- 
+  border: 1px solid #ccc;
 `;
 
-
-
-// export const ReviewBox = styled.div`
-//   padding: 15px;
-//   padding-bottom: 5px;
-//   justify-content: space-between;
-//   height: 150px;
- 
-// `;
 export const ImageAndInfoContainer = styled.div`
   padding: 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  gap: 0px;
-
+  gap: 50px;
 `;
 
 export const BookImage = styled.img`
@@ -63,9 +50,8 @@ export const PropAndInput = styled.div`
   padding:0px;
   display:flex;
   flex-direction: row;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items:center;
-  height: ${({ alto }) => alto || "40px"};
   width: ${({ width }) => width || "100%"};
 `;
 
@@ -101,7 +87,7 @@ export const FormTextArea = styled.textarea`
   border: 1.5px solid #ccc;
   outline: none;
   height: ${({ alto }) => alto || "100px"};
-  width: ${({ ancho }) => ancho || "100%"};
+  width: 100%;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 
@@ -150,8 +136,8 @@ export const ButtonForm = styled.button`
   width: ${({ ancho }) => ancho || "max-content"};
   margin-left: ${({ margenIzq }) => margenIzq || "0px"};
   padding: 5px;
-  font-size: 12px;
-  font-weight: 280;
+  font-size: 14px;
+  font-weight: 300;
   color: #111;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -172,4 +158,3 @@ export const ButtonForm = styled.button`
     transform: translateY(-1px);
   }
 `;
-
