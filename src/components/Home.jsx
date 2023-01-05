@@ -61,7 +61,7 @@ const Home = () => {
     <div>
       <div>
         <div>
-          { recomended.length && 
+          { recomended && recomended.length && 
             <Carousel itemsToShow={1} className="top-rec-wrapper ">
               { recomended.map(b => {
                 return (

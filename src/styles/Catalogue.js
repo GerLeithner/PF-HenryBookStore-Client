@@ -28,12 +28,11 @@ export const SelectFilters = styled.div`
 
 export const ButtonCatalogue = styled.button`
   width: ${({ ancho }) => ancho || "max-content"};
-  height: ${({ alto }) => alto || "max-content"};
-  padding: ${({ padding }) => padding || "1em 1em"};
-  font-size: ${({ fontSize }) => fontSize || "12px"};
+  padding: 1em 1em;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  font-weight: ${({ fontWeight }) => fontWeight || "200"};
+  font-weight: 200;
   color: #111;
   background-color: #fff;
   border: none;
@@ -42,7 +41,6 @@ export const ButtonCatalogue = styled.button`
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
-  margin:0px;
 
   &:hover {
     background-color: #1b8f2b;
@@ -55,5 +53,3 @@ export const ButtonCatalogue = styled.button`
     transform: translateY(-1px);
   }
 `;
-
-//  font-family: "Roboto Condensed", sans-serif;
