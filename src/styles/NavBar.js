@@ -58,5 +58,10 @@ export const LinkNavBar = styled(Link)`
   }
 `;
 
-
-
+export const NavProfilePic = styled.img`
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin: 0px;
+  background-color: white;
+`;

@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { cleanUserDetail } from "../redux/actions";
 
 import {
-  DescriptionContainer,
   ButtonForm,
-  DropDownSelect, 
-  FormInput, 
   ErrorsForm,
-  FormContainer, 
   ImageAndInfoContainer,
-  BookImage,
   InfoContainer,
-  PropAndInput,
-  FormTextArea,
-  H3Form,
-  PropAndInputAndError
 } from "../styles/CreateBook";
 import { 
   UserEditContainer, 
@@ -25,12 +15,11 @@ import {
   FieldContainer, 
   Field, 
   H3Field, 
-  ButtonClose 
+
 } from "../styles/EditUser";
 
-export default function EditUser({ setModal, newBook, setNewBook }) {
+export default function EditUser({ setModal }) {
   const dispatch = useDispatch();
-  const history = useHistory();
   
   const user = useSelector(state => state.userDetail);
 
