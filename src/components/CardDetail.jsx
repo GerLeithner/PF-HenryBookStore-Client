@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./CardMenu.css";
+
+import CreateReview from "./CreateReview.jsx";
 import {
   cleanBookDetail,
   addFavorite,
@@ -53,6 +55,8 @@ import readedIconFill from "../icons/readedIconFill.svg";
 import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 import closeIcon from "../icons/closeIcon.svg";
+import bookIcon from "../icons/bookIcon.svg";
+import bookHalfIcon from "../icons/bookHalfIcon.svg"
 import { StarsContainer } from "../styles/CardRecomended";
 import BookReviews from "../components/BookReviews.jsx"
 
@@ -79,7 +83,7 @@ export default function CardDetail({ book, modal, setModal }) {
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
-
+  const [newReview, setNewReview]=useState(false);
   const { isAuthenticated, user, isLoading } = useAuth0();
 
 
@@ -105,8 +109,16 @@ export default function CardDetail({ book, modal, setModal }) {
   function handleCloseClick(e) {
     e.preventDefault(e);
     setModal(false);
+    setNewReview(false);
+    console.log("MODAL",modal)
     console.log("e.target.value", e.target.value);
     dispatch(cleanBookDetail(e.target.value));
+  }
+  function handleReviewClick(e) {
+    e.preventDefault(e);
+    setNewReview(true);
+    console.log("newReview", newReview)
+    console.log("e.target.value", e.target.value);
   }
 
   function handleFavorite(id, userId) {
@@ -155,7 +167,27 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     return stars;
   }
-
+  function handleReading(id, userId) {
+    
+    // console.log("e.target.value",e.target.value)
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(!reading)
+      console.log("READ+",reading)
+      
+      dispatch(addReading(id, userId));
+      
+    }
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(!reading)
+      console.log("READ-",reading)
+      dispatch(deleteReading(id, userId));
+      
+    }
+    
+  }
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
@@ -176,6 +208,7 @@ export default function CardDetail({ book, modal, setModal }) {
       {modal && (
         <OverLay>
           <SingleCardContainerDetail>
+           
             <ImgAndInfo>
               <ImgContainerDetail>
                 <CardImgDetail src={book.cover} alt="img not found" />
@@ -201,11 +234,11 @@ export default function CardDetail({ book, modal, setModal }) {
                     className={`dropdown-menu ${open ? "active" : "inactive"}`}
                   >
                     <UlCard>
-                      <DropdownItem
+                      {/* <DropdownItem
                         icon={reviewIcon}
                         value={book.id}
                         role="button"
-                      />
+                      /> */}
                       <DropdownItem
                         icon={!readed ? readedIcon : readedIconFill}
                         value={book.id}
@@ -222,6 +255,10 @@ export default function CardDetail({ book, modal, setModal }) {
                         }}
                         role="button"
                       />
+                      <DropdownItem 
+                      icon={!reading?bookIcon:bookHalfIcon} 
+                      value={book.id} 
+                      handle={e=>{handleReading(book.id,userId)}}role="button" />
                     </UlCard>
                   </DropDownMenu>
                 </MenuConteiner>
@@ -262,7 +299,7 @@ export default function CardDetail({ book, modal, setModal }) {
             <ReviewConteiner>
             { book && book.reviews && <BookReviews/> }
             </ReviewConteiner>
-            
+           
             {/* <ReviewConteiner>
             
               {book && book.reviews && book.reviews[0] ? (
@@ -313,10 +350,14 @@ export default function CardDetail({ book, modal, setModal }) {
                 <H5Detail>{book.reviews[1].comment}</H5Detail>
               </ReviewConteiner>
             ) : <></> } */}
-            <ButtonsConteiner>
+            {!newReview ?<ButtonsConteiner>
               {/* <ButtonDetail>Show More Reviews</ButtonDetail> */}
-              <ButtonDetail>Leave a Review</ButtonDetail>
+              <ButtonDetail  onClick={(e) => {handleReviewClick(e)}}>Leave a Review</ButtonDetail>
             </ButtonsConteiner>
+            : <ReviewConteiner>
+            <CreateReview currentUser={currentUser} book={book} setNewReview={setNewReview} newReview={newReview} modal={modal} setModal={setModal}/>
+            </ReviewConteiner>}
+            
           </SingleCardContainerDetail>
         </OverLay>
       )}

@@ -9,6 +9,7 @@ import NavBar from "./components/NavBar.jsx";
 import BooksTable from "./components/BooksTable.jsx";
 import UsersTable from "./components/UsersTable.jsx";
 import UsersProfile from "./components/UserProfile";
+import CreateReview from "./components/CreateReview";
 import ProtectedRoute from "./auth/protected-route";
 
 

@@ -6,9 +6,9 @@ import {
   getBookById,
   addFavorite,
   addReaded,
-  // addReading,
+  addReading,
   deleteFavorite,
-  // deleteReading,
+  deleteReading,
   deleteReaded,
   getUser,
 } from "../redux/actions";
@@ -20,6 +20,8 @@ import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
 import readedIcon from "../icons/readedIcon.svg";
 import readedIconFill from "../icons/readedIconFill.svg";
 import reviewIcon from "../icons/reviewIcon.svg";
+import bookIcon from "../icons/bookIcon.svg";
+import bookHalfIcon from "../icons/bookHalfIcon.svg"
 import {
   CardImg,
   UlCard,
@@ -37,36 +39,10 @@ export default function Card({ id, cover, modal, setModal }) {
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
 
-  // const [reading,setReading]=useState(false)
+  const [reading,setReading]=useState(false)
   // const { isAuthenticated, user, isLoading } = useAuth0();
 
   
-
-  // useEffect(() => {
-  //   if (!isAuthenticated && currentUser) {
-  //     dispatch(getUser(null));
-  //   }
-  //   if (isAuthenticated && !currentUser) {
-  //     console.log(user);
-  //     const { email, nickname } = user;
-
-  //     const userDb = {
-  //       email,
-  //       nickname,
-  //     };
-
-  //     dispatch(getUser(userDb));
-  //   }
-  // }, [dispatch, isAuthenticated]);
-
-  // useEffect(() => {    
-  //     const { email, nickname } = user;
-  //     const userDb = {
-  //       email,
-  //       nickname,
-  //     }
-  //     dispatch(getUser(userDb));
-  //   }, [dispatch]);
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -127,6 +103,28 @@ export default function Card({ id, cover, modal, setModal }) {
     
   }
 
+  function handleReading(id, userId) {
+    
+    // console.log("e.target.value",e.target.value)
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(!reading)
+      console.log("READ+",reading)
+      
+      dispatch(addReading(id, userId));
+      
+    }
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(!reading)
+      console.log("READ-",reading)
+      dispatch(deleteReading(id, userId));
+      
+    }
+    
+  }
+
   return (
     <>
       <CardDetail book={book} modal={modal} setModal={setModal} />
@@ -147,7 +145,8 @@ export default function Card({ id, cover, modal, setModal }) {
             className={`dropdown-menu ${open ? "active" : "inactive"}`}
           >
             <UlCard>
-              <DropdownItem icon={reviewIcon} value={id} role="button" />
+              {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
+              <DropdownItem icon={!reading?bookIcon:bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
               <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
               <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
             </UlCard>

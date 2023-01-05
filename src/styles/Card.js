@@ -112,7 +112,7 @@ export const CardsAboutUsContainer = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: repeat(4, minmax(200px, 280px));
+  grid-template-columns: repeat(3, minmax(150px, 350px));
   grid-auto-rows: minmax(auto, 1000px);
   gap: 50px;
   flex-grow: 1;
@@ -205,10 +205,14 @@ export const MenuConteiner =styled.div`
 
 
 export const MenuTrigger =styled.div`
+  display: flex;
   cursor: pointer;
+  width: 20px;
   opacity:0.7;
   color: grey;
-  
+  background-color: rgba(255, 255, 255.6);
+  align-self:center;
+  border-radius: 3px;
 `;
 
 export const DropDownMenu =styled.div`
@@ -223,12 +227,15 @@ export const DropDownMenu =styled.div`
 
 export const UlCard =styled.ul`
   display: flex;
+  background-color: rgba(255, 255, 255,0.6);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   flex-direction: column;
   width: 20px;
   height: 150px;
   margin:0px;
   padding:0px;
-  
   list-style-type: none;
-  
+  justify-content: center;
+  align-self:center;
+  border-radius: 10px;
 `;

@@ -13,6 +13,8 @@ const initialState = {
   currentUser: null,
   favorites:[],
   readed:[],
+  reading:[],
+  reviews:[],
 };
 
 
@@ -232,7 +234,7 @@ function rootReducer(state = initialState, action) {
     case "ADD_READING":
       return {
         ...state,
-        readed:[...state.readed,action.payload]
+        readed:[...state.reading,action.payload]
       }
   
     case "DELETE_READING":
@@ -241,6 +243,10 @@ function rootReducer(state = initialState, action) {
       return{
         ...state,
         reading:[filterDeleteReading]
+      }
+    case "ADD_REVIEW":
+      return{
+        ...state,readed:[...state.reviews,action.payload]
       }
 
     default:

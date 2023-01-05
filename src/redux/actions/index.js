@@ -1,10 +1,14 @@
 import axios from "axios";
 
+
+const deployUrl="https://pf-henrybookstore-api-production.up.railway.app/"
+// const deployUrl="http://localhost:3001"
 // ------------------- BOOK CRUD ------------------------------------
 
 export function getBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books");
+    var json = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/books");
+    console.log("axios deploy",json.data)
     return dispatch({
       type: "GET_BOOKS",
       payload: json.data,
@@ -15,7 +19,7 @@ export function getBooks() {
 export function getBookById(id) {
   return async function (dispatch) {
     try {
-      var obj = await axios.get("http://localhost:3001/books/" + id);
+      var obj = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/books/" + id);
       return dispatch({
         type: "GET_BOOK_BY_ID",
         payload: obj.data,
@@ -30,7 +34,7 @@ export function getBookByTitle(title) {
   return async function (dispatch) {
     console.log("Searching book", title);
     try {
-      var obj = await axios.get("http://localhost:3001/books?title=" + title);
+      var obj = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/books?title=" + title);
       return dispatch({
         type: "GET_BOOK_BY_TITLE",
         payload: obj.data,
@@ -45,7 +49,7 @@ export function createBook(payload) {
   return async function () {
     try {
       console.log("payload", payload);
-      const response = await axios.post("http://localhost:3001/books", payload);
+      const response = await axios.post("https://pf-henrybookstore-api-production.up.railway.app/books", payload);
       console.log("response:", response);
       return response;
     }
@@ -58,7 +62,7 @@ export function createBook(payload) {
 export function editBook(payload) {
   return async function () {
     console.log("payload", payload);
-    const response = await axios.put("http://localhost:3001/books", payload);
+    const response = await axios.put("https://pf-henrybookstore-api-production.up.railway.app/books", payload);
     console.log("response:", response);
     return response;
   };
@@ -68,7 +72,7 @@ export function disableBook(id) {
   return async function () {
     try {
       console.log("id ", id);
-      const response = await axios.delete("http://localhost:3001/books/" + id);
+      const response = await axios.delete("https://pf-henrybookstore-api-production.up.railway.app/books/" + id);
       console.log("response:", response);
       return response;
     } catch (e) {
@@ -81,7 +85,7 @@ export function disableBook(id) {
 
 export function getTrendingBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books/trending");
+    var json = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/books/trending");
     return dispatch({
       type: "GET_TRENDING_BOOKS",
       payload: json.data,
@@ -91,7 +95,7 @@ export function getTrendingBooks() {
 
 export function getNewsBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books/news");
+    var json = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/books/news");
     return dispatch({
       type: "GET_NEW_BOOKS",
       payload: json.data,
@@ -153,7 +157,7 @@ export function cleanBookDetail() {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      var json = await axios.get("http://localhost:3001/genres");
+      var json = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/genres");
       return dispatch({
         type: "GET_GENRES",
         payload: json.data,
@@ -168,7 +172,7 @@ export function getGenres() {
 export function getAuthors() {
   return async function (dispatch) {
     try {
-      var json = await axios.get("http://localhost:3001/authors");
+      var json = await axios.get("https://pf-henrybookstore-api-production.up.railway.app/authors");
       return dispatch({
         type: "GET_AUTHORS",
         payload: json.data,
@@ -186,7 +190,7 @@ export function getAllUsers(payload) {
   return async function (dispatch) {
     try {
       const users = await axios.get(
-        "http://localhost:3001/user", payload
+        "https://pf-henrybookstore-api-production.up.railway.app/user", payload
       );
       return dispatch({
         type: "GET_ALL_USERS",
@@ -202,7 +206,7 @@ export function getUserById(id) {
   return async function (dispatch) {
     try {
       const user = await axios.get(
-        `http://localhost:3001/user/${id}`
+        `https://pf-henrybookstore-api-production.up.railway.app/user/${id}`
       );
       return dispatch({
         type: "GET_USER_BY_ID",
@@ -218,7 +222,7 @@ export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
       const user = await axios.post(
-        "http://localhost:3001/user/register", payload
+        "https://pf-henrybookstore-api-production.up.railway.app/user/register", payload
       );
       return dispatch({
         type: "GET_CURRENT_USER",
@@ -257,7 +261,7 @@ export function addFavorite(id,userId) {
   return async function (dispatch) {
     try {
        
-        const response= await axios.post("http://localhost:3001/books/" + id + "/favorite", userId);
+        const response= await axios.post("https://pf-henrybookstore-api-production.up.railway.app/books/" + id + "/favorite", userId);
         console.log("RESPONSE:", response)
         
         return dispatch({
@@ -276,7 +280,7 @@ export function deleteFavorite(id, userId){
     try{
 
       
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/favorite", {data:{userId}});
+      const deleteResponse=await axios.delete("https://pf-henrybookstore-api-production.up.railway.app/books/" + id +"/favorite", {data:{userId}});
       console.log("RESPONSE DELETE",deleteResponse)
       return dispatch({
         type: "DELETE_FAVORITE",
@@ -293,7 +297,7 @@ export function addReaded(id,userId) {
   return async function (dispatch) {
     try {
      
-        const response= await axios.post("http://localhost:3001/books/" + id + "/read", userId);
+        const response= await axios.post("https://pf-henrybookstore-api-production.up.railway.app/books/" + id + "/read", userId);
         console.log("response:", response)
         return dispatch({
           type: "ADD_READED",
@@ -310,7 +314,7 @@ export function deleteReaded(id,userId){
   return async function(dispatch){
     try{
 
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
+      const deleteResponse=await axios.delete("https://pf-henrybookstore-api-production.up.railway.app/books/" + id +"/read",{data:{userId}});
 
       return dispatch({
         type:"DELETE_READED",
@@ -326,7 +330,7 @@ export function addReading(id,userId) {
   return async function (dispatch) {
     try {
      
-        const response= await axios.post("http://localhost:3001/books/" + id + "/reading",userId);
+        const response= await axios.post("https://pf-henrybookstore-api-production.up.railway.app/books/" + id + "/reading",userId);
         console.log("response:", response)
         return dispatch({
           type: "ADD_READING",
@@ -343,17 +347,35 @@ export function deleteReading(id,userId){
   return async function(dispatch){
     try{
 
-  
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
+      const deleteResponse=await axios.delete("https://pf-henrybookstore-api-production.up.railway.app/books/" + id +"/reading",{data:{userId}});
 
       return dispatch({
-        type: "DELETE_READING",
-        payload: deleteResponse.data,
+        type:"DELETE_READING",
+        payload:deleteResponse.data,
+     
       });
     }catch(e){
       console.log(e);
     }
   }
+}
+
+export function addReview(id,payload) {
+  return async function (dispatch) {
+    try {
+      
+     
+        const response= await axios.post("https://pf-henrybookstore-api-production.up.railway.app/books/" + id + "/review", payload);
+        console.log("response:", response)
+        return dispatch({
+          type: "ADD_REVIEW",
+          payload: response.data,
+        });
+      
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 // export function getBookByAuthor(author){
