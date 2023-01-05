@@ -33,16 +33,16 @@ import {
   } from "../styles/Detail";
 function validate(input) {
   
-  const regName = new RegExp("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+  // const regName = new RegExp("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
   const regNum = new RegExp("^[0-5]+$");
 
   let errors = {};
   if(!input.comment) {
     errors.comment = "*comment is required field";
   }
-  else if(!regName.test(input.comment)) {
-    errors.comment = "*insert a valid comment";
-  }
+  // else if(!regName.test(input.comment)) {
+  //   errors.comment = "*insert a valid comment";
+  // }
   if(!input.score) {
     errors.score = "*score is a required field";
   } 
