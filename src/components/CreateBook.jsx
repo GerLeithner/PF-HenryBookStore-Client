@@ -597,5 +597,4 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
     </FormContainer>
   );
 };
-
  
