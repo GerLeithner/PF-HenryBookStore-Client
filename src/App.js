@@ -11,6 +11,10 @@ import UsersTable from "./components/UsersTable.jsx";
 import UsersProfile from "./components/UserProfile";
 import CreateReview from "./components/CreateReview";
 import ProtectedRoute from "./auth/protected-route";
+import axios from 'axios';
+
+// axios.defaults.baseURL='http://localhost:3001'
+axios.defaults.baseURL='https://pf-henrybookstore-api-production.up.railway.app';
 
 
 function App() {
