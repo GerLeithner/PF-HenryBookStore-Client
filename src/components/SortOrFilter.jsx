@@ -4,13 +4,13 @@ import { FilterButton, DownfallButton, FilterHead, FilterBody } from "../styles/
 
 export default function SortOrFilter({ name, options, onButton }) {
 
-    const [downfall, setDowfall] = useState(false);
+    const [downfall, setDownFall] = useState(false);
     const [active, setActive] = useState(false);
 
     function handleDownfall(e) {
         e.preventDefault();
         setActive(!active);
-        setDowfall(!downfall);
+        setDownFall(!downfall);
     }
 
     return(

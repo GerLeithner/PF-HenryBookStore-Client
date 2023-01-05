@@ -5,7 +5,9 @@ export const SideBarContainer = styled.div`
   height: 100vh;
   width: 250px;
   background-color: #efefef;
-  padding: 90px 15px 0px 15px;
+  padding-top: ${({ paddingTop }) => paddingTop || "90px"};
+  padding-right: 15px;
+  padding-left: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -22,13 +24,6 @@ export const SelectFilters = styled.div`
   width: max-content;
   margin-bottom: 20px;
   margin-top: 0px;
-`;
-
-export const CatalogueSelects = styled.select`
-width: 150px;
-height: 23px;
-outline: none;
-border: none; 
 `;
 
 export const ButtonCatalogue = styled.button`
