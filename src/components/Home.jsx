@@ -128,6 +128,8 @@ const Home = () => {
                       genre={b.genre}
                       author={b.author}
                       back_cover={b.back_cover}
+                      modal={modal}
+                      setModal={setModal}
                     />
                   )
                 })
@@ -155,6 +157,8 @@ const Home = () => {
                       genre={b.genre}
                       author={b.author}
                       back_cover={b.back_cover}
+                      modal={modal}
+                      setModal={setModal}
                     />
                   )
                 })
