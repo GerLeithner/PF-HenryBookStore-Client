@@ -84,6 +84,7 @@ export default function CardDetail({ book, modal, setModal }) {
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
   const [newReview, setNewReview]=useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const { isAuthenticated, user, isLoading } = useAuth0();
 
 
@@ -105,6 +106,14 @@ export default function CardDetail({ book, modal, setModal }) {
   //     dispatch(cleanBookDetail());
   //   };
   // }, [dispatch]);
+
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
 
   function handleCloseClick(e) {
     e.preventDefault(e);
@@ -222,16 +231,14 @@ export default function CardDetail({ book, modal, setModal }) {
                 >
                   <img src={closeIcon} alt="n" />
                 </ButtonCloseDetail>
-                <MenuConteiner right={"310px"} top={"120px"}>
+                <MenuConteiner right={"310px"} top={"120px"} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
                   <MenuTrigger
-                    onClick={() => {
-                      setOpen(!open);
-                    }}
+                    onMouseOver={handleMouseOver}
                   >
                     <img src={caretIcon} />
                   </MenuTrigger>
                   <DropDownMenu
-                    className={`dropdown-menu ${open ? "active" : "inactive"}`}
+                    className={`dropdown-menu ${isHovering ? "active" : "inactive"}` } onMouseOver={handleMouseOver}
                   >
                     <UlCard>
                       {/* <DropdownItem
