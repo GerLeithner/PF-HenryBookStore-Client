@@ -11,11 +11,7 @@ export const Login = () => {
   return (
     <ButtonCatalogue
       onClick={async () =>
-        await loginWithRedirect({
-          authorizationParams: {
-            redirect_uri: "http://localhost:3000/home",
-          },
-        })
+        await loginWithRedirect()
       }
     >
       Get Started
