@@ -11,9 +11,9 @@ export const Login = () => {
   return (
     <ButtonCatalogue
       onClick={async () =>
-        await loginWithRedirect({
-          
-        })
+
+        await loginWithRedirect()
+
       }
     >
       Get Started
