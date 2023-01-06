@@ -12,9 +12,7 @@ export const Login = () => {
     <ButtonCatalogue
       onClick={async () =>
         await loginWithRedirect({
-          authorizationParams: {
-            redirect_uri: "https://pf-henry-book-store-client.vercel.app/home",
-          },
+          
         })
       }
     >

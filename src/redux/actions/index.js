@@ -9,7 +9,7 @@ import axios from "axios";
 export function getBooks() {
   return async function (dispatch) {
     var json = await axios.get(`/books`);
-    console.log("axios deploy",json.data)
+   
     return dispatch({
       type: "GET_BOOKS",
       payload: json.data,
