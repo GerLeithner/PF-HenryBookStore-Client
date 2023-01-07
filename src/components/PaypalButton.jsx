@@ -1,9 +1,22 @@
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
+import { useDispatch, us } from "react-redux";
+import { activateSubscription } from "../redux/actions";
+import { useEffect, useRef } from "react";
 
 const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
-export default function PaypalButton({ plan }) {
+export default function PaypalButton({ currentUser, plan }) {
+  const dispatch = useDispatch();
   let planId;
+  let userId;
+
+  useEffect(() => {
+    if (currentUser) {
+      //      userId = useRef(currentUser.id);
+    }
+  }, [currentUser]);
+
+  console.log("Despues del useEffect id:", userId);
 
   switch (plan) {
     case "One month":
@@ -17,6 +30,14 @@ export default function PaypalButton({ plan }) {
       break;
     default:
       break;
+  }
+
+  function onApprove(actions) {
+    console.log("Entre al onApprove");
+
+    console.log("Pasé el dispatch");
+    console.log("currentUser: ", currentUser);
+    return dispatch(activateSubscription(userId, plan));
   }
 
   return (
@@ -39,13 +60,13 @@ export default function PaypalButton({ plan }) {
             plan_id: planId,
           });
         }}
-        onApprove={(data, actions) => {
-          return actions.order.capture().then((details) => {
-            const name = details.payer.name.given_name;
-            alert(`Transaction completed by ${name}`);
-          });
-        }}
+        onApprove={(actions) => onApprove()}
       />
     </PayPalScriptProvider>
   );
 }
+
+/* actions.subscription.capture().then((details) => {
+  const name = details.payer.name.given_name;
+  alert(`Transaction completed by ${name}`);
+}); */
