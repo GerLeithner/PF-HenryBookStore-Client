@@ -1,4 +1,5 @@
 import axios from "axios";
+const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
 // const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
 const deployUrl = "http://localhost:3001";
@@ -7,7 +8,6 @@ const deployUrl = "http://localhost:3001";
 
 export function getBooks() {
   return async function (dispatch) {
-
     var json = await axios.get(`${deployUrl}/books`);
     console.log("axios deploy", json.data);
 
@@ -228,9 +228,9 @@ export function getCurrentUser(payload) {
 }
 
 export function editUser(input) {
-  return async function() {
-    await axios.put(`${deployUrl}/user/edit`, input)
-  }
+  return async function () {
+    await axios.put(`${deployUrl}/user/edit`, input);
+  };
 }
 
 export function sortUsersByName(payload) {
@@ -250,6 +250,27 @@ export function filterUsersByStatus(payload) {
 export function cleanUserDetail() {
   return {
     type: "CLEAN_USER_DETAIL",
+  };
+}
+
+export function changePassword(user) {
+  return async function (dispatch) {
+    await axios
+      .post(
+        `https://${REACT_APP_AUTH_DOMAIN}/dbconnections/change_password`,
+        {
+          client_id: REACT_APP_AUTH_CLIENTID,
+          email: user.email,
+          connection: "Username-Password-Authentication",
+        },
+        { headers: { "content-type": "application/json" } }
+      )
+      .then((data) => {
+        alert("An email with password reset instructions has been sent to you");
+      });
+    return {
+      type: "CHANGE_PASSWORD",
+    };
   };
 }
 
