@@ -35,7 +35,8 @@ import {
 
 export default function Card({ id, cover, modal, setModal }) {
 
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
 
@@ -50,6 +51,14 @@ export default function Card({ id, cover, modal, setModal }) {
     dispatch(getBookById(id));
   }
 
+  const handleMouseOver = () => {
+    setIsHovering(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovering(false);
+  };
+
   const dispatch = useDispatch();
 
   const book = useSelector((state) => state.bookDetail);
@@ -57,6 +66,45 @@ export default function Card({ id, cover, modal, setModal }) {
 
   const userId={userId:currentUser && currentUser.id};
   // userId && console.log("USERID",userId)
+
+
+
+  const allFavorites=[]
+  const allReaded=[]
+  const allReading=[]
+
+  // for (let i=0;i<currentUser.Favorites.length; i++){
+  //  let fav= currentUser.Favorites[i].id
+  //  AllFavorites.push(fav)
+  // }
+
+  // currentUser && currentUser.Favorites && currentUser.Favorites.map(e=> allFavorites.push(e.id))
+  // var bool=Object.values(currentUser.Favorites).includes(id)
+  // console.log("BOOL",bool)
+
+  // if(allFavorites.includes(id)){
+  //   setFavorite(true)
+  // }else{setFavorite(false)}
+
+  // const arr= currentUser && currentUser.Favorites && Object.values(currentUser.Favorites)
+  // console.log("ARREGLO", allFavorites)
+  // const allFav= currentUser && currentUser.Favorites
+//   if(currentUser){
+//  for (let i=0;i<currentUser.Favorites.length; i++){
+//    let fav= currentUser.Favorites[i].id
+//    allFavorites.push(fav)
+//   }
+//   }
+//    console.log("ALLFAV",allFavorites)
+  
+//    if(!allFavorites.includes(id)){
+//     console.log("FALSE")
+//     setFavorite(false)
+//    }else{ 
+//     console.log("FALSE")
+//     setFavorite(true)
+//   }
+
 
 
   function handleFavorite(id, userId) {
@@ -126,7 +174,7 @@ export default function Card({ id, cover, modal, setModal }) {
   }
 
   return (
-    <>
+    <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <CardDetail book={book} modal={modal} setModal={setModal} />
       <ImgContainer>
         <CardImg
@@ -136,15 +184,15 @@ export default function Card({ id, cover, modal, setModal }) {
             handleClick(id);
           }}
         />
-        <MenuConteiner>
-          <MenuTrigger
-            onClick={() => {setOpen(!open);}}>
+        <MenuConteiner >
+          {/* <MenuTrigger
+            onMouseOver={handleMouseOver} >
             <img src={caretIcon} />
-          </MenuTrigger>
-          <DropDownMenu
-            className={`dropdown-menu ${open ? "active" : "inactive"}`}
+          </MenuTrigger> */}
+          <DropDownMenu 
+            className={`dropdown-menu ${isHovering ? "active" : "inactive"}`} 
           >
-            <UlCard>
+            <UlCard  >
               {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
               <DropdownItem icon={!reading?bookIcon:bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
               <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
@@ -155,7 +203,7 @@ export default function Card({ id, cover, modal, setModal }) {
       </ImgContainer>
       {/* onpointerleave={()=>{setOpen(!open)}} */}
 
-    </>
+    </div>
   );
 }
 
