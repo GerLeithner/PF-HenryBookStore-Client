@@ -12,27 +12,29 @@ export default function PaypalButton({ plan, currentUser }) {
 
   const user = useSelector((state) => state.currentUser);
   console.log("User estado global: ", user);
-  const [test, setTest] = useState("Cosito");
+  const [approbed, setApprobed] = useState(false);
 
   if (currentUser) {
     var userId = currentUser.id;
   }
 
   useEffect(() => {
-    dispatch(activateSubscription(userId, plan));
-  }, [test]);
+    if (approbed) {
+      dispatch(activateSubscription(userId, plan));
+    }
+  }, [approbed]);
 
   console.log("Despues del useEffect id:", userId);
 
   switch (plan) {
     case "One month":
-      planId = "P-4BM16965TV4364835MO25WMQ";
+      planId = "P-2PL80688UB598204XMO5MNCY";
       break;
     case "Six months":
-      planId = "P-5KR316110V1111814MO26ERI";
+      planId = "P-2GJ229938D8300714MO5MSLA";
       break;
     case "One year":
-      planId = "P-5TM174603V808780KMO26GMY";
+      planId = "P-2J431877G3035035PMO5MS4Y";
       break;
     default:
       break;
@@ -59,10 +61,10 @@ export default function PaypalButton({ plan, currentUser }) {
           });
         }}
         onApprove={(data, actions) => {
-          console.log("Entre al onApprove");
+          console.log("subscriptionID:", data.subscriptionID);
           console.log("currentUser: ", user);
-          setTest("Aprobado");
-          console.log(test);
+          setApprobed(true);
+          console.log(approbed);
           //          return dispatch(activateSubscription(user.id, plan));
         }}
       />
@@ -74,3 +76,17 @@ export default function PaypalButton({ plan, currentUser }) {
   const name = details.payer.name.given_name;
   alert(`Transaction completed by ${name}`);
 }); */
+
+/* switch (plan) {
+    case "One month":
+      planId = "P-4BM16965TV4364835MO25WMQ";
+      break;
+    case "Six months":
+      planId = "P-5KR316110V1111814MO26ERI";
+      break;
+    case "One year":
+      planId = "P-5TM174603V808780KMO26GMY";
+      break;
+    default:
+      break;
+  } */
