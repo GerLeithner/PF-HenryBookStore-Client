@@ -10,7 +10,7 @@ export const AccoutContainer = styled.div`
 
 export const OptionsContainer = styled.div`
   width: 100%;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -38,17 +38,18 @@ export const InfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 20px;
+    /* gap: 20px; */
 `;
 
 export const FiledAndButton = styled.div`
-    margin: 0px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    gap:60px;
+  height: 55px;
+  margin: 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* align-items: center; */
+  width: 100%;
+  gap:60px;
 `;
 
 export const Field = styled.div`

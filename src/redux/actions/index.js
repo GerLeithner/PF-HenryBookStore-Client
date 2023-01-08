@@ -235,6 +235,12 @@ export function getCurrentUser(payload) {
   };
 }
 
+export function editUser(input) {
+  return async function() {
+    await axios.put(`${deployUrl}/user/edit`, input)
+  }
+}
+
 export function sortUsersByName(payload) {
   return {
     type: "SORT_USERS_BY_NAME",
