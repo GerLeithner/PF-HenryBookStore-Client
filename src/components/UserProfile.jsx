@@ -2,21 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { editUser, getCurrentUser } from "../redux/actions";
+import { editUser, getCurrentUser, changePassword } from "../redux/actions";
 
 import FieldForm from "./FieldForm.jsx";
+
 import PaypalButton from "./PaypalButton.jsx"
 import Logout from "./Logout.jsx"
+
 
 import { H3Form } from "../styles/CreateBook";
 import { SideBarContainer } from "../styles/Catalogue";
 import { ButtonDisable } from "../styles/EditUser";
 import { FilterHead, DownfallButton } from "../styles/SortOrFilter";
-import { 
-  AccoutContainer, 
-  InfoContainer, 
-  ImageAndInfo, 
-  ProfilePic, 
+import {
+  AccoutContainer,
+  InfoContainer,
+  ImageAndInfo,
+  ProfilePic,
   FiledAndButton,
   Field,
   EditFieldButton,
@@ -25,9 +27,7 @@ import {
   PlanSelect
 } from "../styles/UserProfile";
 
-
 export default function UserProfile() {
-
   const dispatch = useDispatch();
 
   const { user, logout } = useAuth0();
@@ -36,12 +36,12 @@ export default function UserProfile() {
 
   const [edit, setEdit] = useState({
     userName: false,
-    profilePic: false
+    profilePic: false,
   });
   const [form, setForm] = useState({
     fieldName: "",
     propName: "",
-    propValue: ""
+    propValue: "",
   });
 
   const [downfall, setDownfal] = useState(false);
@@ -50,7 +50,7 @@ export default function UserProfile() {
   const [plan, setPlan] = useState("");
 
   useEffect(() => {
-    if(user){
+    if (user) {
       const { email, nickname } = user;
       const userDb = {
         email,
@@ -78,19 +78,29 @@ export default function UserProfile() {
     setForm({
       fieldName: e.target.title,
       propName: e.target.name,
-      propValue: e.target.value
+      propValue: e.target.value,
     });
 
     setEdit({
       userName: e.target.name === "userName" ? true : false,
-      profilePic: e.target.name === "profilePic" ? true : false
+      profilePic: e.target.name === "profilePic" ? true : false,
     });
+  }
+
+  function handlePasswordChange(e) {
+    e.preventDefault();
+
+    dispatch(changePassword(currentUser));
   }
 
   function handleDisable(e) {
     e.preventDefault();
     // dispatch(disableUser(user.id))
-    alert(currentUser.active ? "Account has been disable" : "Account has been activated");    
+    alert(
+      currentUser.active
+        ? "Account has been disable"
+        : "Account has been activated"
+    );
   }
 
   function handleDownfall(e) {
@@ -101,46 +111,50 @@ export default function UserProfile() {
   function handleNotification(e) {
     e.preventDefault();
     console.log(e.target.value);
-    if(e.target.name === "all") {
-      if(currentUser.notifications.all) {
-        dispatch(editUser({ 
-          id: currentUser.id, 
-          notifications: {
-            all: false,
-            expDate: false,
-            newBooks: false
-          } 
-        }));
+    if (e.target.name === "all") {
+      if (currentUser.notifications.all) {
+        dispatch(
+          editUser({
+            id: currentUser.id,
+            notifications: {
+              all: false,
+              expDate: false,
+              newBooks: false,
+            },
+          })
+        );
+      } else {
+        dispatch(
+          editUser({
+            id: currentUser.id,
+            notifications: {
+              all: true,
+              expDate: true,
+              newBooks: true,
+            },
+          })
+        );
       }
-      else {
-        dispatch(editUser({ 
-          id: currentUser.id, 
+    } else {
+      dispatch(
+        editUser({
+          id: currentUser.id,
           notifications: {
-            all: true,
-            expDate: true,
-            newBooks: true
-          } 
-        }));
-      }
+            ...currentUser.notifications,
+            [e.target.name]: !currentUser.notifications[e.target.name],
+          },
+        })
+      );
     }
-    else {
-      dispatch(editUser({ 
-        id: currentUser.id, 
-        notifications: {
-          ...currentUser.notifications,
-          [e.target.name]: !currentUser.notifications[e.target.name]
-        } 
-      }));
-    }
-    
+
     setNotifications(!notifications);
 
-    alert(!currentUser.notifications[e.target.name] ? 
-      `${e.target.value} mail notifications has been activated`
-      : 
-      `${e.target.value} mail notifications has been disable`
+    alert(
+      !currentUser.notifications[e.target.name]
+        ? `${e.target.value} mail notifications has been activated`
+        : `${e.target.value} mail notifications has been disable`
     );
-  } 
+  }
 
   function handlePlan(e) {
     e.preventDefault();
@@ -158,6 +172,7 @@ export default function UserProfile() {
           <FilterHead>Subscription</FilterHead>
         </div>
         <div style={{marginTop: !downfall ? "55px" : "155px"}}>
+
           <FilterHead>Configurations</FilterHead>
         </div>
       </SideBarContainer>
@@ -253,40 +268,53 @@ export default function UserProfile() {
                   <DownfallButton onClick={e => handleDownfall(e)}>+</DownfallButton>
                 </div>
               </div>
-              <div>{ currentUser?.notifications.all ? "ACTIVE" : "DISABLED"}</div>
-            </Field>
-              <div style={{width: "120px"}}>
-                <EditFieldButton name="all" value="all" onClick={e => handleNotification(e)}>
-                { currentUser?.notifications.all ? "Disable" : "Enable" }
-                </EditFieldButton>
+              <div>
+                {currentUser?.notifications.all ? "ACTIVE" : "DISABLED"}
               </div>
+            </Field>
+            <div style={{ width: "120px" }}>
+              <EditFieldButton
+                name="all"
+                value="all"
+                onClick={(e) => handleNotification(e)}
+              >
+                {currentUser?.notifications.all ? "Disable" : "Enable"}
+              </EditFieldButton>
+            </div>
           </FiledAndButton>
-          { downfall && 
+          {downfall && (
             <FiledAndButton>
+
               <Field>
                 <div>Expiration date warning</div>
                 <div>{ currentUser?.notifications.expDate ? "ACTIVE" : "DISABLED" }</div>
               </Field>
-              <div style={{width: "120px"}}>
-                <EditFieldButton name="expDate" onClick={e => handleNotification(e)}>
-                  { currentUser?.notifications.expDate ? "Disable" : "Enable" }
+              <div style={{ width: "120px" }}>
+                <EditFieldButton
+                  name="expDate"
+                  onClick={(e) => handleNotification(e)}
+                >
+                  {currentUser?.notifications.expDate ? "Disable" : "Enable"}
                 </EditFieldButton>
               </div>
             </FiledAndButton>
-          }
-          { downfall && 
+          )}
+          {downfall && (
             <FiledAndButton>
               <Field>
                 <div>New books aviable on library</div>
                 <div>{ currentUser?.notifications.newBooks ? "ACTIVE" : "DISABLED" }</div>
               </Field>
-              <div style={{width: "120px"}}>
-                <EditFieldButton name="newBooks" onClick={e => handleNotification(e)}>
-                  { currentUser?.notifications.newBooks ? "Disable" : "Enable" }
+              <div style={{ width: "120px" }}>
+                <EditFieldButton
+                  name="newBooks"
+                  onClick={(e) => handleNotification(e)}
+                >
+                  {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
                 </EditFieldButton>
               </div>
             </FiledAndButton>
-          }
+          )}
         </OptionsContainer>
         <SubscriptionOptions name="subcription options">
           <InfoContainer gap="25px">

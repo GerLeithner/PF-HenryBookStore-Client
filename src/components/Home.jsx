@@ -27,7 +27,7 @@ const Home = () => {
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state) => state.recomended);
   const news = useSelector((state) => state.news);
-  
+
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -61,9 +61,9 @@ const Home = () => {
     <div>
       <div>
         <div>
-          { recomended && recomended.length && 
+          {recomended && recomended.length && (
             <Carousel itemsToShow={1} className="top-rec-wrapper ">
-              { recomended.map(b => {
+              {recomended.map((b) => {
                 return (
                   <CardRecomended
                     key={b.id}
@@ -78,27 +78,56 @@ const Home = () => {
                     author={b.author}
                     back_cover={b.back_cover}
                   />
-                )
+                );
               })}
-            </Carousel> 
-          }
+            </Carousel>
+          )}
         </div>
-        { currentUser && currentUser.Reading.length ? (
+        {currentUser && currentUser.Reading?.length ? (
+          <>
+            <H2Home>Continue reading</H2Home>
+            <Carousel itemsToShow={5}>
+              {currentUser.Reading.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                );
+              })}
+            </Carousel>
+          </>
+        ) : (
+          <></>
+        )}
+        <div>
+          {trending.length && (
             <>
-              <H2Home>Continue reading</H2Home>
+              <H2Home>Trending</H2Home>
               <Carousel itemsToShow={5}>
-                {currentUser.Reading.map((b) => {
+                {trending.map((b) => {
                   return (
                     <Card
-                      id={b.id}
                       key={b.id}
+                      id={b.id}
                       title={b.title}
+                      subtitle={b.subtitle}
                       publishedDate={b.publishedDate}
                       description={b.description}
                       averageRating={b.averageRating}
                       cover={b.cover}
-                      genres={b.genres}
-                      authors={b.authors}
+                      genre={b.genre}
+                      author={b.author}
+                      back_cover={b.back_cover}
                       modal={modal}
                       setModal={setModal}
                     />
@@ -106,44 +135,14 @@ const Home = () => {
                 })}
               </Carousel>
             </>
-          ) : (
-            <></>
           )}
-        <div>
-          { trending.length && 
-            <>
-              <H2Home>Trending</H2Home>
-              <Carousel itemsToShow={5}>
-                { trending.map(b => {
-                  return (
-                    <Card
-                      key={b.id}
-                      id={b.id}
-                      title={b.title}
-                      subtitle={b.subtitle}
-                      publishedDate={b.publishedDate}
-                      description={b.description}
-                      averageRating={b.averageRating}
-                      cover={b.cover}
-                      genre={b.genre}
-                      author={b.author}
-                      back_cover={b.back_cover}
-                      modal={modal}
-                      setModal={setModal}
-                    />
-                  )
-                })
-              }
-              </Carousel>
-            </> 
-          }
         </div>
         <div>
-          { news.length && 
+          {news.length && (
             <>
               <H2Home>News</H2Home>
               <Carousel itemsToShow={5}>
-                { news.map(b => {
+                {news.map((b) => {
                   return (
                     <Card
                       key={b.id}
@@ -160,19 +159,16 @@ const Home = () => {
                       modal={modal}
                       setModal={setModal}
                     />
-                  )
-                })
-              }
+                  );
+                })}
               </Carousel>
-            </> 
-          }
+            </>
+          )}
         </div>
       </div>
     </div>
   );
 };
-
-
 
 export default Home;
 
