@@ -61,7 +61,6 @@ export const FormInput = styled.input`
   margin-left: ${({ margen }) => margen || "20px"};
   border: 1.5px solid #ccc;
   outline: none;
-  outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
   text-align: right;
   padding-right: 30px;
