@@ -3,15 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { activateSubscription } from "../redux/actions";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "styled-components";
 
 const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
-export default function PaypalButton({ plan, currentUser }) {
+export default function PaypalButton({ plan, currentUser, showButton }) {
   const dispatch = useDispatch();
+
+  console.log("Plan en paypal ", plan);
+
   let planId;
 
-  const user = useSelector((state) => state.currentUser);
-  console.log("User estado global: ", user);
   const [approbed, setApprobed] = useState(false);
 
   if (currentUser) {
@@ -19,12 +21,11 @@ export default function PaypalButton({ plan, currentUser }) {
   }
 
   useEffect(() => {
-    if (approbed) {
+    if(approbed) {
       dispatch(activateSubscription(userId, plan));
     }
   }, [approbed]);
 
-  console.log("Despues del useEffect id:", userId);
 
   switch (plan) {
     case "One month":
@@ -40,37 +41,43 @@ export default function PaypalButton({ plan, currentUser }) {
       break;
   }
 
+
   return (
-    <PayPalScriptProvider
-      options={{
-        "client-id": REACT_APP_PAYPAL_CLIENT_ID,
-        currency: "USD",
-        vault: true,
-      }}
-    >
-      <PayPalButtons
-        style={{
-          //shape: "pill",
-          color: "silver",
-          layout: "vertical",
-          label: "subscribe",
+    <PaypalContainer showButton={showButton}>
+      <PayPalScriptProvider
+        options={{
+          "client-id": REACT_APP_PAYPAL_CLIENT_ID,
+          currency: "USD",
+          vault: true,
         }}
-        createSubscription={(data, actions) => {
-          return actions.subscription.create({
-            plan_id: planId,
-          });
-        }}
-        onApprove={(data, actions) => {
-          console.log("subscriptionID:", data.subscriptionID);
-          console.log("currentUser: ", user);
-          setApprobed(true);
-          console.log(approbed);
-          //          return dispatch(activateSubscription(user.id, plan));
-        }}
-      />
-    </PayPalScriptProvider>
+      >
+        <PayPalButtons
+          style={{
+            shape: "rect",
+            color: "silver",
+            layout: "vertical",
+            label: "paypal",
+            tagline: "false"
+          }}
+          createSubscription={(data, actions) => {
+            return actions.subscription.create({
+              plan_id: planId,
+            });
+          }}
+          onApprove={(data, actions) => {
+            setApprobed(true);
+            console.log(approbed);
+          }}
+        />
+      </PayPalScriptProvider>
+    </PaypalContainer>
   );
 }
+
+const PaypalContainer = styled.div`
+  visibility: ${({showButton}) => showButton ? "visible" : "hidden"}
+`;
+
 
 /* actions.subscription.capture().then((details) => {
   const name = details.payer.name.given_name;

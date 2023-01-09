@@ -43,6 +43,7 @@ export const Field = styled.div`
 `;
 
 export const ButtonDisable = styled.button`
+  height: 35px;
   width: ${({ ancho }) => ancho || "max-content"};
   margin-left: ${({ margenIzq }) => margenIzq || "0px"};
   padding: 5px;
@@ -54,6 +55,7 @@ export const ButtonDisable = styled.button`
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
+  font: inherit;
 
   &:hover {
     border-color: ${({ color }) => color};
