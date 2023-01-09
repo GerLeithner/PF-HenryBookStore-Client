@@ -6,6 +6,7 @@ import { editUser, getCurrentUser } from "../redux/actions";
 
 import FieldForm from "./FieldForm.jsx";
 import PaypalButton from "./PaypalButton.jsx"
+import Logout from "./Logout.jsx"
 
 import { H3Form } from "../styles/CreateBook";
 import { SideBarContainer } from "../styles/Catalogue";
@@ -19,7 +20,9 @@ import {
   FiledAndButton,
   Field,
   EditFieldButton,
-  OptionsContainer
+  OptionsContainer,
+  SubscriptionOptions,
+  PlanSelect
 } from "../styles/UserProfile";
 
 
@@ -27,7 +30,7 @@ export default function UserProfile() {
 
   const dispatch = useDispatch();
 
-  const { user } = useAuth0();
+  const { user, logout } = useAuth0();
 
   const currentUser = useSelector((state) => state.currentUser);
 
@@ -43,6 +46,8 @@ export default function UserProfile() {
 
   const [downfall, setDownfal] = useState(false);
   const [notifications, setNotifications] = useState(false);
+  const [showButton, setShowButton] = useState(false)
+  const [plan, setPlan] = useState("");
 
   useEffect(() => {
     if(user){
@@ -54,6 +59,18 @@ export default function UserProfile() {
       dispatch(getCurrentUser(userDb));
     }
   }, [dispatch, edit, notifications]);
+
+  // function handlePaypal(plan) {
+  //   return (
+  //     <div style={{height: "80px", paddingTop: "2px"}}>
+  //       <PaypalButton 
+  //         plan={plan} 
+  //         currentUser={currentUser} 
+  //         key={plan}
+  //       />
+  //     </div>
+  //   )
+  // }
 
   function handleChange(e) {
     e.preventDefault();
@@ -125,126 +142,110 @@ export default function UserProfile() {
     );
   } 
 
+  function handlePlan(e) {
+    e.preventDefault();
+    setPlan(e.target.value);
+    setShowButton(true);
+  }
+
   return (
     <>
-      <SideBarContainer paddingTop="115px">
+      <SideBarContainer paddingTop="90px">
         <div>
           <FilterHead>User Info</FilterHead>
         </div>
-        <div style={{marginTop: "205px"}}>
+        <div style={{marginTop: "215px"}}>
           <FilterHead>Subscription</FilterHead>
         </div>
-        <div style={{marginTop: "80px"}}>
+        <div style={{marginTop: !downfall ? "55px" : "155px"}}>
           <FilterHead>Configurations</FilterHead>
         </div>
       </SideBarContainer>
       <AccoutContainer>
-        <H3Form margenIzq="0px">      
-          ACCOUNT OPTIONS
-        </H3Form>
-        <OptionsContainer>
-          <ImageAndInfo>
-            { currentUser?.profilePic ? 
-              <ProfilePic src={currentUser?.profilePic}/> :
-              <ProfilePic alt=""/> 
-            }
-            <InfoContainer>
-              { !edit.userName ? 
+        <div style={{display: "flex", flexDirection: "column", gap: "5px"}}>
+          <H3Form margenIzq="0px">      
+            ACCOUNT OPTIONS
+          </H3Form>
+          <OptionsContainer name="account options">
+            <ImageAndInfo>
+              { currentUser?.profilePic ? 
+                <ProfilePic src={currentUser?.profilePic}/> :
+                <ProfilePic src="https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg"/> 
+              }
+              <InfoContainer>
+                { !edit.userName ? 
+                  <FiledAndButton>
+                    <Field>
+                      <div>User Name</div>
+                      <div>{currentUser?.userName}</div>
+                    </Field>
+                    <EditFieldButton 
+                      value={currentUser?.userName} 
+                      name="userName" 
+                      title="User Name"
+                      onClick={e => handleChange(e)}
+                    >
+                      Change
+                    </EditFieldButton>
+                  </FiledAndButton> 
+                :
+                  <FieldForm 
+                    edit={edit}
+                    setEdit={setEdit}
+                    id={currentUser.id}
+                    fieldName={form.fieldName} 
+                    propName={form.propName}
+                    propValue={form.propValue}
+                  /> 
+                }
                 <FiledAndButton>
                   <Field>
-                    <div>User Name</div>
-                    <div>{currentUser?.userName}</div>
+                    <div>Email</div>
+                    <div>{currentUser?.email}</div>
                   </Field>
-                  <EditFieldButton 
-                    value={currentUser?.userName} 
-                    name="userName" 
-                    title="User Name"
-                    onClick={e => handleChange(e)}
-                  >
-                    Change
-                  </EditFieldButton>
-                </FiledAndButton> 
-               :
-                <FieldForm 
-                  edit={edit}
-                  setEdit={setEdit}
-                  id={currentUser.id}
-                  fieldName={form.fieldName} 
-                  propName={form.propName}
-                  propValue={form.propValue}
-                /> 
-              }
+                  <EditFieldButton>Change</EditFieldButton>
+                </FiledAndButton>
+                <FiledAndButton>
+                  <Field>
+                    <div>Password</div>
+                    <div>-</div>
+                  </Field>
+                  <EditFieldButton>Change</EditFieldButton>
+                </FiledAndButton>
+              </InfoContainer>
+            </ImageAndInfo>
+            { !edit.profilePic ? 
               <FiledAndButton>
                 <Field>
-                  <div>Email</div>
-                  <div>{currentUser?.email}</div>
+                  <div>Profile Picture</div>
+                  <div style={{fontSize: "13px"}}>{currentUser?.profilePic}</div>
                 </Field>
-                <EditFieldButton>Change</EditFieldButton>
+                <EditFieldButton 
+                  value={currentUser?.profilePic} 
+                  name="profilePic" 
+                  title="Profile Picture"
+                  onClick={e => handleChange(e)} 
+                >
+                  Change
+                </EditFieldButton>
               </FiledAndButton>
-              <FiledAndButton>
-                <Field>
-                  <div>Password</div>
-                  <div>-</div>
-                </Field>
-                <EditFieldButton>Change</EditFieldButton>
-              </FiledAndButton>
-            </InfoContainer>
-          </ImageAndInfo>
-          { !edit.profilePic ? 
-            <FiledAndButton>
-              <Field ancho="100%">
-                <div>Profile Picture</div>
-                <span style={{fontSize: "14px"}}>{currentUser?.profilePic}</span>
-              </Field>
-              <EditFieldButton 
-                value={currentUser?.profilePic} 
-                name="profilePic" 
-                title="Profile Picture"
-                onClick={e => handleChange(e)} 
-              >
-                Change
-              </EditFieldButton>
-            </FiledAndButton>
-          :
-            <FieldForm 
-            edit={edit}
-            setEdit={setEdit}
-            id={currentUser?.id}
-            fieldName={form.fieldName} 
-            propName={form.propName}
-            propValue={form.propValue}
-            />    
-          }    
-        </OptionsContainer>
-        <OptionsContainer>
+            :
+              <FieldForm 
+              edit={edit}
+              setEdit={setEdit}
+              id={currentUser?.id}
+              fieldName={form.fieldName} 
+              propName={form.propName}
+              propValue={form.propValue}
+              />    
+            }    
+          </OptionsContainer>
+        </div>
+        <OptionsContainer name="notifications options">
           <FiledAndButton>
-            <Field>
-              <div>Active Date</div>
-              <div>{ currentUser?.subscription ? currentUser.subscription.startDate : "-"}</div>
-            </Field>
-            <Field>
-              <div>Subcription</div>
-              <div>{ currentUser?.subscription ? "ACTIVE" : "SUBSCRIBE !"}</div>
-            </Field>
-            <EditFieldButton>Change</EditFieldButton>
-          </FiledAndButton>
-          <FiledAndButton>
-            <Field>
-              <div>Expiration Date</div>
-              <div>{ currentUser?.subscription ? currentUser.subscription.finishDate : "-"}</div>
-            </Field>
-            <Field>
-              <div>Plan</div>
-              <div>{ currentUser?.subscription ? currentUser.subscription.plan : "-"}</div>
-            </Field>
-            <EditFieldButton>Change</EditFieldButton>
-          </FiledAndButton>
-        </OptionsContainer>
-        <OptionsContainer>
-          <FiledAndButton>
-            <Field ancho="100%" onClick={e => handleDownfall(e)} style={{cursor: "pointer"}}>
+            <Field onClick={e => handleDownfall(e)} style={{cursor: "pointer"}}>
               <div style={{display: "flex", flexDirection: "row", gap: "30px"}}>
-                <div>MAIL NOTIFICATIONS</div>
+                <div>All Mail Notifications</div>
                 <div style={{
                   transform: `rotate(${downfall ? "45deg" : "0deg"})`,
                   transition: "300ms ease all"
@@ -262,8 +263,8 @@ export default function UserProfile() {
           </FiledAndButton>
           { downfall && 
             <FiledAndButton>
-              <Field ancho="100%">
-                <div>subscription's expiration date warning</div>
+              <Field>
+                <div>Expiration date warning</div>
                 <div>{ currentUser?.notifications.expDate ? "ACTIVE" : "DISABLED" }</div>
               </Field>
               <div style={{width: "120px"}}>
@@ -275,8 +276,8 @@ export default function UserProfile() {
           }
           { downfall && 
             <FiledAndButton>
-              <Field ancho="100%">
-                <div>new books added to library</div>
+              <Field>
+                <div>New books aviable on library</div>
                 <div>{ currentUser?.notifications.newBooks ? "ACTIVE" : "DISABLED" }</div>
               </Field>
               <div style={{width: "120px"}}>
@@ -287,10 +288,70 @@ export default function UserProfile() {
             </FiledAndButton>
           }
         </OptionsContainer>
-        <div style={{alignSelf: "flex-end"}}>
-        <ButtonDisable type="button" onClick={(e) => handleDisable(e)} ancho="150px" color="red">
-          { currentUser?.active ? "Disable Account" : "Activate Account" }
-        </ButtonDisable>
+        <SubscriptionOptions name="subcription options">
+          <InfoContainer gap="25px">
+            <div style={{display: "flex", flexDirection: "row", gap:"50px"}}>
+              <Field>
+                <div>Active Date</div>
+                <div>{ currentUser?.subscription ? currentUser.subscription.startDate : "-"}</div>
+              </Field>
+              { currentUser?.subscription ? 
+                <Field>
+                <div>Subcription</div>
+                <div>{ currentUser?.subscription ? "ACTIVE" : "SUBSCRIBE !"}</div>
+                </Field>
+              :
+                <Field>
+                  <div style={{paddingLeft: "50px"}}>SUBSCRIBE !</div>
+                </Field>
+              }
+            </div>
+            <div style={{display: "flex", flexDirection: "row", gap:"50px"}}>
+              <Field>
+                <div>Finish Date</div>
+                <div>{ currentUser?.subscription ? currentUser.subscription.finishDate : "-"}</div>
+              </Field>
+              <Field>
+                { currentUser?.subscription?.plan ?
+                  <div>
+                    <div>Plan</div> 
+                    <div>{ currentUser?.subscription?.plan }</div>
+                  </div>
+                : 
+                  <div style={{width: "100%"}}>
+                    <PlanSelect onChange={e => handlePlan(e)}>
+                      <option hidden value="Select Plan">
+                        {currentUser?.subscription?.plan ? currentUser.subscription.plan : "Select Plan"}
+                      </option>
+                      <option value="One month">One Month USD$ 6.99</option>
+                      <option value="Six months">Six Months USD$ 35.99</option>
+                      <option value="One year">One Year USD$ 62.99</option>
+                    </PlanSelect>
+                  </div>
+                }
+              </Field>
+            </div>
+          </InfoContainer>
+          <div style={{height: "80px", paddingTop: "2px", width: "270px"}}>
+            <PaypalButton 
+              plan={plan} 
+              currentUser={currentUser} 
+              key={plan}
+              showButton={showButton}
+            />
+          </div>
+        </SubscriptionOptions>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
+          <ButtonDisable 
+            onClick={() => logout({ returnTo: window.location.origin })}
+            ancho="220px" 
+            color="red"
+          >
+            Logout
+          </ButtonDisable>        
+          <ButtonDisable type="button" onClick={(e) => handleDisable(e)} ancho="220px" color="red">
+            { currentUser?.active ? "Disable Account" : "Activate Account" }
+          </ButtonDisable>
         </div>  
       </AccoutContainer>
     </>

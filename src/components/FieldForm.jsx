@@ -78,7 +78,7 @@ export default function FieldForm({ setEdit, id, fieldName, propName, propValue 
           width: "max-content",
           padding: "0px 0px 0px 60px", 
           height: "30px",
-          gap: "60px"
+          gap: "150px"
         }}> 
           <EditFieldFormButton onClick={e => handleClose(e)} color="red">Discard</EditFieldFormButton>
           <EditFieldFormButton onClick={e => handleSave(e)}>Save</EditFieldFormButton>
