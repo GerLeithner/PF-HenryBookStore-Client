@@ -427,19 +427,3 @@ export function activateSubscription(userId, plan) {
     }
   };
 }
-
-// export function getBookByAuthor(author){
-//     return async function(dispatch){
-
-//         console.log("Searching book", author)
-//         try{
-//     var obj= await axios.get("http://localhost:3001/books?name="+ author);
-//     return dispatch({
-//         type: 'GET_BY_AUTHOR',
-//         payload:obj.data
-//     })
-//         }catch(e){
-//             alert(author+" was not found, try another author")
-//         }
-//     }
-// }

@@ -61,14 +61,15 @@ export default function LandingPage() {
     }
   }, [dispatch, isAuthenticated]);
 
-
   function handleActiveUser(e) {
     e.preventDefault();
 
-    dispatch(editUser({
-      id: currentUser.id,
-      active: true,
-    }))
+    dispatch(
+      editUser({
+        id: currentUser.id,
+        active: true,
+      })
+    );
     alert("The account has been activated");
     history.push("/home");
   }
@@ -92,21 +93,26 @@ export default function LandingPage() {
             promotionalBooks.map((e) => <H4Landing>{e}</H4Landing>)}
         </PromotionalConteiner>
         <ButtonsConteiner>
-          { isAuthenticated && currentUser && currentUser.active && redirectHome() }
-          {
-            isAuthenticated && currentUser && !currentUser.active && 
+          { isAuthenticated && currentUser && currentUser.active &&
+            redirectHome()
+          }
+          { isAuthenticated && currentUser && !currentUser.active && 
             <>
-              <div>The current account has been disabled, please activate it to continue</div>
-              <ButtonCatalogue onClick={e => handleActiveUser(e)}>Activate Account</ButtonCatalogue>
+              <div>
+                The current account has been disabled, please activate it to
+                continue
+              </div>
+              <ButtonCatalogue onClick={(e) => handleActiveUser(e)}>
+                Activate Account
+              </ButtonCatalogue>
               <Logout />
             </>
           }
-          { !isAuthenticated &&
-            <Login/>          
-          }
+          { !isAuthenticated && 
+            <Login />
+          } 
         </ButtonsConteiner>
       </BoxContainer>
     </BackgroundConteiner>
   );
-};
-
+}

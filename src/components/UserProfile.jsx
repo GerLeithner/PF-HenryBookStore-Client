@@ -6,7 +6,7 @@ import { editUser, getCurrentUser, changePassword } from "../redux/actions";
 
 import FieldForm from "./FieldForm.jsx";
 
-import PaypalButton from "./PaypalButton.jsx"
+import PaypalButton from "./PaypalButton.jsx";
 
 import { H3Form } from "../styles/CreateBook";
 import { SideBarContainer } from "../styles/Catalogue";
@@ -22,8 +22,10 @@ import {
   EditFieldButton,
   OptionsContainer,
   SubscriptionOptions,
-  PlanSelect
+  PlanSelect,
 } from "../styles/UserProfile";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -44,8 +46,9 @@ export default function UserProfile() {
 
   const [downfall, setDownfal] = useState(false);
   const [notifications, setNotifications] = useState(false);
-  const [showButton, setShowButton] = useState(false)
+  const [showButton, setShowButton] = useState(false);
   const [plan, setPlan] = useState("");
+  const [profilePic, setprofilePic] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -58,7 +61,6 @@ export default function UserProfile() {
     }
   }, [dispatch, edit, notifications]);
 
-
   function handleChange(e) {
     e.preventDefault();
 
@@ -68,9 +70,21 @@ export default function UserProfile() {
       propValue: e.target.value,
     });
 
-    setEdit({
-      userName: e.target.name === "userName" ? true : false,
-      profilePic: e.target.name === "profilePic" ? true : false,
+    setEdit({ ...edit, userName: e.target.name === "userName" ? true : false });
+  }
+
+  function handlePicChange(e) {
+    if (e.target.files[0]) {
+      setprofilePic(e.target.files[0]);
+    }
+  }
+
+  function handleSubmitPic(e) {
+    const imageRef = ref(storage, "image");
+    uploadBytes(imageRef, profilePic).then(() => {
+      getDownloadURL(imageRef).then((url) => {
+        dispatch(editUser({ id: currentUser.id, profilePic: url }));
+      });
     });
   }
 
@@ -83,10 +97,12 @@ export default function UserProfile() {
   function handleDisable(e) {
     e.preventDefault();
 
-    dispatch(editUser({
-      id: currentUser.id,
-      active: false
-    }));
+    dispatch(
+      editUser({
+        id: currentUser.id,
+        active: false,
+      })
+    );
     alert("The account has been disable");
     logout({ returnTo: window.location.origin });
   }
@@ -156,69 +172,49 @@ export default function UserProfile() {
         <div>
           <FilterHead>User Info</FilterHead>
         </div>
-        <div style={{marginTop: "215px"}}>
+        <div style={{ marginTop: "215px" }}>
           <FilterHead>Subscription</FilterHead>
         </div>
-        <div style={{marginTop: !downfall ? "55px" : "155px"}}>
-
+        <div style={{ marginTop: !downfall ? "55px" : "155px" }}>
           <FilterHead>Configurations</FilterHead>
         </div>
       </SideBarContainer>
-      { currentUser ? 
-        <AccoutContainer>
-          <div style={{display: "flex", flexDirection: "column", gap: "5px"}}>
-            <H3Form margenIzq="0px">      
-              ACCOUNT OPTIONS
-            </H3Form>
-            <OptionsContainer name="account options">
-              <ImageAndInfo>
-                { currentUser?.profilePic ? 
-                  <ProfilePic src={currentUser?.profilePic}/> :
-                  <ProfilePic src="https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg"/> 
-                }
-                <InfoContainer>
-                  { !edit.userName ? 
-                    <FiledAndButton>
-                      <Field>
-                        <div>User Name</div>
-                        <div>{currentUser?.userName}</div>
-                      </Field>
-                      <EditFieldButton 
-                        value={currentUser?.userName} 
-                        name="userName" 
-                        title="User Name"
-                        onClick={e => handleChange(e)}
-                      >
-                        Change
-                      </EditFieldButton>
-                    </FiledAndButton> 
-                  :
-                    <FieldForm 
-                      edit={edit}
-                      setEdit={setEdit}
-                      id={currentUser?.id}
-                      fieldName={form.fieldName} 
-                      propName={form.propName}
-                      propValue={form.propValue}
-                    /> 
-                  }
+      <AccoutContainer>
+        <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+          <H3Form margenIzq="0px">ACCOUNT OPTIONS</H3Form>
+          <OptionsContainer name="account options">
+            <ImageAndInfo>
+              {currentUser?.profilePic ? (
+                <ProfilePic src={currentUser?.profilePic} />
+              ) : (
+                <ProfilePic src="https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg" />
+              )}
+              <InfoContainer>
+                { !edit.userName ? 
                   <FiledAndButton>
                     <Field>
                       <div>Email</div>
                       <div>{currentUser?.email}</div>
                     </Field>
-                    <EditFieldButton>Change</EditFieldButton>
+                    <EditFieldButton
+                      value={currentUser?.userName}
+                      name="userName"
+                      title="User Name"
+                      onClick={(e) => handleChange(e)}
+                    >
+                      Change
+                    </EditFieldButton>
                   </FiledAndButton>
-                  <FiledAndButton>
-                    <Field>
-                      <div>Password</div>
-                      <div>-</div>
-                    </Field>
-                    <EditFieldButton onClick={e => handlePasswordChange(e)}>Change</EditFieldButton>
-                  </FiledAndButton>
-                </InfoContainer>
-              </ImageAndInfo>
-              { !edit.profilePic ? 
+                  : 
+                  <FieldForm
+                    edit={edit}
+                    setEdit={setEdit}
+                    id={currentUser?.id}
+                    fieldName={form.fieldName}
+                    propName={form.propName}
+                    propValue={form.propValue}
+                  />
+                }
                 <FiledAndButton>
                   <Field>
                     <div>Profile Picture</div>
@@ -233,149 +229,200 @@ export default function UserProfile() {
                     Change
                   </EditFieldButton>
                 </FiledAndButton>
-              :
-                <FieldForm 
-                edit={edit}
-                setEdit={setEdit}
-                id={currentUser?.id}
-                fieldName={form.fieldName} 
-                propName={form.propName}
-                propValue={form.propValue}
-                />    
-              }    
-            </OptionsContainer>
-          </div>
-          <OptionsContainer name="notifications options">
-            <FiledAndButton>
-              <Field onClick={e => handleDownfall(e)} style={{cursor: "pointer"}}>
-                <div style={{display: "flex", flexDirection: "row", gap: "30px"}}>
-                  <div>All Mail Notifications</div>
-                  <div style={{
-                    transform: `rotate(${downfall ? "45deg" : "0deg"})`,
-                    transition: "300ms ease all"
-                  }}>
-                    <DownfallButton onClick={e => handleDownfall(e)}>+</DownfallButton>
+                <FiledAndButton>
+                  <Field>
+                    <div>Password</div>
+                    <div>-</div>
+                  </Field>
+                  <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
+                    Change
+                  </EditFieldButton>
+                </FiledAndButton>
+              </InfoContainer>
+            </ImageAndInfo>
+            {!profilePic ? (
+              <div>
+                <Field>
+                  <div>Profile Picture</div>
+                  <div style={{ fontSize: "13px" }}>
+                    {currentUser?.profilePic}
                   </div>
+                </Field>
+
+                <input
+                  text="Change"
+                  type="file"
+                  onChange={(e) => handlePicChange(e)}
+                />
+              </div>
+            ) : (
+              <button onClick={(e) => handleSubmitPic(e)}> Change</button>
+            )}
+          </OptionsContainer>
+        </div>
+        <OptionsContainer name="notifications options">
+          <FiledAndButton>
+            <Field
+              onClick={(e) => handleDownfall(e)}
+              style={{ cursor: "pointer" }}
+            >
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "30px" }}
+              >
+                <div>All Mail Notifications</div>
+                <div
+                  style={{
+                    transform: `rotate(${downfall ? "45deg" : "0deg"})`,
+                    transition: "300ms ease all",
+                  }}
+                >
+                  <DownfallButton onClick={(e) => handleDownfall(e)}>
+                    +
+                  </DownfallButton>
                 </div>
+              </div>
+              <div>
+                {currentUser?.notifications.all ? "ACTIVE" : "DISABLED"}
+              </div>
+            </Field>
+            <div style={{ width: "120px" }}>
+              <EditFieldButton
+                name="all"
+                value="all"
+                onClick={(e) => handleNotification(e)}
+              >
+                {currentUser?.notifications.all ? "Disable" : "Enable"}
+              </EditFieldButton>
+            </div>
+          </FiledAndButton>
+          {downfall && (
+            <FiledAndButton>
+              <Field>
+                <div>Expiration date warning</div>
                 <div>
-                  {currentUser?.notifications.all ? "ACTIVE" : "DISABLED"}
+                  {currentUser?.notifications.expDate ? "ACTIVE" : "DISABLED"}
                 </div>
               </Field>
               <div style={{ width: "120px" }}>
                 <EditFieldButton
-                  name="all"
-                  value="all"
+                  name="expDate"
                   onClick={(e) => handleNotification(e)}
                 >
-                  {currentUser?.notifications.all ? "Disable" : "Enable"}
+                  {currentUser?.notifications.expDate ? "Disable" : "Enable"}
                 </EditFieldButton>
               </div>
             </FiledAndButton>
-            {downfall && (
-              <FiledAndButton>
-
-                <Field>
-                  <div>Expiration date warning</div>
-                  <div>{ currentUser?.notifications.expDate ? "ACTIVE" : "DISABLED" }</div>
-                </Field>
-                <div style={{ width: "120px" }}>
-                  <EditFieldButton
-                    name="expDate"
-                    onClick={(e) => handleNotification(e)}
-                  >
-                    {currentUser?.notifications.expDate ? "Disable" : "Enable"}
-                  </EditFieldButton>
+          )}
+          {downfall && (
+            <FiledAndButton>
+              <Field>
+                <div>New books aviable on library</div>
+                <div>
+                  {currentUser?.notifications.newBooks ? "ACTIVE" : "DISABLED"}
                 </div>
-              </FiledAndButton>
-            )}
-            {downfall && (
-              <FiledAndButton>
-                <Field>
-                  <div>New books aviable on library</div>
-                  <div>{ currentUser?.notifications.newBooks ? "ACTIVE" : "DISABLED" }</div>
-                </Field>
-                <div style={{ width: "120px" }}>
-                  <EditFieldButton
-                    name="newBooks"
-                    onClick={(e) => handleNotification(e)}
-                  >
-                    {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
-                  </EditFieldButton>
+              </Field>
+              <div style={{ width: "120px" }}>
+                <EditFieldButton
+                  name="newBooks"
+                  onClick={(e) => handleNotification(e)}
+                >
+                  {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
+                </EditFieldButton>
+              </div>
+            </FiledAndButton>
+          )}
+        </OptionsContainer>
+        <SubscriptionOptions name="subcription options">
+          <InfoContainer gap="25px">
+            <div style={{ display: "flex", flexDirection: "row", gap: "50px" }}>
+              <Field>
+                <div>Active Date</div>
+                <div>
+                  {currentUser?.subscription
+                    ? currentUser.subscription.startDate
+                    : "-"}
                 </div>
-              </FiledAndButton>
-            )}
-          </OptionsContainer>
-          <SubscriptionOptions name="subcription options">
-            <InfoContainer gap="25px">
-              <div style={{display: "flex", flexDirection: "row", gap:"50px"}}>
+              </Field>
+              {currentUser?.subscription ? (
                 <Field>
-                  <div>Active Date</div>
-                  <div>{ currentUser?.subscription ? currentUser.subscription.startDate : "-"}</div>
-                </Field>
-                { currentUser?.subscription ? 
-                  <Field>
                   <div>Subcription</div>
-                  <div>{ currentUser?.subscription ? "ACTIVE" : "SUBSCRIBE !"}</div>
-                  </Field>
-                :
-                  <Field>
-                    <div style={{paddingLeft: "50px"}}>SUBSCRIBE !</div>
-                  </Field>
-                }
-              </div>
-              <div style={{display: "flex", flexDirection: "row", gap:"50px"}}>
-                <Field>
-                  <div>Finish Date</div>
-                  <div>{ currentUser?.subscription ? currentUser.subscription.finishDate : "-"}</div>
+                  <div>
+                    {currentUser?.subscription ? "ACTIVE" : "SUBSCRIBE !"}
+                  </div>
                 </Field>
+              ) : (
                 <Field>
-                  { currentUser?.subscription?.plan ?
-                    <div>
-                      <div>Plan</div> 
-                      <div>{ currentUser?.subscription?.plan }</div>
-                    </div>
-                  : 
-                    <div style={{width: "100%"}}>
-                      <PlanSelect onChange={e => handlePlan(e)}>
-                        <option hidden value="Select Plan">
-                          {currentUser?.subscription?.plan ? currentUser.subscription.plan : "Select Plan"}
-                        </option>
-                        <option value="One month">One Month USD$ 6.99</option>
-                        <option value="Six months">Six Months USD$ 35.99</option>
-                        <option value="One year">One Year USD$ 62.99</option>
-                      </PlanSelect>
-                    </div>
-                  }
+                  <div style={{ paddingLeft: "50px" }}>SUBSCRIBE !</div>
                 </Field>
-              </div>
-            </InfoContainer>
-            <div style={{height: "80px", paddingTop: "2px", width: "270px"}}>
-              <PaypalButton 
-                plan={plan} 
-                currentUser={currentUser} 
-                key={plan}
-                showButton={showButton}
-              />
+              )}
             </div>
-          </SubscriptionOptions>
-          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "center"}}>
-            <ButtonDisable 
-              onClick={() => logout({ returnTo: window.location.origin })}
-              ancho="220px" 
-              color="red"
-            >
-              Logout
-            </ButtonDisable>        
-            <ButtonDisable type="button" onClick={(e) => handleDisable(e)} ancho="220px" color="red">
-              { currentUser?.active ? "Disable Account" : "Activate Account" }
-            </ButtonDisable>
-          </div>  
-        </AccoutContainer>
-      :
-        <div style={{paddingTop: "200px", paddingLeft: "180px"}}>
-          <H3Form>LOADING...</H3Form>
+            <div style={{ display: "flex", flexDirection: "row", gap: "50px" }}>
+              <Field>
+                <div>Finish Date</div>
+                <div>
+                  {currentUser?.subscription
+                    ? currentUser.subscription.finishDate
+                    : "-"}
+                </div>
+              </Field>
+              <Field>
+                {currentUser?.subscription?.plan ? (
+                  <div>
+                    <div>Plan</div>
+                    <div>{currentUser?.subscription?.plan}</div>
+                  </div>
+                ) : (
+                  <div style={{ width: "100%" }}>
+                    <PlanSelect onChange={(e) => handlePlan(e)}>
+                      <option hidden value="Select Plan">
+                        {currentUser?.subscription?.plan
+                          ? currentUser.subscription.plan
+                          : "Select Plan"}
+                      </option>
+                      <option value="One month">One Month USD$ 6.99</option>
+                      <option value="Six months">Six Months USD$ 35.99</option>
+                      <option value="One year">One Year USD$ 62.99</option>
+                    </PlanSelect>
+                  </div>
+                )}
+              </Field>
+            </div>
+          </InfoContainer>
+          <div style={{ height: "80px", paddingTop: "2px", width: "270px" }}>
+            <PaypalButton
+              plan={plan}
+              currentUser={currentUser}
+              key={plan}
+              showButton={showButton}
+            />
+          </div>
+        </SubscriptionOptions>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <ButtonDisable
+            onClick={() => logout({ returnTo: window.location.origin })}
+            ancho="220px"
+            color="red"
+          >
+            Logout
+          </ButtonDisable>
+          <ButtonDisable
+            type="button"
+            onClick={(e) => handleDisable(e)}
+            ancho="220px"
+            color="red"
+          >
+            {currentUser?.active ? "Disable Account" : "Activate Account"}
+          </ButtonDisable>
         </div>
-      }
+      </AccoutContainer>
     </>
   );
 }
+
