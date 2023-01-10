@@ -193,8 +193,8 @@ export default function UserProfile() {
                 {!edit.userName ? (
                   <FiledAndButton>
                     <Field>
-                      <div>User Name</div>
-                      <div>{currentUser?.userName}</div>
+                      <div>Email</div>
+                      <div>{currentUser?.email}</div>
                     </Field>
                     <EditFieldButton
                       value={currentUser?.userName}
@@ -224,8 +224,8 @@ export default function UserProfile() {
                 </FiledAndButton>
                 <FiledAndButton>
                   <Field>
-                    <div>Password</div>
-                    <div>-</div>
+                    <div>Profile Picture</div>
+                    <div style={{fontSize: "13px"}}>{currentUser?.profilePic}</div>
                   </Field>
                   <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
                     Change
@@ -316,10 +316,11 @@ export default function UserProfile() {
               </Field>
               <div style={{ width: "120px" }}>
                 <EditFieldButton
-                  name="newBooks"
+                  name="all"
+                  value="all"
                   onClick={(e) => handleNotification(e)}
                 >
-                  {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
+                  {currentUser?.notifications.all ? "Disable" : "Enable"}
                 </EditFieldButton>
               </div>
             </FiledAndButton>
