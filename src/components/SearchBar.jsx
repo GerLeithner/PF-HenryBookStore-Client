@@ -15,6 +15,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.books);
+  const books = useSelector((state) => state.books);
   // const [author,setAuthor]=useState('')
 
   function handleInputChange(e) {
@@ -48,15 +49,16 @@ const SearchBar = ({ paginado, modal, setModal }) => {
           value={title}
           onChange={(e) => handleInputChange(e)}
         />
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           onClick={(e) => handleSubmit(e)}
           style={{
-            backgroundColor: "white", 
-            border: "1px solid #ccc", 
-            height: "32px", 
-            borderRadius: "0px 10px 10px 0px"
-          }}>
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            height: "32px",
+            borderRadius: "0px 10px 10px 0px",
+          }}
+        >
           Go
         </button>
       </InputAndButton>
@@ -66,10 +68,12 @@ const SearchBar = ({ paginado, modal, setModal }) => {
             .filter((book) => {
               const searchTerm = title.toLowerCase();
               const titleOfBookSearched = book.title.toLowerCase();
+              const nameOfAuthorSearched = book.author.name.toLowerCase();
 
               return (
                 searchTerm &&
-                titleOfBookSearched.includes(searchTerm) &&
+                (titleOfBookSearched.includes(searchTerm) ||
+                  nameOfAuthorSearched.includes(searchTerm)) &&
                 titleOfBookSearched !== searchTerm
               );
             })
@@ -86,7 +90,6 @@ const SearchBar = ({ paginado, modal, setModal }) => {
             ))}
         </DropdownSearch>
       </div>
-
     </SearchContainer>
   );
 };
