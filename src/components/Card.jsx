@@ -33,7 +33,7 @@ import {
   DropDownMenu,
 } from "../styles/Card";
 
-export default function Card({ id, cover, modal, setModal, readChange }) {
+export default function Card({ id, cover, modal, setModal, readChange, read }) {
   // const [open, setOpen] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -41,6 +41,8 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
 
   const [reading, setReading] = useState(false);
   // const { isAuthenticated, user, isLoading } = useAuth0();
+
+  console.log("read:", read);
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -105,16 +107,16 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
     // console.log("e.target.value",e.target.value)
 
     if (!favorite) {
-      console.log("Entré a add favorite, bookId:", id);
+      //   console.log("Entré a add favorite, bookId:", id);
       setFavorite(!favorite);
-      console.log("FAV+", favorite);
+      //   console.log("FAV+", favorite);
 
       dispatch(addFavorite(id, userId));
     }
     if (favorite) {
-      console.log("Entré a delete favorite, bookId:", id);
+      //   console.log("Entré a delete favorite, bookId:", id);
       setFavorite(!favorite);
-      console.log("FAV-", favorite);
+      // console.log("FAV-", favorite);
       dispatch(deleteFavorite(id, userId));
     }
   }
@@ -123,16 +125,16 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
     // console.log("e.target.value",e.target.value)
 
     if (!readed) {
-      console.log("Entré a add readed :", id);
+      //  console.log("Entré a add readed :", id);
       setReaded(!readed);
-      console.log("READ+", readed);
+      // console.log("READ+", readed);
 
       dispatch(addReaded(id, userId));
     }
     if (readed) {
-      console.log("Entré a delete readed :", id);
+      //   console.log("Entré a delete readed :", id);
       setReaded(!readed);
-      console.log("READ-", readed);
+      //  console.log("READ-", readed);
       dispatch(deleteReaded(id, userId));
     }
   }
@@ -141,20 +143,20 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
     // console.log("e.target.value",e.target.value)
 
     if (!reading) {
-      console.log("Entré a add reading :", id);
+      //   console.log("Entré a add reading :", id);
       setReading(!reading);
-      console.log("READ+", reading);
+      //   console.log("READ+", reading);
 
       dispatch(addReading(id, userId));
-      return readChange(true);
     }
     if (reading) {
-      console.log("Entré a delete reading :", id);
+      //   console.log("Entré a delete reading :", id);
       setReading(!reading);
-      console.log("READ-", reading);
+      //   console.log("READ-", reading);
       dispatch(deleteReading(id, userId));
-      return readChange(false);
     }
+
+    setTimeout(() => readChange(!read), 300);
   }
 
   return (
@@ -179,6 +181,7 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
             <UlCard>
               {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
               <DropdownItem
+                key={id + "1"}
                 icon={!reading ? bookIcon : bookHalfIcon}
                 value={id}
                 handle={(e) => {
@@ -187,6 +190,7 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
                 role="button"
               />
               <DropdownItem
+                key={id + "2"}
                 icon={!readed ? readedIcon : readedIconFill}
                 value={id}
                 handle={(e) => {
@@ -195,6 +199,7 @@ export default function Card({ id, cover, modal, setModal, readChange }) {
                 role="button"
               />
               <DropdownItem
+                key={id + "3"}
                 icon={!favorite ? favoriteIcon : favoriteFillIcon}
                 value={id}
                 handle={(e) => {

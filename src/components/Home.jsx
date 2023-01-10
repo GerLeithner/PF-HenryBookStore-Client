@@ -31,7 +31,7 @@ const Home = () => {
   const news = useSelector((state) => state.news);
 
   const [modal, setModal] = useState(false);
-  const [read, setRead] = useState(false);
+  const [read, setRead] = useState(true);
   const { user, logout } = useAuth0();
 
   const readChange = (condition) => {
@@ -39,15 +39,13 @@ const Home = () => {
   };
 
   useEffect(() => {
-    if (currentUser && currentUser.Reading.toString() !== read.toString()) {
-      if (user) {
-        const { email, nickname } = user;
-        const userDb = {
-          email,
-          nickname,
-        };
-        dispatch(getCurrentUser(userDb));
-      }
+    if (user) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
     }
   }, [dispatch, read]);
 
@@ -83,11 +81,15 @@ const Home = () => {
       <div>
         <div>
           {recomended && recomended.length && (
-            <Carousel itemsToShow={1} className="top-rec-wrapper ">
+            <Carousel
+              key="recomended"
+              itemsToShow={1}
+              className="top-rec-wrapper "
+            >
               {recomended.map((b) => {
                 return (
                   <CardRecomended
-                    key={b.id}
+                    key={b.id + "recommended"}
                     id={b.id}
                     title={b.title}
                     subtitle={b.subtitle}
@@ -107,12 +109,12 @@ const Home = () => {
         {currentUser && currentUser.Reading?.length ? (
           <div>
             <H2Home>Continue reading</H2Home>
-            <Carousel itemsToShow={5}>
+            <Carousel key="reading" itemsToShow={5}>
               {currentUser.Reading.map((b) => {
                 return (
                   <Card
                     id={b.id}
-                    key={b.id}
+                    key={b.id + "Reading"}
                     title={b.title}
                     publishedDate={b.publishedDate}
                     description={b.description}
@@ -122,6 +124,8 @@ const Home = () => {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
+                    readChange={readChange}
+                    read={read}
                   />
                 );
               })}
@@ -134,11 +138,11 @@ const Home = () => {
           {trending.length && (
             <>
               <H2Home>Trending</H2Home>
-              <Carousel itemsToShow={5}>
+              <Carousel key="trending" itemsToShow={5}>
                 {trending.map((b) => {
                   return (
                     <Card
-                      key={b.id}
+                      key={b.id + "Trending"}
                       id={b.id}
                       title={b.title}
                       subtitle={b.subtitle}
@@ -152,6 +156,7 @@ const Home = () => {
                       modal={modal}
                       setModal={setModal}
                       readChange={readChange}
+                      read={read}
                     />
                   );
                 })}
@@ -163,11 +168,11 @@ const Home = () => {
           {news.length && (
             <>
               <H2Home>News</H2Home>
-              <Carousel itemsToShow={5}>
+              <Carousel key="news" itemsToShow={5}>
                 {news.map((b) => {
                   return (
                     <Card
-                      key={b.id}
+                      key={b.id + "News"}
                       id={b.id}
                       title={b.title}
                       subtitle={b.subtitle}
@@ -180,6 +185,8 @@ const Home = () => {
                       back_cover={b.back_cover}
                       modal={modal}
                       setModal={setModal}
+                      readChange={readChange}
+                      read={read}
                     />
                   );
                 })}
