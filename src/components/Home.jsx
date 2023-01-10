@@ -9,11 +9,13 @@ import {
   getRecomendedBooks,
   getTrendingBooks,
   getNewsBooks,
+  getCurrentUser,
 } from "../redux/actions";
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,25 @@ const Home = () => {
   const news = useSelector((state) => state.news);
 
   const [modal, setModal] = useState(false);
+  const [read, setRead] = useState(false);
+  const { user, logout } = useAuth0();
+
+  const readChange = (condition) => {
+    setRead(condition);
+  };
+
+  useEffect(() => {
+    if (currentUser && currentUser.Reading.toString() !== read.toString()) {
+      if (user) {
+        const { email, nickname } = user;
+        const userDb = {
+          email,
+          nickname,
+        };
+        dispatch(getCurrentUser(userDb));
+      }
+    }
+  }, [dispatch, read]);
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -84,7 +105,7 @@ const Home = () => {
           )}
         </div>
         {currentUser && currentUser.Reading?.length ? (
-          <>
+          <div>
             <H2Home>Continue reading</H2Home>
             <Carousel itemsToShow={5}>
               {currentUser.Reading.map((b) => {
@@ -105,7 +126,7 @@ const Home = () => {
                 );
               })}
             </Carousel>
-          </>
+          </div>
         ) : (
           <></>
         )}
@@ -130,6 +151,7 @@ const Home = () => {
                       back_cover={b.back_cover}
                       modal={modal}
                       setModal={setModal}
+                      readChange={readChange}
                     />
                   );
                 })}
