@@ -10,6 +10,7 @@ import BooksTable from "./components/BooksTable.jsx";
 import UsersTable from "./components/UsersTable.jsx";
 import UsersProfile from "./components/UserProfile";
 import CreateReview from "./components/CreateReview";
+import MyLibrary from "./components/MyLibrary";
 import ProtectedRoute from "./auth/protected-route";
 import axios from 'axios';
 
@@ -22,7 +23,7 @@ function App() {
     <div className="App">
         <Route exact path="/" component={ LandingPage } />
         <Route 
-          path={["/home", "/home/:id", "/catalogue", "/about", "/books", "/users", "/profile"]} 
+          path={["/home", "/home/:id", "/catalogue", "/about", "/books", "/users", "/profile", "/library"]} 
           component={ NavBar } 
         /> 
         <Route exact path="/home" component={ Home } />
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/books" component={ BooksTable }/>
         <Route exact path="/users" component={ UsersTable }/>
         <Route exact path="/profile" component={ UsersProfile }/>
+        <Route exact path="/library" component={ MyLibrary }/>
     </div>
   );
 }

@@ -1,14 +1,14 @@
 import axios from "axios";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
-// const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
-const deployUrl = "http://localhost:3001";
+// const deployUrl="https://pf-henrybookstore-api-production.up.railway.app"
+// const deployUrl="http://localhost:3001"
 
 // ------------------- BOOK CRUD ------------------------------------
 
 export function getBooks() {
   return async function (dispatch) {
-    var json = await axios.get(`${deployUrl}/books`);
+    var json = await axios.get(`/books`);
     console.log("axios deploy", json.data);
 
     return dispatch({
@@ -21,7 +21,7 @@ export function getBooks() {
 export function getBookById(id) {
   return async function (dispatch) {
     try {
-      var obj = await axios.get(`${deployUrl}/books/` + id);
+      var obj = await axios.get(`/books/` + id);
       return dispatch({
         type: "GET_BOOK_BY_ID",
         payload: obj.data,
@@ -36,7 +36,7 @@ export function getBookByTitle(title) {
   return async function (dispatch) {
     console.log("Searching book", title);
     try {
-      var obj = await axios.get(`${deployUrl}/books?title=` + title);
+      var obj = await axios.get(`/books?title=` + title);
       return dispatch({
         type: "GET_BOOK_BY_TITLE",
         payload: obj.data,
@@ -51,7 +51,7 @@ export function createBook(payload) {
   return async function () {
     try {
       console.log("payload", payload);
-      const response = await axios.post(`${deployUrl}/books`, payload);
+      const response = await axios.post(`/books`, payload);
       console.log("response:", response);
       return response;
     } catch (e) {
@@ -63,7 +63,7 @@ export function createBook(payload) {
 export function editBook(payload) {
   return async function () {
     console.log("payload", payload);
-    const response = await axios.put(`${deployUrl}/books`, payload);
+    const response = await axios.put(`/books`, payload);
     console.log("response:", response);
     return response;
   };
@@ -73,7 +73,7 @@ export function disableBook(id) {
   return async function () {
     try {
       console.log("id ", id);
-      const response = await axios.delete(`${deployUrl}/books/` + id);
+      const response = await axios.delete(`/books/` + id);
       console.log("response:", response);
       return response;
     } catch (e) {
@@ -86,7 +86,7 @@ export function disableBook(id) {
 
 export function getTrendingBooks() {
   return async function (dispatch) {
-    var json = await axios.get(`${deployUrl}/books/trending`);
+    var json = await axios.get(`/books/trending`);
     return dispatch({
       type: "GET_TRENDING_BOOKS",
       payload: json.data,
@@ -96,7 +96,7 @@ export function getTrendingBooks() {
 
 export function getNewsBooks() {
   return async function (dispatch) {
-    var json = await axios.get(`${deployUrl}/books/news`);
+    var json = await axios.get(`/books/news`);
     return dispatch({
       type: "GET_NEW_BOOKS",
       payload: json.data,
@@ -158,7 +158,7 @@ export function cleanBookDetail() {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`${deployUrl}/genres`);
+      var json = await axios.get(`/genres`);
       return dispatch({
         type: "GET_GENRES",
         payload: json.data,
@@ -172,7 +172,7 @@ export function getGenres() {
 export function getAuthors() {
   return async function (dispatch) {
     try {
-      var json = await axios.get(`${deployUrl}/authors`);
+      var json = await axios.get(`/authors`);
       return dispatch({
         type: "GET_AUTHORS",
         payload: json.data,
@@ -188,7 +188,7 @@ export function getAuthors() {
 export function getAllUsers(payload) {
   return async function (dispatch) {
     try {
-      const users = await axios.get(`${deployUrl}/user`, payload);
+      const users = await axios.get(`/user`, payload);
       return dispatch({
         type: "GET_ALL_USERS",
         payload: users.data,
@@ -202,7 +202,7 @@ export function getAllUsers(payload) {
 export function getUserById(id) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(`${deployUrl}/user/${id}`);
+      const user = await axios.get(`/user/${id}`);
       return dispatch({
         type: "GET_USER_BY_ID",
         payload: user.data,
@@ -216,7 +216,7 @@ export function getUserById(id) {
 export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
-      const user = await axios.post(`${deployUrl}/user/register`, payload);
+      const user = await axios.post(`/user/register`, payload);
       return dispatch({
         type: "GET_CURRENT_USER",
         payload: user.data,
@@ -229,7 +229,7 @@ export function getCurrentUser(payload) {
 
 export function editUser(input) {
   return async function () {
-    await axios.put(`${deployUrl}/user/edit`, input);
+    await axios.put(`/user/edit`, input);
   };
 }
 
@@ -280,7 +280,7 @@ export function addFavorite(id, userId) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `${deployUrl}/books/${id}/favorite`,
+        `/books/${id}/favorite`,
         userId
       );
       console.log("RESPONSE:", response);
@@ -299,7 +299,7 @@ export function deleteFavorite(id, userId) {
   return async function (dispatch) {
     try {
       const deleteResponse = await axios.delete(
-        `${deployUrl}/books/${id}/favorite`,
+        `/books/${id}/favorite`,
         {
           data: { userId },
         }
@@ -319,7 +319,7 @@ export function addReaded(id, userId) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `${deployUrl}/books/${id}/read`,
+        `/books/${id}/read`,
         userId
       );
       console.log("response:", response);
@@ -337,7 +337,7 @@ export function deleteReaded(id, userId) {
   return async function (dispatch) {
     try {
       const deleteResponse = await axios.delete(
-        `${deployUrl}/books/${id}/read`,
+        `/books/${id}/read`,
         {
           data: { userId },
         }
@@ -357,7 +357,7 @@ export function addReading(id, userId) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `${deployUrl}/books/${id}/reading`,
+        `/books/${id}/reading`,
         userId
       );
       console.log("response:", response);
@@ -375,7 +375,7 @@ export function deleteReading(id, userId) {
   return async function (dispatch) {
     try {
       const deleteResponse = await axios.delete(
-        `${deployUrl}/books/${id}/reading`,
+        `/books/${id}/reading`,
         {
           data: { userId },
         }
@@ -395,7 +395,7 @@ export function addReview(id, payload) {
   return async function (dispatch) {
     try {
       const response = await axios.post(
-        `${deployUrl}/books/${id}/review`,
+        `/books/${id}/review`,
         payload
       );
       console.log("response:", response);
@@ -414,7 +414,7 @@ export function activateSubscription(userId, plan) {
     try {
       console.log("ACTION: http://localhost:3001/user/subscription" + userId);
       const response = await axios.put(
-        `${deployUrl}/user/subscription/${userId}`,
+        `/user/subscription/${userId}`,
         { plan }
       );
       console.log("response:", response);
