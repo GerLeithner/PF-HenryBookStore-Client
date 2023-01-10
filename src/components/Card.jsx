@@ -32,6 +32,8 @@ import {
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Card({ id, cover, modal, setModal, readChange, read }) {
   // const [open, setOpen] = useState(false);
@@ -105,19 +107,22 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
-
     if (!favorite) {
       //   console.log("Entré a add favorite, bookId:", id);
       setFavorite(!favorite);
       //   console.log("FAV+", favorite);
 
       dispatch(addFavorite(id, userId));
+
+      toast.success("Book added to your favorites");
     }
     if (favorite) {
       //   console.log("Entré a delete favorite, bookId:", id);
       setFavorite(!favorite);
       // console.log("FAV-", favorite);
       dispatch(deleteFavorite(id, userId));
+
+      toast.warning("Book removed from your favorites");
     }
   }
 
@@ -202,6 +207,7 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
                 key={id + "3"}
                 icon={!favorite ? favoriteIcon : favoriteFillIcon}
                 value={id}
+                name={book.title}
                 handle={(e) => {
                   handleFavorite(id, userId);
                 }}
