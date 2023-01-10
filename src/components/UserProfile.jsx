@@ -7,8 +7,6 @@ import { editUser, getCurrentUser, changePassword } from "../redux/actions";
 import FieldForm from "./FieldForm.jsx";
 
 import PaypalButton from "./PaypalButton.jsx"
-import Logout from "./Logout.jsx"
-
 
 import { H3Form } from "../styles/CreateBook";
 import { SideBarContainer } from "../styles/Catalogue";
@@ -60,17 +58,6 @@ export default function UserProfile() {
     }
   }, [dispatch, edit, notifications]);
 
-  // function handlePaypal(plan) {
-  //   return (
-  //     <div style={{height: "80px", paddingTop: "2px"}}>
-  //       <PaypalButton 
-  //         plan={plan} 
-  //         currentUser={currentUser} 
-  //         key={plan}
-  //       />
-  //     </div>
-  //   )
-  // }
 
   function handleChange(e) {
     e.preventDefault();
@@ -95,12 +82,13 @@ export default function UserProfile() {
 
   function handleDisable(e) {
     e.preventDefault();
-    // dispatch(disableUser(user.id))
-    alert(
-      currentUser.active
-        ? "Account has been disable"
-        : "Account has been activated"
-    );
+
+    dispatch(editUser({
+      id: currentUser.id,
+      active: false
+    }));
+    alert("The account has been disable");
+    logout({ returnTo: window.location.origin });
   }
 
   function handleDownfall(e) {
@@ -207,7 +195,7 @@ export default function UserProfile() {
                   <FieldForm 
                     edit={edit}
                     setEdit={setEdit}
-                    id={currentUser.id}
+                    id={currentUser?.id}
                     fieldName={form.fieldName} 
                     propName={form.propName}
                     propValue={form.propValue}
@@ -225,7 +213,7 @@ export default function UserProfile() {
                     <div>Password</div>
                     <div>-</div>
                   </Field>
-                  <EditFieldButton>Change</EditFieldButton>
+                  <EditFieldButton onClick={e => handlePasswordChange(e)}>Change</EditFieldButton>
                 </FiledAndButton>
               </InfoContainer>
             </ImageAndInfo>
