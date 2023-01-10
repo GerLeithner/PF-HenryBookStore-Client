@@ -92,11 +92,11 @@ export default function LandingPage() {
             promotionalBooks.map((e) => <H4Landing>{e}</H4Landing>)}
         </PromotionalConteiner>
         <ButtonsConteiner>
-          { isAuthenticated && currentUser?.active && redirectHome() }
+          { isAuthenticated && currentUser && currentUser.active && redirectHome() }
           {
-            isAuthenticated && !currentUser?.active && 
+            isAuthenticated && currentUser && !currentUser.active && 
             <>
-              <div>The current account has been desabled, please activate it to continue</div>
+              <div>The current account has been disabled, please activate it to continue</div>
               <ButtonCatalogue onClick={e => handleActiveUser(e)}>Activate Account</ButtonCatalogue>
               <Logout />
             </>

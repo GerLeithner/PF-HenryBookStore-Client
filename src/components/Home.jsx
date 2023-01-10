@@ -10,10 +10,14 @@ import {
   getTrendingBooks,
   getNewsBooks,
 } from "../redux/actions";
-import { H2Home } from "../styles/Card";
-import "../styles/Carousel.css";
+
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
+
+import { H3Form } from "../styles/CreateBook";
+import { H2Home } from "../styles/Card";
+import "../styles/Carousel.css";
+
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -58,65 +62,15 @@ const Home = () => {
   // }
 
   return (
-    <div>
-      <div>
+    <>
+      { currentUser ?
         <div>
-          {recomended && recomended.length && (
-            <Carousel itemsToShow={1} className="top-rec-wrapper ">
-              {recomended.map((b) => {
-                return (
-                  <CardRecomended
-                    key={b.id}
-                    id={b.id}
-                    title={b.title}
-                    subtitle={b.subtitle}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genre={b.genre}
-                    author={b.author}
-                    back_cover={b.back_cover}
-                  />
-                );
-              })}
-            </Carousel>
-          )}
-        </div>
-        {currentUser && currentUser.Reading?.length ? (
-          <>
-            <H2Home>Continue reading</H2Home>
-            <Carousel itemsToShow={5}>
-              {currentUser.Reading.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                  />
-                );
-              })}
-            </Carousel>
-          </>
-        ) : (
-          <></>
-        )}
-        <div>
-          {trending.length && (
-            <>
-              <H2Home>Trending</H2Home>
-              <Carousel itemsToShow={5}>
-                {trending.map((b) => {
+          <div>
+            {recomended && recomended.length && (
+              <Carousel itemsToShow={1} className="top-rec-wrapper ">
+                {recomended.map((b) => {
                   return (
-                    <Card
+                    <CardRecomended
                       key={b.id}
                       id={b.id}
                       title={b.title}
@@ -128,34 +82,28 @@ const Home = () => {
                       genre={b.genre}
                       author={b.author}
                       back_cover={b.back_cover}
-                      modal={modal}
-                      setModal={setModal}
                     />
                   );
                 })}
               </Carousel>
-            </>
-          )}
-        </div>
-        <div>
-          {news.length && (
+            )}
+          </div>
+          {currentUser && currentUser.Reading?.length ? (
             <>
-              <H2Home>News</H2Home>
+              <H2Home>Continue reading</H2Home>
               <Carousel itemsToShow={5}>
-                {news.map((b) => {
+                {currentUser.Reading.map((b) => {
                   return (
                     <Card
-                      key={b.id}
                       id={b.id}
+                      key={b.id}
                       title={b.title}
-                      subtitle={b.subtitle}
                       publishedDate={b.publishedDate}
                       description={b.description}
                       averageRating={b.averageRating}
                       cover={b.cover}
-                      genre={b.genre}
-                      author={b.author}
-                      back_cover={b.back_cover}
+                      genres={b.genres}
+                      authors={b.authors}
                       modal={modal}
                       setModal={setModal}
                     />
@@ -163,42 +111,75 @@ const Home = () => {
                 })}
               </Carousel>
             </>
+          ) : (
+            <></>
           )}
+          <div>
+            {trending.length && (
+              <>
+                <H2Home>Trending</H2Home>
+                <Carousel itemsToShow={5}>
+                  {trending.map((b) => {
+                    return (
+                      <Card
+                        key={b.id}
+                        id={b.id}
+                        title={b.title}
+                        subtitle={b.subtitle}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genre={b.genre}
+                        author={b.author}
+                        back_cover={b.back_cover}
+                        modal={modal}
+                        setModal={setModal}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </>
+            )}
+          </div>
+          <div>
+            {news.length && (
+              <>
+                <H2Home>News</H2Home>
+                <Carousel itemsToShow={5}>
+                  {news.map((b) => {
+                    return (
+                      <Card
+                        key={b.id}
+                        id={b.id}
+                        title={b.title}
+                        subtitle={b.subtitle}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genre={b.genre}
+                        author={b.author}
+                        back_cover={b.back_cover}
+                        modal={modal}
+                        setModal={setModal}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </>
+            )}
+          </div>
+        </div> 
+      : 
+        <div style={{paddingTop: "200px"}}>
+          <H3Form>LOADING...</H3Form>
         </div>
-      </div>
-    </div>
+      }
+
+    </>
   );
 };
 
 export default Home;
 
-/* export default withAuthenticationRequired(Home, {
-  onRedirecting: () => <LandingPage />,
-}); */
-
-// {currentUser && currentUser.Reading.length ? (
-//             <>
-//               <H2Home>Continue reading</H2Home>
-//               <Carousel itemsToShow={5}>
-//                 {currentUser.Reading.map((b) => {
-//                   return (
-//                     <Card
-//                       id={b.id}
-//                       key={b.id}
-//                       title={b.title}
-//                       publishedDate={b.publishedDate}
-//                       description={b.description}
-//                       averageRating={b.averageRating}
-//                       cover={b.cover}
-//                       genres={b.genres}
-//                       authors={b.authors}
-//                       modal={modal}
-//                       setModal={setModal}
-//                     />
-//                   );
-//                 })}
-//               </Carousel>
-//             </>
-//           ) : (
-//             <></>
-//           )}
