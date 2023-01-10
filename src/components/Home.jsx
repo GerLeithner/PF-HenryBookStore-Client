@@ -9,10 +9,12 @@ import {
   getRecomendedBooks,
   getTrendingBooks,
   getNewsBooks,
+  getCurrentUser,
 } from "../redux/actions";
 
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
+import { useAuth0 } from "@auth0/auth0-react";
 
 import { H3Form } from "../styles/CreateBook";
 import { H2Home } from "../styles/Card";
@@ -33,6 +35,23 @@ const Home = () => {
   const news = useSelector((state) => state.news);
 
   const [modal, setModal] = useState(false);
+  const [read, setRead] = useState(true);
+  const { user, logout } = useAuth0();
+
+  const readChange = (condition) => {
+    setRead(condition);
+  };
+
+  useEffect(() => {
+    if (user) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
+  }, [dispatch, read]);
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -65,13 +84,69 @@ const Home = () => {
     <>
       { currentUser ?
         <div>
+          {recomended && recomended.length && (
+            <Carousel
+              key="recomended"
+              itemsToShow={1}
+              className="top-rec-wrapper "
+            >
+              {recomended.map((b) => {
+                return (
+                  <CardRecomended
+                    key={b.id + "recommended"}
+                    id={b.id}
+                    title={b.title}
+                    subtitle={b.subtitle}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genre={b.genre}
+                    author={b.author}
+                    back_cover={b.back_cover}
+                  />
+                );
+              })}
+            </Carousel>
+          )}
+        </div>
+        {currentUser && currentUser.Reading?.length ? (
           <div>
-            {recomended && recomended.length && (
-              <Carousel itemsToShow={1} className="top-rec-wrapper ">
-                {recomended.map((b) => {
+            <H2Home>Continue reading</H2Home>
+            <Carousel key="reading" itemsToShow={5}>
+              {currentUser.Reading.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id + "Reading"}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                    readChange={readChange}
+                    read={read}
+                  />
+                );
+              })}
+            </Carousel>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div>
+          {trending.length && (
+            <>
+              <H2Home>Trending</H2Home>
+              <Carousel key="trending" itemsToShow={5}>
+                {trending.map((b) => {
                   return (
-                    <CardRecomended
-                      key={b.id}
+                    <Card
+                      key={b.id + "Trending"}
                       id={b.id}
                       title={b.title}
                       subtitle={b.subtitle}
@@ -82,6 +157,10 @@ const Home = () => {
                       genre={b.genre}
                       author={b.author}
                       back_cover={b.back_cover}
+                      modal={modal}
+                      setModal={setModal}
+                      readChange={readChange}
+                      read={read}
                     />
                   );
                 })}
@@ -90,11 +169,12 @@ const Home = () => {
           </div>
           {currentUser && currentUser.Reading?.length ? (
             <>
-              <H2Home>Continue reading</H2Home>
-              <Carousel itemsToShow={5}>
-                {currentUser.Reading.map((b) => {
+              <H2Home>News</H2Home>
+              <Carousel key="news" itemsToShow={5}>
+                {news.map((b) => {
                   return (
                     <Card
+                      key={b.id + "News"}
                       id={b.id}
                       key={b.id}
                       title={b.title}
@@ -106,6 +186,8 @@ const Home = () => {
                       authors={b.authors}
                       modal={modal}
                       setModal={setModal}
+                      readChange={readChange}
+                      read={read}
                     />
                   );
                 })}

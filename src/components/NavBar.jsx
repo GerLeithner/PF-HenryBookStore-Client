@@ -48,12 +48,14 @@ export default function NavBar() {
         <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
+          <LinkNavBar to={"/library"}>Library</LinkNavBar>
           {currentUser && currentUser.admin && (
             <>
               <LinkNavBar to={"/books"}>Books</LinkNavBar>
               <LinkNavBar to={"/users"}>Users</LinkNavBar>
             </>
           )}
+          
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
           <LinkNavBar to={"/profile"}>
             { currentUser && currentUser.profilePic ? 
