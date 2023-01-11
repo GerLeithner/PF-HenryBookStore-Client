@@ -93,7 +93,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       
     }else if(!arrayReading.includes(id)){
       // console.log("Reading-", false)
-      setFavorite(false)
+      setReading(false)
       // console.log("SETIE EL READING",false)
     }
   },[dispatch, arrayReading])
@@ -104,6 +104,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   function handleClick(e) {
     e.preventDefault(e);
     setModal(true);
+    setIsHovering(false);
     dispatch(getBookById(id));
   }
 
@@ -134,10 +135,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       console.log("Entré a add favorite, bookId:", id);
       setFavorite(true);
       console.log("FAV+",favorite)
-
-
       dispatch(addFavorite(id, userId));
-
       toast.success("Book added to your favorites");
     }
 
@@ -190,7 +188,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
 
       dispatch(addReading(id, userId));
 
-      toast.warning("Book mark as reading");
+      toast.success("Book mark as reading");
     }
 
     if(reading){

@@ -139,8 +139,10 @@ export default function Home() {
     <div>
       <div>
         <div>
-          <SubscribeNav />
-          {recomended && recomended.length && (
+
+         <SubscribeNav />
+          {recomended && recomended?.length && (
+
             <Carousel
               key="recomended"
               itemsToShow={1}
@@ -201,7 +203,7 @@ export default function Home() {
           <></>
         )}
         <div>
-          {trending.length && (
+          {trending?.length && (
             <>
               <H2Home>Trending</H2Home>
               <Carousel key="trending" itemsToShow={5}>
@@ -234,7 +236,7 @@ export default function Home() {
           )}
         </div>
         <div>
-          {news.length && (
+          {news?.length && (
             <>
               <H2Home>News</H2Home>
               <Carousel key="news" itemsToShow={5}>

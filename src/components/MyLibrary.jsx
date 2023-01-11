@@ -179,7 +179,7 @@ const MyLibrary = () => {
               </Carousel>
             </>
           ) : (
-            <div><h3>You don't start reading yet!</h3></div>
+            <div><h3>You haven't read any books yet</h3></div>
           )}
         
         </div>
@@ -219,7 +219,7 @@ const MyLibrary = () => {
               </Carousel>
             </>
           ) : (
-            <div><h3>You don't have favorites yet, go find some!!</h3></div>
+            <div><h3>You don't have any favorites yet</h3></div>
           )}
         
         </div>
@@ -261,7 +261,7 @@ const MyLibrary = () => {
               </Carousel>
             </>
           ) : (
-            <div> <h3> You haven't read some books yet</h3></div>
+            <div> <h3> No books are being read yet</h3></div>
           )}
         
         </div>

@@ -12,6 +12,7 @@ import {
   deleteFavorite,
   deleteReading,
   deleteReaded,
+  getCurrentUser,
 } from "../redux/actions";
 
 import {
@@ -59,6 +60,8 @@ import bookIcon from "../icons/bookIcon.svg";
 import bookHalfIcon from "../icons/bookHalfIcon.svg"
 import { StarsContainer } from "../styles/CardRecomended";
 import BookReviews from "../components/BookReviews.jsx"
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DropdownItem(props) {
   return (
@@ -80,7 +83,7 @@ export default function CardDetail({ book, modal, setModal}) {
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
-  // console.log("currentUser ", currentUser);
+// {  console.log("currentUser DETAIL ", currentUser);}
 
 
   const [open, setOpen] = useState(false);
@@ -124,34 +127,82 @@ export default function CardDetail({ book, modal, setModal}) {
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
-    console.log("Entré a favorite:", id);
-    if (!favorite) {
+
+    
+    if(!favorite){
+      console.log("Entré a add favorite, bookId:", id);
       setFavorite(true);
-      console.log("FAV+", favorite);
+      console.log("FAV+",favorite)
       dispatch(addFavorite(id, userId));
+      toast.success("Book added to your favorites");
     }
-    if (favorite) {
+
+    if(favorite){
+      console.log("Entré a delete favorite, bookId:", id);
       setFavorite(false);
-      console.log("FAV-", favorite);
+      console.log("FAV-",favorite)
+
       dispatch(deleteFavorite(id, userId));
+
+      toast.warning("Book removed from your favorites");
     }
+    
   }
 
   function handleReaded(id, userId) {
-    // e.preventDefault();
     // console.log("e.target.value",e.target.value)
-    console.log("Entré a readed:", id);
-    if (!readed) {
+
+    
+    if(!readed){
+      console.log("Entré a add readed :", id);
       setReaded(true);
-      console.log("READ+", readed);
+      console.log("READ+",readed)
+      
+
       dispatch(addReaded(id, userId));
+      toast.success("Book mark as readed");
     }
-    if (readed) {
+
+    if(readed){
+      console.log("Entré a delete readed :", id);
       setReaded(false);
-      console.log("READ-", readed);
+      console.log("READ-",readed)
+
       dispatch(deleteReaded(id, userId));
+      toast.warning("Book mark as unread");
     }
+    
   }
+
+  function handleReading(id, userId) {
+    // console.log("e.target.value",e.target.value)
+
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(true);
+      console.log("READ+",reading)
+      
+
+      dispatch(addReading(id, userId));
+
+      toast.success("Book mark as reading");
+    }
+
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(false);
+      console.log("READ-",reading)
+
+      dispatch(deleteReading(id, userId));
+      toast.warning("Book mark as unreading");
+    }
+
+  
+   
+   
+  }
+
 
   function starRating(rating) {
     let ratingFloor = Math.floor(rating);
@@ -167,27 +218,7 @@ export default function CardDetail({ book, modal, setModal}) {
     }
     return stars;
   }
-  function handleReading(id, userId) {
-    
-    // console.log("e.target.value",e.target.value)
-    
-    if(!reading){
-      console.log("Entré a add reading :", id);
-      setReading(true)
-      console.log("READ+",reading)
-      
-      dispatch(addReading(id, userId));
-      
-    }
-    if(reading){
-      console.log("Entré a delete reading :", id);
-      setReading(false)
-      console.log("READ-",reading)
-      dispatch(deleteReading(id, userId));
-      
-    }
-    
-  }
+  
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
@@ -206,7 +237,7 @@ export default function CardDetail({ book, modal, setModal}) {
 
      // carga los favs
   useEffect(()=>{
-    if(currentUser){
+    if(currentUser && modal){
       const userFavorites = currentUser.Favorites
  
       // console.log("USER FAVORITES",userFavorites)
@@ -216,17 +247,18 @@ export default function CardDetail({ book, modal, setModal}) {
   
     for (let i=0; i<currentUser.Favorites.length; i++){
      let fav= currentUser.Favorites[i].id
+     
      allFavorites.push(fav)
     }
     setArrayFavorite(allFavorites)
     }
-   },[ currentUser])
+   },[dispatch,currentUser, book])
+  //  console.log("Array FAVORITE",arrayFavorite)
    
-  //  console.log("Array FAVORITES",arrayFavorite)
 
    // carga los readed
    useEffect(()=>{
-    if(currentUser){
+    if(currentUser && modal){
       
     const userReaded =currentUser.Read
 
@@ -238,12 +270,12 @@ export default function CardDetail({ book, modal, setModal}) {
     }
     setArrayReaded(allReaded)
     }
-   },[ currentUser])
+   },[ dispatch,currentUser, book])
   //  console.log("Array READED",arrayReaded)
 
    // carga los reading
    useEffect(()=>{
-    if(currentUser){
+    if(currentUser && modal){
     const userReading = currentUser.Reading
     let allReading=[]
   
@@ -253,8 +285,8 @@ export default function CardDetail({ book, modal, setModal}) {
     }
     setArrayReading(allReading)
     }
-   },[ currentUser])
-  //  console.log("Array READING",arrayReading)
+   },[ dispatch,currentUser, book])
+   console.log("Array READING",arrayReading)
 
 
    useEffect(()=>{
@@ -268,7 +300,7 @@ export default function CardDetail({ book, modal, setModal}) {
       setFavorite(false)
       // console.log("SETIE EL FAV",false)
     }
-  },[dispatch, arrayFavorite])
+  },[dispatch, arrayFavorite, book.id])
 
 
   useEffect(()=>{
@@ -282,20 +314,21 @@ export default function CardDetail({ book, modal, setModal}) {
       setReaded(false)
       // console.log("SETIE EL READED",false)
     }
-  },[dispatch, arrayReaded])
+  },[dispatch, arrayReaded, book.id])
 
   useEffect(()=>{
     if(arrayReading.includes(book.id)){
-      
+    
       setReading(true)
       // console.log("SETIE EL Reading", true)
       
     }else if(!arrayReading.includes(book.id)){
       // console.log("Reading-", false)
-      setFavorite(false)
+      setReading(false)
       // console.log("SETIE EL READING",false)
+  
     }
-  },[dispatch, arrayReading])
+  },[dispatch, arrayReading, book.id])
 
   return (
     <>
@@ -326,31 +359,37 @@ export default function CardDetail({ book, modal, setModal}) {
                     className={`dropdown-menu ${isHovering ? "active" : "inactive"}` } onMouseOver={handleMouseOver}
                   >
                     <UlCard>
-                      {/* <DropdownItem
-                        icon={reviewIcon}
-                        value={book.id}
-                        role="button"
-                      /> */}
-                      <DropdownItem
-                        icon={!readed ? readedIcon : readedIconFill}
-                        value={book.id}
-                        handle={(e) => {
-                          handleReaded(book.id, userId);
-                        }}
-                        role="button"
-                      />
-                      <DropdownItem
-                        icon={!favorite ? favoriteIcon : favoriteFillIcon}
-                        value={book.id}
-                        handle={(e) => {
-                          handleFavorite(book.id, userId);
-                        }}
-                        role="button"
-                      />
-                      <DropdownItem 
-                      icon={!reading?bookIcon:bookHalfIcon} 
-                      value={book.id} 
-                      handle={e=>{handleReading(book.id,userId)}}role="button" />
+                      
+
+                        <DropdownItem
+                          key={book.id + "1"}
+                          icon={!reading ? bookIcon : bookHalfIcon}
+                          value={book.id}
+                          handle={(e) => {
+                            handleReading(book.id, userId);
+                          }}
+                          role="button"
+                        />
+                        <DropdownItem
+                          key={book.id + "2"}
+                          icon={!readed ? readedIcon : readedIconFill}
+                          value={book.id}
+                          handle={(e) => {
+                            handleReaded(book.id, userId);
+                          }}
+                          role="button"
+                        />
+                        <DropdownItem
+                          key={book.id + "3"}
+                          icon={!favorite ? favoriteIcon : favoriteFillIcon}
+                          value={book.id}
+                          name={book.title}
+                          handle={(e) => {
+                            handleFavorite(book.id, userId);
+                          }}
+                          role="button"
+                        />
+                               
                     </UlCard>
                   </DropDownMenu>
                 </MenuConteiner>
