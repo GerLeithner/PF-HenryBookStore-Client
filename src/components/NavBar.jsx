@@ -10,9 +10,8 @@ import {
   SubContainerNavBar,
   LinkNavBar,
   HomeLinkNavBar,
-  NavProfilePic
+  NavProfilePic,
 } from "../styles/NavBar";
-
 
 export default function NavBar() {
   const dispatch = useDispatch();
@@ -21,7 +20,11 @@ export default function NavBar() {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
 
-  if(isAuthenticated && currentUser && !currentUser.active) {
+  if (
+    isAuthenticated &&
+    currentUser &&
+    (!currentUser.active || currentUser.banned)
+  ) {
     history.push("/");
   }
 
@@ -37,8 +40,7 @@ export default function NavBar() {
       };
       dispatch(getCurrentUser(userDb));
     }
-
-  }, [dispatch, isAuthenticated ]);
+  }, [dispatch, isAuthenticated]);
 
   return (
     <div>
@@ -53,17 +55,17 @@ export default function NavBar() {
               <LinkNavBar to={"/users"}>Users</LinkNavBar>
             </>
           )}
-          
+
           <LinkNavBar to={"/about"}>About Us</LinkNavBar>
           <LinkNavBar to={"/profile"}>
-            { currentUser && currentUser.profilePic ? 
-              <NavProfilePic src={currentUser.profilePic}/> :
-              <NavProfilePic src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg"/> 
-            }
+            {currentUser && currentUser.profilePic ? (
+              <NavProfilePic src={currentUser.profilePic} />
+            ) : (
+              <NavProfilePic src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
+            )}
           </LinkNavBar>
         </SubContainerNavBar>
       </ContainerNavBar>
     </div>
   );
-};
-
+}
