@@ -262,7 +262,9 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
     let errorsLength = Object.keys(errors).length;
 
     if (errorsLength > 0) {
-      alert("One or more fields have errors, please check them");
+      toast.error("One or more fields have errors, please check them", {
+        position: "top-right",
+      });
     } else {
       if (newBook) {
         dispatch(createBook(input));

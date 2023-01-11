@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { cleanUserDetail, editUser } from "../redux/actions";
+import { useHistory } from "react-router";
 
 import {
   ButtonForm,
@@ -20,6 +21,8 @@ import {
 
 export default function EditUser({ setModal }) {
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const user = useSelector((state) => state.userDetail);
 
