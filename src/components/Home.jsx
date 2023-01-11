@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-elastic-carousel";
 import { useDispatch, useSelector } from "react-redux";
+import { useAuth0 } from "@auth0/auth0-react";
+
+import Card from "./Card.jsx";
+import CardRecomended from "./CardRecomended.jsx";
 
 import {
   getAuthors,
@@ -13,12 +17,6 @@ import {
 } from "../redux/actions";
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
-import Card from "./Card.jsx";
-import CardRecomended from "./CardRecomended.jsx";
-import { useAuth0 } from "@auth0/auth0-react";
-
-import { H3Form } from "../styles/CreateBook";
-import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 
 
