@@ -19,9 +19,7 @@ import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
 
-
 export default function Home() {
-  
   const dispatch = useDispatch();
   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
@@ -35,8 +33,6 @@ export default function Home() {
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state) => state.recomended);
   const news = useSelector((state) => state.news);
-
-
 
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
@@ -78,58 +74,55 @@ export default function Home() {
     }
   }, [dispatch]);
 
-
   // carga los favs
-  useEffect(()=>{
-    if(currentUser){
-      const userFavorites = currentUser.Favorites
- 
+  useEffect(() => {
+    if (currentUser) {
+      const userFavorites = currentUser.Favorites;
+
       // console.log("USER FAVORITES",userFavorites)
-  
-    let allFavorites=[]
-   
-  
-    for (let i=0; i<currentUser.Favorites.length; i++){
-     let fav= currentUser.Favorites[i].id
-     allFavorites.push(fav)
-    }
-    setArrayFavorite(allFavorites)
-    }
-   },[ currentUser])
-   
-   console.log("Array FAVORITES",arrayFavorite)
 
-   // carga los readed
-   useEffect(()=>{
-    if(currentUser){
-      
-    const userReaded =currentUser.Read
+      let allFavorites = [];
 
-    let allReaded=[]
- 
-    for (let i=0; i<currentUser.Read.length; i++){
-     let read= currentUser.Read[i].id
-     allReaded.push(read)
+      for (let i = 0; i < currentUser.Favorites?.length; i++) {
+        let fav = currentUser.Favorites[i].id;
+        allFavorites.push(fav);
+      }
+      setArrayFavorite(allFavorites);
     }
-    setArrayReaded(allReaded)
-    }
-   },[ currentUser])
-   console.log("Array READED",arrayReaded)
+  }, [currentUser]);
 
-   // carga los reading
-   useEffect(()=>{
-    if(currentUser){
-    const userReading = currentUser.Reading
-    let allReading=[]
-  
-    for (let i=0; i<currentUser.Reading.length; i++){
-     let reading= currentUser.Reading[i].id
-     allReading.push(reading)
+  console.log("Array FAVORITES", arrayFavorite);
+
+  // carga los readed
+  useEffect(() => {
+    if (currentUser) {
+      const userReaded = currentUser.Read;
+
+      let allReaded = [];
+
+      for (let i = 0; i < currentUser.Read?.length; i++) {
+        let read = currentUser.Read[i].id;
+        allReaded.push(read);
+      }
+      setArrayReaded(allReaded);
     }
-    setArrayReading(allReading)
+  }, [currentUser]);
+  console.log("Array READED", arrayReaded);
+
+  // carga los reading
+  useEffect(() => {
+    if (currentUser) {
+      const userReading = currentUser.Reading;
+      let allReading = [];
+
+      for (let i = 0; i < currentUser.Reading?.length; i++) {
+        let reading = currentUser.Reading[i].id;
+        allReading.push(reading);
+      }
+      setArrayReading(allReading);
     }
-   },[ currentUser])
-   console.log("Array READING",arrayReading)
+  }, [currentUser]);
+  console.log("Array READING", arrayReading);
 
   return (
     <div>
@@ -182,13 +175,11 @@ export default function Home() {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
-
                     arrayFavorite={arrayFavorite}
                     arrayReaded={arrayReaded}
                     arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
-
                   />
                 );
               })}
@@ -218,13 +209,11 @@ export default function Home() {
                       back_cover={b.back_cover}
                       modal={modal}
                       setModal={setModal}
-
                       arrayFavorite={arrayFavorite}
                       arrayReaded={arrayReaded}
                       arrayReading={arrayReading}
                       readChange={readChange}
                       read={read}
-
                     />
                   );
                 })}
@@ -253,13 +242,11 @@ export default function Home() {
                       back_cover={b.back_cover}
                       modal={modal}
                       setModal={setModal}
-
                       arrayFavorite={arrayFavorite}
                       arrayReaded={arrayReaded}
                       arrayReading={arrayReading}
                       readChange={readChange}
                       read={read}
-
                     />
                   );
                 })}
@@ -270,10 +257,8 @@ export default function Home() {
       </div>
     </div>
   );
-};
-
+}
 
 /* export default withAuthenticationRequired(Home, {
   onRedirecting: () => <LandingPage />,
 }); */
-
