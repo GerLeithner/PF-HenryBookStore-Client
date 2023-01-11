@@ -84,7 +84,7 @@ export default function Home() {
       let allReaded = [];
       let allReading = [];
 
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
+      for (let i = 0; i < currentUser.Favorites?.length; i++) {
         let fav = currentUser.Favorites[i].id;
         allFavorites.push(fav);
       }

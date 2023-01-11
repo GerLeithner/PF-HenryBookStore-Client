@@ -28,6 +28,7 @@ export default function UserTable() {
   const [header, setHeader] = useState("ALL USERS");
 
   const [modal, setModal] = useState(false);
+  const [changed, setChanged] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [usersXPage] = useState(20);
@@ -40,7 +41,12 @@ export default function UserTable() {
 
   useEffect(() => {
     dispatch(getAllUsers());
+    if (!modal) {
+      setChanged(!changed);
+    }
   }, [dispatch, modal]);
+
+  console.log("Changed: ", changed);
 
   const paginado = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= countPages) setCurrentPage(pageNumber);

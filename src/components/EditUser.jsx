@@ -48,8 +48,8 @@ export default function EditUser({ setModal }) {
       toast.warning(
         user.banned ? "Account has been activated" : "Account has been disabled"
       );
-      setModal(false);
     }
+    setModal(false);
   }
 
   return (
