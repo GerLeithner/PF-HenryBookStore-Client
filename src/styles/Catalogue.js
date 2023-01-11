@@ -12,6 +12,7 @@ export const SideBarContainer = styled.div`
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  /* overflow-y: scroll; */
 `;
 
 export const SelectFilters = styled.div`

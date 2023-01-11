@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
+import SubscribeNav from "./SubscribeNav.jsx";
 
 import {
   getAuthors,
@@ -18,6 +19,7 @@ import {
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
+
 
 
 export default function Home() {
@@ -78,7 +80,6 @@ export default function Home() {
     }
   }, [dispatch]);
 
-
   // carga los favs
   useEffect(()=>{
     if(currentUser){
@@ -96,8 +97,6 @@ export default function Home() {
     setArrayFavorite(allFavorites)
     }
    },[ currentUser])
-   
-   console.log("Array FAVORITES",arrayFavorite)
 
    // carga los readed
    useEffect(()=>{
@@ -114,7 +113,6 @@ export default function Home() {
     setArrayReaded(allReaded)
     }
    },[ currentUser])
-   console.log("Array READED",arrayReaded)
 
    // carga los reading
    useEffect(()=>{
@@ -129,12 +127,12 @@ export default function Home() {
     setArrayReading(allReading)
     }
    },[ currentUser])
-   console.log("Array READING",arrayReading)
 
   return (
     <div>
       <div>
         <div>
+          <SubscribeNav />
           {recomended && recomended.length && (
             <Carousel
               key="recomended"

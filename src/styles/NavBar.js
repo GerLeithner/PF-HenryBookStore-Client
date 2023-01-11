@@ -12,7 +12,7 @@ export const ContainerNavBar = styled.div`
   flex-direction: row;
   justify-content: space-between;   
   align-items: center;
-  margin: 0px
+  margin: 0px;
 `;
 
 export const SubContainerNavBar = styled.div`
