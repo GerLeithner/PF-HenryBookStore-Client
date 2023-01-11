@@ -1,11 +1,11 @@
 import styled from "styled-components";
 
 export const AccoutContainer = styled.div`
-    margin: 0px;
-    padding: 60px 20px 20px 270px;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  margin: 0px;
+  padding: 60px 20px 20px 270px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const OptionsContainer = styled.div`

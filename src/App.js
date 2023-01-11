@@ -14,10 +14,11 @@ import MyLibrary from "./components/MyLibrary";
 import ProtectedRoute from "./auth/protected-route";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
+import SubscribeNav from "./components/SubscribeNav";
 
 // axios.defaults.baseURL='http://localhost:3001'
-axios.defaults.baseURL =
-  "https://pf-henrybookstore-api-production.up.railway.app";
+// axios.defaults.baseURL =
+//   "https://pf-henrybookstore-api-production.up.railway.app";
 
 function App() {
   return (
@@ -44,7 +45,8 @@ function App() {
       <Route exact path="/users" component={UsersTable} />
       <Route exact path="/profile" component={UsersProfile} />
       <Route exact path="/library" component={MyLibrary} />
-      <ToastContainer
+      {/* <Route path={["/home", "/catalogue", "/library",]} component={SubscribeNav} /> */}
+      <ToastContainer 
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={true}

@@ -53,7 +53,14 @@ export default function UserProfile() {
   const [showButton, setShowButton] = useState(false);
   const [plan, setPlan] = useState("");
 
-  console.log("subscription: ", subscription);
+
+  const paypalStyle =  {
+    shape: "rect",
+    color: "silver",
+    layout: "vertical",
+    label: "paypal",
+    tagline: "false"
+  }
 
   useEffect(() => {
     if (user) {
@@ -429,6 +436,7 @@ export default function UserProfile() {
                 currentUser={currentUser}
                 key={plan}
                 showButton={showButton}
+                style={paypalStyle}
               />
             </div>
           </SubscriptionOptions>
