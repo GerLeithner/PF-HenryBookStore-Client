@@ -6,6 +6,7 @@ import {
   getUserById,
   sortUsersByName,
   filterUsersByStatus,
+  filterUsersBySubscription,
 } from "../redux/actions";
 
 import EditUser from "./EditUser";
@@ -78,6 +79,11 @@ export default function UserTable() {
     if (e.target.name === "Filter By Status") {
       dispatch(filterUsersByStatus(e.target.innerText));
     }
+
+    if (e.target.name === "Subscriptions") {
+      dispatch(filterUsersBySubscription(e.target.innerText));
+    }
+
     setFilter({ name: e.target.name, option: e.target.innerText });
     setHeader(`USERS - ${e.target.name} - ${e.target.innerText}`);
     setCurrentPage(1);
@@ -110,7 +116,7 @@ export default function UserTable() {
           />
           <SortOrFilter
             name="Subscriptions"
-            options={["One Month", "Six Months", "A Year"]}
+            options={["One month", "Six months", "One year"]}
             onButton={handleFilter}
           />
         </SelectFilters>

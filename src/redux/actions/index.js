@@ -275,6 +275,13 @@ export function filterUsersByStatus(payload) {
   };
 }
 
+export function filterUsersBySubscription(payload) {
+  return {
+    type: "FILTER_USERS_BY_SUBSCRIPTION",
+    payload,
+  };
+}
+
 export function cleanUserDetail() {
   return {
     type: "CLEAN_USER_DETAIL",
