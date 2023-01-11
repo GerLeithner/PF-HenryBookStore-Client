@@ -22,7 +22,7 @@ import readedIcon from "../icons/readedIcon.svg";
 import readedIconFill from "../icons/readedIconFill.svg";
 import reviewIcon from "../icons/reviewIcon.svg";
 import bookIcon from "../icons/bookIcon.svg";
-import bookHalfIcon from "../icons/bookHalfIcon.svg"
+import bookHalfIcon from "../icons/bookHalfIcon.svg";
 import {
   CardImg,
   UlCard,
@@ -33,11 +33,16 @@ import {
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading }) {
+
+export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading, readChange, read }) {
+// const [open, setOpen] = useState(false);
  
 
   // console.log("includes", id, "?", arrayFavorite.includes(id))
+
 
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -95,6 +100,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
 
 
 
+
   function handleClick(e) {
     e.preventDefault(e);
     setModal(true);
@@ -114,73 +120,82 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   const book = useSelector((state) => state.bookDetail);
   
 
+
   const userId={userId:currentUser && currentUser.id};
   
+
 
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
+
     
     if(!favorite){
       console.log("Entré a add favorite, bookId:", id);
       setFavorite(true);
       console.log("FAV+",favorite)
 
+
       dispatch(addFavorite(id, userId));
-      
+
+      toast.success("Book added to your favorites");
     }
+
     if(favorite){
       console.log("Entré a delete favorite, bookId:", id);
       setFavorite(false);
       console.log("FAV-",favorite)
+
       dispatch(deleteFavorite(id, userId));
-      
+
+      toast.warning("Book removed from your favorites");
     }
-    
   }
-  
+
   function handleReaded(id, userId) {
-    
     // console.log("e.target.value",e.target.value)
+
     
     if(!readed){
       console.log("Entré a add readed :", id);
       setReaded(true);
       console.log("READ+",readed)
       
+
       dispatch(addReaded(id, userId));
-      
     }
+
     if(readed){
       console.log("Entré a delete readed :", id);
       setReaded(false);
       console.log("READ-",readed)
+
       dispatch(deleteReaded(id, userId));
-      
     }
-    
   }
 
   function handleReading(id, userId) {
-    
     // console.log("e.target.value",e.target.value)
+
     
     if(!reading){
       console.log("Entré a add reading :", id);
       setReading(true);
       console.log("READ+",reading)
       
+
       dispatch(addReading(id, userId));
-      
     }
+
     if(reading){
       console.log("Entré a delete reading :", id);
       setReading(false);
       console.log("READ-",reading)
+
       dispatch(deleteReading(id, userId));
-      
     }
-    
+
+    setTimeout(() => readChange(!read), 300);
   }
 
   return (
@@ -194,25 +209,51 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
             handleClick(id);
           }}
         />
-        <MenuConteiner >
+        <MenuConteiner>
           {/* <MenuTrigger
             onMouseOver={handleMouseOver} >
             <img src={caretIcon} />
           </MenuTrigger> */}
-          <DropDownMenu 
-            className={`dropdown-menu ${isHovering ? "active" : "inactive"}`} 
+          <DropDownMenu
+            className={`dropdown-menu ${isHovering ? "active" : "inactive"}`}
           >
-            <UlCard  >
+            <UlCard>
               {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
-              <DropdownItem icon={!reading ? bookIcon: bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
-              <DropdownItem icon={!readed ? readedIcon: readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
-              <DropdownItem icon={!favorite ? favoriteIcon: favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
+
+              <DropdownItem
+                key={id + "1"}
+                icon={!reading ? bookIcon : bookHalfIcon}
+                value={id}
+                handle={(e) => {
+                  handleReading(id, userId);
+                }}
+                role="button"
+              />
+              <DropdownItem
+                key={id + "2"}
+                icon={!readed ? readedIcon : readedIconFill}
+                value={id}
+                handle={(e) => {
+                  handleReaded(id, userId);
+                }}
+                role="button"
+              />
+              <DropdownItem
+                key={id + "3"}
+                icon={!favorite ? favoriteIcon : favoriteFillIcon}
+                value={id}
+                name={book.title}
+                handle={(e) => {
+                  handleFavorite(id, userId);
+                }}
+                role="button"
+              />
+
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>
       </ImgContainer>
       {/* onpointerleave={()=>{setOpen(!open)}} */}
-
     </div>
   );
 }
@@ -220,7 +261,13 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
 function DropdownItem(props) {
   return (
     <li>
-      <img src={props.icon} alt="n" role="button" onClick={props.handle} value={props.id}/>
+      <img
+        src={props.icon}
+        alt="n"
+        role="button"
+        onClick={props.handle}
+        value={props.id}
+      />
     </li>
   );
 }

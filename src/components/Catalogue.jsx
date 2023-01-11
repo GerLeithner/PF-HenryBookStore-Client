@@ -24,6 +24,7 @@ import { H3Form } from "../styles/CreateBook";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
+
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const currentUser = useSelector((state) => state.currentUser);
@@ -40,10 +41,12 @@ const Catalogue = () => {
     dispatch(getBooks());
   }, [dispatch]);
 
+
   const [, setSort] = useState({ name: "", option: ""});
   const [, setFilter] = useState({ name: "", option: ""});
-  const [header, setHeader] = useState("ALL BOOKS");
+  const [modal, setModal] = useState(false);  
 
+  const [header, setHeader] = useState("ALL BOOKS");
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
 
@@ -55,6 +58,7 @@ const Catalogue = () => {
   const paginado = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= countPages2) setCurrentPage(pageNumber);
   };
+
 
 
   // carga los favs
@@ -108,6 +112,7 @@ const Catalogue = () => {
     }
    },[ dispatch,currentUser])
    console.log("Array READING",arrayReading)
+
 
 
   function handleClick(e) {
@@ -181,16 +186,43 @@ const Catalogue = () => {
           />
         </SelectFilters>
       </SideBarContainer>
-      <BooksContainer>
-        <div>
-          <Paged
-            booksPerPage={booksPerPage}
-            allBooks={allBooks.length}
-            paginado={paginado}
-            currentPage={currentPage}
-          />
-        <div/>
+      { currentUser ? 
+        <BooksContainer>
+          <div>
+            <Paged
+              booksPerPage={booksPerPage}
+              allBooks={allBooks.length}
+              paginado={paginado}
+              currentPage={currentPage}
+            />
+          <div/>
+          </div>
+          <ContainerCards>
+            {currentBook?.map((b) => {
+              return (
+                <div key={b.id}>
+                  <Card
+                    id={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                </div>
+              );
+            })}
+          </ContainerCards>
+        </BooksContainer> 
+      :
+        <div style={{paddingTop: "200px", paddingLeft: "180px"}}>
+          <H3Form>LOADING...</H3Form>
         </div>
+
         <ContainerCards>
           {currentBook?.map((b) => {
             return (
@@ -216,6 +248,7 @@ const Catalogue = () => {
           })}
         </ContainerCards>
       </BooksContainer>
+
     </div>
   );
 };
