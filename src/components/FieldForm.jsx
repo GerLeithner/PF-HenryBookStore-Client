@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 import { editUser } from "../redux/actions";
 
@@ -32,10 +33,12 @@ export default function FieldForm({
 
     if (input) {
       dispatch(editUser({ id, [propName]: input }));
-      alert(`The ${fieldName} has been edited`);
+      toast.success(`The ${fieldName} has been updated`, {
+        position: "top-right",
+      });
 
       setInput("");
-      setUserName(false)
+      setUserName(false);
     }
   }
 
@@ -43,7 +46,7 @@ export default function FieldForm({
     e.preventDefault();
 
     setInput("");
-    setUserName(false)
+    setUserName(false);
   }
 
   return (

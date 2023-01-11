@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { 
+import {
   getAllUsers,
   getUserById,
-  sortUsersByName, 
-  filterUsersByStatus, 
+  sortUsersByName,
+  filterUsersByStatus,
 } from "../redux/actions";
 
 import EditUser from "./EditUser";
@@ -17,7 +17,6 @@ import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
 import { BooksContainer, Table } from "../styles/BooksTable";
 import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
-
 
 export default function UserTable() {
   const dispatch = useDispatch();
@@ -59,7 +58,7 @@ export default function UserTable() {
   function handleSort(e) {
     e.preventDefault();
 
-    if(e.target.name === "Sort By Name") {
+    if (e.target.name === "Sort By Name") {
       dispatch(sortUsersByName(e.target.innerText));
     }
     setSort({ name: e.target.name, option: e.target.innerText });
@@ -70,7 +69,7 @@ export default function UserTable() {
   function handleFilter(e) {
     e.preventDefault();
 
-    if(e.target.name === "Filter By Status") {
+    if (e.target.name === "Filter By Status") {
       dispatch(filterUsersByStatus(e.target.innerText));
     }
     setFilter({ name: e.target.name, option: e.target.innerText });
@@ -81,7 +80,7 @@ export default function UserTable() {
   function handleEditUser(e) {
     e.preventDefault();
 
-    dispatch(getUserById(e.target.value))
+    dispatch(getUserById(e.target.value));
     setModal(true);
     window.scrollTo(0, 0);
   }
@@ -93,39 +92,39 @@ export default function UserTable() {
           RELOAD USERS
         </SideButton>
         <SelectFilters>
-          <SortOrFilter 
-            name="Sort By Name" 
-            options={["Ascending", "Descending"]} 
+          <SortOrFilter
+            name="Sort By Name"
+            options={["Ascending", "Descending"]}
             onButton={handleSort}
           />
-          <SortOrFilter 
-            name="Filter By Status" 
+          <SortOrFilter
+            name="Filter By Status"
             options={["Active", "Disabled"]}
-            onButton={handleFilter} 
+            onButton={handleFilter}
           />
-          <SortOrFilter 
-            name="Subscriptions" 
+          <SortOrFilter
+            name="Subscriptions"
             options={["One Month", "Six Months", "A Year"]}
-            onButton={handleFilter} 
-          />
-          <SortOrFilter 
-            name="Payment Mod" 
-            options={["Mod 1", "Mod 2", "Mod 3", "Mod 4"]}
-            onButton={handleFilter} 
+            onButton={handleFilter}
           />
         </SelectFilters>
       </SideBarContainer>
       <BooksContainer>
-        { modal && 
-        <>
-          <H3Form margenIzq="0px">EDIT USER</H3Form>
-          <EditUser setModal={setModal}/> 
-        </>
-        }
-        <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "60%"}}>
-          <H3Form margenIzq="0px">
-            {header}
-          </H3Form>
+        {modal && (
+          <>
+            <H3Form margenIzq="0px">EDIT USER</H3Form>
+            <EditUser setModal={setModal} />
+          </>
+        )}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "60%",
+          }}
+        >
+          <H3Form margenIzq="0px">{header}</H3Form>
           <TablePaged
             usersXPage={usersXPage}
             allUsers={allUsers.length}
@@ -134,39 +133,47 @@ export default function UserTable() {
           />
         </div>
         <Table>
-          <thead style={{backgroundColor: "#ccc", height: "30px"}}>
-            <tr style={{height: "40px"}}>
+          <thead style={{ backgroundColor: "#ccc", height: "30px" }}>
+            <tr style={{ height: "40px" }}>
               <th>User Name</th>
               <th>Email</th>
               <th>Subscription</th>
-              <th>Payment Mod</th>
               <th>Act. Date</th>
               <th>Exp. Date</th>
               <th>Status</th>
             </tr>
           </thead>
           <tbody>
-            { currentUsers?.map(user => {
-              return(
-                <tr key={user.id} style={{height: "40px"}}>
+            {currentUsers?.map((user) => {
+              return (
+                <tr key={user.id} style={{ height: "40px" }}>
                   <td>
-                    <PagedButton value={user.id} onClick={(e) => handleEditUser(e)}>
+                    <PagedButton
+                      value={user.id}
+                      onClick={(e) => handleEditUser(e)}
+                    >
                       {user.userName}
                     </PagedButton>
                   </td>
                   <td>{user.email}</td>
-                  <td>One month</td>
-                  <td>mod 1</td>
-                  <td>dd/mm/yyyy</td>
-                  <td>dd/mm/yyyy</td>
-                  <td>{user.active ? "active" : "disabled"}</td>
+                  <td>
+                    {user.subscription
+                      ? user.subscription.plan
+                      : "Not subscribed"}
+                  </td>
+                  <td>
+                    {user.subscription ? user.subscription.startDate : "-"}
+                  </td>
+                  <td>
+                    {user.subscription ? user.subscription.finishDate : "-"}
+                  </td>
+                  <td>{!user.banned ? "active" : "disabled"}</td>
                 </tr>
-              )
+              );
             })}
           </tbody>
         </Table>
       </BooksContainer>
-
     </div>
   );
 }

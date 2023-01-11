@@ -34,7 +34,7 @@ export default function LandingPage() {
   const currentUser = useSelector((state) => state.currentUser);
   const recomended = useSelector((state) => state.recomended);
 
-  const { isAuthenticated, user } = useAuth0();
+  const { isAuthenticated, user, logout } = useAuth0();
 
   useEffect(() => {
     if (!isAuthenticated && currentUser) {
@@ -78,6 +78,11 @@ export default function LandingPage() {
     history.push("/home");
   }
 
+  function banned() {
+    alert("This account has been banned");
+    logout({ returnTo: window.location.origin });
+  }
+
   return (
     <BackgroundConteiner>
       <BoxContainer>
@@ -93,10 +98,12 @@ export default function LandingPage() {
             promotionalBooks.map((e) => <H4Landing>{e}</H4Landing>)}
         </PromotionalConteiner>
         <ButtonsConteiner>
-          { isAuthenticated && currentUser && currentUser.active &&
-            redirectHome()
-          }
-          { isAuthenticated && currentUser && !currentUser.active && 
+          {isAuthenticated &&
+            currentUser &&
+            currentUser.active &&
+            !currentUser.banned &&
+            redirectHome()}
+          {isAuthenticated && currentUser && !currentUser.active && (
             <>
               <div>
                 The current account has been disabled, please activate it to
@@ -107,10 +114,14 @@ export default function LandingPage() {
               </ButtonCatalogue>
               <Logout />
             </>
-          }
-          { !isAuthenticated && 
-            <Login />
-          } 
+          )}
+          {isAuthenticated && currentUser && currentUser.banned && banned() && (
+            <>
+              <div></div>
+              <Logout />
+            </>
+          )}
+          {!isAuthenticated && <Login />}
         </ButtonsConteiner>
       </BoxContainer>
     </BackgroundConteiner>

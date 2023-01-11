@@ -27,6 +27,7 @@ import {
   SubscriptionOptions,
   PlanSelect,
 } from "../styles/UserProfile";
+import { toast } from "react-toastify";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ export default function UserProfile() {
   });
 
   const [userName, setUserName] = useState(false);
-  const [loadingPic, setLoadingPic] =useState(false)
+  const [loadingPic, setLoadingPic] = useState(false);
   const [subscription, setSubscription] = useState(false);
   const [cosito, setCosito] = useState(false);
 
@@ -52,6 +53,7 @@ export default function UserProfile() {
   const [showButton, setShowButton] = useState(false);
   const [plan, setPlan] = useState("");
 
+
   const paypalStyle =  {
     shape: "rect",
     color: "silver",
@@ -60,9 +62,8 @@ export default function UserProfile() {
     tagline: "false"
   }
 
-
   useEffect(() => {
-    if(user) {
+    if (user) {
       const { email, nickname } = user;
       const userDb = {
         email,
@@ -70,23 +71,22 @@ export default function UserProfile() {
       };
       dispatch(getCurrentUser(userDb));
     }
-
   }, [dispatch, userName, notifications, cosito]);
 
   useEffect(() => {
-      if(user && subscription) {
-        const { email, nickname } = user;
-        const userDb = {
-          email,
-          nickname,
-        };
-        dispatch(getCurrentUser(userDb));
-      }
-      if(currentUser?.subscription) {
-        setSubscription(false);
-        setShowButton(false);
-      }
-  },[currentUser, subscription]);
+    if (user && subscription) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
+    if (currentUser?.subscription) {
+      setSubscription(false);
+      setShowButton(false);
+    }
+  }, [currentUser, subscription]);
 
   function editSubscription(value) {
     setSubscription(value);
@@ -110,7 +110,6 @@ export default function UserProfile() {
     setUserName(false);
     setLoadingPic(true);
 
-
     if (e.target.files[0]) {
       const imageRef = ref(storage, `${currentUser.id}/profilePic`);
       await uploadBytes(imageRef, e.target.files[0]).then(() => {
@@ -118,10 +117,12 @@ export default function UserProfile() {
           dispatch(editUser({ id: currentUser.id, profilePic: url }));
           // currentUser.profilePic = url;
           setLoadingPic(false);
-          setCosito(!cosito)
+          setCosito(!cosito);
         });
       });
     }
+
+    toast.success("Profile Pice Updated", { position: "top-right" });
   }
 
   function handlePasswordChange(e) {
@@ -133,14 +134,20 @@ export default function UserProfile() {
   function handleDisable(e) {
     e.preventDefault();
 
-    dispatch(
-      editUser({
-        id: currentUser.id,
-        active: false,
-      })
-    );
-    alert("The account has been disable");
-    logout({ returnTo: window.location.origin });
+    if (
+      window.confirm(
+        "Are you sure you want to disable your account? You can reenable it later"
+      )
+    ) {
+      dispatch(
+        editUser({
+          id: currentUser.id,
+          active: false,
+        })
+      );
+      alert("The account has been disable");
+      logout({ returnTo: window.location.origin });
+    }
   }
 
   function handleDownfall(e) {
@@ -218,17 +225,17 @@ export default function UserProfile() {
           <FilterHead>Configurations</FilterHead>
         </div>
       </SideBarContainer>
-      { currentUser ? 
+      {currentUser ? (
         <AccoutContainer>
           <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
             <H3Form margenIzq="0px">ACCOUNT OPTIONS</H3Form>
             <OptionsContainer name="account options">
               <ImageAndInfo>
-                  <div style={{width:"150px"}}>
-                    <ProfilePic src={currentUser.profilePic} /> 
-                  </div>
+                <div style={{ width: "150px" }}>
+                  <ProfilePic src={currentUser.profilePic} />
+                </div>
                 <InfoContainer>
-                  {!userName? 
+                  {!userName ? (
                     <FiledAndButton>
                       <Field>
                         <div>User Name</div>
@@ -243,7 +250,7 @@ export default function UserProfile() {
                         Change
                       </EditFieldButton>
                     </FiledAndButton>
-                  :
+                  ) : (
                     <FieldForm
                       setUserName={setUserName}
                       id={currentUser?.id}
@@ -251,7 +258,7 @@ export default function UserProfile() {
                       propName={form.propName}
                       propValue={form.propValue}
                     />
-                  }
+                  )}
                   <FiledAndButton>
                     <Field>
                       <div>Email</div>
@@ -270,24 +277,22 @@ export default function UserProfile() {
                   </FiledAndButton>
                 </InfoContainer>
               </ImageAndInfo>
-              <FiledAndButton>    
+              <FiledAndButton>
                 <Field>
                   <div>Profile Picture</div>
-                  { loadingPic && 
-                    <H3Form>Cargando...</H3Form>
-                  }
+                  {loadingPic && <H3Form>Cargando...</H3Form>}
                 </Field>
                 <ProfilePicInput>
                   Change
                   <input
-                    style={{width: "0px", height: "0px"}}
+                    style={{ width: "0px", height: "0px" }}
                     text="Change"
                     type="file"
                     accept="image/png, image/jpeg"
                     onChange={(e) => handlePicChange(e)}
                   />
                 </ProfilePicInput>
-              </FiledAndButton>   
+              </FiledAndButton>
             </OptionsContainer>
           </div>
           <OptionsContainer name="notifications options">
@@ -348,7 +353,9 @@ export default function UserProfile() {
                 <Field>
                   <div>New books aviable on library</div>
                   <div>
-                    {currentUser?.notifications.newBooks ? "ACTIVE" : "DISABLED"}
+                    {currentUser?.notifications.newBooks
+                      ? "ACTIVE"
+                      : "DISABLED"}
                   </div>
                 </Field>
                 <div style={{ width: "120px" }}>
@@ -364,44 +371,45 @@ export default function UserProfile() {
           </OptionsContainer>
           <SubscriptionOptions name="subcription options">
             <InfoContainer gap="25px">
-              <div style={{ display: "flex", flexDirection: "row", gap: "50px" }}>
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "50px" }}
+              >
                 <Field>
                   <div>Active Date</div>
                   <div>
-                  { currentUser.subscription ? 
-                    currentUser.subscription.startDate
-                    : 
-                    "-" }
+                    {currentUser.subscription
+                      ? currentUser.subscription.startDate
+                      : "-"}
                   </div>
-                </Field>            
-                { currentUser.subscription ? 
+                </Field>
+                {currentUser.subscription ? (
                   <Field>
                     <div>Subcription</div>
                     <div>ACTIVE</div>
-                  </Field>  
-                : 
+                  </Field>
+                ) : (
                   <Field>
-                    <div style={{width: "100%"}}>SUBSCRIBE!</div> 
-                  </Field> 
-                }
+                    <div style={{ width: "100%" }}>SUBSCRIBE!</div>
+                  </Field>
+                )}
               </div>
-              <div style={{ display: "flex", flexDirection: "row", gap: "50px" }}>
+              <div
+                style={{ display: "flex", flexDirection: "row", gap: "50px" }}
+              >
                 <Field>
                   <div>Finish Date</div>
                   <div>
-                  { currentUser?.subscription ? 
-                    currentUser.subscription.finishDate
-                    : 
-                    "-"
-                  }
+                    {currentUser?.subscription
+                      ? currentUser.subscription.finishDate
+                      : "-"}
                   </div>
                 </Field>
-                { currentUser.subscription?
-                    <Field>
-                      <div>Plan</div>
-                      <div>{currentUser?.subscription?.plan}</div>
-                    </Field>
-                  :
+                {currentUser.subscription ? (
+                  <Field>
+                    <div>Plan</div>
+                    <div>{currentUser?.subscription?.plan}</div>
+                  </Field>
+                ) : (
                   <Field>
                     <div style={{ width: "100%" }}>
                       <PlanSelect onChange={(e) => handlePlan(e)}>
@@ -411,12 +419,14 @@ export default function UserProfile() {
                             : "Select Plan"}
                         </option>
                         <option value="One month">One Month USD$ 6.99</option>
-                        <option value="Six months">Six Months USD$ 35.99</option>
+                        <option value="Six months">
+                          Six Months USD$ 35.99
+                        </option>
                         <option value="One year">One Year USD$ 62.99</option>
-                      </PlanSelect> 
+                      </PlanSelect>
                     </div>
                   </Field>
-                }
+                )}
               </div>
             </InfoContainer>
             <div style={{ height: "80px", paddingTop: "2px", width: "270px" }}>
@@ -430,7 +440,8 @@ export default function UserProfile() {
               />
             </div>
           </SubscriptionOptions>
-          <div name="butons"
+          <div
+            name="butons"
             style={{
               display: "flex",
               flexDirection: "row",
@@ -455,11 +466,11 @@ export default function UserProfile() {
             </ButtonDisable>
           </div>
         </AccoutContainer>
-        :
-        <div style={{paddingTop: "200px", paddingLeft: "180px"}}>
+      ) : (
+        <div style={{ paddingTop: "200px", paddingLeft: "180px" }}>
           <H3Form>LOADING...</H3Form>
         </div>
-      }
+      )}
     </>
   );
 }

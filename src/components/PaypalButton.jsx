@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { activateSubscription } from "../redux/actions";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import { toast } from "react-toastify";
 
 const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
+
 export default function PaypalButton({ editSubscription, plan, currentUser, showButton, style }) {
+
   const dispatch = useDispatch();
 
   let planId;
@@ -18,12 +21,11 @@ export default function PaypalButton({ editSubscription, plan, currentUser, show
   }
 
   useEffect(() => {
-    if(approbed) {
+    if (approbed) {
       dispatch(activateSubscription(userId, plan));
       editSubscription(true);
     }
   }, [approbed]);
-
 
   switch (plan) {
     case "One month":
@@ -38,7 +40,6 @@ export default function PaypalButton({ editSubscription, plan, currentUser, show
     default:
       break;
   }
-
 
   return (
     <PaypalContainer showButton={showButton}>
@@ -58,6 +59,7 @@ export default function PaypalButton({ editSubscription, plan, currentUser, show
           }}
           onApprove={(data, actions) => {
             setApprobed(true);
+            toast.success("You are now subscribed!", { position: "top-right" });
           }}
         />
       </PayPalScriptProvider>
@@ -69,8 +71,8 @@ const PaypalContainer = styled.div`
   visibility: ${({showButton}) => showButton ? "visible" : "collapse"};
   position: relative;
   z-index: 0;
-`;
 
+`;
 
 /* actions.subscription.capture().then((details) => {
   const name = details.payer.name.given_name;

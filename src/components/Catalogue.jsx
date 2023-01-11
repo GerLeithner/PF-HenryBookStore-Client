@@ -203,6 +203,9 @@ const Catalogue = () => {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
+                    arrayFavorite={arrayFavorite}
+                    arrayReaded={arrayReaded}
+                    arrayReading={arrayReading}
                   />
                 </div>
               );

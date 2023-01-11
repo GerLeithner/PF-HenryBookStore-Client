@@ -1,7 +1,8 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
-// const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
+//const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
 const deployUrl = "http://localhost:3001";
 
 // ------------------- BOOK CRUD ------------------------------------
@@ -266,7 +267,10 @@ export function changePassword(user) {
         { headers: { "content-type": "application/json" } }
       )
       .then((data) => {
-        alert("An email with password reset instructions has been sent to you");
+        toast.warning(
+          "An email with password reset instructions has been sent to you",
+          { position: "top-right" }
+        );
       });
     return {
       type: "CHANGE_PASSWORD",
