@@ -42,8 +42,9 @@ export default function UserProfile() {
   });
 
   const [userName, setUserName] = useState(false);
-  const [profilePic, setProfilePic] = useState(false);
-  const [subscription, setSubscription] = useState("");
+  const [loadingPic, setLoadingPic] =useState(false)
+  const [subscription, setSubscription] = useState(false);
+  const [cosito, setCosito] = useState(false);
 
   const [downfall, setDownfal] = useState(false);
   const [notifications, setNotifications] = useState(false);
@@ -64,7 +65,7 @@ export default function UserProfile() {
       dispatch(getCurrentUser(userDb));
     }
 
-  }, [dispatch, userName, notifications, profilePic]);
+  }, [dispatch, userName, notifications, cosito]);
 
   useEffect(() => {
       if(user && subscription) {
@@ -81,15 +82,12 @@ export default function UserProfile() {
       }
   },[currentUser, subscription]);
 
-
   function editSubscription(value) {
     setSubscription(value);
   }
 
   function handleUserName(e) {
     e.preventDefault();
-
-    setProfilePic(false);
 
     setForm({
       fieldName: e.target.title,
@@ -104,14 +102,17 @@ export default function UserProfile() {
     e.preventDefault();
 
     setUserName(false);
-    setProfilePic(true);
+    setLoadingPic(true);
+
 
     if (e.target.files[0]) {
       const imageRef = ref(storage, `${currentUser.id}/profilePic`);
       await uploadBytes(imageRef, e.target.files[0]).then(() => {
         getDownloadURL(imageRef).then((url) => {
           dispatch(editUser({ id: currentUser.id, profilePic: url }));
-          setProfilePic(false);
+          // currentUser.profilePic = url;
+          setLoadingPic(false);
+          setCosito(!cosito)
         });
       });
     }
@@ -217,11 +218,9 @@ export default function UserProfile() {
             <H3Form margenIzq="0px">ACCOUNT OPTIONS</H3Form>
             <OptionsContainer name="account options">
               <ImageAndInfo>
-                { currentUser.profilePic ? (
-                  <ProfilePic src={currentUser?.profilePic} />
-                ) : (
-                  <ProfilePic src="https://thepowerofthedream.org/wp-content/uploads/2015/09/generic-profile-picture.jpg" />
-                )}
+                  <div style={{width:"150px"}}>
+                    <ProfilePic src={currentUser.profilePic} /> 
+                  </div>
                 <InfoContainer>
                   {!userName? 
                     <FiledAndButton>
@@ -268,7 +267,7 @@ export default function UserProfile() {
               <FiledAndButton>    
                 <Field>
                   <div>Profile Picture</div>
-                  { profilePic && 
+                  { loadingPic && 
                     <H3Form>Cargando...</H3Form>
                   }
                 </Field>

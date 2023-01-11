@@ -38,7 +38,7 @@ export default function NavBar() {
       dispatch(getCurrentUser(userDb));
     }
 
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated ]);
 
   return (
     <div>
