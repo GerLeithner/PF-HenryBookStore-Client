@@ -37,7 +37,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading, readChange, read }) {
+export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading, readChange, read, favorites, favoritesChange, readeds, readedsChange }) {
 // const [open, setOpen] = useState(false);
  
 
@@ -150,6 +150,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
 
       toast.warning("Book removed from your favorites");
     }
+    setTimeout(() => favoritesChange(!favorites), 300);
   }
 
   function handleReaded(id, userId) {
@@ -163,6 +164,7 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       
 
       dispatch(addReaded(id, userId));
+      toast.success("Book mark as readed");
     }
 
     if(readed){
@@ -171,7 +173,9 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       console.log("READ-",readed)
 
       dispatch(deleteReaded(id, userId));
+      toast.warning("Book mark as unread");
     }
+    setTimeout(() => readedsChange(!readeds), 300);
   }
 
   function handleReading(id, userId) {
@@ -185,6 +189,8 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       
 
       dispatch(addReading(id, userId));
+
+      toast.warning("Book mark as reading");
     }
 
     if(reading){
@@ -193,9 +199,12 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
       console.log("READ-",reading)
 
       dispatch(deleteReading(id, userId));
+      toast.warning("Book mark as unreading");
     }
 
     setTimeout(() => readChange(!read), 300);
+   
+   
   }
 
   return (
