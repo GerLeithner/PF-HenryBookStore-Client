@@ -56,7 +56,7 @@ export const PropAndInput = styled.div`
 `;
 
 export const FormInput = styled.input`
-  height: 23px;
+  height: 25px;
   width: ${({ ancho }) => ancho || "675px"};
   margin-left: ${({ margen }) => margen || "20px"};
   border: 1.5px solid #ccc;
@@ -155,5 +155,17 @@ export const ButtonForm = styled.button`
 
   &:active {
     transform: translateY(-1px);
+  }
+`;
+
+export const BookCoverInput = styled.label`
+  height: 25px;
+  padding: 0px 60px 0px 60px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+
+  &:hover {
+    background-color: green;
+    color: white
   }
 `;
