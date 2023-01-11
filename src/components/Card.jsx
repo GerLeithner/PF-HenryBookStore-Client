@@ -62,12 +62,12 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
     if(arrayFavorite.includes(id)){
       
       setFavorite(true)
-      console.log("SETIE EL FAV", true)
+      // console.log("SETIE EL FAV", true)
       
     }else if(!arrayFavorite.includes(id)){
-      console.log("FAV-", false)
+      // console.log("FAV-", false)
       setFavorite(false)
-      console.log("SETIE EL FAV",false)
+      // console.log("SETIE EL FAV",false)
     }
   },[dispatch, arrayFavorite])
 
@@ -76,12 +76,12 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
     if(arrayReaded.includes(id)){
       
       setReaded(true)
-      console.log("SETIE EL Readed", true)
+      // console.log("SETIE EL Readed", true)
       
     }else if(!arrayReaded.includes(id)){
-      console.log("Readed-", false)
+      // console.log("Readed-", false)
       setReaded(false)
-      console.log("SETIE EL READED",false)
+      // console.log("SETIE EL READED",false)
     }
   },[dispatch, arrayReaded])
 
@@ -89,12 +89,12 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
     if(arrayReading.includes(id)){
       
       setReading(true)
-      console.log("SETIE EL Reading", true)
+      // console.log("SETIE EL Reading", true)
       
     }else if(!arrayReading.includes(id)){
-      console.log("Reading-", false)
+      // console.log("Reading-", false)
       setFavorite(false)
-      console.log("SETIE EL READING",false)
+      // console.log("SETIE EL READING",false)
     }
   },[dispatch, arrayReading])
 

@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookById, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
+import {
+  getAuthors,
+  getBooks,
+  getGenres,
+ 
+} from "../redux/actions";
 
 import {
   DropdownSearch,
@@ -17,6 +23,26 @@ const SearchBar = ({ paginado, modal, setModal }) => {
   const allBooks = useSelector((state) => state.books);
   const books = useSelector((state) => state.books);
   // const [author,setAuthor]=useState('')
+  useEffect(() => {
+    if (!allGenres.length) {
+      dispatch(getGenres());
+    }
+    if (!allAuthors.length) {
+      dispatch(getAuthors());
+    }
+    if (!allBooks.length) {
+      dispatch(getBooks());
+    }
+   
+  
+  }, [dispatch]);
+
+
+  const allGenres = useSelector((state) => state.genres);
+  const allAuthors = useSelector((state) => state.authors);
+
+
+
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -68,6 +94,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
             .filter((book) => {
               const searchTerm = title.toLowerCase();
               const titleOfBookSearched = book.title.toLowerCase();
+              console.log("BOOK.AUTHOR.NAME", book)
               const nameOfAuthorSearched = book.author.name.toLowerCase();
 
               return (

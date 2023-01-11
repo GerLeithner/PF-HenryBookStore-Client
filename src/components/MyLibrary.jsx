@@ -19,8 +19,12 @@ import CardRecomended from "./CardRecomended.jsx";
 const MyLibrary = () => {
   const dispatch = useDispatch();
 
+
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
+  const [arrayFavorite, setArrayFavorite] = useState([]);
+  const [arrayReaded, setArrayReaded] = useState([]);
+  const [arrayReading, setArrayReading] = useState([]);
 
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
@@ -58,7 +62,59 @@ const MyLibrary = () => {
   //   dispatch(getTrendingBooks());
   // }
 
-  currentUser && console.log("CURRENT USER LIBRARY: ", currentUser)
+  // currentUser && console.log("CURRENT USER LIBRARY: ", currentUser)
+
+  // carga los favs
+  useEffect(()=>{
+    if(currentUser){
+      const userFavorites = currentUser.Favorites
+ 
+      // console.log("USER FAVORITES",userFavorites)
+  
+    let allFavorites=[]
+   
+  
+    for (let i=0; i<currentUser.Favorites.length; i++){
+     let fav= currentUser.Favorites[i].id
+     allFavorites.push(fav)
+    }
+    setArrayFavorite(allFavorites)
+    }
+   },[ currentUser])
+   
+  //  console.log("Array FAVORITES",arrayFavorite)
+
+   // carga los readed
+   useEffect(()=>{
+    if(currentUser){
+      
+    const userReaded =currentUser.Read
+
+    let allReaded=[]
+ 
+    for (let i=0; i<currentUser.Read.length; i++){
+     let read= currentUser.Read[i].id
+     allReaded.push(read)
+    }
+    setArrayReaded(allReaded)
+    }
+   },[ currentUser])
+  //  console.log("Array READED",arrayReaded)
+
+   // carga los reading
+   useEffect(()=>{
+    if(currentUser){
+    const userReading = currentUser.Reading
+    let allReading=[]
+  
+    for (let i=0; i<currentUser.Reading.length; i++){
+     let reading= currentUser.Reading[i].id
+     allReading.push(reading)
+    }
+    setArrayReading(allReading)
+    }
+   },[ currentUser])
+  //  console.log("Array READING",arrayReading)
 
   return (
     <LibraryConteiner>
@@ -82,6 +138,9 @@ const MyLibrary = () => {
                       authors={b.authors}
                       modal={modal}
                       setModal={setModal}
+                      arrayFavorite={arrayFavorite}
+                      arrayReaded={arrayReaded}
+                      arrayReading={arrayReading}
                     />
                   );
                 })}
@@ -113,6 +172,9 @@ const MyLibrary = () => {
                       authors={b.authors}
                       modal={modal}
                       setModal={setModal}
+                      arrayFavorite={arrayFavorite}
+                      arrayReaded={arrayReaded}
+                      arrayReading={arrayReading}
                     />
                   );
                 })}
@@ -146,6 +208,9 @@ const MyLibrary = () => {
                       authors={b.authors}
                       modal={modal}
                       setModal={setModal}
+                      arrayFavorite={arrayFavorite}
+                      arrayReaded={arrayReaded}
+                      arrayReading={arrayReading}
                     />
                   );
                 })}

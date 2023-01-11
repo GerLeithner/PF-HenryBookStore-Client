@@ -1,8 +1,8 @@
 import axios from "axios";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
-// const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
-const deployUrl = "http://localhost:3001";
+const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
+// const deployUrl = "http://localhost:3001";
 
 // ------------------- BOOK CRUD ------------------------------------
 
