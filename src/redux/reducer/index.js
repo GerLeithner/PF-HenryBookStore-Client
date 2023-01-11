@@ -294,15 +294,25 @@ function rootReducer(state = initialState, action) {
 
     case "FILTER_USERS_BY_STATUS":
       if (action.payload.toLowerCase() === "active") {
-        filteredUsers = allUsers.filter((u) => u.active);
+        filteredUsers = allUsers.filter((u) => !u.banned);
       } else {
-        filteredUsers = allUsers.filter((u) => !u.active);
+        filteredUsers = allUsers.filter((u) => u.banned);
       }
       return {
         ...state,
         users: filteredUsers,
       };
 
+    case "FILTER_USERS_BY_SUBSCRIPTION":
+      console.log("Subs:", action.payload);
+      filteredUsers = allUsers.filter(
+        (u) => u.subscription.plan === action.payload
+      );
+
+      return {
+        ...state,
+        users: filteredUsers,
+      };
     case "SORT_USERS_BY_NAME":
       sortedUsers =
         action.payload === "Ascending"
