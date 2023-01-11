@@ -26,7 +26,10 @@ const Catalogue = () => {
   const dispatch = useDispatch();
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
-
+  const currentUser = useSelector((state) => state.currentUser);
+  const [arrayFavorite, setArrayFavorite] = useState([]);
+  const [arrayReaded, setArrayReaded] = useState([]);
+  const [arrayReading, setArrayReading] = useState([]);
   const [modal, setModal] = useState(false);
 
   useEffect(() => {
@@ -52,6 +55,60 @@ const Catalogue = () => {
   const paginado = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= countPages2) setCurrentPage(pageNumber);
   };
+
+
+  // carga los favs
+  useEffect(()=>{
+    if(currentUser){
+      const userFavorites = currentUser.Favorites
+ 
+      // console.log("USER FAVORITES",userFavorites)
+  
+    let allFavorites=[]
+   
+  
+    for (let i=0; i<currentUser.Favorites.length; i++){
+     let fav= currentUser.Favorites[i].id
+     allFavorites.push(fav)
+    }
+    setArrayFavorite(allFavorites)
+    }
+   },[ dispatch,currentUser])
+   
+   console.log("Array FAVORITES",arrayFavorite)
+
+   // carga los readed
+   useEffect(()=>{
+    if(currentUser){
+      
+    const userReaded =currentUser.Read
+
+    let allReaded=[]
+ 
+    for (let i=0; i<currentUser.Read.length; i++){
+     let read= currentUser.Read[i].id
+     allReaded.push(read)
+    }
+    setArrayReaded(allReaded)
+    }
+   },[ dispatch,currentUser])
+   console.log("Array READED",arrayReaded)
+
+   // carga los reading
+   useEffect(()=>{
+    if(currentUser){
+    const userReading = currentUser.Reading
+    let allReading=[]
+  
+    for (let i=0; i<currentUser.Reading.length; i++){
+     let reading= currentUser.Reading[i].id
+     allReading.push(reading)
+    }
+    setArrayReading(allReading)
+    }
+   },[ dispatch,currentUser])
+   console.log("Array READING",arrayReading)
+
 
   function handleClick(e) {
     e.preventDefault();
@@ -149,6 +206,10 @@ const Catalogue = () => {
                   authors={b.authors}
                   modal={modal}
                   setModal={setModal}
+                  arrayFavorite={arrayFavorite}
+                  arrayReaded={arrayReaded}
+                  arrayReading={arrayReading}
+                  key={b.id}
                 />
               </div>
             );

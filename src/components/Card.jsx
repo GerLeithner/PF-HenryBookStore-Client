@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -33,17 +34,66 @@ import {
   DropDownMenu,
 } from "../styles/Card";
 
-export default function Card({ id, cover, modal, setModal }) {
+export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading }) {
+ 
 
-  // const [open, setOpen] = useState(false);
+  // console.log("includes", id, "?", arrayFavorite.includes(id))
+
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
-
-  const [reading,setReading]=useState(false)
-  // const { isAuthenticated, user, isLoading } = useAuth0();
-
+  const [reading,setReading]= useState(false);
+ 
   
+
+  const dispatch = useDispatch();
+  
+  const { isAuthenticated, user, isLoading } = useAuth0();
+  const currentUser = useSelector((state) => state.currentUser);
+  
+
+
+  useEffect(()=>{
+    if(arrayFavorite.includes(id)){
+      
+      setFavorite(true)
+      console.log("SETIE EL FAV", true)
+      
+    }else if(!arrayFavorite.includes(id)){
+      console.log("FAV-", false)
+      setFavorite(false)
+      console.log("SETIE EL FAV",false)
+    }
+  },[dispatch, arrayFavorite])
+
+
+  useEffect(()=>{
+    if(arrayReaded.includes(id)){
+      
+      setReaded(true)
+      console.log("SETIE EL Readed", true)
+      
+    }else if(!arrayReaded.includes(id)){
+      console.log("Readed-", false)
+      setReaded(false)
+      console.log("SETIE EL READED",false)
+    }
+  },[dispatch, arrayReaded])
+
+  useEffect(()=>{
+    if(arrayReading.includes(id)){
+      
+      setReading(true)
+      console.log("SETIE EL Reading", true)
+      
+    }else if(!arrayReading.includes(id)){
+      console.log("Reading-", false)
+      setFavorite(false)
+      console.log("SETIE EL READING",false)
+    }
+  },[dispatch, arrayReading])
+
+
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -59,53 +109,13 @@ export default function Card({ id, cover, modal, setModal }) {
     setIsHovering(false);
   };
 
-  const dispatch = useDispatch();
+
 
   const book = useSelector((state) => state.bookDetail);
-  const currentUser = useSelector((state) => state.currentUser);
+  
 
   const userId={userId:currentUser && currentUser.id};
-  // userId && console.log("USERID",userId)
-
-
-
-  const allFavorites=[]
-  const allReaded=[]
-  const allReading=[]
-
-  // for (let i=0;i<currentUser.Favorites.length; i++){
-  //  let fav= currentUser.Favorites[i].id
-  //  AllFavorites.push(fav)
-  // }
-
-  // currentUser && currentUser.Favorites && currentUser.Favorites.map(e=> allFavorites.push(e.id))
-  // var bool=Object.values(currentUser.Favorites).includes(id)
-  // console.log("BOOL",bool)
-
-  // if(allFavorites.includes(id)){
-  //   setFavorite(true)
-  // }else{setFavorite(false)}
-
-  // const arr= currentUser && currentUser.Favorites && Object.values(currentUser.Favorites)
-  // console.log("ARREGLO", allFavorites)
-  // const allFav= currentUser && currentUser.Favorites
-//   if(currentUser){
-//  for (let i=0;i<currentUser.Favorites.length; i++){
-//    let fav= currentUser.Favorites[i].id
-//    allFavorites.push(fav)
-//   }
-//   }
-//    console.log("ALLFAV",allFavorites)
   
-//    if(!allFavorites.includes(id)){
-//     console.log("FALSE")
-//     setFavorite(false)
-//    }else{ 
-//     console.log("FALSE")
-//     setFavorite(true)
-//   }
-
-
 
   function handleFavorite(id, userId) {
     // e.preventDefault();
@@ -113,7 +123,7 @@ export default function Card({ id, cover, modal, setModal }) {
     
     if(!favorite){
       console.log("Entré a add favorite, bookId:", id);
-      setFavorite(!favorite)
+      setFavorite(true);
       console.log("FAV+",favorite)
 
       dispatch(addFavorite(id, userId));
@@ -121,7 +131,7 @@ export default function Card({ id, cover, modal, setModal }) {
     }
     if(favorite){
       console.log("Entré a delete favorite, bookId:", id);
-      setFavorite(!favorite)
+      setFavorite(false);
       console.log("FAV-",favorite)
       dispatch(deleteFavorite(id, userId));
       
@@ -135,7 +145,7 @@ export default function Card({ id, cover, modal, setModal }) {
     
     if(!readed){
       console.log("Entré a add readed :", id);
-      setReaded(!readed)
+      setReaded(true);
       console.log("READ+",readed)
       
       dispatch(addReaded(id, userId));
@@ -143,7 +153,7 @@ export default function Card({ id, cover, modal, setModal }) {
     }
     if(readed){
       console.log("Entré a delete readed :", id);
-      setReaded(!readed)
+      setReaded(false);
       console.log("READ-",readed)
       dispatch(deleteReaded(id, userId));
       
@@ -157,7 +167,7 @@ export default function Card({ id, cover, modal, setModal }) {
     
     if(!reading){
       console.log("Entré a add reading :", id);
-      setReading(!reading)
+      setReading(true);
       console.log("READ+",reading)
       
       dispatch(addReading(id, userId));
@@ -165,7 +175,7 @@ export default function Card({ id, cover, modal, setModal }) {
     }
     if(reading){
       console.log("Entré a delete reading :", id);
-      setReading(!reading)
+      setReading(false);
       console.log("READ-",reading)
       dispatch(deleteReading(id, userId));
       
@@ -194,9 +204,9 @@ export default function Card({ id, cover, modal, setModal }) {
           >
             <UlCard  >
               {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
-              <DropdownItem icon={!reading?bookIcon:bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
-              <DropdownItem icon={!readed?readedIcon:readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
-              <DropdownItem icon={!favorite ? favoriteIcon:favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
+              <DropdownItem icon={!reading ? bookIcon: bookHalfIcon} value={id} handle={e=>{handleReading(id,userId)}}role="button" />
+              <DropdownItem icon={!readed ? readedIcon: readedIconFill} value={id} handle={e=>{handleReaded(id,userId)}} role="button"/>
+              <DropdownItem icon={!favorite ? favoriteIcon: favoriteFillIcon} value={id} handle={e=>{handleFavorite(id,userId)}} role="button"/>
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>
