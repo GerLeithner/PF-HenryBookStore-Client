@@ -80,7 +80,7 @@ export default function CardDetail({ book, modal, setModal}) {
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser ", currentUser);
+  // console.log("currentUser ", currentUser);
 
 
   const [open, setOpen] = useState(false);
@@ -222,7 +222,7 @@ export default function CardDetail({ book, modal, setModal}) {
     }
    },[ currentUser])
    
-   console.log("Array FAVORITES",arrayFavorite)
+  //  console.log("Array FAVORITES",arrayFavorite)
 
    // carga los readed
    useEffect(()=>{
@@ -239,7 +239,7 @@ export default function CardDetail({ book, modal, setModal}) {
     setArrayReaded(allReaded)
     }
    },[ currentUser])
-   console.log("Array READED",arrayReaded)
+  //  console.log("Array READED",arrayReaded)
 
    // carga los reading
    useEffect(()=>{
@@ -254,19 +254,19 @@ export default function CardDetail({ book, modal, setModal}) {
     setArrayReading(allReading)
     }
    },[ currentUser])
-   console.log("Array READING",arrayReading)
+  //  console.log("Array READING",arrayReading)
 
 
    useEffect(()=>{
     if(arrayFavorite.includes(book.id)){
       
       setFavorite(true)
-      console.log("SETIE EL FAV", true)
+      // console.log("SETIE EL FAV", true)
       
     }else if(!arrayFavorite.includes(book.id)){
-      console.log("FAV-", false)
+      // console.log("FAV-", false)
       setFavorite(false)
-      console.log("SETIE EL FAV",false)
+      // console.log("SETIE EL FAV",false)
     }
   },[dispatch, arrayFavorite])
 
@@ -275,12 +275,12 @@ export default function CardDetail({ book, modal, setModal}) {
     if(arrayReaded.includes(book.id)){
       
       setReaded(true)
-      console.log("SETIE EL Readed", true)
+      // console.log("SETIE EL Readed", true)
       
     }else if(!arrayReaded.includes(book.id)){
-      console.log("Readed-", false)
+      // console.log("Readed-", false)
       setReaded(false)
-      console.log("SETIE EL READED",false)
+      // console.log("SETIE EL READED",false)
     }
   },[dispatch, arrayReaded])
 
@@ -288,12 +288,12 @@ export default function CardDetail({ book, modal, setModal}) {
     if(arrayReading.includes(book.id)){
       
       setReading(true)
-      console.log("SETIE EL Reading", true)
+      // console.log("SETIE EL Reading", true)
       
     }else if(!arrayReading.includes(book.id)){
-      console.log("Reading-", false)
+      // console.log("Reading-", false)
       setFavorite(false)
-      console.log("SETIE EL READING",false)
+      // console.log("SETIE EL READING",false)
     }
   },[dispatch, arrayReading])
 
