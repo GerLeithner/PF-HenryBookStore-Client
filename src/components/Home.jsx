@@ -79,51 +79,22 @@ export default function Home() {
   useEffect(() => {
     if (currentUser) {
       const userFavorites = currentUser.Favorites;
-  
-    let allFavorites=[]
-   
-    for (let i=0; i<currentUser.Favorites.length; i++){
-     let fav= currentUser.Favorites[i].id
-     allFavorites.push(fav)
-    }
-    setArrayFavorite(allFavorites)
-    }
-   },[ currentUser])
 
       let allFavorites = [];
+      let allReaded = [];
+      let allReading = [];
 
-      for (let i = 0; i < currentUser.Favorites?.length; i++) {
+      for (let i = 0; i < currentUser.Favorites.length; i++) {
         let fav = currentUser.Favorites[i].id;
         allFavorites.push(fav);
       }
       setArrayFavorite(allFavorites);
-    }
-
-
-  }, [currentUser]);
-
-  // carga los readed
-  useEffect(() => {
-    if (currentUser) {
-      const userReaded = currentUser.Read;
-
-
-      let allReaded = [];
 
       for (let i = 0; i < currentUser.Read?.length; i++) {
         let read = currentUser.Read[i].id;
         allReaded.push(read);
       }
       setArrayReaded(allReaded);
-    }
-  }, [currentUser]);
-  console.log("Array READED", arrayReaded);
-
-  // carga los reading
-  useEffect(() => {
-    if (currentUser) {
-      const userReading = currentUser.Reading;
-      let allReading = [];
 
       for (let i = 0; i < currentUser.Reading?.length; i++) {
         let reading = currentUser.Reading[i].id;
@@ -131,18 +102,14 @@ export default function Home() {
       }
       setArrayReading(allReading);
     }
-   },[ currentUser])
-
-
+  }, [currentUser]);
 
   return (
     <div>
       <div>
         <div>
-
-         <SubscribeNav />
+          <SubscribeNav />
           {recomended && recomended?.length && (
-
             <Carousel
               key="recomended"
               itemsToShow={1}
