@@ -21,8 +21,6 @@ export default function NavBar() {
   const { isAuthenticated, user, isLoading } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
 
-  if(currentUser) console.log("currentUser.active: ", currentUser.active)
-
   if(isAuthenticated && currentUser && !currentUser.active) {
     history.push("/");
   }
@@ -40,7 +38,7 @@ export default function NavBar() {
       dispatch(getCurrentUser(userDb));
     }
 
-  }, [dispatch, isAuthenticated]);
+  }, [dispatch, isAuthenticated ]);
 
   return (
     <div>

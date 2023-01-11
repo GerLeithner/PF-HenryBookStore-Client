@@ -37,19 +37,46 @@ export const ImageAndInfo = styled.div`
 `;
 
 export const ProfilePic = styled.img`
-    height: 150px;
-    width: 150px !important;
-    border: 1px solid #ccc;
-    border-radius: 50%;
+  height: 150px;
+  width: 150px !important;
+  border: 1px solid #ccc;
+  border-radius: 50%;
 `;
 
+export const ProfilePicInput = styled.label`
+  margin: 0px;
+  padding: 0px 20px 0px 20px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #111;
+  background-color: #fff;
+  transition: all 0.01s ease 0s;
+  cursor: pointer;
+
+
+  &:hover {
+    background-color: ${({ color }) => color || "#1b8f2b"};
+    color: #fff;
+    border-color: ${({ color }) => color || "#1b8f2b"};
+  }
+
+  &:active {
+    transform: translateY(-1px);
+  }
+`;
+
+
 export const InfoContainer = styled.div`
-    margin: 0px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 100%;
-    gap: ${({ gap }) => gap || "0px"};
+  margin: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  gap: ${({ gap }) => gap || "0px"};
 `;
 
 export const FiledAndButton = styled.div`

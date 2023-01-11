@@ -6,7 +6,7 @@ export const UserEditContainer = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
+  gap: 10px;
   width: 100%;
   border: 1px solid #ccc;
 `;
@@ -51,7 +51,7 @@ export const ButtonDisable = styled.button`
   font-weight: 300;
   color: #111;
   background-color: white;
-  border: 3px solid #ccc;
+  border: ${({ border }) => border || "3px solid #ccc"};
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;

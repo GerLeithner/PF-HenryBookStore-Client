@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../firebase/firebase";
+
 import { 
   getAuthors,
   getGenres, 
@@ -25,7 +28,8 @@ import {
   PropAndInput,
   FormTextArea,
   H3Form,
-  PropAndInputAndError
+  PropAndInputAndError,
+  BookCoverInput
 } from "../styles/CreateBook";
 import { RowSearchBar } from "../styles/SearchBar";
 
@@ -173,6 +177,20 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
       })
     );
     console.log("input", input);
+  }
+
+  async function handlePicChange(e) {
+    e.preventDefault();
+
+    if (e.target.files[0]) {
+      const imageRef = ref(storage, `${book.id}/coverPic`);
+      await uploadBytes(imageRef, e.target.files[0]).then(() => {
+
+        getDownloadURL(imageRef).then((url) => {
+        setInput({ ...input, cover: url})
+
+      })});
+    }
   }
 
   function handleAuthor(e) {
@@ -337,17 +355,29 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
         </div> 
       }
       <ImageAndInfoContainer>
-        {
-          input.cover ?
-          <BookImage
-          src={input.cover}
-          alt="SelectedImage"
-          /> : 
-          <BookImage alt="defaultImage"/>
-        }
+        <div>
+          {
+            input.cover ?
+            <BookImage
+            src={input.cover}
+            alt="SelectedImage"
+            /> : 
+            <BookImage alt="defaultImage"/>
+          }
+          <BookCoverInput>
+            Select
+            <input
+              style={{width: "0px", height: "0px"}}
+              text="Change"
+              type="file"
+              accept="image/png, image/jpeg"
+              onChange={(e) => handlePicChange(e)}
+            />
+          </BookCoverInput>
+        </div>
         <InfoContainer>
           {/* ----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
+          <PropAndInputAndError name="title">
             <PropAndInput>
               <H3Form>Title</H3Form>
               <FormInput
@@ -363,7 +393,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
             </div>
           </PropAndInputAndError>
           {/* ----------------------------------------------------------------------*/}
-          <PropAndInput>
+          <PropAndInput name="subtitle">
             <PropAndInputAndError>
               <PropAndInput>
                 <H3Form>Subtitle</H3Form>
@@ -394,7 +424,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
             </PropAndInputAndError>
           </PropAndInput>
           {/* --------------------------------------------------------------------*/}
-            <PropAndInput>
+            <PropAndInput name="author">
               <PropAndInputAndError>
                 <PropAndInput>
                   <H3Form margenRig="10px">Author</H3Form>
@@ -452,7 +482,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
               </PropAndInputAndError>
             </PropAndInput>
           {/* -----------------------------------------------------------------------*/}
-          <PropAndInput>
+          <PropAndInput name="publisher">
             <PropAndInputAndError>
               <PropAndInput>
                 <H3Form>Publisher</H3Form>
@@ -509,7 +539,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
           </PropAndInput>
           {/* -----------------------------------------------------------------------*/}
           <PropAndInput>
-          <PropAndInputAndError>
+          <PropAndInputAndError name="pages">
             <PropAndInput>
               <H3Form>Pages</H3Form>
               <FormInput
@@ -526,7 +556,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
             { errors.pages && <ErrorsForm>{errors.pages}</ErrorsForm>}
           </PropAndInputAndError>
           {/* ----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
+          <PropAndInputAndError name="rating">
             <PropAndInput>
               <H3Form>Rating</H3Form>
               <FormInput
@@ -544,23 +574,9 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
           </PropAndInputAndError>
           </PropAndInput>
           {/* -----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
-            <PropAndInput>
-              <H3Form>Cover</H3Form>
-              <FormInput
-                type="text"
-                value={input.cover}
-                name="cover"
-                onChange={(e) => handleChange(e)}
-                margen="20px"
-              />
-            </PropAndInput>
-            { errors.cover && <ErrorsForm>{errors.cover}</ErrorsForm> }
-          </PropAndInputAndError>
-          {/* -----------------------------------------------------------------------*/}
         </InfoContainer>
       </ImageAndInfoContainer>
-      <DescriptionContainer>
+      <DescriptionContainer name="description">
         <PropAndInput>
           <H3Form margenIzq="0px">Description</H3Form>
           { errors.description && <ErrorsForm>{errors.description}</ErrorsForm> }
@@ -573,7 +589,7 @@ export default function CreateBook({ setModal, newBook, setNewBook }) {
         />
       </DescriptionContainer>
       { reviews && <BookReviews/> }
-      <PropAndInput>
+      <PropAndInput name="buttons">
         <PropAndInput width="230px">
           <ButtonForm type="button" onClick={(e) => close(e)} ancho="100px" color="red">
             Close Form

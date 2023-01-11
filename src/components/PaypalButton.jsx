@@ -2,15 +2,12 @@ import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useDispatch, useSelector } from "react-redux";
 import { activateSubscription } from "../redux/actions";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
-export default function PaypalButton({ plan, currentUser, showButton }) {
+export default function PaypalButton({ editSubscription, plan, currentUser, showButton }) {
   const dispatch = useDispatch();
-
-  console.log("Plan en paypal ", plan);
 
   let planId;
 
@@ -23,6 +20,7 @@ export default function PaypalButton({ plan, currentUser, showButton }) {
   useEffect(() => {
     if(approbed) {
       dispatch(activateSubscription(userId, plan));
+      editSubscription(true);
     }
   }, [approbed]);
 
@@ -66,7 +64,6 @@ export default function PaypalButton({ plan, currentUser, showButton }) {
           }}
           onApprove={(data, actions) => {
             setApprobed(true);
-            console.log(approbed);
           }}
         />
       </PayPalScriptProvider>

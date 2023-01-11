@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import { editUser, getRecomendedBooks } from "../redux/actions";
@@ -93,11 +93,10 @@ export default function LandingPage() {
             promotionalBooks.map((e) => <H4Landing>{e}</H4Landing>)}
         </PromotionalConteiner>
         <ButtonsConteiner>
-          {isAuthenticated &&
-            currentUser &&
-            currentUser.active &&
-            redirectHome()}
-          {isAuthenticated && currentUser && !currentUser.active && (
+          { isAuthenticated && currentUser && currentUser.active &&
+            redirectHome()
+          }
+          { isAuthenticated && currentUser && !currentUser.active && 
             <>
               <div>
                 The current account has been disabled, please activate it to
@@ -108,8 +107,10 @@ export default function LandingPage() {
               </ButtonCatalogue>
               <Logout />
             </>
-          )}
-          {!isAuthenticated && <Login />}
+          }
+          { !isAuthenticated && 
+            <Login />
+          } 
         </ButtonsConteiner>
       </BoxContainer>
     </BackgroundConteiner>
