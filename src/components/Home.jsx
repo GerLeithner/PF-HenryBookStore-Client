@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
+import SubscribeNav from "./SubscribeNav.jsx";
 
 import {
   getAuthors,
@@ -78,8 +79,16 @@ export default function Home() {
   useEffect(() => {
     if (currentUser) {
       const userFavorites = currentUser.Favorites;
-
-      // console.log("USER FAVORITES",userFavorites)
+  
+    let allFavorites=[]
+   
+    for (let i=0; i<currentUser.Favorites.length; i++){
+     let fav= currentUser.Favorites[i].id
+     allFavorites.push(fav)
+    }
+    setArrayFavorite(allFavorites)
+    }
+   },[ currentUser])
 
       let allFavorites = [];
 
@@ -89,14 +98,15 @@ export default function Home() {
       }
       setArrayFavorite(allFavorites);
     }
-  }, [currentUser]);
 
-  console.log("Array FAVORITES", arrayFavorite);
+
+  }, [currentUser]);
 
   // carga los readed
   useEffect(() => {
     if (currentUser) {
       const userReaded = currentUser.Read;
+
 
       let allReaded = [];
 
@@ -121,14 +131,18 @@ export default function Home() {
       }
       setArrayReading(allReading);
     }
-  }, [currentUser]);
-  console.log("Array READING", arrayReading);
+   },[ currentUser])
+
+
 
   return (
     <div>
       <div>
         <div>
+
+         <SubscribeNav />
           {recomended && recomended?.length && (
+
             <Carousel
               key="recomended"
               itemsToShow={1}
