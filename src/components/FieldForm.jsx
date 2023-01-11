@@ -12,7 +12,7 @@ import {
 } from "../styles/FieldForm";
 
 export default function FieldForm({
-  setEdit,
+  setUserName,
   id,
   fieldName,
   propName,
@@ -35,10 +35,7 @@ export default function FieldForm({
       alert(`The ${fieldName} has been edited`);
 
       setInput("");
-      setEdit({
-        userName: false,
-        profilePic: false,
-      });
+      setUserName(false)
     }
   }
 
@@ -46,10 +43,7 @@ export default function FieldForm({
     e.preventDefault();
 
     setInput("");
-    setEdit({
-      userName: false,
-      profilePic: false,
-    });
+    setUserName(false)
   }
 
   return (

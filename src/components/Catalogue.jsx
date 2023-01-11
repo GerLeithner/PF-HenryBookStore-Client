@@ -28,27 +28,17 @@ const Catalogue = () => {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const currentUser = useSelector((state) => state.currentUser);
+
   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
-  const [modal, setModal] = useState(false);
-
-  useEffect(() => {
-    dispatch(getGenres());
-
-    dispatch(getAuthors());
-
-    dispatch(getBooks());
-  }, [dispatch]);
-
-
+  const [header, setHeader] = useState("ALL BOOKS");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [booksPerPage, setBooksPerPage] = useState(20);
   const [, setSort] = useState({ name: "", option: ""});
   const [, setFilter] = useState({ name: "", option: ""});
   const [modal, setModal] = useState(false);  
 
-  const [header, setHeader] = useState("ALL BOOKS");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [booksPerPage, setBooksPerPage] = useState(20);
 
   let indexOfLastBook = currentPage * booksPerPage;
   let indexOfFirstBook = indexOfLastBook - booksPerPage;
@@ -60,6 +50,13 @@ const Catalogue = () => {
   };
 
 
+  useEffect(() => {
+    dispatch(getGenres());
+
+    dispatch(getAuthors());
+
+    dispatch(getBooks());
+  }, [dispatch]);
 
   // carga los favs
   useEffect(()=>{
@@ -78,8 +75,6 @@ const Catalogue = () => {
     setArrayFavorite(allFavorites)
     }
    },[ dispatch,currentUser])
-   
-   console.log("Array FAVORITES",arrayFavorite)
 
    // carga los readed
    useEffect(()=>{
@@ -96,7 +91,6 @@ const Catalogue = () => {
     setArrayReaded(allReaded)
     }
    },[ dispatch,currentUser])
-   console.log("Array READED",arrayReaded)
 
    // carga los reading
    useEffect(()=>{
@@ -111,9 +105,6 @@ const Catalogue = () => {
     setArrayReading(allReading)
     }
    },[ dispatch,currentUser])
-   console.log("Array READING",arrayReading)
-
-
 
   function handleClick(e) {
     e.preventDefault();
@@ -218,37 +209,37 @@ const Catalogue = () => {
             })}
           </ContainerCards>
         </BooksContainer> 
-      :
-        <div style={{paddingTop: "200px", paddingLeft: "180px"}}>
-          <H3Form>LOADING...</H3Form>
-        </div>
-
-        <ContainerCards>
-          {currentBook?.map((b) => {
-            return (
-              <div key={b.id}>
-                <Card
-                  id={b.id}
-                  title={b.title}
-                  publishedDate={b.publishedDate}
-                  description={b.description}
-                  averageRating={b.averageRating}
-                  cover={b.cover}
-                  genres={b.genres}
-                  authors={b.authors}
-                  modal={modal}
-                  setModal={setModal}
-                  arrayFavorite={arrayFavorite}
-                  arrayReaded={arrayReaded}
-                  arrayReading={arrayReading}
-                  key={b.id}
-                />
-              </div>
-            );
-          })}
-        </ContainerCards>
-      </BooksContainer>
-
+        :
+        <BooksContainer>
+          <div style={{paddingTop: "200px", paddingLeft: "180px"}}>
+            <H3Form>LOADING...</H3Form>
+          </div>
+          <ContainerCards>
+            {currentBook?.map((b) => {
+              return (
+                <div key={b.id}>
+                  <Card
+                    id={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+                    arrayFavorite={arrayFavorite}
+                    arrayReaded={arrayReaded}
+                    arrayReading={arrayReading}
+                    key={b.id}
+                  />
+                </div>
+              );
+            })}
+          </ContainerCards>
+        </BooksContainer>
+      }  
     </div>
   );
 };
