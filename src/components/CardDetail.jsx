@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./CardMenu.css";
@@ -74,10 +74,14 @@ function DropdownItem(props) {
   );
 }
 
-export default function CardDetail({ book, modal, setModal }) {
+export default function CardDetail({ book, modal, setModal}) {
   const dispatch = useDispatch();
-
+  const [arrayFavorite, setArrayFavorite] = useState([]);
+  const [arrayReaded, setArrayReaded] = useState([]);
+  const [arrayReading, setArrayReading] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
+  console.log("currentUser ", currentUser);
+
 
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -88,24 +92,11 @@ export default function CardDetail({ book, modal, setModal }) {
   const { isAuthenticated, user, isLoading } = useAuth0();
 
 
-  // const bookId = props.match.params.id;
-  // console.log("BOOK ID:", bookId);
-  // console.log("PROPS",props)
+
   const userId={userId:currentUser && currentUser.id};
 
   
-  // userId && console.log("USERID",userId)
 
-  // const book = useSelector((state) => state.detail);
-
-  // useEffect(() => {
-  //   dispatch(bookDetail(book.id));
-
-  //   return () => {
-  //     console.log("Detail Clean Up");
-  //     dispatch(cleanBookDetail());
-  //   };
-  // }, [dispatch]);
 
   const handleMouseOver = () => {
     setIsHovering(true);
@@ -135,12 +126,12 @@ export default function CardDetail({ book, modal, setModal }) {
     // console.log("e.target.value",e.target.value)
     console.log("Entré a favorite:", id);
     if (!favorite) {
-      setFavorite(!favorite);
+      setFavorite(true);
       console.log("FAV+", favorite);
       dispatch(addFavorite(id, userId));
     }
     if (favorite) {
-      setFavorite(!favorite);
+      setFavorite(false);
       console.log("FAV-", favorite);
       dispatch(deleteFavorite(id, userId));
     }
@@ -151,12 +142,12 @@ export default function CardDetail({ book, modal, setModal }) {
     // console.log("e.target.value",e.target.value)
     console.log("Entré a readed:", id);
     if (!readed) {
-      setReaded(!readed);
+      setReaded(true);
       console.log("READ+", readed);
       dispatch(addReaded(id, userId));
     }
     if (readed) {
-      setReaded(!readed);
+      setReaded(false);
       console.log("READ-", readed);
       dispatch(deleteReaded(id, userId));
     }
@@ -182,7 +173,7 @@ export default function CardDetail({ book, modal, setModal }) {
     
     if(!reading){
       console.log("Entré a add reading :", id);
-      setReading(!reading)
+      setReading(true)
       console.log("READ+",reading)
       
       dispatch(addReading(id, userId));
@@ -190,7 +181,7 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     if(reading){
       console.log("Entré a delete reading :", id);
-      setReading(!reading)
+      setReading(false)
       console.log("READ-",reading)
       dispatch(deleteReading(id, userId));
       
@@ -211,6 +202,100 @@ export default function CardDetail({ book, modal, setModal }) {
     book.reviews &&
     book.reviews[1] &&
     starRating(book.reviews[1].score);
+
+
+     // carga los favs
+  useEffect(()=>{
+    if(currentUser){
+      const userFavorites = currentUser.Favorites
+ 
+      // console.log("USER FAVORITES",userFavorites)
+  
+    let allFavorites=[]
+   
+  
+    for (let i=0; i<currentUser.Favorites.length; i++){
+     let fav= currentUser.Favorites[i].id
+     allFavorites.push(fav)
+    }
+    setArrayFavorite(allFavorites)
+    }
+   },[ currentUser])
+   
+   console.log("Array FAVORITES",arrayFavorite)
+
+   // carga los readed
+   useEffect(()=>{
+    if(currentUser){
+      
+    const userReaded =currentUser.Read
+
+    let allReaded=[]
+ 
+    for (let i=0; i<currentUser.Read.length; i++){
+     let read= currentUser.Read[i].id
+     allReaded.push(read)
+    }
+    setArrayReaded(allReaded)
+    }
+   },[ currentUser])
+   console.log("Array READED",arrayReaded)
+
+   // carga los reading
+   useEffect(()=>{
+    if(currentUser){
+    const userReading = currentUser.Reading
+    let allReading=[]
+  
+    for (let i=0; i<currentUser.Reading.length; i++){
+     let reading= currentUser.Reading[i].id
+     allReading.push(reading)
+    }
+    setArrayReading(allReading)
+    }
+   },[ currentUser])
+   console.log("Array READING",arrayReading)
+
+
+   useEffect(()=>{
+    if(arrayFavorite.includes(book.id)){
+      
+      setFavorite(true)
+      console.log("SETIE EL FAV", true)
+      
+    }else if(!arrayFavorite.includes(book.id)){
+      console.log("FAV-", false)
+      setFavorite(false)
+      console.log("SETIE EL FAV",false)
+    }
+  },[dispatch, arrayFavorite])
+
+
+  useEffect(()=>{
+    if(arrayReaded.includes(book.id)){
+      
+      setReaded(true)
+      console.log("SETIE EL Readed", true)
+      
+    }else if(!arrayReaded.includes(book.id)){
+      console.log("Readed-", false)
+      setReaded(false)
+      console.log("SETIE EL READED",false)
+    }
+  },[dispatch, arrayReaded])
+
+  useEffect(()=>{
+    if(arrayReading.includes(book.id)){
+      
+      setReading(true)
+      console.log("SETIE EL Reading", true)
+      
+    }else if(!arrayReading.includes(book.id)){
+      console.log("Reading-", false)
+      setFavorite(false)
+      console.log("SETIE EL READING",false)
+    }
+  },[dispatch, arrayReading])
 
   return (
     <>

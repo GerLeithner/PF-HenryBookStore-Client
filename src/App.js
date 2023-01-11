@@ -12,28 +12,49 @@ import UsersProfile from "./components/UserProfile";
 import CreateReview from "./components/CreateReview";
 import MyLibrary from "./components/MyLibrary";
 import ProtectedRoute from "./auth/protected-route";
-import axios from 'axios';
+import axios from "axios";
+import { ToastContainer } from "react-toastify";
 
 // axios.defaults.baseURL='http://localhost:3001'
-axios.defaults.baseURL='https://pf-henrybookstore-api-production.up.railway.app';
-
+axios.defaults.baseURL =
+  "https://pf-henrybookstore-api-production.up.railway.app";
 
 function App() {
   return (
     <div className="App">
-        <Route exact path="/" component={ LandingPage } />
-        <Route 
-          path={["/home", "/home/:id", "/catalogue", "/about", "/books", "/users", "/profile", "/library"]} 
-          component={ NavBar } 
-        /> 
-        <Route exact path="/home" component={ Home } />
-        <Route path="/home/:id" component={ CardDetail } />
-        <Route exact path="/catalogue" component={ Catalogue}/>
-        <Route exact path="/about" component={ AboutUs}/>
-        <Route exact path="/books" component={ BooksTable }/>
-        <Route exact path="/users" component={ UsersTable }/>
-        <Route exact path="/profile" component={ UsersProfile }/>
-        <Route exact path="/library" component={ MyLibrary }/>
+      <Route exact path="/" component={LandingPage} />
+      <Route
+        path={[
+          "/home",
+          "/home/:id",
+          "/catalogue",
+          "/about",
+          "/books",
+          "/users",
+          "/profile",
+          "/library",
+        ]}
+        component={NavBar}
+      />
+      <Route exact path="/home" component={Home} />
+      <Route path="/home/:id" component={CardDetail} />
+      <Route exact path="/catalogue" component={Catalogue} />
+      <Route exact path="/about" component={AboutUs} />
+      <Route exact path="/books" component={BooksTable} />
+      <Route exact path="/users" component={UsersTable} />
+      <Route exact path="/profile" component={UsersProfile} />
+      <Route exact path="/library" component={MyLibrary} />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        pauseOnHover={false}
+        theme="light"
+      />
     </div>
   );
 }

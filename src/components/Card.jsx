@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -32,17 +33,73 @@ import {
   MenuTrigger,
   DropDownMenu,
 } from "../styles/Card";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function Card({ id, cover, modal, setModal, readChange, read }) {
-  // const [open, setOpen] = useState(false);
+
+export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading, readChange, read }) {
+// const [open, setOpen] = useState(false);
+ 
+
+  // console.log("includes", id, "?", arrayFavorite.includes(id))
+
+
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
+  const [reading,setReading]= useState(false);
+ 
+  
 
-  const [reading, setReading] = useState(false);
-  // const { isAuthenticated, user, isLoading } = useAuth0();
+  const dispatch = useDispatch();
+  
+  const { isAuthenticated, user, isLoading } = useAuth0();
+  const currentUser = useSelector((state) => state.currentUser);
+  
 
-  console.log("read:", read);
+
+  useEffect(()=>{
+    if(arrayFavorite.includes(id)){
+      
+      setFavorite(true)
+      console.log("SETIE EL FAV", true)
+      
+    }else if(!arrayFavorite.includes(id)){
+      console.log("FAV-", false)
+      setFavorite(false)
+      console.log("SETIE EL FAV",false)
+    }
+  },[dispatch, arrayFavorite])
+
+
+  useEffect(()=>{
+    if(arrayReaded.includes(id)){
+      
+      setReaded(true)
+      console.log("SETIE EL Readed", true)
+      
+    }else if(!arrayReaded.includes(id)){
+      console.log("Readed-", false)
+      setReaded(false)
+      console.log("SETIE EL READED",false)
+    }
+  },[dispatch, arrayReaded])
+
+  useEffect(()=>{
+    if(arrayReading.includes(id)){
+      
+      setReading(true)
+      console.log("SETIE EL Reading", true)
+      
+    }else if(!arrayReading.includes(id)){
+      console.log("Reading-", false)
+      setFavorite(false)
+      console.log("SETIE EL READING",false)
+    }
+  },[dispatch, arrayReading])
+
+
+
 
   function handleClick(e) {
     e.preventDefault(e);
@@ -58,83 +115,61 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
     setIsHovering(false);
   };
 
-  const dispatch = useDispatch();
+
 
   const book = useSelector((state) => state.bookDetail);
-  const currentUser = useSelector((state) => state.currentUser);
+  
 
-  const userId = { userId: currentUser && currentUser.id };
-  // userId && console.log("USERID",userId)
 
-  const allFavorites = [];
-  const allReaded = [];
-  const allReading = [];
+  const userId={userId:currentUser && currentUser.id};
+  
 
-  // for (let i=0;i<currentUser.Favorites.length; i++){
-  //  let fav= currentUser.Favorites[i].id
-  //  AllFavorites.push(fav)
-  // }
-
-  // currentUser && currentUser.Favorites && currentUser.Favorites.map(e=> allFavorites.push(e.id))
-  // var bool=Object.values(currentUser.Favorites).includes(id)
-  // console.log("BOOL",bool)
-
-  // if(allFavorites.includes(id)){
-  //   setFavorite(true)
-  // }else{setFavorite(false)}
-
-  // const arr= currentUser && currentUser.Favorites && Object.values(currentUser.Favorites)
-  // console.log("ARREGLO", allFavorites)
-  // const allFav= currentUser && currentUser.Favorites
-  //   if(currentUser){
-  //  for (let i=0;i<currentUser.Favorites.length; i++){
-  //    let fav= currentUser.Favorites[i].id
-  //    allFavorites.push(fav)
-  //   }
-  //   }
-  //    console.log("ALLFAV",allFavorites)
-
-  //    if(!allFavorites.includes(id)){
-  //     console.log("FALSE")
-  //     setFavorite(false)
-  //    }else{
-  //     console.log("FALSE")
-  //     setFavorite(true)
-  //   }
 
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
 
-    if (!favorite) {
-      //   console.log("Entré a add favorite, bookId:", id);
-      setFavorite(!favorite);
-      //   console.log("FAV+", favorite);
+    
+    if(!favorite){
+      console.log("Entré a add favorite, bookId:", id);
+      setFavorite(true);
+      console.log("FAV+",favorite)
+
 
       dispatch(addFavorite(id, userId));
+
+      toast.success("Book added to your favorites");
     }
-    if (favorite) {
-      //   console.log("Entré a delete favorite, bookId:", id);
-      setFavorite(!favorite);
-      // console.log("FAV-", favorite);
+
+    if(favorite){
+      console.log("Entré a delete favorite, bookId:", id);
+      setFavorite(false);
+      console.log("FAV-",favorite)
+
       dispatch(deleteFavorite(id, userId));
+
+      toast.warning("Book removed from your favorites");
     }
   }
 
   function handleReaded(id, userId) {
     // console.log("e.target.value",e.target.value)
 
-    if (!readed) {
-      //  console.log("Entré a add readed :", id);
-      setReaded(!readed);
-      // console.log("READ+", readed);
+    
+    if(!readed){
+      console.log("Entré a add readed :", id);
+      setReaded(true);
+      console.log("READ+",readed)
+      
 
       dispatch(addReaded(id, userId));
     }
-    if (readed) {
-      //   console.log("Entré a delete readed :", id);
-      setReaded(!readed);
-      //  console.log("READ-", readed);
+
+    if(readed){
+      console.log("Entré a delete readed :", id);
+      setReaded(false);
+      console.log("READ-",readed)
+
       dispatch(deleteReaded(id, userId));
     }
   }
@@ -142,17 +177,21 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
   function handleReading(id, userId) {
     // console.log("e.target.value",e.target.value)
 
-    if (!reading) {
-      //   console.log("Entré a add reading :", id);
-      setReading(!reading);
-      //   console.log("READ+", reading);
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(true);
+      console.log("READ+",reading)
+      
 
       dispatch(addReading(id, userId));
     }
-    if (reading) {
-      //   console.log("Entré a delete reading :", id);
-      setReading(!reading);
-      //   console.log("READ-", reading);
+
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(false);
+      console.log("READ-",reading)
+
       dispatch(deleteReading(id, userId));
     }
 
@@ -180,6 +219,7 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
           >
             <UlCard>
               {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
+
               <DropdownItem
                 key={id + "1"}
                 icon={!reading ? bookIcon : bookHalfIcon}
@@ -202,11 +242,13 @@ export default function Card({ id, cover, modal, setModal, readChange, read }) {
                 key={id + "3"}
                 icon={!favorite ? favoriteIcon : favoriteFillIcon}
                 value={id}
+                name={book.title}
                 handle={(e) => {
                   handleFavorite(id, userId);
                 }}
                 role="button"
               />
+
             </UlCard>
           </DropDownMenu>
         </MenuConteiner>

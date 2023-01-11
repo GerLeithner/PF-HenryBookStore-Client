@@ -11,7 +11,8 @@ import {
   getNewsBooks,
   getCurrentUser,
 } from "../redux/actions";
-
+import { H2Home } from "../styles/Card";
+import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardRecomended from "./CardRecomended.jsx";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -22,8 +23,11 @@ import "../styles/Carousel.css";
 
 
 export default function Home() {
+  
   const dispatch = useDispatch();
-
+  const [arrayFavorite, setArrayFavorite] = useState([]);
+  const [arrayReaded, setArrayReaded] = useState([]);
+  const [arrayReading, setArrayReading] = useState([]);
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
 
@@ -33,6 +37,8 @@ export default function Home() {
   const allAuthors = useSelector((state) => state.authors);
   const recomended = useSelector((state) => state.recomended);
   const news = useSelector((state) => state.news);
+
+
 
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
@@ -75,21 +81,133 @@ export default function Home() {
   }, [dispatch]);
 
 
+  // carga los favs
+  useEffect(()=>{
+    if(currentUser){
+      const userFavorites = currentUser.Favorites
+ 
+      // console.log("USER FAVORITES",userFavorites)
+  
+    let allFavorites=[]
+   
+  
+    for (let i=0; i<currentUser.Favorites.length; i++){
+     let fav= currentUser.Favorites[i].id
+     allFavorites.push(fav)
+    }
+    setArrayFavorite(allFavorites)
+    }
+   },[ currentUser])
+   
+   console.log("Array FAVORITES",arrayFavorite)
+
+   // carga los readed
+   useEffect(()=>{
+    if(currentUser){
+      
+    const userReaded =currentUser.Read
+
+    let allReaded=[]
+ 
+    for (let i=0; i<currentUser.Read.length; i++){
+     let read= currentUser.Read[i].id
+     allReaded.push(read)
+    }
+    setArrayReaded(allReaded)
+    }
+   },[ currentUser])
+   console.log("Array READED",arrayReaded)
+
+   // carga los reading
+   useEffect(()=>{
+    if(currentUser){
+    const userReading = currentUser.Reading
+    let allReading=[]
+  
+    for (let i=0; i<currentUser.Reading.length; i++){
+     let reading= currentUser.Reading[i].id
+     allReading.push(reading)
+    }
+    setArrayReading(allReading)
+    }
+   },[ currentUser])
+   console.log("Array READING",arrayReading)
+
   return (
-    <>
-      { currentUser ?
+    <div>
+      <div>
         <div>
-          <div name="recomended">
-            {recomended && recomended.length && (
-              <Carousel
-                key="recomended"
-                itemsToShow={1}
-                className="top-rec-wrapper "
-              >
-                {recomended.map((b) => {
+          {recomended && recomended.length && (
+            <Carousel
+              key="recomended"
+              itemsToShow={1}
+              className="top-rec-wrapper "
+            >
+              {recomended.map((b) => {
+                return (
+                  <CardRecomended
+                    key={b.id + "recommended"}
+                    id={b.id}
+                    title={b.title}
+                    subtitle={b.subtitle}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genre={b.genre}
+                    author={b.author}
+                    back_cover={b.back_cover}
+                    arrayFavorite={arrayFavorite}
+                    arrayReaded={arrayReaded}
+                    arrayReading={arrayReading}
+                  />
+                );
+              })}
+            </Carousel>
+          )}
+        </div>
+        {currentUser && currentUser.Reading?.length ? (
+          <div>
+            <H2Home>Continue reading</H2Home>
+            <Carousel key="reading" itemsToShow={5}>
+              {currentUser.Reading.map((b) => {
+                return (
+                  <Card
+                    id={b.id}
+                    key={b.id + "Reading"}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                    modal={modal}
+                    setModal={setModal}
+
+                    arrayFavorite={arrayFavorite}
+                    arrayReaded={arrayReaded}
+                    arrayReading={arrayReading}
+                    readChange={readChange}
+                    read={read}
+
+                  />
+                );
+              })}
+            </Carousel>
+          </div>
+        ) : (
+          <></>
+        )}
+        <div>
+          {trending.length && (
+            <>
+              <H2Home>Trending</H2Home>
+              <Carousel key="trending" itemsToShow={5}>
+                {trending.map((b) => {
                   return (
-                    <CardRecomended
-                      key={b.id + "recommended"}
+                    <Card
+                      key={b.id + "Trending"}
                       id={b.id}
                       title={b.title}
                       subtitle={b.subtitle}
@@ -100,110 +218,64 @@ export default function Home() {
                       genre={b.genre}
                       author={b.author}
                       back_cover={b.back_cover}
+                      modal={modal}
+                      setModal={setModal}
+
+                      arrayFavorite={arrayFavorite}
+                      arrayReaded={arrayReaded}
+                      arrayReading={arrayReading}
+                      readChange={readChange}
+                      read={read}
+
                     />
                   );
                 })}
               </Carousel>
-            )}
-          </div>
-          <div name="continue reading">
-            { currentUser && currentUser.Reading?.length ?
-              <div>
-                <H2Home>Continue reading</H2Home>
-                <Carousel key="reading" itemsToShow={5}>
-                  { currentUser.Reading.map(b => {
-                    return (
-                      <Card
-                        id={b.id}
-                        key={b.id + "Reading"}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        modal={modal}
-                        setModal={setModal}
-                        readChange={readChange}
-                        read={read}
-                      />
-                    )})
-                  }
-                </Carousel>
-              </div>
-              :
-              <></>
-            }
-          </div>
-          <div name="trending">
-            { trending.length && 
-              <>
-                <H2Home>Trending</H2Home>
-                <Carousel key="trending" itemsToShow={5}>
-                  {trending.map((b) => {
-                    return (
-                      <Card
-                        key={b.id + "Trending"}
-                        id={b.id}
-                        title={b.title}
-                        subtitle={b.subtitle}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genre={b.genre}
-                        author={b.author}
-                        back_cover={b.back_cover}
-                        modal={modal}
-                        setModal={setModal}
-                        readChange={readChange}
-                        read={read}
-                      />
-                    );
-                  })}
-                </Carousel>
-              </>
-            }
-          </div>
-          <div name="news">
-            { currentUser && currentUser.Reading?.length ?
-              <>
-                <H2Home>News</H2Home>
-                <Carousel key="news" itemsToShow={5}>
-                  {news.map((b) => {
-                    return (
-                      <Card
-                        key={b.id + "News"}
-                        id={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        modal={modal}
-                        setModal={setModal}
-                        readChange={readChange}
-                        read={read}
-                      />
-                    );
-                  })}
-                </Carousel>
-              </>
-            : 
-              <></>
-            }
-          </div>
-        </div> 
-        : 
-        <div style={{paddingTop: "200px"}}>
-          <H3Form>LOADING...</H3Form>
+            </>
+          )}
         </div>
-      }
-    </>
+        <div>
+          {news.length && (
+            <>
+              <H2Home>News</H2Home>
+              <Carousel key="news" itemsToShow={5}>
+                {news.map((b) => {
+                  return (
+                    <Card
+                      key={b.id + "News"}
+                      id={b.id}
+                      title={b.title}
+                      subtitle={b.subtitle}
+                      publishedDate={b.publishedDate}
+                      description={b.description}
+                      averageRating={b.averageRating}
+                      cover={b.cover}
+                      genre={b.genre}
+                      author={b.author}
+                      back_cover={b.back_cover}
+                      modal={modal}
+                      setModal={setModal}
+
+                      arrayFavorite={arrayFavorite}
+                      arrayReaded={arrayReaded}
+                      arrayReading={arrayReading}
+                      readChange={readChange}
+                      read={read}
+
+                    />
+                  );
+                })}
+              </Carousel>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 
+
+/* export default withAuthenticationRequired(Home, {
+  onRedirecting: () => <LandingPage />,
+}); */
 
