@@ -2,8 +2,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
-const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
-// const deployUrl = "http://localhost:3001";
+//const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
+const deployUrl = "http://localhost:3001";
 
 // ------------------- BOOK CRUD ------------------------------------
 
@@ -148,9 +148,36 @@ export function filterBooksByStatus(payload) {
   };
 }
 
+export function filterBooksByLength(payload) {
+  return {
+    type: "FILTER_BOOKS_BY_LENGTH",
+    payload,
+  };
+}
+
 export function cleanBookDetail() {
   return {
     type: "CLEAN_BOOK_DETAIL",
+  };
+}
+
+export function deleteFilter(filter) {
+  return {
+    type: "DELETE_FILTER",
+    filter,
+  };
+}
+
+export function filterBy(filters) {
+  return {
+    type: "FILTER_BY",
+    filters,
+  };
+}
+
+export function cleanSortedBooks() {
+  return {
+    type: "CLEAN_SORTED_BOOKS",
   };
 }
 

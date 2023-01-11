@@ -61,7 +61,7 @@ export default function NavBar() {
             {currentUser && currentUser.profilePic ? (
               <NavProfilePic src={currentUser.profilePic} />
             ) : (
-              <NavProfilePic src="https://t3.ftcdn.net/jpg/05/16/27/58/360_F_516275801_f3Fsp17x6HQK0xQgDQEELoTuERO4SsWV.jpg" />
+              <NavProfilePic src="https://firebasestorage.googleapis.com/v0/b/henry-book-explorer.appspot.com/o/image?alt=media&token=3dccc098-e2c1-48ab-9539-ce0024b12996" />
             )}
           </LinkNavBar>
         </SubContainerNavBar>

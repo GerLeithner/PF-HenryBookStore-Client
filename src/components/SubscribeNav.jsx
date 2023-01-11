@@ -24,6 +24,7 @@ export default function SubscribeNav() {
   const [plan, setPlan] = useState("");
   const [showButton, setShowButton] = useState(false);
   const [close, setClose] = useState(false);
+  const [subscription, setSubscription] = useState(false);
 
   const paypalStyle = {
     shape: "rect",
@@ -43,6 +44,24 @@ export default function SubscribeNav() {
       dispatch(getCurrentUser(userDb));
     }
   }, [dispatch]);
+
+  useEffect(() => {
+    if (user && subscription) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
+    if (currentUser?.subscription) {
+      setSubscription(false);
+    }
+  }, [currentUser, subscription]);
+
+  function editSubscription(value) {
+    setSubscription(value);
+  }
 
   function handlePlan(e) {
     e.preventDefault();
@@ -84,6 +103,7 @@ export default function SubscribeNav() {
         </PlanSelectNav>
         <div style={{ height: "36px", width: "200px" }}>
           <PaypalButton
+            editSubscription={editSubscription}
             plan={plan}
             currentUser={currentUser}
             key={plan}

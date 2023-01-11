@@ -7,9 +7,13 @@ import { toast } from "react-toastify";
 
 const { REACT_APP_PAYPAL_CLIENT_ID } = process.env;
 
-
-export default function PaypalButton({ editSubscription, plan, currentUser, showButton, style }) {
-
+export default function PaypalButton({
+  editSubscription,
+  plan,
+  currentUser,
+  showButton,
+  style,
+}) {
   const dispatch = useDispatch();
 
   let planId;
@@ -23,6 +27,7 @@ export default function PaypalButton({ editSubscription, plan, currentUser, show
   useEffect(() => {
     if (approbed) {
       dispatch(activateSubscription(userId, plan));
+
       editSubscription(true);
     }
   }, [approbed]);
@@ -68,10 +73,9 @@ export default function PaypalButton({ editSubscription, plan, currentUser, show
 }
 
 const PaypalContainer = styled.div`
-  visibility: ${({showButton}) => showButton ? "visible" : "collapse"};
+  visibility: ${({ showButton }) => (showButton ? "visible" : "collapse")};
   position: relative;
   z-index: 0;
-
 `;
 
 /* actions.subscription.capture().then((details) => {
