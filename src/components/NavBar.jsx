@@ -56,7 +56,7 @@ export default function NavBar() {
             </>
           )}
 
-          <LinkNavBar to={"/about"}>About Us</LinkNavBar>
+          {/* <LinkNavBar to={"/about"}>About Us</LinkNavBar> */}
           <LinkNavBar to={"/profile"}>
             {currentUser && currentUser.profilePic ? (
               <NavProfilePic src={currentUser.profilePic} />

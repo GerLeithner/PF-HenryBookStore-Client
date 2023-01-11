@@ -109,7 +109,10 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   }
 
   const handleMouseOver = () => {
-    setIsHovering(true);
+    if(!modal){
+      setIsHovering(true);
+    }
+   
   };
 
   const handleMouseOut = () => {
