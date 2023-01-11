@@ -127,14 +127,20 @@ export default function UserProfile() {
   function handleDisable(e) {
     e.preventDefault();
 
-    dispatch(
-      editUser({
-        id: currentUser.id,
-        active: false,
-      })
-    );
-    alert("The account has been disable");
-    logout({ returnTo: window.location.origin });
+    if (
+      window.confirm(
+        "Are you sure you want to disable your account? You can reenable it later"
+      )
+    ) {
+      dispatch(
+        editUser({
+          id: currentUser.id,
+          active: false,
+        })
+      );
+      alert("The account has been disable");
+      logout({ returnTo: window.location.origin });
+    }
   }
 
   function handleDownfall(e) {
