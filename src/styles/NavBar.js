@@ -131,6 +131,7 @@ display: flex;
   height: 50px;
   padding: 0px 15px 0px 15px;
   background-color: rgba(0, 0, 0, 1);
+  cursor: pointer;
 
   &:hover {
     color: #ffffff;
