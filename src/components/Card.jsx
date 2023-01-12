@@ -120,6 +120,8 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   };
 
 
+  
+
 
   const book = useSelector((state) => state.bookDetail);
   
