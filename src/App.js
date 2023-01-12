@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <Route exact path="/" component={LandingPage} />
-      <Route
+      <ProtectedRoute
         path={[
           "/home",
           "/home/:id",
@@ -37,16 +37,16 @@ function App() {
         ]}
         component={NavBar}
       />
-      <Route exact path="/home" component={Home} />
-      <Route path="/home/:id" component={CardDetail} />
-      <Route exact path="/catalogue" component={Catalogue} />
-      <Route exact path="/about" component={AboutUs} />
-      <Route exact path="/books" component={BooksTable} />
-      <Route exact path="/users" component={UsersTable} />
-      <Route exact path="/profile" component={UsersProfile} />
-      <Route exact path="/library" component={MyLibrary} />
+      <ProtectedRoute exact path="/home" component={Home} />
+      <ProtectedRoute path="/home/:id" component={CardDetail} />
+      <ProtectedRoute exact path="/catalogue" component={Catalogue} />
+      <ProtectedRoute exact path="/about" component={AboutUs} />
+      <ProtectedRoute exact path="/books" component={BooksTable} />
+      <ProtectedRoute exact path="/users" component={UsersTable} />
+      <ProtectedRoute exact path="/profile" component={UsersProfile} />
+      <ProtectedRoute exact path="/library" component={MyLibrary} />
       {/* <Route path={["/home", "/catalogue", "/library",]} component={SubscribeNav} /> */}
-      <ToastContainer 
+      <ToastContainer
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={true}
