@@ -206,8 +206,7 @@ export default function UserProfile() {
     setShowButton(true);
   }
 
-  // { plan === "Six months" && <div style={{width: "100%"}}>*1 month for free !</div>}
-  // { plan === "One year" && <div style={{width: "100%"}}>*3 months for free !</div>}
+
 
   return (
     <>
@@ -232,6 +231,25 @@ export default function UserProfile() {
                   <ProfilePic src={currentUser.profilePic} />
                 </div>
                 <InfoContainer>
+                  <FiledAndButton>
+                    <Field>
+                      <div>Email</div>
+                      <div>{currentUser?.email}</div>
+                    </Field>
+                    <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "150px", height: "30px"}}>OPTIONS</div>
+                  </FiledAndButton>
+                  <FiledAndButton>
+                    <Field>
+                      <div>Password</div>
+                    </Field>
+                    { !currentUser.googleUser ? 
+                      <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
+                        Change
+                      </EditFieldButton>
+                      :
+                      <div style={{width: "150px"}}></div>
+                    }
+                  </FiledAndButton>
                   {!userName ? (
                     <FiledAndButton>
                       <Field>
@@ -256,22 +274,6 @@ export default function UserProfile() {
                       propValue={form.propValue}
                     />
                   )}
-                  <FiledAndButton>
-                    <Field>
-                      <div>Email</div>
-                      <div>{currentUser?.email}</div>
-                    </Field>
-                    <EditFieldButton>Change</EditFieldButton>
-                  </FiledAndButton>
-                  <FiledAndButton>
-                    <Field>
-                      <div>Password</div>
-                      <div>-</div>
-                    </Field>
-                    <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
-                      Change
-                    </EditFieldButton>
-                  </FiledAndButton>
                 </InfoContainer>
               </ImageAndInfo>
               <FiledAndButton>
@@ -386,7 +388,11 @@ export default function UserProfile() {
                   </Field>
                 ) : (
                   <Field>
-                    <div style={{ width: "100%" }}>SUBSCRIBE!</div>
+                    <div style={{ width: "100%", textAlign: "left", fontStyle: "italic"}}>
+                    { (!plan || plan === "One month") && <span style={{width: "100%"}}>SUBSCRIBE !</span>} 
+                    { plan === "Six months" && <span style={{width: "100%"}}>GET 1 MONTH FOR FREE !</span>}
+                    { plan === "One year" && <span style={{width: "100%"}}>GET 3 MONTHS FOR FREE !</span>}
+                    </div>
                   </Field>
                 )}
               </div>
@@ -406,9 +412,9 @@ export default function UserProfile() {
                     <div>Plan</div>
                     <div>{currentUser?.subscription?.plan}</div>
                   </Field>
-                ) : (
+                ) : ( 
                   <Field>
-                    <div style={{ width: "100%" }}>
+                    <div>
                       <PlanSelect onChange={(e) => handlePlan(e)}>
                         <option hidden value="Select Plan">
                           {currentUser?.subscription?.plan
@@ -416,9 +422,7 @@ export default function UserProfile() {
                             : "Select Plan"}
                         </option>
                         <option value="One month">One Month USD$ 6.99</option>
-                        <option value="Six months">
-                          Six Months USD$ 35.99
-                        </option>
+                        <option value="Six months">Six Months USD$ 34.99</option>
                         <option value="One year">One Year USD$ 62.99</option>
                       </PlanSelect>
                     </div>
