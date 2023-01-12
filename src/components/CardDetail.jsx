@@ -400,78 +400,32 @@ export default function CardDetail({ book, modal, setModal }) {
               {book && book.reviews && <BookReviews />}
             </ReviewConteiner>
 
-            {/* <ReviewConteiner>
-            
-              {book && book.reviews && book.reviews[0] ? (
-                <>
-                  <UserAndStars>
-                    <H4Detail>
-                      Review by {book.reviews[1].user.userName}
-                    </H4Detail>
-
-                    <StarsContainer>
-                      {review1Star &&
-                        review1Star.map((s) =>
-                          s === "star" ? (
-                            <StarDetail src={starFill} alt="n" />
-                          ) : (
-                            <StarDetail src={starHalf} alt="n" />
-                          )
-                        )}
-                    </StarsContainer>
-                  </UserAndStars>
-                  <H5Detail>{book.reviews[0].comment}</H5Detail>
-                </>
+            {currentUser && currentUser.subscription ? (
+              !newReview ? (
+                <ButtonsConteiner>
+                  {/* <ButtonDetail>Show More Reviews</ButtonDetail> */}
+                  <ButtonDetail
+                    onClick={(e) => {
+                      handleReviewClick(e);
+                    }}
+                  >
+                    Leave a Review
+                  </ButtonDetail>
+                </ButtonsConteiner>
               ) : (
-                <div>
-                  <H4Detail>
-                    There are no reviews for this book yet, be the first to
-                    write one.
-                  </H4Detail>
-                </div>
-              )}
-            </ReviewConteiner>
-            {book && book.reviews && book.reviews[1] ? (
-              <ReviewConteiner>
-                <UserAndStars>
-                  <H4Detail>Review by {book.reviews[1].user.userName}</H4Detail>
-                  <StarsContainer>
-                    {review2Star &&
-                      review2Star.map((s) =>
-                        s === "star" ? (
-                          <StarDetail src={starFill} alt="n" />
-                        ) : (
-                          <StarDetail src={starHalf} alt="n" />
-                        )
-                      )}
-                  </StarsContainer>
-                </UserAndStars>
-
-                <H5Detail>{book.reviews[1].comment}</H5Detail>
-              </ReviewConteiner>
-            ) : <></> } */}
-            {!newReview ? (
-              <ButtonsConteiner>
-                {/* <ButtonDetail>Show More Reviews</ButtonDetail> */}
-                <ButtonDetail
-                  onClick={(e) => {
-                    handleReviewClick(e);
-                  }}
-                >
-                  Leave a Review
-                </ButtonDetail>
-              </ButtonsConteiner>
+                <ReviewConteiner>
+                  <CreateReview
+                    currentUser={currentUser}
+                    book={book}
+                    setNewReview={setNewReview}
+                    newReview={newReview}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                </ReviewConteiner>
+              )
             ) : (
-              <ReviewConteiner>
-                <CreateReview
-                  currentUser={currentUser}
-                  book={book}
-                  setNewReview={setNewReview}
-                  newReview={newReview}
-                  modal={modal}
-                  setModal={setModal}
-                />
-              </ReviewConteiner>
+              <div>Subscribe to review</div>
             )}
           </SingleCardContainerDetail>
         </OverLay>
