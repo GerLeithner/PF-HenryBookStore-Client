@@ -53,14 +53,13 @@ export default function UserProfile() {
   const [showButton, setShowButton] = useState(false);
   const [plan, setPlan] = useState("");
 
-
-  const paypalStyle =  {
+  const paypalStyle = {
     shape: "rect",
     color: "silver",
     layout: "vertical",
     label: "paypal",
-    tagline: "false"
-  }
+    tagline: "false",
+  };
 
   useEffect(() => {
     if (user) {
@@ -196,11 +195,9 @@ export default function UserProfile() {
 
     setNotifications(!notifications);
 
-    alert(
-      !currentUser.notifications[e.target.name]
-        ? `${e.target.value} mail notifications has been activated`
-        : `${e.target.value} mail notifications has been disable`
-    );
+    !currentUser.notifications[e.target.name]
+      ? toast.success(`${e.target.value} mail notifications has been activated`)
+      : toast.success(`${e.target.value} mail notifications has been disable`);
   }
 
   function handlePlan(e) {
