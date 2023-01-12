@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const SideBarContainer = styled.div`
+  overflow: auto;
   position: fixed;
   z-index: 0;
   height: 100vh;

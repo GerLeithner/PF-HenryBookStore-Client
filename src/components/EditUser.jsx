@@ -60,7 +60,7 @@ export default function EditUser({ setModal }) {
         </div>
       )}
       <ImageAndInfoContainer>
-        <UserPic alt="" />
+        <UserPic src={user.profilePic} />
         <InfoContainer>
           <FieldContainer>
             <Field>
