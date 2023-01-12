@@ -18,7 +18,7 @@ import {
 } from "../redux/actions";
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
-import "../styles/Carousel.css";
+
 
 export default function Home() {
   const dispatch = useDispatch();
