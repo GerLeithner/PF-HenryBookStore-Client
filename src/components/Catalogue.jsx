@@ -18,6 +18,8 @@ import Card from "./Card.jsx";
 import Paged from "./Paged.jsx";
 import SearchBar from "./SearchBar.jsx";
 import SortOrFilter from "./SortOrFilter.jsx";
+import SubscribeNav from "./SubscribeNav.jsx";
+import TablePaged from "./TablePaged.jsx";
 
 import { SideButton } from "../styles/SortOrFilter";
 import { BooksContainer } from "../styles/BooksTable";
@@ -43,6 +45,7 @@ const Catalogue = () => {
   const [, setFilter] = useState({ name: "", option: "" });
   const [modal, setModal] = useState(false);
   const [filters, setFilters] = useState([]);
+  const [subscribe, setSubscribe] = useState(true);
 
   let indexOfLastBook = currentPage * booksPerPage;
   let indexOfFirstBook = indexOfLastBook - booksPerPage;
@@ -188,7 +191,7 @@ const Catalogue = () => {
 
   return (
     <div>
-      <SideBarContainer>
+      <SideBarContainer paddingTop={ subscribe && currentUser && !currentUser.subscription ? "115px" : "65px"}>
         <SideButton onClick={(e) => handleReload(e)} ancho={"170px"}>
           RELOAD BOOKS
         </SideButton>
@@ -241,16 +244,14 @@ const Catalogue = () => {
           )}
         </div>
       </SideBarContainer>
-      <BooksContainer>
-        <div>
-          <Paged
-            booksPerPage={booksPerPage}
-            allBooks={allBooks.length}
-            paginado={paginado}
-            currentPage={currentPage}
-          />
-          <div />
-        </div>
+      <SubscribeNav setSubscribe={setSubscribe}/>
+      <BooksContainer paddingTop={ subscribe && currentUser && !currentUser.subscription ? "20px" : "70px"}>
+        <TablePaged
+          booksPerPage={booksPerPage}
+          allBooks={allBooks.length}
+          paginado={paginado}
+          currentPage={currentPage}
+        />
         <ContainerCards>
           {currentBook?.map((b) => {
             return (

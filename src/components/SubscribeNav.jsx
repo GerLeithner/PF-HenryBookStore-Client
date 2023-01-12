@@ -15,7 +15,7 @@ import {
 import { H3Field } from "../styles/EditUser";
 import { H3Form } from "../styles/CreateBook";
 
-export default function SubscribeNav() {
+export default function SubscribeNav({ setSubscribe }) {
   const dispatch = useDispatch();
 
   const { user } = useAuth0();
@@ -28,7 +28,7 @@ export default function SubscribeNav() {
 
   const paypalStyle = {
     shape: "rect",
-    color: "black",
+    color: "gold",
     layout: "horizontal",
     label: "paypal",
     tagline: "false",
@@ -73,6 +73,9 @@ export default function SubscribeNav() {
   function handleClose(e) {
     e.preventDefault();
 
+    if(setSubscribe) {
+      setSubscribe(false);
+    }
     setClose(true);
   }
 
@@ -112,7 +115,7 @@ export default function SubscribeNav() {
           />
         </div>
         <div
-          style={{ height: "36px", cursor: "pointer" }}
+          style={{ height: "36px", cursor: "pointer", color: "white"}}
           onClick={(e) => handleClose(e)}
         >
           x

@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const SideBarContainer = styled.div`
   position: fixed;
+  z-index: 0;
   height: 100vh;
   width: 250px;
   background-color: #efefef;
-  padding-top: ${({ paddingTop }) => paddingTop || "90px"};
+  padding-top: ${({ paddingTop }) => paddingTop || "65px"};
   padding-right: 15px;
   padding-left: 15px;
   display: flex;
