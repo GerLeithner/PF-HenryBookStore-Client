@@ -2,7 +2,9 @@ import styled from "styled-components";
 
 export const BooksContainer = styled.div`
     margin: 0px;
-    padding: 60px 20px 10px 270px;
+    padding-top: ${({ paddingTop }) => paddingTop || "70px"};
+    padding-right: 20px; 
+    padding-left: 270px;
     display: flex;
     flex-direction: column;
     gap: 10px;

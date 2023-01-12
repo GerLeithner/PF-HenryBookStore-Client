@@ -182,7 +182,7 @@ export default function BooksTable() {
             />
           </div>
           <Table>
-            <thead style={{ backgroundColor: "#ccc", height: "30px" }}>
+            <thead style={{ backgroundColor: "#ccc", height: "30px"}}>
               <tr style={{ height: "40px" }}>
                 <th>Title</th>
                 <th>Author</th>
