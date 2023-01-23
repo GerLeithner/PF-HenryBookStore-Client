@@ -83,6 +83,21 @@ export default function LandingPage() {
     logout({ returnTo: window.location.origin });
   }
 
+  
+  
+  // let concatTitles="Cat's Eye, All the Devils Are Here, The essential Neruda, Harlan Coben Spring , Harry Potter and the Goblet of Fire, Ficciones"
+
+  var promotionalBooks=["Cat's Eye", "All the Devils Are Here","The essential Neruda","Harlan Coben Spring","Harry Potter and the Goblet of Fire","Ficciones"]
+
+
+    //  recomended && recomended.length && recomended.map(b=>{
+    //   concatTitles=concatTitles + b.title + ", "
+    //  })
+    //  var promotionalBooks=concatTitles.slice(0,-2)
+    
+     
+
+
   return (
     <BackgroundConteiner>
       <BoxContainer>

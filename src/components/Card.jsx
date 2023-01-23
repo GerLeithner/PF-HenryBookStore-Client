@@ -208,6 +208,28 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
    
   }
 
+  function handleReading(id, userId) {
+    
+    // console.log("e.target.value",e.target.value)
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(!reading)
+      console.log("READ+",reading)
+      
+      dispatch(addReading(id, userId));
+      
+    }
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(!reading)
+      console.log("READ-",reading)
+      dispatch(deleteReading(id, userId));
+      
+    }
+    
+  }
+
   return (
     <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <CardDetail book={book} modal={modal} setModal={setModal} />

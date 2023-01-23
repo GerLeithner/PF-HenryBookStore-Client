@@ -420,8 +420,9 @@ export function deleteReading(id, userId) {
       );
 
       return dispatch({
-        type: "DELETE_READING",
-        payload: deleteResponse.data,
+        type:"DELETE_READING",
+        payload:deleteResponse.data,
+     
       });
     } catch (e) {
       console.log(e);

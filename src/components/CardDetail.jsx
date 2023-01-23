@@ -113,6 +113,12 @@ export default function CardDetail({ book, modal, setModal }) {
     console.log("e.target.value", e.target.value);
     dispatch(cleanBookDetail(e.target.value));
   }
+  function handleReviewClick(e) {
+    e.preventDefault(e);
+    setNewReview(true);
+    console.log("newReview", newReview)
+    console.log("e.target.value", e.target.value);
+  }
 
   function handleReviewClick(e) {
     e.preventDefault(e);
@@ -203,7 +209,27 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     return stars;
   }
-
+  function handleReading(id, userId) {
+    
+    // console.log("e.target.value",e.target.value)
+    
+    if(!reading){
+      console.log("Entré a add reading :", id);
+      setReading(!reading)
+      console.log("READ+",reading)
+      
+      dispatch(addReading(id, userId));
+      
+    }
+    if(reading){
+      console.log("Entré a delete reading :", id);
+      setReading(!reading)
+      console.log("READ-",reading)
+      dispatch(deleteReading(id, userId));
+      
+    }
+    
+  }
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
@@ -449,6 +475,7 @@ const Reviews = styled.div`
       {modal && (
         <OverLay>
           <SingleCardContainerDetail>
+           
             <ImgAndInfo>
               <ImgContainerDetail>
                 <CardImgDetail src={book.cover} alt="img not found" />
@@ -485,7 +512,7 @@ const Reviews = styled.div`
                           handleReading(book.id, userId);
                         }}
                         role="button"
-                      />
+                      /> */}
                       <DropdownItem
                         key={book.id + "2"}
                         icon={!readed ? readedIcon : readedIconFill}
@@ -505,6 +532,10 @@ const Reviews = styled.div`
                         }}
                         role="button"
                       />
+                      <DropdownItem 
+                      icon={!reading?bookIcon:bookHalfIcon} 
+                      value={book.id} 
+                      handle={e=>{handleReading(book.id,userId)}}role="button" />
                     </UlCard>
                   </DropDownMenu>
                 </MenuConteiner>

@@ -42,8 +42,8 @@ export default function BookReviews() {
       {reviews.length ? (
         reviews.map((r) => {
           return (
-            <DescriptionContainer>
-              <PropAndInput>
+            <DescriptionContainer >
+              <PropAndInput >
                 <ErrorsForm color={"black"} margenIzq="0px">
                   {r.user.userName}
                 </ErrorsForm>
