@@ -1,17 +1,20 @@
 import styled from "styled-components";
 
 export const SideBarContainer = styled.div`
+  overflow: auto;
   position: fixed;
+  z-index: 0;
   height: 100vh;
   width: 250px;
   background-color: #efefef;
-  padding-top: ${({ paddingTop }) => paddingTop || "90px"};
+  padding-top: ${({ paddingTop }) => paddingTop || "65px"};
   padding-right: 15px;
   padding-left: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  /* overflow-y: scroll; */
 `;
 
 export const SelectFilters = styled.div`
@@ -53,5 +56,3 @@ export const ButtonCatalogue = styled.button`
     transform: translateY(-1px);
   }
 `;
-
-//  font-family: "Roboto Condensed", sans-serif;

@@ -1,10 +1,17 @@
 import axios from "axios";
+import { toast } from "react-toastify";
+const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
+
+//const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
+const deployUrl = "http://localhost:3001";
 
 // ------------------- BOOK CRUD ------------------------------------
 
 export function getBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books");
+    var json = await axios.get(`${deployUrl}/books`);
+    console.log("axios deploy", json.data);
+
     return dispatch({
       type: "GET_BOOKS",
       payload: json.data,
@@ -15,7 +22,7 @@ export function getBooks() {
 export function getBookById(id) {
   return async function (dispatch) {
     try {
-      var obj = await axios.get("http://localhost:3001/books/" + id);
+      var obj = await axios.get(`${deployUrl}/books/` + id);
       return dispatch({
         type: "GET_BOOK_BY_ID",
         payload: obj.data,
@@ -30,7 +37,7 @@ export function getBookByTitle(title) {
   return async function (dispatch) {
     console.log("Searching book", title);
     try {
-      var obj = await axios.get("http://localhost:3001/books?title=" + title);
+      var obj = await axios.get(`${deployUrl}/books?title=` + title);
       return dispatch({
         type: "GET_BOOK_BY_TITLE",
         payload: obj.data,
@@ -45,11 +52,10 @@ export function createBook(payload) {
   return async function () {
     try {
       console.log("payload", payload);
-      const response = await axios.post("http://localhost:3001/books", payload);
+      const response = await axios.post(`${deployUrl}/books`, payload);
       console.log("response:", response);
       return response;
-    }
-    catch(e) {
+    } catch (e) {
       console.log(e);
     }
   };
@@ -58,7 +64,7 @@ export function createBook(payload) {
 export function editBook(payload) {
   return async function () {
     console.log("payload", payload);
-    const response = await axios.put("http://localhost:3001/books", payload);
+    const response = await axios.put(`${deployUrl}/books`, payload);
     console.log("response:", response);
     return response;
   };
@@ -68,7 +74,7 @@ export function disableBook(id) {
   return async function () {
     try {
       console.log("id ", id);
-      const response = await axios.delete("http://localhost:3001/books/" + id);
+      const response = await axios.delete(`${deployUrl}/books/` + id);
       console.log("response:", response);
       return response;
     } catch (e) {
@@ -81,7 +87,7 @@ export function disableBook(id) {
 
 export function getTrendingBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books/trending");
+    var json = await axios.get(`${deployUrl}/books/trending`);
     return dispatch({
       type: "GET_TRENDING_BOOKS",
       payload: json.data,
@@ -91,7 +97,7 @@ export function getTrendingBooks() {
 
 export function getNewsBooks() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/books/news");
+    var json = await axios.get(`${deployUrl}/books/news`);
     return dispatch({
       type: "GET_NEW_BOOKS",
       payload: json.data,
@@ -142,9 +148,36 @@ export function filterBooksByStatus(payload) {
   };
 }
 
+export function filterBooksByLength(payload) {
+  return {
+    type: "FILTER_BOOKS_BY_LENGTH",
+    payload,
+  };
+}
+
 export function cleanBookDetail() {
   return {
     type: "CLEAN_BOOK_DETAIL",
+  };
+}
+
+export function deleteFilter(filter) {
+  return {
+    type: "DELETE_FILTER",
+    filter,
+  };
+}
+
+export function filterBy(filters) {
+  return {
+    type: "FILTER_BY",
+    filters,
+  };
+}
+
+export function cleanSortedBooks() {
+  return {
+    type: "CLEAN_SORTED_BOOKS",
   };
 }
 
@@ -153,13 +186,12 @@ export function cleanBookDetail() {
 export function getGenres() {
   return async function (dispatch) {
     try {
-      var json = await axios.get("http://localhost:3001/genres");
+      var json = await axios.get(`${deployUrl}/genres`);
       return dispatch({
         type: "GET_GENRES",
         payload: json.data,
       });
-    }
-    catch(e) {
+    } catch (e) {
       console.log(e);
     }
   };
@@ -168,13 +200,12 @@ export function getGenres() {
 export function getAuthors() {
   return async function (dispatch) {
     try {
-      var json = await axios.get("http://localhost:3001/authors");
+      var json = await axios.get(`${deployUrl}/authors`);
       return dispatch({
         type: "GET_AUTHORS",
         payload: json.data,
       });
-    }
-    catch(e) {
+    } catch (e) {
       console.log(e);
     }
   };
@@ -185,9 +216,7 @@ export function getAuthors() {
 export function getAllUsers(payload) {
   return async function (dispatch) {
     try {
-      const users = await axios.get(
-        "http://localhost:3001/user", payload
-      );
+      const users = await axios.get(`${deployUrl}/user`, payload);
       return dispatch({
         type: "GET_ALL_USERS",
         payload: users.data,
@@ -201,9 +230,7 @@ export function getAllUsers(payload) {
 export function getUserById(id) {
   return async function (dispatch) {
     try {
-      const user = await axios.get(
-        `http://localhost:3001/user/${id}`
-      );
+      const user = await axios.get(`${deployUrl}/user/${id}`);
       return dispatch({
         type: "GET_USER_BY_ID",
         payload: user.data,
@@ -217,9 +244,7 @@ export function getUserById(id) {
 export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
-      const user = await axios.post(
-        "http://localhost:3001/user/register", payload
-      );
+      const user = await axios.post(`${deployUrl}/user/register`, payload);
       return dispatch({
         type: "GET_CURRENT_USER",
         payload: user.data,
@@ -227,6 +252,12 @@ export function getCurrentUser(payload) {
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+export function editUser(input) {
+  return async function () {
+    await axios.put(`${deployUrl}/user/edit`, input);
   };
 }
 
@@ -244,130 +275,193 @@ export function filterUsersByStatus(payload) {
   };
 }
 
+export function filterUsersBySubscription(payload) {
+  return {
+    type: "FILTER_USERS_BY_SUBSCRIPTION",
+    payload,
+  };
+}
+
 export function cleanUserDetail() {
   return {
     type: "CLEAN_USER_DETAIL",
   };
 }
 
+export function changePassword(user) {
+  return async function (dispatch) {
+    await axios
+      .post(
+        `https://${REACT_APP_AUTH_DOMAIN}/dbconnections/change_password`,
+        {
+          client_id: REACT_APP_AUTH_CLIENTID,
+          email: user.email,
+          connection: "Username-Password-Authentication",
+        },
+        { headers: { "content-type": "application/json" } }
+      )
+      .then((data) => {
+        toast.warning(
+          "An email with password reset instructions has been sent to you",
+          { position: "top-right" }
+        );
+      });
+    return {
+      type: "CHANGE_PASSWORD",
+    };
+  };
+}
 
 // ------------------- OTHER MODELS ------------------------------------
 
-export function addFavorite(id,userId) {
+export function addFavorite(id, userId) {
   return async function (dispatch) {
     try {
-       
-        const response= await axios.post("http://localhost:3001/books/" + id + "/favorite", userId);
-        console.log("RESPONSE:", response)
-        
-        return dispatch({
-          type: "ADD_FAVORITE",
-          payload: response.data,
-        });
-      
+      const response = await axios.post(
+        `${deployUrl}/books/${id}/favorite`,
+        userId
+      );
+      console.log("RESPONSE:", response);
+
+      return dispatch({
+        type: "ADD_FAVORITE",
+        payload: response.data,
+      });
     } catch (e) {
       console.log(e);
     }
   };
 }
 
-export function deleteFavorite(id, userId){
-  return async function(dispatch){
-    try{
-
-      
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/favorite", {data:{userId}});
-      console.log("RESPONSE DELETE",deleteResponse)
+export function deleteFavorite(id, userId) {
+  return async function (dispatch) {
+    try {
+      const deleteResponse = await axios.delete(
+        `${deployUrl}/books/${id}/favorite`,
+        {
+          data: { userId },
+        }
+      );
+      console.log("RESPONSE DELETE", deleteResponse);
       return dispatch({
         type: "DELETE_FAVORITE",
         payload: deleteResponse.data,
       });
-
-    }catch(e){
-      console.log(e);
-    }
-  }
-}
-
-export function addReaded(id,userId) {
-  return async function (dispatch) {
-    try {
-     
-        const response= await axios.post("http://localhost:3001/books/" + id + "/read", userId);
-        console.log("response:", response)
-        return dispatch({
-          type: "ADD_READED",
-          payload: response.data,
-        });
-      
     } catch (e) {
       console.log(e);
     }
   };
 }
 
-export function deleteReaded(id,userId){
-  return async function(dispatch){
-    try{
+export function addReaded(id, userId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `${deployUrl}/books/${id}/read`,
+        userId
+      );
+      console.log("response:", response);
+      return dispatch({
+        type: "ADD_READED",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/read",{data:{userId}});
+export function deleteReaded(id, userId) {
+  return async function (dispatch) {
+    try {
+      const deleteResponse = await axios.delete(
+        `${deployUrl}/books/${id}/read`,
+        {
+          data: { userId },
+        }
+      );
 
       return dispatch({
-        type:"DELETE_READED",
-        payload:deleteResponse.data,
+        type: "DELETE_READED",
+        payload: deleteResponse.data,
       });
-    }catch(e){
-      console.log(e);
-    }
-  }
-}
-
-export function addReading(id,userId) {
-  return async function (dispatch) {
-    try {
-     
-        const response= await axios.post("http://localhost:3001/books/" + id + "/reading",userId);
-        console.log("response:", response)
-        return dispatch({
-          type: "ADD_READING",
-          payload: response.data,
-        });
-      
     } catch (e) {
       console.log(e);
     }
   };
 }
 
-export function deleteReading(id,userId){
-  return async function(dispatch){
-    try{
+export function addReading(id, userId) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `${deployUrl}/books/${id}/reading`,
+        userId
+      );
+      console.log("response:", response);
+      return dispatch({
+        type: "ADD_READING",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
-  
-      const deleteResponse=await axios.delete("http://localhost:3001/books/" + id +"/reading",{data:{userId}});
+export function deleteReading(id, userId) {
+  return async function (dispatch) {
+    try {
+      const deleteResponse = await axios.delete(
+        `${deployUrl}/books/${id}/reading`,
+        {
+          data: { userId },
+        }
+      );
 
       return dispatch({
         type: "DELETE_READING",
         payload: deleteResponse.data,
       });
-    }catch(e){
+    } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
-// export function getBookByAuthor(author){
-//     return async function(dispatch){
+export function addReview(id, payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.post(
+        `${deployUrl}/books/${id}/review`,
+        payload
+      );
+      console.log("response:", response);
+      return dispatch({
+        type: "ADD_REVIEW",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
-//         console.log("Searching book", author)
-//         try{
-//     var obj= await axios.get("http://localhost:3001/books?name="+ author);
-//     return dispatch({
-//         type: 'GET_BY_AUTHOR',
-//         payload:obj.data
-//     })
-//         }catch(e){
-//             alert(author+" was not found, try another author")
-//         }
-//     }
-// }
+export function activateSubscription(userId, plan) {
+  return async function (dispatch) {
+    try {
+      console.log("ACTION: http://localhost:3001/user/subscription" + userId);
+      const response = await axios.put(
+        `${deployUrl}/user/subscription/${userId}`,
+        { plan }
+      );
+      console.log("response:", response);
+      return dispatch({
+        type: "ACTIVATE_SUBSCRIPTION",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}

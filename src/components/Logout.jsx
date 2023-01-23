@@ -1,12 +1,14 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
 
-export const Logout = () => {
+import { ButtonCatalogue } from "../styles/Catalogue";
+
+export default function Logout() {
   const { logout } = useAuth0();
 
   return (
-    <button onClick={() => logout({ returnTo: window.location.origin })}>
+    <ButtonCatalogue color="red" onClick={() => logout({ returnTo: window.location.origin })}>
       Logout
-    </button>
+    </ButtonCatalogue>
   );
 };

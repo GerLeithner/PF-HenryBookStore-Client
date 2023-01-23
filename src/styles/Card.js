@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerCards = styled.div`
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 50px;
   height: 300px;
   display: grid;
@@ -112,7 +112,7 @@ export const CardsAboutUsContainer = styled.div`
   justify-content: center;
   justify-items: center;
   align-items: center;
-  grid-template-columns: repeat(4, minmax(200px, 280px));
+  grid-template-columns: repeat(3, minmax(150px, 350px));
   grid-auto-rows: minmax(auto, 1000px);
   gap: 50px;
   flex-grow: 1;
@@ -192,7 +192,7 @@ export const MenuConteiner =styled.div`
   display: flex;
   flex-direction: column;
   width: 26px;
-  height: 100px;
+  height: 20px;
   margin:0px;
   padding:0px;
   position: absolute;
@@ -205,10 +205,15 @@ export const MenuConteiner =styled.div`
 
 
 export const MenuTrigger =styled.div`
+  display: flex;
   cursor: pointer;
+  width: 20px;
+  height:70px;
   opacity:0.7;
   color: grey;
-  
+  background-color: rgba(255, 255, 255.6);
+  align-self:center;
+  border-radius: 3px;
 `;
 
 export const DropDownMenu =styled.div`
@@ -216,19 +221,25 @@ export const DropDownMenu =styled.div`
   display:flex;
   flex-direction: column;
   margin:0px;
-  padding:0px;
+  padding:10px;
   text-decoration: none;
   list-style-type: none;
+  
 `;
 
 export const UlCard =styled.ul`
   display: flex;
+  background-color: rgba(255, 255, 255,0.6);
+  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   flex-direction: column;
-  width: 20px;
-  height: 150px;
-  margin:0px;
-  padding:0px;
-  
+  width: 25px;
+  height: 160px;
+  margin:10px;
+  padding:3px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   list-style-type: none;
-  
+  justify-content: center;
+  align-self:center;
+  border-radius: 10px;
 `;

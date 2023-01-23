@@ -30,14 +30,14 @@ const AboutUs = () => {
       linkedIn:"https://www.linkedin.com/in/gabriel-basilio-7558a6227/",
       gitHub:"https://github.com/GaboBas"
     },
-    {
-      name: "Andrea Palomeque",
-      picture:
-        "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
-      description: "Not description yet",
-      linkedIn:"https://www.linkedin.com/in/andrea-victoria-lopez-palomeque/",
-      gitHub:"https://github.com/andrealopezpalomeque"
-    },
+    // {
+    //   name: "Andrea Palomeque",
+    //   picture:
+    //     "https://pbs.twimg.com/profile_images/1012362101510160384/EjayQ10E_400x400.jpg",
+    //   description: "Not description yet",
+    //   linkedIn:"https://www.linkedin.com/in/andrea-victoria-lopez-palomeque/",
+    //   gitHub:"https://github.com/andrealopezpalomeque"
+    // },
     
     // {
     //   name: "Ignacio Luna",
