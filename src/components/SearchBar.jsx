@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookById, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
+import { getAuthors, getBooks, getGenres } from "../redux/actions";
 
 import {
   DropdownSearch,
@@ -14,8 +15,23 @@ import {
 const SearchBar = ({ paginado, modal, setModal }) => {
   const dispatch = useDispatch();
   const [title, setTitle] = useState("");
-  const allBooks = useSelector((state) => state.books);
+  const allBooks = useSelector((state) => state.allBooks);
+  const books = useSelector((state) => state.books);
   // const [author,setAuthor]=useState('')
+  useEffect(() => {
+    if (!allGenres.length) {
+      dispatch(getGenres());
+    }
+    if (!allAuthors.length) {
+      dispatch(getAuthors());
+    }
+    if (!allBooks.length) {
+      dispatch(getBooks());
+    }
+  }, [dispatch]);
+
+  const allGenres = useSelector((state) => state.genres);
+  const allAuthors = useSelector((state) => state.authors);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -48,15 +64,16 @@ const SearchBar = ({ paginado, modal, setModal }) => {
           value={title}
           onChange={(e) => handleInputChange(e)}
         />
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           onClick={(e) => handleSubmit(e)}
           style={{
-            backgroundColor: "white", 
-            border: "1px solid #ccc", 
-            height: "32px", 
-            borderRadius: "0px 10px 10px 0px"
-          }}>
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            height: "32px",
+            borderRadius: "0px 10px 10px 0px",
+          }}
+        >
           Go
         </button>
       </InputAndButton>
@@ -67,9 +84,12 @@ const SearchBar = ({ paginado, modal, setModal }) => {
               const searchTerm = title.toLowerCase();
               const titleOfBookSearched = book.title.toLowerCase();
 
+              const nameOfAuthorSearched = book.author.name.toLowerCase();
+
               return (
                 searchTerm &&
-                titleOfBookSearched.includes(searchTerm) &&
+                (titleOfBookSearched.includes(searchTerm) ||
+                  nameOfAuthorSearched.includes(searchTerm)) &&
                 titleOfBookSearched !== searchTerm
               );
             })
@@ -86,7 +106,6 @@ const SearchBar = ({ paginado, modal, setModal }) => {
             ))}
         </DropdownSearch>
       </div>
-
     </SearchContainer>
   );
 };

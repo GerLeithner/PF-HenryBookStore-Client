@@ -7,7 +7,6 @@ import {
   FormTextArea,
   ErrorsForm,
   ReviewBox,
- 
 } from "../styles/CreateBook";
 // import { StarDetail } from "../styles/Detail";
 // import { StarsContainer } from "../styles/CardRecomended";
@@ -18,8 +17,6 @@ export default function BookReviews() {
   const detail = useSelector((state) => state.bookDetail);
   const reviews = useSelector((state) => state.bookDetail.reviews);
 
-  console.log("State detail", detail);
-  console.log("REVIEWS", reviews);
   // let reviewsScore = [];
   // let reviewsScoreFloor = [];
   // let stars = [];

@@ -2,71 +2,66 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
-import { 
-    addReview,
-    getAuthors,
-    getGenres,
-} from "../redux/actions";
+import { addReview, getAuthors, getGenres } from "../redux/actions";
 import closeIcon from "../icons/closeIcon.svg";
 
-
-
 import {
-
-  ButtonForm, 
-  FormInput, 
+  ButtonForm,
+  FormInput,
   ErrorsForm,
-  FormContainer, 
+  FormContainer,
   ImageAndInfoContainer,
   PropAndInput,
   FormTextArea,
   H3Form,
-  PropAndInputAndError
+  PropAndInputAndError,
 } from "../styles/CreateBook";
 
 import {
-  
-    OverLay,
-    ButtonCloseDetail,
-    InfoContainerReview,
-    
-  } from "../styles/Detail";
+  OverLay,
+  ButtonCloseDetail,
+  InfoContainerReview,
+} from "../styles/Detail";
+import { toast } from "react-toastify";
 function validate(input) {
-  
-  const regName = new RegExp("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+  // const regName = new RegExp("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
   const regNum = new RegExp("^[0-5]+$");
 
   let errors = {};
-  if(!input.comment) {
+  if (!input.comment) {
     errors.comment = "*comment is required field";
   }
-  else if(!regName.test(input.comment)) {
-    errors.comment = "*insert a valid comment";
-  }
-  if(!input.score) {
+  // else if(!regName.test(input.comment)) {
+  //   errors.comment = "*insert a valid comment";
+  // }
+  if (!input.score) {
     errors.score = "*score is a required field";
-  } 
-  else if(!regNum.test(input.score)) {
+  } else if (!regNum.test(input.score)) {
     errors.scor = "*enter a valid score";
-  }
-  else if(input.score < 1 || input.score > 5) {
+  } else if (input.score < 1 || input.score > 5) {
     errors.score = "*must be between 1 and 5";
   }
-  
+
   return errors;
 }
 
-export default function CreateBook({ newReview, setNewReview , book, currentUser, modal, setModal}) {
+export default function CreateBook({
+  newReview,
+  setNewReview,
+  book,
+  currentUser,
+  modal,
+  setModal,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
-  
-  const genres = useSelector(state => state.genres);
-  const authors = useSelector(state => state.authors);
-  
 
-  const userId=currentUser && currentUser.id;
-  currentUser && console.log("USERID review", userId)
-  const  bookId=book && book.id
+  const genres = useSelector((state) => state.genres);
+  const authors = useSelector((state) => state.authors);
+
+  const userId = currentUser && currentUser.id;
+  currentUser && console.log("USERID review", userId);
+  const bookId = book && book.id;
   const [input, setInput] = useState({
     userId: userId,
     comment: "",
@@ -76,13 +71,9 @@ export default function CreateBook({ newReview, setNewReview , book, currentUser
   const [errors, setErrors] = useState({});
   const { isAuthenticated, user, isLoading } = useAuth0();
 
-  
-  
-
   useEffect(() => {
-
-    if(!genres) dispatch(getGenres());
-    if(!authors) dispatch(getAuthors());
+    if (!genres) dispatch(getGenres());
+    if (!authors) dispatch(getAuthors());
 
     setErrors(validate(input));
   }, [dispatch, genres, authors, input]);
@@ -104,12 +95,9 @@ export default function CreateBook({ newReview, setNewReview , book, currentUser
   }
   function handleCloseClick(e) {
     e.preventDefault(e);
-    setNewReview (false);
+    setNewReview(false);
     console.log("e.target.value", e.target.value);
   }
-  
-
-  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -121,40 +109,28 @@ export default function CreateBook({ newReview, setNewReview , book, currentUser
     );
 
     let errorsLength = Object.keys(errors).length;
-    
-    if (errorsLength > 0) {
-      alert("One or more fields have errors, please check them");
-    }
 
-    else{
-        setNewReview(false);
-        dispatch(addReview(bookId,input));
-        alert("The Review has been added");
-      
-      
+    if (errorsLength > 0) {
+      toast.error("One or more fields have errors, please check them");
+    } else {
+      setNewReview(false);
+      dispatch(addReview(bookId, input));
+      toast.success("Review has been posted");
+
       setInput({
         userId: userId,
         comment: "",
         score: "",
-        
       });
-      
-      
-      history.push("/home"); 
+
+      history.push("/home");
       setModal(false);
     }
   }
 
- 
-
-  
-
-  
-
   return (
- 
     <FormContainer ancho={"720px"} alto="100px" justify="center">
-        {/* <ButtonCloseDetail
+      {/* <ButtonCloseDetail
                   onClick={(e) => {
                     handleCloseClick(e);
                   }}
@@ -162,12 +138,13 @@ export default function CreateBook({ newReview, setNewReview , book, currentUser
                   <img src={closeIcon} alt="n" />
                 </ButtonCloseDetail> */}
       <ImageAndInfoContainer>
-        
         <InfoContainerReview>
           {/* ----------------------------------------------------------------------*/}
           <PropAndInputAndError>
             <PropAndInput>
-              <H3Form margenRig="30px" margenIzq="30px" alto="70px">Comment</H3Form>
+              <H3Form margenRig="30px" margenIzq="30px" alto="70px">
+                Comment
+              </H3Form>
               <FormTextArea
                 type="text"
                 value={input.comment}
@@ -183,38 +160,38 @@ export default function CreateBook({ newReview, setNewReview , book, currentUser
             </div>
           </PropAndInputAndError>
           {/* ----------------------------------------------------------------------*/}
-          
-            <PropAndInputAndError>
-              <PropAndInput>
-                <H3Form  margenRig="0px" margenIzq="30px" alto="70px">Score</H3Form>
-                <FormInput
-                  type="number"
-                  value={input.score}
-                  name="score"
-                  min={1}
-                  max={5}
-                  onChange={(e) => handleChange(e)}
-                  alto="100px"
-                  ancho="100px"
-                  margen="20px"
-                  
-                />
-              </PropAndInput>
-              {errors.score && <ErrorsForm>{errors.score}</ErrorsForm> }
-            </PropAndInputAndError>
-          
-          {/* --------------------------------------------------------------------*/}
-          
-        </InfoContainerReview>
-        
-      </ImageAndInfoContainer>
-      <ButtonForm type="button" onClick={(e) => handleSubmit(e)} ancho="100px" alto="20">
-          Send Review
-          </ButtonForm>
-     
-    </FormContainer>
-  
-  );
-};
 
- 
+          <PropAndInputAndError>
+            <PropAndInput>
+              <H3Form margenRig="0px" margenIzq="30px" alto="70px">
+                Score
+              </H3Form>
+              <FormInput
+                type="number"
+                value={input.score}
+                name="score"
+                min={1}
+                max={5}
+                onChange={(e) => handleChange(e)}
+                alto="100px"
+                ancho="100px"
+                margen="20px"
+              />
+            </PropAndInput>
+            {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
+          </PropAndInputAndError>
+
+          {/* --------------------------------------------------------------------*/}
+        </InfoContainerReview>
+      </ImageAndInfoContainer>
+      <ButtonForm
+        type="button"
+        onClick={(e) => handleSubmit(e)}
+        ancho="100px"
+        alto="20"
+      >
+        Send Review
+      </ButtonForm>
+    </FormContainer>
+  );
+}

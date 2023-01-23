@@ -193,7 +193,7 @@ export const OverLay = styled.div`
   align-items: center;
   justify-content: center;
   /* background-color:rgba(0, 0, 0, 0.7);  */
-  backdrop-filter: blur(1px);
+  /* backdrop-filter: blur(1px); */
 `;
 
 export const ReviewConteiner = styled.div`
