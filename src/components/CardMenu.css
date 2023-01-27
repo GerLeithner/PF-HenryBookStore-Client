@@ -1,0 +1,27 @@
+.dropdown-menu{
+  height: 20px;
+  width: 26px;
+  margin:0px;
+  padding:0px; 
+ 
+}
+
+.dropdown-menu.active{
+  opacity: 0.75;
+  visibility: visible;
+  height: 20px;
+  width: 26px;
+  margin:0px;
+  padding:0px; 
+  transition: var(--speed) ease;
+}
+
+.dropdown-menu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  height: 20px;
+  width: 26px;
+  margin:0px;
+  padding:0px; 
+  transition: var(--speed) ease;
+}

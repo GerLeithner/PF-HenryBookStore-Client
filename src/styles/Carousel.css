@@ -1,0 +1,17 @@
+.top-rec-wrapper {
+    padding: 60px 30px 0px 30px !important;
+    margin: 0px !important;
+}
+.top-rec-button {
+    margin: 0px !important;
+}
+
+.rec-carousel-wrapper {
+    padding: 0px 30px 0px 30px;
+    margin: 0px;
+}
+
+button.rec-arrow {
+    margin: 10px;
+}
+
