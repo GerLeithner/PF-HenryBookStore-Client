@@ -232,14 +232,11 @@ export const UlCard =styled.ul`
   background-color: rgba(255, 255, 255,0.6);
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   flex-direction: column;
-  width: 25px;
-  height: 160px;
-  margin:10px;
-  padding:3px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  width: 30px;
+  height: 180px;
+  margin:0px;
+  padding: 10px 3px 5px 3px;
   list-style-type: none;
   justify-content: center;
   align-self:center;
-  border-radius: 10px;
 `;

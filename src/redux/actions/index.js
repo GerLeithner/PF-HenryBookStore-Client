@@ -83,6 +83,12 @@ export function disableBook(id) {
   };
 }
 
+export function cleanBookDetail() {
+  return {
+    type: "CLEAN_BOOK_DETAIL",
+  };
+}
+
 // ------------------- BOOK CUSTOM GETS ------------------------------------
 
 export function getTrendingBooks() {
@@ -152,12 +158,6 @@ export function filterBooksByLength(payload) {
   return {
     type: "FILTER_BOOKS_BY_LENGTH",
     payload,
-  };
-}
-
-export function cleanBookDetail() {
-  return {
-    type: "CLEAN_BOOK_DETAIL",
   };
 }
 

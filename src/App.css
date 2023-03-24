@@ -18,3 +18,12 @@
   code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
   }
+
+  .navBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 30px;
+    background-color: black;
+    color: white;
+  }

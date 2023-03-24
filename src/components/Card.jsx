@@ -37,26 +37,21 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 
-export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayReaded, arrayReading, readChange, read, favorites, favoritesChange, readeds, readedsChange }) {
-// const [open, setOpen] = useState(false);
- 
-
-  // console.log("includes", id, "?", arrayFavorite.includes(id))
-
+export default function Card({ id, cover, modal, setModal, arrayFavorite, arrayReaded, arrayReading, readChange, read, favorites, favoritesChange, readeds, readedsChange }) {
 
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
   const [reading,setReading]= useState(false);
  
-  
-
   const dispatch = useDispatch();
   
   const { isAuthenticated, user, isLoading } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
   
+  const book = useSelector((state) => state.bookDetail);
 
+  const userId={userId:currentUser && currentUser.id};
 
   useEffect(()=>{
     if(arrayFavorite.includes(id)){
@@ -99,8 +94,6 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   },[dispatch, arrayReading])
 
 
-
-
   function handleClick(e) {
     e.preventDefault(e);
     setModal(true);
@@ -118,16 +111,6 @@ export default function Card({ id, cover, modal, setModal,arrayFavorite, arrayRe
   const handleMouseOut = () => {
     setIsHovering(false);
   };
-
-
-
-  const book = useSelector((state) => state.bookDetail);
-  
-
-
-  const userId={userId:currentUser && currentUser.id};
-  
-
 
   function handleFavorite(id, userId) {
     // e.preventDefault();

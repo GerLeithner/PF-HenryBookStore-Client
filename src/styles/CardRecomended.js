@@ -7,10 +7,9 @@ export const SingleCardContainerRecomended = styled.div`
   padding: 10px 30px 10px 30px;
   gap: 100px;
   width: max-content;
-  height: max-content;
+  height: 350px;
   align-items: center;
   margin: 0px;
-  border: 1px solid #ccc;
 `;
 
 export const TitleAndRating = styled.div`
