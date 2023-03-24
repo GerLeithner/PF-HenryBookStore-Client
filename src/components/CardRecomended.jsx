@@ -43,23 +43,18 @@ export default function Card({ title, publishedDate, description, averageRating,
         <CardImgRecomended src={cover} alt="img not found" />
         <CardImgRecomended src={back_cover} alt="img not found" />
       </ImgContainerRecomended>
-
       <ColumnConteinerRecomended>
         <TitleAndRating>
           <H1Recomended>{title}</H1Recomended>
           <StarsContainer>
-          {
-            
-              stars && stars.map(s=>(s==="star"?<StarDetail src={starFill} alt="n" />:
-              <StarDetail src={starHalf} alt="n" />
-              ))
-              
-              
-            }
-            
+          { stars && stars.map(s => (s === "star" ?
+            <StarDetail src={starFill} alt="n" /> 
+            :
+            <StarDetail src={starHalf} alt="n" />
+            ))    
+          }
           </StarsContainer>
         </TitleAndRating>
-
         <SubtitleAndYear>
           <H2Recomended>Author: {author.name}</H2Recomended>
           <H2Recomended>Year: {publishedDate}</H2Recomended>

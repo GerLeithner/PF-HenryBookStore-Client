@@ -23,17 +23,15 @@ import {
   InfoContainerReview,
 } from "../styles/Detail";
 import { toast } from "react-toastify";
+
 function validate(input) {
-  // const regName = new RegExp("[a-zA-Z][a-zA-Z ]+[a-zA-Z]$");
+
   const regNum = new RegExp("^[0-5]+$");
 
   let errors = {};
   if (!input.comment) {
     errors.comment = "*comment is required field";
   }
-  // else if(!regName.test(input.comment)) {
-  //   errors.comment = "*insert a valid comment";
-  // }
   if (!input.score) {
     errors.score = "*score is a required field";
   } else if (!regNum.test(input.score)) {
@@ -45,14 +43,7 @@ function validate(input) {
   return errors;
 }
 
-export default function CreateBook({
-  newReview,
-  setNewReview,
-  book,
-  currentUser,
-  modal,
-  setModal,
-}) {
+export default function CreateReview({ newReview, setNewReview, book, currentUser, modal, setModal }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -93,6 +84,7 @@ export default function CreateBook({
     );
     console.log("input", input);
   }
+
   function handleCloseClick(e) {
     e.preventDefault(e);
     setNewReview(false);
@@ -130,13 +122,6 @@ export default function CreateBook({
 
   return (
     <FormContainer ancho={"720px"} alto="100px" justify="center">
-      {/* <ButtonCloseDetail
-                  onClick={(e) => {
-                    handleCloseClick(e);
-                  }}
-                >
-                  <img src={closeIcon} alt="n" />
-                </ButtonCloseDetail> */}
       <ImageAndInfoContainer>
         <InfoContainerReview>
           {/* ----------------------------------------------------------------------*/}
@@ -160,7 +145,6 @@ export default function CreateBook({
             </div>
           </PropAndInputAndError>
           {/* ----------------------------------------------------------------------*/}
-
           <PropAndInputAndError>
             <PropAndInput>
               <H3Form margenRig="0px" margenIzq="30px" alto="70px">
@@ -180,7 +164,6 @@ export default function CreateBook({
             </PropAndInput>
             {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
           </PropAndInputAndError>
-
           {/* --------------------------------------------------------------------*/}
         </InfoContainerReview>
       </ImageAndInfoContainer>

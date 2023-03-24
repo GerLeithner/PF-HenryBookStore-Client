@@ -5,6 +5,8 @@ import { useAuth0 } from "@auth0/auth0-react";
 import styled from "styled-components";
 
 import CreateReview from "./CreateReview.jsx";
+import Review from "./Review.jsx";
+
 import {
   cleanBookDetail,
   addFavorite,
@@ -40,6 +42,20 @@ import {
   ButtonsConteiner,
   StarDetail,
 } from "../styles/Detail";
+
+import {
+  DetailReview,
+  Description,
+  DetailContainer,
+  ReviesContainer,
+  CoverAndInfo,
+  Cover,
+  Info,
+  Props,
+  H1,
+  H2,
+  Reviews
+} from "../styles/Review";
 
 import {
   UlCard,
@@ -113,6 +129,7 @@ export default function CardDetail({ book, modal, setModal }) {
     console.log("e.target.value", e.target.value);
     dispatch(cleanBookDetail(e.target.value));
   }
+
   function handleReviewClick(e) {
     e.preventDefault(e);
     setNewReview(true);
@@ -209,6 +226,7 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     return stars;
   }
+
   function handleReading(id, userId) {
     
     // console.log("e.target.value",e.target.value)
@@ -230,98 +248,73 @@ export default function CardDetail({ book, modal, setModal }) {
     }
     
   }
-  var starAverage =
-    book && book.averageRating && starRating(book.averageRating);
 
-  var review1Star =
-    book &&
-    book.reviews &&
-    book.reviews[0] &&
-    starRating(book.reviews[0].score);
+  var starAverage = book && book.averageRating && starRating(book.averageRating);
 
-  var review2Star =
-    book &&
-    book.reviews &&
-    book.reviews[1] &&
-    starRating(book.reviews[1].score);
+  var review1Star = book && book.reviews && book.reviews[0] && starRating(book.reviews[0].score);
 
-  // carga los favs
-  useEffect(() => {
-    if (currentUser && modal) {
-      const userFavorites = currentUser.Favorites;
+  var review2Star = book && book.reviews && book.reviews[1] && starRating(book.reviews[1].score);
 
-      let allFavorites = [];
-
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-    }
-  }, [dispatch, currentUser, book]);
-  //  console.log("Array FAVORITE",arrayFavorite)
-
-  // carga los readed
   useEffect(() => {
     if (currentUser && modal) {
       const userReaded = currentUser.Read;
-
+      const userReading = currentUser.Reading;
+      const userFavorites = currentUser.Favorites;
+      let allFavorites = [];
+      let allReading = [];
       let allReaded = [];
 
       for (let i = 0; i < currentUser.Read.length; i++) {
         let read = currentUser.Read[i].id;
         allReaded.push(read);
       }
-      setArrayReaded(allReaded);
-    }
-  }, [dispatch, currentUser, book]);
-  //  console.log("Array READED",arrayReaded)
-
-  // carga los reading
-  useEffect(() => {
-    if (currentUser && modal) {
-      const userReading = currentUser.Reading;
-      let allReading = [];
-
       for (let i = 0; i < currentUser.Reading.length; i++) {
         let reading = currentUser.Reading[i].id;
         allReading.push(reading);
       }
+      for (let i = 0; i < currentUser.Favorites.length; i++) {
+        let fav = currentUser.Favorites[i].id;
+
+        allFavorites.push(fav);
+      }
+      setArrayFavorite(allFavorites);
       setArrayReading(allReading);
+      setArrayReaded(allReaded);
     }
+    return
   }, [dispatch, currentUser, book]);
 
   useEffect(() => {
     if (arrayFavorite.includes(book.id)) {
+
       setFavorite(true);
-      // console.log("SETIE EL FAV", true)
+
     } else if (!arrayFavorite.includes(book.id)) {
-      // console.log("FAV-", false)
+
       setFavorite(false);
-      // console.log("SETIE EL FAV",false)
     }
   }, [dispatch, arrayFavorite, book.id]);
 
   useEffect(() => {
     if (arrayReaded.includes(book.id)) {
       setReaded(true);
-      // console.log("SETIE EL Readed", true)
+
     } else if (!arrayReaded.includes(book.id)) {
-      // console.log("Readed-", false)
+
       setReaded(false);
-      // console.log("SETIE EL READED",false)
+
     }
   }, [dispatch, arrayReaded, book.id]);
 
   useEffect(() => {
     if (arrayReading.includes(book.id)) {
+
       setReading(true);
-      // console.log("SETIE EL Reading", true)
+
     } else if (!arrayReading.includes(book.id)) {
-      // console.log("Reading-", false)
+
       setReading(false);
-      // console.log("SETIE EL READING",false)
+
     }
   }, [dispatch, arrayReading, book.id]);
 
@@ -346,9 +339,7 @@ export default function CardDetail({ book, modal, setModal }) {
                       )
                     )}
                 </StarsContainer>
-                <div onClick={e => handleCloseClick(e)} style={{cursor: "pointer"}}>x</div>
                 </Props>
-                
               </Props>
               <Props>
                 <H2>Author: {book.author?.name}</H2>
@@ -366,240 +357,19 @@ export default function CardDetail({ book, modal, setModal }) {
           <Description>{book.description}</Description>             
         </DetailContainer>
         <ReviesContainer>
-          <H2 style={{fontStyle: "italic"}}>Users Reviews</H2>
-          <Reviews>
-            { book.reviews && book.reviews.map(r => {
-              return(
-                <DetailReview>
-                  <Props>
-                    <p>{r.user.userName}</p>
-                    <p>{r.user.score}</p>
-                  </Props>
-                  <p>{r.comment ? r.comment : ""}</p>
-                  <p>{r.create_date}</p>
-                </DetailReview>
-              )
-            })}  
-          </Reviews>
+          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
+            <H2>Users Reviews</H2>
+            <div onClick={e => handleCloseClick(e)} style={{cursor: "pointer"}}>x</div>        
+          </div>
+          <div style={{width: "100%"}}>
+            <Reviews>
+              { book.reviews && book.reviews.map(r => {
+                return <Review r={r}/>
+              })}  
+            </Reviews>
+          </div>
         </ReviesContainer>
       </div>
-
-      
     </OverLay>
   );
 }
-
-const DetailReview = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-`;
-
-const DetailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: white;
-  width: 800px;
-`;
-
-const ReviesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1e1e1e;
-  color: white;
-  padding: 20px;
-  width: 350px;
-`;
-
-const CoverAndInfo = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  gap: 30px;
-`;
-
-const Cover = styled.img`
-  width: 170px;
-  height: 220px;
-  border: 1px solid #ccc;
-`;
-
-const Info = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-`;
-
-const Props = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  text-align: left;
-  gap: 40px;
-  /* color: white; */
-`;
-
-const H1 = styled.h1`
-  font-size: 25px;
-  font-style: italic;
-  font-weight: 500;
-  line-height: 29px;
-  margin: 0px;
-`;
-
-const H2 = styled.h2`
-  font-size: 20px;
-  font-weight: 500;
-  margin: 0px;
-`;
-
-const Description = styled.span`
-  overflow: auto;
-  text-align: left;
-  height: 200px;
-`;
-
-const Reviews = styled.div`
-`;
-
-
-
-{/* <>
-      {modal && (
-        <OverLay>
-          <SingleCardContainerDetail>
-           
-            <ImgAndInfo>
-              <ImgContainerDetail>
-                <CardImgDetail src={book.cover} alt="img not found" />
-              </ImgContainerDetail>
-              <ColumnConteinerDetail>
-                <ButtonCloseDetail
-                  onClick={(e) => {
-                    handleCloseClick(e);
-                  }}
-                >
-                  <img src={closeIcon} alt="n" />
-                </ButtonCloseDetail>
-                <MenuConteiner
-                  right={"310px"}
-                  top={"120px"}
-                  onMouseOver={handleMouseOver}
-                  onMouseOut={handleMouseOut}
-                >
-                  <MenuTrigger onMouseOver={handleMouseOver}>
-                    <img src={caretIcon} />
-                  </MenuTrigger>
-                  <DropDownMenu
-                    className={`dropdown-menu ${
-                      isHovering ? "active" : "inactive"
-                    }`}
-                    onMouseOver={handleMouseOver}
-                  >
-                    <UlCard>
-                      <DropdownItem
-                        key={book.id + "1"}
-                        icon={!reading ? bookIcon : bookHalfIcon}
-                        value={book.id}
-                        handle={(e) => {
-                          handleReading(book.id, userId);
-                        }}
-                        role="button"
-                      /> */}
-                      <DropdownItem
-                        key={book.id + "2"}
-                        icon={!readed ? readedIcon : readedIconFill}
-                        value={book.id}
-                        handle={(e) => {
-                          handleReaded(book.id, userId);
-                        }}
-                        role="button"
-                      />
-                      <DropdownItem
-                        key={book.id + "3"}
-                        icon={!favorite ? favoriteIcon : favoriteFillIcon}
-                        value={book.id}
-                        name={book.title}
-                        handle={(e) => {
-                          handleFavorite(book.id, userId);
-                        }}
-                        role="button"
-                      />
-                      <DropdownItem 
-                      icon={!reading?bookIcon:bookHalfIcon} 
-                      value={book.id} 
-                      handle={e=>{handleReading(book.id,userId)}}role="button" />
-                    </UlCard>
-                  </DropDownMenu>
-                </MenuConteiner>
-
-                <TitleAndRating>
-                  <H1Detail>{book.title}</H1Detail>
-
-                  <StarsContainer>
-                    {starAverage &&
-                      starAverage.map((s, i) =>
-                        s === "star" ? (
-                          <StarDetail key={i} src={starFill} alt="n" />
-                        ) : (
-                          <StarDetail key={i} src={starHalf} alt="n" />
-                        )
-                      )}
-                  </StarsContainer>
-                </TitleAndRating>
-                <SubtitleAndYear>
-                  <H2Detail>
-                    {book.subtitle
-                      ? book.subtitle
-                      : `Author: ${book && book.author && book.author.name}`}
-                  </H2Detail>
-                  <H2Detail>Year: {book.publishedDate}</H2Detail>
-                </SubtitleAndYear>
-                {book.subtitle && (
-                  <H2Detail>Author: {book.author.name}</H2Detail>
-                )}
-                {book && book.genre && (
-                  <H2Detail>Genre:{book.genre.name}</H2Detail>
-                )}
-                <DescriptionCardConteinerDetail>
-                  <DescriptionPDetail>{book.description}</DescriptionPDetail>
-                </DescriptionCardConteinerDetail>
-              </ColumnConteinerDetail>
-            </ImgAndInfo>
-            <ReviewConteiner>
-              {book && book.reviews && <BookReviews />}
-            </ReviewConteiner>
-            {!newReview ? (
-              <ButtonsConteiner>
-
-                <ButtonDetail
-                  onClick={(e) => {
-                    handleReviewClick(e);
-                  }}
-                >
-                  Leave a Review
-                </ButtonDetail>
-              </ButtonsConteiner>
-            ) : (
-              <ReviewConteiner>
-                <CreateReview
-                  currentUser={currentUser}
-                  book={book}
-                  setNewReview={setNewReview}
-                  newReview={newReview}
-                  modal={modal}
-                  setModal={setModal}
-                />
-              </ReviewConteiner>
-            )}
-          </SingleCardContainerDetail>
-        </OverLay>
-      )}
-    </> */}

@@ -50,6 +50,12 @@ function rootReducer(state = initialState, action) {
         bookDetail: action.payload,
       };
 
+    case "CLEAN_BOOK_DETAIL":
+      return {
+        ...state,
+        bookDetail: {},
+      };
+
     // ------------------- BOOK CUSTOM GETS ------------------------------------
 
     case "GET_TRENDING_BOOKS":
@@ -68,12 +74,6 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         recomended: action.payload,
-      };
-
-    case "CLEAN_BOOK_DETAIL":
-      return {
-        ...state,
-        detail: {},
       };
 
     // ------------------- BOOK SORTS AND FILTERS ------------------------------------
