@@ -25,7 +25,6 @@ import {
 import { toast } from "react-toastify";
 
 function validate(input) {
-
   const regNum = new RegExp("^[0-5]+$");
 
   let errors = {};
@@ -43,7 +42,14 @@ function validate(input) {
   return errors;
 }
 
-export default function CreateReview({ newReview, setNewReview, book, currentUser, modal, setModal }) {
+export default function CreateReview({
+  newReview,
+  setNewReview,
+  book,
+  currentUser,
+  modal,
+  setModal,
+}) {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -121,29 +127,12 @@ export default function CreateReview({ newReview, setNewReview, book, currentUse
   }
 
   return (
-    <FormContainer ancho={"720px"} alto="100px" justify="center">
+    <div>
+      <div onClick={(e) => handleCloseClick(e)} style={{ cursor: "pointer" }}>
+        x
+      </div>
       <ImageAndInfoContainer>
         <InfoContainerReview>
-          {/* ----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
-            <PropAndInput>
-              <H3Form margenRig="30px" margenIzq="30px" alto="70px">
-                Comment
-              </H3Form>
-              <FormTextArea
-                type="text"
-                value={input.comment}
-                alto="50px"
-                ancho="350px"
-                name="comment"
-                onChange={(e) => handleChange(e)}
-                margen="0px"
-              />
-            </PropAndInput>
-            <div>
-              {errors.comment && <ErrorsForm>{errors.comment}</ErrorsForm>}
-            </div>
-          </PropAndInputAndError>
           {/* ----------------------------------------------------------------------*/}
           <PropAndInputAndError>
             <PropAndInput>
@@ -164,6 +153,27 @@ export default function CreateReview({ newReview, setNewReview, book, currentUse
             </PropAndInput>
             {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
           </PropAndInputAndError>
+          <PropAndInputAndError>
+            <H3Form margenRig="30px" margenIzq="30px" alto="70px">
+              Your Review:
+            </H3Form>
+            <PropAndInput>
+              <FormTextArea
+                type="text"
+                value={input.comment}
+                alto="50px"
+                ancho="350px"
+                name="comment"
+                onChange={(e) => handleChange(e)}
+                margen="0px"
+              />
+            </PropAndInput>
+            <div>
+              {errors.comment && <ErrorsForm>{errors.comment}</ErrorsForm>}
+            </div>
+          </PropAndInputAndError>
+          {/* ----------------------------------------------------------------------*/}
+
           {/* --------------------------------------------------------------------*/}
         </InfoContainerReview>
       </ImageAndInfoContainer>
@@ -175,6 +185,6 @@ export default function CreateReview({ newReview, setNewReview, book, currentUse
       >
         Send Review
       </ButtonForm>
-    </FormContainer>
+    </div>
   );
 }

@@ -54,7 +54,7 @@ import {
   Props,
   H1,
   H2,
-  Reviews
+  Reviews,
 } from "../styles/Review";
 
 import {
@@ -133,7 +133,7 @@ export default function CardDetail({ book, modal, setModal }) {
   function handleReviewClick(e) {
     e.preventDefault(e);
     setNewReview(true);
-    console.log("newReview", newReview)
+    console.log("newReview", newReview);
     console.log("e.target.value", e.target.value);
   }
 
@@ -228,32 +228,37 @@ export default function CardDetail({ book, modal, setModal }) {
   }
 
   function handleReading(id, userId) {
-    
     // console.log("e.target.value",e.target.value)
-    
-    if(!reading){
+
+    if (!reading) {
       console.log("Entré a add reading :", id);
-      setReading(!reading)
-      console.log("READ+",reading)
-      
+      setReading(!reading);
+      console.log("READ+", reading);
+
       dispatch(addReading(id, userId));
-      
     }
-    if(reading){
+    if (reading) {
       console.log("Entré a delete reading :", id);
-      setReading(!reading)
-      console.log("READ-",reading)
+      setReading(!reading);
+      console.log("READ-", reading);
       dispatch(deleteReading(id, userId));
-      
     }
-    
   }
 
-  var starAverage = book && book.averageRating && starRating(book.averageRating);
+  var starAverage =
+    book && book.averageRating && starRating(book.averageRating);
 
-  var review1Star = book && book.reviews && book.reviews[0] && starRating(book.reviews[0].score);
+  var review1Star =
+    book &&
+    book.reviews &&
+    book.reviews[0] &&
+    starRating(book.reviews[0].score);
 
-  var review2Star = book && book.reviews && book.reviews[1] && starRating(book.reviews[1].score);
+  var review2Star =
+    book &&
+    book.reviews &&
+    book.reviews[1] &&
+    starRating(book.reviews[1].score);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -281,16 +286,13 @@ export default function CardDetail({ book, modal, setModal }) {
       setArrayReading(allReading);
       setArrayReaded(allReaded);
     }
-    return
+    return;
   }, [dispatch, currentUser, book]);
 
   useEffect(() => {
     if (arrayFavorite.includes(book.id)) {
-
       setFavorite(true);
-
     } else if (!arrayFavorite.includes(book.id)) {
-
       setFavorite(false);
     }
   }, [dispatch, arrayFavorite, book.id]);
@@ -298,78 +300,107 @@ export default function CardDetail({ book, modal, setModal }) {
   useEffect(() => {
     if (arrayReaded.includes(book.id)) {
       setReaded(true);
-
     } else if (!arrayReaded.includes(book.id)) {
-
       setReaded(false);
-
     }
   }, [dispatch, arrayReaded, book.id]);
 
   useEffect(() => {
     if (arrayReading.includes(book.id)) {
-
       setReading(true);
-
     } else if (!arrayReading.includes(book.id)) {
-
       setReading(false);
-
     }
   }, [dispatch, arrayReading, book.id]);
 
   return (
-    modal &&
-    <OverLay>
-      <div style={{display: "flex", flexDirection: "row"}}>
-        <DetailContainer>
-          <CoverAndInfo>
-            <Cover src={book.cover}/>             
-            <Info>
-              <Props>
-                <H1>{book.title}</H1>
+    modal && (
+      <OverLay>
+        <div style={{ display: "flex", flexDirection: "row" }}>
+          <DetailContainer>
+            <CoverAndInfo>
+              <Cover src={book.cover} />
+              <Info>
                 <Props>
-                <StarsContainer>
-                  {starAverage &&
-                    starAverage.map((s, i) =>
-                      s === "star" ? (
-                        <StarDetail key={i} src={starFill} alt="n" />
-                      ) : (
-                        <StarDetail key={i} src={starHalf} alt="n" />
-                      )
-                    )}
-                </StarsContainer>
+                  <H1>{book.title}</H1>
+                  <Props>
+                    <StarsContainer>
+                      {starAverage &&
+                        starAverage.map((s, i) =>
+                          s === "star" ? (
+                            <StarDetail key={i} src={starFill} alt="n" />
+                          ) : (
+                            <StarDetail key={i} src={starHalf} alt="n" />
+                          )
+                        )}
+                    </StarsContainer>
+                  </Props>
                 </Props>
-              </Props>
-              <Props>
-                <H2>Author: {book.author?.name}</H2>
-                <H2>Published: {book.publishedDate}</H2>
-              </Props>
-              <Props>
-                <H2>Genre: {book.genre?.name}</H2>
-                <H2>{book.pages} Pages</H2>
-              </Props>
-              <Props>
-                <H2>Publisher: {book.publisher}</H2>
-              </Props>
-            </Info>    
-          </CoverAndInfo>
-          <Description>{book.description}</Description>             
-        </DetailContainer>
-        <ReviesContainer>
-          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%"}}>
-            <H2>Users Reviews</H2>
-            <div onClick={e => handleCloseClick(e)} style={{cursor: "pointer"}}>x</div>        
-          </div>
-          <div style={{width: "100%"}}>
-            <Reviews>
-              { book.reviews && book.reviews.map(r => {
-                return <Review r={r}/>
-              })}  
-            </Reviews>
-          </div>
-        </ReviesContainer>
-      </div>
-    </OverLay>
+                <Props>
+                  <H2>Author: {book.author?.name}</H2>
+                  <H2>Published: {book.publishedDate}</H2>
+                </Props>
+                <Props>
+                  <H2>Genre: {book.genre?.name}</H2>
+                  <H2>{book.pages} Pages</H2>
+                </Props>
+                <Props>
+                  <H2>Publisher: {book.publisher}</H2>
+                </Props>
+              </Info>
+            </CoverAndInfo>
+            <Description>{book.description}</Description>
+          </DetailContainer>
+          <ReviesContainer>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                width: "100%",
+              }}
+            >
+              <H2>Users Reviews</H2>
+              <div
+                onClick={(e) => handleCloseClick(e)}
+                style={{ cursor: "pointer" }}
+              >
+                x
+              </div>
+            </div>
+            <div style={{ width: "100%" }}>
+              <Reviews>
+                {book.reviews &&
+                  book.reviews.map((r) => {
+                    return <Review r={r} />;
+                  })}
+              </Reviews>
+            </div>
+            {currentUser && currentUser.subscription ? (
+              !newReview ? (
+                <ButtonDetail
+                  onClick={(e) => {
+                    handleReviewClick(e);
+                  }}
+                >
+                  Leave a Review
+                </ButtonDetail>
+              ) : (
+                <CreateReview
+                  currentUser={currentUser}
+                  book={book}
+                  setNewReview={setNewReview}
+                  newReview={newReview}
+                  modal={modal}
+                  setModal={setModal}
+                />
+              )
+            ) : (
+              <div>Subscribe to review</div>
+            )}
+          </ReviesContainer>
+        </div>
+      </OverLay>
+    )
   );
 }

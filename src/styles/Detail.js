@@ -26,7 +26,6 @@ export const ImgAndInfo = styled.div`
   grid-template-columns: 0.25fr 0.25fr;
   gap: 30px;
   padding-bottom: 0px;
-
 `;
 
 export const H1Detail = styled.h1`
@@ -90,10 +89,9 @@ export const H5Detail = styled.h5`
   line-height: 15px;
   letter-spacing: 0em;
   text-align: left;
-  padding:0px;
+  padding: 0px;
   padding-left: 20px;
-  margin:0px;
- 
+  margin: 0px;
 `;
 
 export const TitleCardConteinerDetail = styled.div`
@@ -148,28 +146,25 @@ export const StarDetail = styled.img`
   width: 15px;
   height: 15px;
   margin: 0px;
-  
 `;
 
-
-
-export const DescriptionCardConteinerDetail= styled.div`
- width: 500px;
- height: 210px;
- padding:0px;
- margin: 0px;
+export const DescriptionCardConteinerDetail = styled.div`
+  width: 500px;
+  height: 210px;
+  padding: 0px;
+  margin: 0px;
 `;
 
-export const DescriptionPDetail= styled.p`
-height: 150px;
-width: 550px;
-padding:0px;
-text-align:justify;
-font-size: small;
-margin:0px;
-overflow-x: hidden ;
-overflow-y: auto;
-text-overflow:ellipsis;
+export const DescriptionPDetail = styled.p`
+  height: 150px;
+  width: 550px;
+  padding: 0px;
+  text-align: justify;
+  font-size: small;
+  margin: 0px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-overflow: ellipsis;
 `;
 
 export const ImgContainerDetail = styled.div`
@@ -201,7 +196,7 @@ export const ReviewConteiner = styled.div`
   flex-direction: column;
   height: 110px;
   width: 730px;
-  padding:0px;
+  padding: 0px;
   border-radius: 5px;
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
   margin: 0px;
@@ -211,10 +206,9 @@ export const ReviewConteiner = styled.div`
   padding-left: 0px;
   padding-right: 0px;
   padding-bottom: 5px;
-  overflow-x: hidden ;
+  overflow-x: hidden;
   overflow-y: auto;
-  text-overflow:ellipsis; 
-  
+  text-overflow: ellipsis;
 `;
 
 export const UserAndStars = styled.div`
@@ -228,9 +222,7 @@ export const UserAndStars = styled.div`
   padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
-
 `;
-
 
 export const ButtonCloseDetail = styled.button`
   margin: 10px;
@@ -284,7 +276,6 @@ export const ButtonSelectDetail = styled.select`
   top: 65px;
   right: 340px;
   position: absolute;
-  
 
   &:hover {
     background-color: #1b8f2b;
@@ -348,9 +339,7 @@ export const ButtonDetail = styled.button`
   outline: none;
 
   &:hover {
-    background-color: #1b8f2b;
-    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
-    color: #fff;
+    box-shadow: 0px 15px 20px #3f3f3f;
     //transform: translateY(-7px);
   }
 
@@ -368,13 +357,13 @@ export const ButtonsConteiner = styled.div`
   align-items: flex-end;
   justify-content: space-around;
   padding-bottom: 0px;
-  align-self:flex-end;
+  align-self: flex-end;
 `;
 
 export const InfoContainerReview = styled.div`
   margin: 0px;
   padding: 0px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 `;
