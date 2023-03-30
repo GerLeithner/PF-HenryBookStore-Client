@@ -12,18 +12,14 @@ export const FormContainer = styled.form`
   width: ${({ ancho }) => ancho || "100%"};
   height: ${({ alto }) => alto || "40px"};
   text-align: left;
-
- 
 `;
-
-
 
 // export const ReviewBox = styled.div`
 //   padding: 15px;
 //   padding-bottom: 5px;
 //   justify-content: space-between;
 //   height: 150px;
- 
+
 // `;
 export const ImageAndInfoContainer = styled.div`
   padding: 0px;
@@ -31,7 +27,6 @@ export const ImageAndInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   gap: 0px;
-
 `;
 
 export const BookImage = styled.img`
@@ -51,20 +46,19 @@ export const InfoContainer = styled.div`
 
 export const PropAndInputAndError = styled.div`
   margin: 0px;
-  padding:0px;
-  display:flex;
+  padding: 0px;
+  display: flex;
   flex-direction: column;
   height: ${({ alto }) => alto || "40px"};
-  align-items: flex-end;
 `;
 
 export const PropAndInput = styled.div`
   margin: 0px;
-  padding:0px;
-  display:flex;
+  padding: 0px;
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items:center;
+  align-items: center;
   height: ${({ alto }) => alto || "40px"};
   width: ${({ width }) => width || "100%"};
 `;
@@ -118,7 +112,7 @@ export const FormTextArea = styled.textarea`
 export const H3Form = styled.span`
   margin: 0px;
   margin-left: ${({ margenIzq }) => margenIzq || "20px"};
-  margin-right: ${({ margenRig }) => margenRig || "0px"};;
+  margin-right: ${({ margenRig }) => margenRig || "0px"};
   font-weight: 500;
   line-height: 20px;
   font-size: 16px;
@@ -180,6 +174,6 @@ export const BookCoverInput = styled.label`
 
   &:hover {
     background-color: green;
-    color: white
+    color: white;
   }
 `;

@@ -20,6 +20,7 @@ import {
 import {
   OverLay,
   ButtonCloseDetail,
+  ButtonDetail,
   InfoContainerReview,
 } from "../styles/Detail";
 import { toast } from "react-toastify";
@@ -62,7 +63,7 @@ export default function CreateReview({
   const [input, setInput] = useState({
     userId: userId,
     comment: "",
-    score: "",
+    score: 1,
   });
 
   const [errors, setErrors] = useState({});
@@ -118,11 +119,11 @@ export default function CreateReview({
       setInput({
         userId: userId,
         comment: "",
-        score: "",
+        score: 1,
       });
 
-      history.push("/home");
-      setModal(false);
+      //history.push("/home");
+      //setModal(false);
     }
   }
 
@@ -136,27 +137,27 @@ export default function CreateReview({
           {/* ----------------------------------------------------------------------*/}
           <PropAndInputAndError>
             <PropAndInput>
-              <H3Form margenRig="0px" margenIzq="30px" alto="70px">
-                Score
-              </H3Form>
-              <FormInput
-                type="number"
-                value={input.score}
-                name="score"
-                min={1}
-                max={5}
-                onChange={(e) => handleChange(e)}
-                alto="100px"
-                ancho="100px"
-                margen="20px"
-              />
+              <label>
+                <span>Score </span>
+
+                <select
+                  name="score"
+                  id="scoreInput"
+                  onChange={handleChange}
+                  defaultValue={5}
+                >
+                  <option value={5}>5</option>
+                  <option value={4}>4</option>
+                  <option value={3}>3</option>
+                  <option value={2}>2</option>
+                  <option value={1}>1</option>
+                </select>
+              </label>
             </PropAndInput>
             {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
           </PropAndInputAndError>
           <PropAndInputAndError>
-            <H3Form margenRig="30px" margenIzq="30px" alto="70px">
-              Your Review:
-            </H3Form>
+            <p>Your Review:</p>
             <PropAndInput>
               <FormTextArea
                 type="text"
@@ -177,14 +178,14 @@ export default function CreateReview({
           {/* --------------------------------------------------------------------*/}
         </InfoContainerReview>
       </ImageAndInfoContainer>
-      <ButtonForm
+      <ButtonDetail
         type="button"
         onClick={(e) => handleSubmit(e)}
         ancho="100px"
         alto="20"
       >
-        Send Review
-      </ButtonForm>
+        Submit
+      </ButtonDetail>
     </div>
   );
 }

@@ -137,13 +137,6 @@ export default function CardDetail({ book, modal, setModal }) {
     console.log("e.target.value", e.target.value);
   }
 
-  function handleReviewClick(e) {
-    e.preventDefault(e);
-    setNewReview(true);
-    console.log("newReview", newReview);
-    console.log("e.target.value", e.target.value);
-  }
-
   function handleFavorite(id, userId) {
     // e.preventDefault();
     // console.log("e.target.value",e.target.value)
