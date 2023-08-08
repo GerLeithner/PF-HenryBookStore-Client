@@ -17,11 +17,20 @@ export default function PaypalButton({
   const dispatch = useDispatch();
 
   let planId;
+  let userId;
+
+  useEffect(() => {
+    if (currentUser) {
+      //      userId = useRef(currentUser.id);
+    }
+  }, [currentUser]);
+
+  console.log("Despues del useEffect id:", userId);
 
   const [approbed, setApprobed] = useState(false);
 
   if (currentUser) {
-    var userId = currentUser.id;
+    userId = currentUser.id;
   }
 
   useEffect(() => {
