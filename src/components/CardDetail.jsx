@@ -137,74 +137,6 @@ export default function CardDetail({ book, modal, setModal }) {
     console.log("e.target.value", e.target.value);
   }
 
-  function handleFavorite(id, userId) {
-    // e.preventDefault();
-    // console.log("e.target.value",e.target.value)
-
-    if (!favorite) {
-      console.log("Entré a add favorite, bookId:", id);
-      setFavorite(true);
-      console.log("FAV+", favorite);
-      dispatch(addFavorite(id, userId));
-      toast.success("Book added to your favorites");
-    }
-
-    if (favorite) {
-      console.log("Entré a delete favorite, bookId:", id);
-      setFavorite(false);
-      console.log("FAV-", favorite);
-
-      dispatch(deleteFavorite(id, userId));
-
-      toast.warning("Book removed from your favorites");
-    }
-  }
-
-  function handleReaded(id, userId) {
-    // console.log("e.target.value",e.target.value)
-
-    if (!readed) {
-      console.log("Entré a add readed :", id);
-      setReaded(true);
-      console.log("READ+", readed);
-
-      dispatch(addReaded(id, userId));
-      toast.success("Book mark as readed");
-    }
-
-    if (readed) {
-      console.log("Entré a delete readed :", id);
-      setReaded(false);
-      console.log("READ-", readed);
-
-      dispatch(deleteReaded(id, userId));
-      toast.warning("Book mark as unread");
-    }
-  }
-
-  function handleReading(id, userId) {
-    // console.log("e.target.value",e.target.value)
-
-    if (!reading) {
-      console.log("Entré a add reading :", id);
-      setReading(true);
-      console.log("READ+", reading);
-
-      dispatch(addReading(id, userId));
-
-      toast.success("Book mark as reading");
-    }
-
-    if (reading) {
-      console.log("Entré a delete reading :", id);
-      setReading(false);
-      console.log("READ-", reading);
-
-      dispatch(deleteReading(id, userId));
-      toast.warning("Book mark as unreading");
-    }
-  }
-
   function starRating(rating) {
     let ratingFloor = Math.floor(rating);
 
@@ -241,23 +173,8 @@ export default function CardDetail({ book, modal, setModal }) {
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
-  var review1Star =
-    book &&
-    book.reviews &&
-    book.reviews[0] &&
-    starRating(book.reviews[0].score);
-
-  var review2Star =
-    book &&
-    book.reviews &&
-    book.reviews[1] &&
-    starRating(book.reviews[1].score);
-
   useEffect(() => {
     if (currentUser && modal) {
-      const userReaded = currentUser.Read;
-      const userReading = currentUser.Reading;
-      const userFavorites = currentUser.Favorites;
       let allFavorites = [];
       let allReading = [];
       let allReaded = [];
@@ -305,6 +222,10 @@ export default function CardDetail({ book, modal, setModal }) {
       setReading(false);
     }
   }, [dispatch, arrayReading, book.id]);
+
+  if (currentUser) {
+    console.log("Reviews del currentUser: " + currentUser.reviews.length);
+  }
 
   return (
     modal && (
@@ -370,23 +291,32 @@ export default function CardDetail({ book, modal, setModal }) {
               </Reviews>
             </div>
             {currentUser && currentUser.subscription ? (
-              !newReview ? (
-                <ButtonDetail
-                  onClick={(e) => {
-                    handleReviewClick(e);
-                  }}
-                >
-                  Leave a Review
-                </ButtonDetail>
+              !currentUser.reviews.find((review) => {
+                console.log(
+                  "review.bookId = " + review.bookId + " book.id = " + book.id
+                );
+                return review.bookId === book.id;
+              }) ? (
+                !newReview ? (
+                  <ButtonDetail
+                    onClick={(e) => {
+                      handleReviewClick(e);
+                    }}
+                  >
+                    Leave a Review
+                  </ButtonDetail>
+                ) : (
+                  <CreateReview
+                    currentUser={currentUser}
+                    book={book}
+                    setNewReview={setNewReview}
+                    newReview={newReview}
+                    modal={modal}
+                    setModal={setModal}
+                  />
+                )
               ) : (
-                <CreateReview
-                  currentUser={currentUser}
-                  book={book}
-                  setNewReview={setNewReview}
-                  newReview={newReview}
-                  modal={modal}
-                  setModal={setModal}
-                />
+                <div>Already reviewed</div>
               )
             ) : (
               <div>Subscribe to review</div>
