@@ -2,46 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import styled from "styled-components";
-
 import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
 
-import {
-  cleanBookDetail,
-  addFavorite,
-  addReaded,
-  addReading,
-  deleteFavorite,
-  deleteReading,
-  deleteReaded,
-  getCurrentUser,
-} from "../redux/actions";
+import { cleanBookDetail } from "../redux/actions";
 
-import {
-  CardImgDetail,
-  ImgContainerDetail,
-  SingleCardContainerDetail,
-  DescriptionCardConteinerDetail,
-  H1Detail,
-  H2Detail,
-  ColumnConteinerDetail,
-  DescriptionPDetail,
-  SubtitleAndYear,
-  TitleAndRating,
-  OverLay,
-  ButtonCloseDetail,
-  H5Detail,
-  ReviewConteiner,
-  H4Detail,
-  ButtonDetail,
-  ImgAndInfo,
-  ButtonOptionsDetail,
-  ButtonSelectDetail,
-  UserAndStars,
-  ButtonsConteiner,
-  StarDetail,
-} from "../styles/Detail";
+import { OverLay, ButtonDetail, StarDetail } from "../styles/Detail";
 
 import {
   DetailReview,
@@ -57,43 +23,12 @@ import {
   Reviews,
 } from "../styles/Review";
 
-import {
-  UlCard,
-  MenuConteiner,
-  MenuTrigger,
-  DropDownMenu,
-} from "../styles/Card";
 import "./CardMenu.css";
 
-import caretIcon from "../icons/caretIcon.svg";
-import favoriteIcon from "../icons/favoriteIcon.svg";
-import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
-import readedIcon from "../icons/readedIcon.svg";
-import reviewIcon from "../icons/reviewIcon.svg";
-import readedIconFill from "../icons/readedIconFill.svg";
 import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
-import closeIcon from "../icons/closeIcon.svg";
-import bookIcon from "../icons/bookIcon.svg";
-import bookHalfIcon from "../icons/bookHalfIcon.svg";
 import { StarsContainer } from "../styles/CardRecomended";
-import BookReviews from "../components/BookReviews.jsx";
-import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-function DropdownItem(props) {
-  return (
-    <li>
-      <img
-        src={props.icon}
-        alt="n"
-        role="button"
-        onClick={props.handle}
-        value={props.id}
-      />
-    </li>
-  );
-}
 
 export default function CardDetail({ book, modal, setModal }) {
   const dispatch = useDispatch();
@@ -108,70 +43,10 @@ export default function CardDetail({ book, modal, setModal }) {
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
   const [newReview, setNewReview] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
-  const { isAuthenticated, user, isLoading } = useAuth0();
 
   const userId = { userId: currentUser && currentUser.id };
 
-  const handleMouseOver = () => {
-    setIsHovering(true);
-  };
-
-  const handleMouseOut = () => {
-    setIsHovering(false);
-  };
-
-  function handleCloseClick(e) {
-    e.preventDefault(e);
-    setModal(false);
-    setNewReview(false);
-    console.log("MODAL", modal);
-    console.log("e.target.value", e.target.value);
-    dispatch(cleanBookDetail(e.target.value));
-  }
-
-  function handleReviewClick(e) {
-    e.preventDefault(e);
-    setNewReview(true);
-    console.log("newReview", newReview);
-    console.log("e.target.value", e.target.value);
-  }
-
-  function starRating(rating) {
-    let ratingFloor = Math.floor(rating);
-
-    let stars = [];
-    for (let i = 0; i < ratingFloor; i++) {
-      stars.push("star");
-    }
-    let mod = rating % ratingFloor;
-
-    if (mod > 0) {
-      stars.push("half");
-    }
-    return stars;
-  }
-
-  function handleReading(id, userId) {
-    // console.log("e.target.value",e.target.value)
-
-    if (!reading) {
-      console.log("Entré a add reading :", id);
-      setReading(!reading);
-      console.log("READ+", reading);
-
-      dispatch(addReading(id, userId));
-    }
-    if (reading) {
-      console.log("Entré a delete reading :", id);
-      setReading(!reading);
-      console.log("READ-", reading);
-      dispatch(deleteReading(id, userId));
-    }
-  }
-
-  var starAverage =
-    book && book.averageRating && starRating(book.averageRating);
+  useEffect(() => {}, [book.reviews]);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -226,6 +101,40 @@ export default function CardDetail({ book, modal, setModal }) {
   if (currentUser) {
     console.log("Reviews del currentUser: " + currentUser.reviews.length);
   }
+
+  function handleCloseClick(e) {
+    e.preventDefault(e);
+    setModal(false);
+    setNewReview(false);
+    console.log("MODAL", modal);
+    console.log("e.target.value", e.target.value);
+    dispatch(cleanBookDetail(e.target.value));
+  }
+
+  function handleReviewClick(e) {
+    e.preventDefault(e);
+    setNewReview(true);
+    console.log("newReview", newReview);
+    console.log("e.target.value", e.target.value);
+  }
+
+  function starRating(rating) {
+    let ratingFloor = Math.floor(rating);
+
+    let stars = [];
+    for (let i = 0; i < ratingFloor; i++) {
+      stars.push("star");
+    }
+    let mod = rating % ratingFloor;
+
+    if (mod > 0) {
+      stars.push("half");
+    }
+    return stars;
+  }
+
+  var starAverage =
+    book && book.averageRating && starRating(book.averageRating);
 
   return (
     modal && (
@@ -292,9 +201,6 @@ export default function CardDetail({ book, modal, setModal }) {
             </div>
             {currentUser && currentUser.subscription ? (
               !currentUser.reviews.find((review) => {
-                console.log(
-                  "review.bookId = " + review.bookId + " book.id = " + book.id
-                );
                 return review.bookId === book.id;
               }) ? (
                 !newReview ? (
