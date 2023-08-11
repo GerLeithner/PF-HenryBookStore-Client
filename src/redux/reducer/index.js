@@ -387,7 +387,11 @@ function rootReducer(state = initialState, action) {
         ...state,
         reviews: [...state.reviews, action.payload],
       };
+    case "DELETE_REVIEW":
+      const allReviews = state.reviews;
+      const filteredReviews = allReviews.filter((r) => r.id !== action.payload);
 
+      return { ...state, reviews: [filteredReviews] };
     default:
       return state;
   }

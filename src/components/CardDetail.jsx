@@ -5,7 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
 
-import { cleanBookDetail } from "../redux/actions";
+import {
+  cleanBookDetail,
+  deleteReview,
+  getBookById,
+  getCurrentUser,
+} from "../redux/actions";
 
 import { OverLay, ButtonDetail, StarDetail } from "../styles/Detail";
 
@@ -29,6 +34,7 @@ import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
 import { StarsContainer } from "../styles/CardRecomended";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function CardDetail({ book, modal, setModal }) {
   const dispatch = useDispatch();
@@ -133,6 +139,26 @@ export default function CardDetail({ book, modal, setModal }) {
     return stars;
   }
 
+  function handleDeleteReview(e) {
+    e.preventDefault();
+    console.log("e: ", e.target);
+    dispatch(deleteReview(book.id, e.target.value));
+
+    setTimeout(() => {
+      dispatch(getBookById(book.id));
+    }, 300);
+    setTimeout(() => {
+      const { email, nickname } = currentUser;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }, 300);
+
+    toast.success("Review Deleted Succesfully");
+  }
+
   var starAverage =
     book && book.averageRating && starRating(book.averageRating);
 
@@ -195,7 +221,16 @@ export default function CardDetail({ book, modal, setModal }) {
               <Reviews>
                 {book.reviews &&
                   book.reviews.map((r) => {
-                    return <Review r={r} />;
+                    return (
+                      <div>
+                        <Review r={r} user={currentUser} bookId={book.id} />
+                        {r.userId === currentUser.id && (
+                          <button value={r.id} onClick={handleDeleteReview}>
+                            Delete
+                          </button>
+                        )}
+                      </div>
+                    );
                   })}
               </Reviews>
             </div>
