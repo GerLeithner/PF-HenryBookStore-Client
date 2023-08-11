@@ -81,21 +81,9 @@ const MyLibrary = () => {
     }
   }, [dispatch]);
 
-  // function handleClick(e){
-  //   e.preventDefault();
-  //   if(!trending.length)
-  //   dispatch(getTrendingBooks());
-  // }
-
-  // currentUser && console.log("CURRENT USER LIBRARY: ", currentUser)
-
   // carga los favs
   useEffect(() => {
     if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      // console.log("USER FAVORITES",userFavorites)
-
       let allFavorites = [];
 
       for (let i = 0; i < currentUser.Favorites.length; i++) {
@@ -106,13 +94,9 @@ const MyLibrary = () => {
     }
   }, [currentUser]);
 
-  //  console.log("Array FAVORITES",arrayFavorite)
-
   // carga los readed
   useEffect(() => {
     if (currentUser) {
-      const userReaded = currentUser.Read;
-
       let allReaded = [];
 
       for (let i = 0; i < currentUser.Read.length; i++) {
@@ -122,12 +106,10 @@ const MyLibrary = () => {
       setArrayReaded(allReaded);
     }
   }, [currentUser]);
-  //  console.log("Array READED",arrayReaded)
 
   // carga los reading
   useEffect(() => {
     if (currentUser) {
-      const userReading = currentUser.Reading;
       let allReading = [];
 
       for (let i = 0; i < currentUser.Reading.length; i++) {
@@ -137,7 +119,6 @@ const MyLibrary = () => {
       setArrayReading(allReading);
     }
   }, [currentUser]);
-  //  console.log("Array READING",arrayReading)
 
   return (
     <LibraryConteiner>
@@ -227,6 +208,8 @@ const MyLibrary = () => {
           <>
             <Carousel itemsToShow={5}>
               {currentUser.Read.map((b) => {
+                console.log("favoritesChange type:", typeof favoritesChange);
+
                 return (
                   <Card
                     id={b.id}

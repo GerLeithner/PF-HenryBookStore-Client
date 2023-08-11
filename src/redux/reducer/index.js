@@ -385,7 +385,7 @@ function rootReducer(state = initialState, action) {
     case "ADD_REVIEW":
       return {
         ...state,
-        readed: [...state.reviews, action.payload],
+        reviews: [...state.reviews, action.payload],
       };
 
     default:
