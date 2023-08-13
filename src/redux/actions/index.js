@@ -447,6 +447,23 @@ export function addReview(id, payload) {
   };
 }
 
+export function deleteReview(bookId, reviewId) {
+  return async function (dispatch) {
+    try {
+      const deleteResponse = await axios.delete(
+        `${deployUrl}/books/${bookId}/review/${reviewId}`
+      );
+      console.log("response", deleteResponse);
+      return dispatch({
+        type: "DELETE_REVIEW",
+        payload: deleteResponse.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function activateSubscription(userId, plan) {
   return async function (dispatch) {
     try {
