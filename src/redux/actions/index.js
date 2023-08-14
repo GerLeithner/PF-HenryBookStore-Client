@@ -437,10 +437,10 @@ export function addReview(id, payload) {
         payload
       );
       console.log("response:", response);
-      return dispatch({
+      /*       return dispatch({
         type: "ADD_REVIEW",
         payload: response.data,
-      });
+      }); */
     } catch (e) {
       console.log(e);
     }

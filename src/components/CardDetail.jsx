@@ -52,8 +52,6 @@ export default function CardDetail({ book, modal, setModal }) {
 
   const userId = { userId: currentUser && currentUser.id };
 
-  useEffect(() => {}, [book.reviews]);
-
   useEffect(() => {
     if (currentUser && modal) {
       let allFavorites = [];
