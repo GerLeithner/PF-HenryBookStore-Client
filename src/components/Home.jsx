@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
-import CardRecomended from "./CardRecomended.jsx";
+import CardRecommended from "./CardRecommended.jsx";
 import SubscribeNav from "./SubscribeNav.jsx";
 import Featured from "./Featured.jsx";
 import Catalogue from "./Catalogue.jsx";
@@ -13,7 +13,7 @@ import {
   getAuthors,
   getBooks,
   getGenres,
-  getRecomendedBooks,
+  getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,

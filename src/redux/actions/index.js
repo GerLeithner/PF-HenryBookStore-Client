@@ -111,14 +111,14 @@ export function getNewsBooks() {
   };
 }
 
-export function getRecomendedBooks() {
+export function getRecommendedBooks() {
   return async function (dispatch) {
     //
     var json = await axios.get(
       "https://run.mocky.io/v3/8ae4e29e-1eb4-4930-ac19-049a097c7989"
     );
     return dispatch({
-      type: "GET_RECOMENDED_BOOKS",
+      type: "GET_RECOMMENDED_BOOKS",
       payload: json.data,
     });
   };

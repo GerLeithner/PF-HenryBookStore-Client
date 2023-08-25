@@ -9,7 +9,7 @@ import {
   ReviewBox,
 } from "../styles/CreateBook";
 // import { StarDetail } from "../styles/Detail";
-// import { StarsContainer } from "../styles/CardRecomended";
+// import { StarsContainer } from "../styles/CardRecommended";
 // import starFill from "../icons/starFill.svg";
 // import starHalf from "../icons/starHalf.svg";
 
@@ -42,8 +42,8 @@ export default function BookReviews() {
       {reviews.length ? (
         reviews.map((r) => {
           return (
-            <DescriptionContainer >
-              <PropAndInput >
+            <DescriptionContainer>
+              <PropAndInput>
                 <ErrorsForm color={"black"} margenIzq="0px">
                   {r.user.userName}
                 </ErrorsForm>

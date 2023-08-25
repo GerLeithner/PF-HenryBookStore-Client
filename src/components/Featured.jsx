@@ -4,14 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
-import CardRecomended from "./CardRecomended.jsx";
+import CardRecommended from "./CardRecommended.jsx";
 import SubscribeNav from "./SubscribeNav.jsx";
+import Carousels from "./Carousels.jsx";
 
 import {
   getAuthors,
   getBooks,
   getGenres,
-  getRecomendedBooks,
+  getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,
@@ -19,12 +20,14 @@ import {
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
+import Catalogue from "./Catalogue.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
+  const [genresLoaded, setGenresLoaded] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
 
@@ -32,7 +35,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
-  const recomended = useSelector((state) => state.recomended);
+  const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
 
   const [modal, setModal] = useState(false);
@@ -70,8 +73,8 @@ export default function Home() {
     if (!news.length) {
       dispatch(getNewsBooks());
     }
-    if (!recomended.length) {
-      dispatch(getRecomendedBooks());
+    if (!recommended.length) {
+      dispatch(getRecommendedBooks());
     }
   }, [dispatch]);
 
@@ -109,15 +112,15 @@ export default function Home() {
       <div>
         <div>
           <SubscribeNav />
-          {recomended && recomended?.length && (
+          {recommended && recommended?.length && (
             <Carousel
-              key="recomended"
+              key="recommended"
               itemsToShow={1}
               className="top-rec-wrapper "
             >
-              {recomended.map((b) => {
+              {recommended.map((b) => {
                 return (
-                  <CardRecomended
+                  <CardRecommended
                     key={b.id + "recommended"}
                     id={b.id}
                     title={b.title}
@@ -140,31 +143,10 @@ export default function Home() {
         </div>
         {currentUser && currentUser.Reading?.length ? (
           <div>
-            <H2Home>Continue reading</H2Home>
-            <Carousel key="reading" itemsToShow={5}>
-              {currentUser.Reading.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id + "Reading"}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
-                    readChange={readChange}
-                    read={read}
-                  />
-                );
-              })}
-            </Carousel>
+            <Carousels
+              books={currentUser.Reading}
+              carTitle={"Continue reading"}
+            ></Carousels>
           </div>
         ) : (
           <></>
@@ -172,68 +154,31 @@ export default function Home() {
         <div>
           {trending?.length && (
             <>
-              <H2Home>Trending</H2Home>
-              <Carousel key="trending" itemsToShow={5}>
-                {trending.map((b) => {
-                  return (
-                    <Card
-                      key={b.id + "Trending"}
-                      id={b.id}
-                      title={b.title}
-                      subtitle={b.subtitle}
-                      publishedDate={b.publishedDate}
-                      description={b.description}
-                      averageRating={b.averageRating}
-                      cover={b.cover}
-                      genre={b.genre}
-                      author={b.author}
-                      back_cover={b.back_cover}
-                      modal={modal}
-                      setModal={setModal}
-                      arrayFavorite={arrayFavorite}
-                      arrayReaded={arrayReaded}
-                      arrayReading={arrayReading}
-                      readChange={readChange}
-                      read={read}
-                    />
-                  );
-                })}
-              </Carousel>
+              <Carousels books={trending} carTitle={"Trending"}></Carousels>
             </>
           )}
         </div>
         <div>
           {news?.length && (
             <>
-              <H2Home>News</H2Home>
-              <Carousel key="news" itemsToShow={5}>
-                {news.map((b) => {
-                  return (
-                    <Card
-                      key={b.id + "News"}
-                      id={b.id}
-                      title={b.title}
-                      subtitle={b.subtitle}
-                      publishedDate={b.publishedDate}
-                      description={b.description}
-                      averageRating={b.averageRating}
-                      cover={b.cover}
-                      genre={b.genre}
-                      author={b.author}
-                      back_cover={b.back_cover}
-                      modal={modal}
-                      setModal={setModal}
-                      arrayFavorite={arrayFavorite}
-                      arrayReaded={arrayReaded}
-                      arrayReading={arrayReading}
-                      readChange={readChange}
-                      read={read}
-                    />
-                  );
-                })}
-              </Carousel>
+              <Carousels books={news} carTitle={"New Releases"}></Carousels>
             </>
           )}
+        </div>
+        <div>
+          {allGenres.map((g) => {
+            let booksByGenre = allBooks.filter((b) => {
+              return b.genre.name === g.name;
+            });
+            return (
+              <div>
+                <Carousels
+                  books={booksByGenre}
+                  carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
+                ></Carousels>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

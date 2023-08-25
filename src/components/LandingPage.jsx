@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import { editUser, getRecomendedBooks } from "../redux/actions";
+import { editUser, getRecommendedBooks } from "../redux/actions";
 import { getCurrentUser } from "../redux/actions";
 
 import Login from "./Login";
@@ -32,7 +32,7 @@ export default function LandingPage() {
   const history = useHistory();
 
   const currentUser = useSelector((state) => state.currentUser);
-  const recomended = useSelector((state) => state.recomended);
+  const recommended = useSelector((state) => state.recommended);
 
   const { isAuthenticated, user, logout } = useAuth0();
 
@@ -56,8 +56,8 @@ export default function LandingPage() {
 
       dispatch(getCurrentUser(userDb));
     }
-    if (!recomended.length) {
-      dispatch(getRecomendedBooks());
+    if (!recommended.length) {
+      dispatch(getRecommendedBooks());
     }
   }, [dispatch, isAuthenticated]);
 
@@ -94,7 +94,7 @@ export default function LandingPage() {
     "Ficciones",
   ];
 
-  //  recomended && recomended.length && recomended.map(b=>{
+  //  recommended && recommended.length && recommended.map(b=>{
   //   concatTitles=concatTitles + b.title + ", "
   //  })
   //  var promotionalBooks=concatTitles.slice(0,-2)

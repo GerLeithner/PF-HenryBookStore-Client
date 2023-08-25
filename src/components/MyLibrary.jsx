@@ -7,7 +7,7 @@ import {
   getAuthors,
   getBooks,
   getGenres,
-  getRecomendedBooks,
+  getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,
@@ -15,7 +15,7 @@ import {
 import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import Card from "./Card.jsx";
-import CardRecomended from "./CardRecomended.jsx";
+import CardRecommended from "./CardRecommended.jsx";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const MyLibrary = () => {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
-  const recomended = useSelector((state) => state.recomended);
+  const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const { user, logout } = useAuth0();
 
@@ -76,8 +76,8 @@ const MyLibrary = () => {
     if (!news.length) {
       dispatch(getNewsBooks());
     }
-    if (!recomended.length) {
-      dispatch(getRecomendedBooks());
+    if (!recommended.length) {
+      dispatch(getRecommendedBooks());
     }
   }, [dispatch]);
 

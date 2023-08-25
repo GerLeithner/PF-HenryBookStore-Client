@@ -32,7 +32,7 @@ import "./CardMenu.css";
 
 import starFill from "../icons/starFill.svg";
 import starHalf from "../icons/starHalf.svg";
-import { StarsContainer } from "../styles/CardRecomended";
+import { StarsContainer } from "../styles/CardRecommended";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 
