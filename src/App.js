@@ -16,7 +16,7 @@ import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import SubscribeNav from "./components/SubscribeNav";
 
-axios.defaults.baseURL='http://localhost:3001'
+axios.defaults.baseURL = "http://localhost:3001";
 // axios.defaults.baseURL = "https://pf-henrybookstore-api-production.up.railway.app";
 
 function App() {
@@ -44,7 +44,7 @@ function App() {
       <ProtectedRoute exact path="/users" component={UsersTable} />
       <ProtectedRoute exact path="/profile" component={UsersProfile} />
       <ProtectedRoute exact path="/library" component={MyLibrary} />
-      <ToastContainer 
+      <ToastContainer
         position="bottom-right"
         autoClose={3000}
         hideProgressBar={true}
@@ -60,4 +60,3 @@ function App() {
 }
 
 export default App;
-

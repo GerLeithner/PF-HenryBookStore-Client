@@ -124,17 +124,14 @@ export default function Card({
     // console.log("e.target.value",e.target.value)
 
     if (!favorite) {
-      console.log("Entré a add favorite, bookId:", id);
       setFavorite(true);
-      console.log("FAV+", favorite);
+
       dispatch(addFavorite(id, userId));
       toast.success("Book added to your favorites");
     }
 
     if (favorite) {
-      console.log("Entré a delete favorite, bookId:", id);
       setFavorite(false);
-      console.log("FAV-", favorite);
 
       dispatch(deleteFavorite(id, userId));
 

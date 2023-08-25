@@ -399,10 +399,6 @@ export function addReading(id, userId) {
         userId
       );
       console.log("response:", response);
-      return dispatch({
-        type: "ADD_READING",
-        payload: response.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -418,11 +414,6 @@ export function deleteReading(id, userId) {
           data: { userId },
         }
       );
-
-      return dispatch({
-        type: "DELETE_READING",
-        payload: deleteResponse.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -480,5 +471,12 @@ export function activateSubscription(userId, plan) {
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+export function searchInput(input) {
+  return {
+    type: "SEARCH_INPUT",
+    payload: input,
   };
 }
