@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBookById, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
-import { getAuthors, getBooks, getGenres } from "../redux/actions";
+import { getAuthors, getBooks, getGenres, searchInput } from "../redux/actions";
 
 import {
   DropdownSearch,
@@ -12,9 +12,10 @@ import {
   InputAndButton,
 } from "../styles/SearchBar";
 
-const SearchBar = ({ paginado, modal, setModal }) => {
+const SearchBar = ({ modal, setModal }) => {
   const dispatch = useDispatch();
-  const [title, setTitle] = useState("");
+  const search = useSelector((state) => state.search);
+  //const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.allBooks);
   const books = useSelector((state) => state.books);
   // const [author,setAuthor]=useState('')
@@ -29,13 +30,14 @@ const SearchBar = ({ paginado, modal, setModal }) => {
       dispatch(getBooks());
     }
   }, [dispatch]);
-
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
 
   function handleInputChange(e) {
     e.preventDefault();
-    setTitle(e.target.value);
+    dispatch(searchInput(e.target.value));
+    dispatch(getBookByTitle(search));
+    console.log("Title: ", search);
     // setAuthor(e.target.value)
   }
 
@@ -43,17 +45,15 @@ const SearchBar = ({ paginado, modal, setModal }) => {
     e.preventDefault();
     // hacer un IF y buscar la forma de diferenciar si la busqueda es un author o un title y luego despachar
     // dispatch(getBookByAuthor)  //action que traiga libro por title o accion que traiga libro por autor
-    dispatch(getBookByTitle(title));
-    setTitle("");
+    dispatch(getBookByTitle(search));
+    dispatch(searchInput(""));
     // setAuthor('');
-    paginado(1);
   }
   function handleClick(e) {
     e.preventDefault(e);
     setModal(true);
     let id = allBooks.find((book) => book.title === e.target.textContent).id;
     dispatch(getBookById(id));
-    setTitle("");
   }
   return (
     <SearchContainer>
@@ -61,7 +61,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
         <InputSearch
           placeholder="By Title or Author"
           type="text"
-          value={title}
+          value={search}
           onChange={(e) => handleInputChange(e)}
         />
         <button
@@ -81,7 +81,7 @@ const SearchBar = ({ paginado, modal, setModal }) => {
         <DropdownSearch>
           {allBooks
             .filter((book) => {
-              const searchTerm = title.toLowerCase();
+              const searchTerm = search.toLowerCase();
               const titleOfBookSearched = book.title.toLowerCase();
 
               const nameOfAuthorSearched = book.author.name.toLowerCase();

@@ -13,9 +13,8 @@ const initialState = {
   currentUser: null,
   favorites: [],
   readed: [],
-  reading: [],
-  reviews: [],
   filters: [],
+  search: "",
 };
 
 function rootReducer(state = initialState, action) {
@@ -367,31 +366,10 @@ function rootReducer(state = initialState, action) {
         readed: [filterDeleteReaded],
       };
 
-    case "ADD_READING":
-      return {
-        ...state,
-        readed: [...state.reading, action.payload],
-      };
+    case "SEARCH_INPUT":
+      console.log("Entre al search input ", action);
+      return { ...state, search: action.payload };
 
-    case "DELETE_READING":
-      const allReading = state.reading;
-      const filterDeleteReading = allReading.filter(
-        (el) => el.userId !== action.payload
-      );
-      return {
-        ...state,
-        reading: [filterDeleteReading],
-      };
-    case "ADD_REVIEW":
-      return {
-        ...state,
-        reviews: [...state.reviews, action.payload],
-      };
-    case "DELETE_REVIEW":
-      const allReviews = state.reviews;
-      const filteredReviews = allReviews.filter((r) => r.id !== action.payload);
-
-      return { ...state, reviews: [filteredReviews] };
     default:
       return state;
   }

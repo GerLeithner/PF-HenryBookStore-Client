@@ -1,4 +1,4 @@
-  import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getBooks,
@@ -191,11 +191,16 @@ const Catalogue = () => {
 
   return (
     <div>
-      <SideBarContainer paddingTop={ subscribe && currentUser && !currentUser.subscription ? "115px" : "65px"}>
+      <SideBarContainer
+        paddingTop={
+          subscribe && currentUser && !currentUser.subscription
+            ? "115px"
+            : "65px"
+        }
+      >
         <SideButton onClick={(e) => handleReload(e)} ancho={"170px"}>
           RELOAD BOOKS
         </SideButton>
-        <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
         <SelectFilters>
           <SortOrFilter
             name="Sort By Title"
@@ -244,8 +249,14 @@ const Catalogue = () => {
           )}
         </div>
       </SideBarContainer>
-      <SubscribeNav setSubscribe={setSubscribe}/>
-      <BooksContainer paddingTop={ subscribe && currentUser && !currentUser.subscription ? "20px" : "70px"}>
+      <SubscribeNav setSubscribe={setSubscribe} />
+      <BooksContainer
+        paddingTop={
+          subscribe && currentUser && !currentUser.subscription
+            ? "20px"
+            : "70px"
+        }
+      >
         <TablePaged
           booksPerPage={booksPerPage}
           allBooks={allBooks.length}

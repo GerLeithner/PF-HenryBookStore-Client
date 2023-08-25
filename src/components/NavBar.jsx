@@ -2,8 +2,9 @@ import React from "react";
 import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import SearchBar from "./SearchBar.jsx";
 
 import {
   ContainerNavBar,
@@ -19,6 +20,9 @@ export default function NavBar() {
 
   const { isAuthenticated, user, isLoading } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
+  const searchInput = useSelector((state) => state.search);
+
+  const [modal, setModal] = useState(false);
 
   if (
     isAuthenticated &&
@@ -45,7 +49,7 @@ export default function NavBar() {
   return (
     <div>
       <ContainerNavBar>
-        <HomeLinkNavBar to={"/home"}>Books Explorer</HomeLinkNavBar>
+        <HomeLinkNavBar to={"/home"}>Novel Wave</HomeLinkNavBar>
         <SubContainerNavBar>
           <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
           <LinkNavBar to={"/library"}>Library</LinkNavBar>
@@ -55,7 +59,7 @@ export default function NavBar() {
               <LinkNavBar to={"/users"}>Users</LinkNavBar>
             </>
           )}
-
+          <SearchBar modal={modal} setModal={setModal} />
           {/* <LinkNavBar to={"/about"}>About Us</LinkNavBar> */}
           <LinkNavBar to={"/profile"}>
             {currentUser && currentUser.profilePic ? (
