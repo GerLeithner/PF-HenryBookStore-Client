@@ -27,7 +27,6 @@ export default function Home() {
   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
-  const [genresLoaded, setGenresLoaded] = useState(false);
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
 
@@ -55,7 +54,7 @@ export default function Home() {
       };
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, read]);
+  }, [dispatch, read, arrayReading]);
 
   useEffect(() => {
     if (!allGenres.length) {
