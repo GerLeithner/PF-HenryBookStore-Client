@@ -10,7 +10,6 @@ const deployUrl = "http://localhost:3001";
 export function getBooks() {
   return async function (dispatch) {
     var json = await axios.get(`${deployUrl}/books`);
-    console.log("axios deploy", json.data);
 
     return dispatch({
       type: "GET_BOOKS",
