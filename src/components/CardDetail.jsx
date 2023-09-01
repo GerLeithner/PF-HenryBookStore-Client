@@ -10,40 +10,53 @@ import {
   deleteReview,
   getBookById,
   getCurrentUser,
+  turnOffModal,
 } from "../redux/actions";
 
-import { OverLay, ButtonDetail, StarDetail } from "../styles/Detail";
+import {
+  OverLay,
+  ButtonDetail,
+  StarDetail,
+  DetailContainer,
+  ButtonIcons
+} from "../styles/Detail";
 
 import {
   DetailReview,
   Description,
-  DetailContainer,
-  ReviesContainer,
+  ReviewConteiner,
   CoverAndInfo,
   Cover,
   Info,
   Props,
   H1,
   H2,
+  H3,
   Reviews,
 } from "../styles/Review";
 
 import "./CardMenu.css";
 
 import starFill from "../icons/starFill.svg";
-import starHalf from "../icons/starHalf.svg";
+import starEmpty from "../icons/starEmpty.svg";
+import readIcon from "../icons/readIcon.svg";
+import check from "../icons/check.svg";
+import plus from "../icons/plus.svg";
 import { StarsContainer } from "../styles/CardRecommended";
-import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-export default function CardDetail({ book, modal, setModal }) {
+
+
+export default function CardDetail({ book }) {
   const dispatch = useDispatch();
+
+  const currentUser = useSelector((state) => state.currentUser);
+  const modal = useSelector((state) => state.modal);
 
   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
   const [arrayReading, setArrayReading] = useState([]);
-  const currentUser = useSelector((state) => state.currentUser);
-
   const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
@@ -108,10 +121,8 @@ export default function CardDetail({ book, modal, setModal }) {
 
   function handleCloseClick(e) {
     e.preventDefault(e);
-    setModal(false);
+    dispatch(turnOffModal());
     setNewReview(false);
-    console.log("MODAL", modal);
-    console.log("e.target.value", e.target.value);
     dispatch(cleanBookDetail(e.target.value));
   }
 
@@ -163,105 +174,145 @@ export default function CardDetail({ book, modal, setModal }) {
   return (
     modal && (
       <OverLay>
-        <div style={{ display: "flex", flexDirection: "row" }}>
-          <DetailContainer>
-            <CoverAndInfo>
-              <Cover src={book.cover} />
-              <Info>
-                <Props>
-                  <H1>{book.title}</H1>
-                  <Props>
-                    <StarsContainer>
-                      {starAverage &&
-                        starAverage.map((s, i) =>
-                          s === "star" ? (
-                            <StarDetail key={i} src={starFill} alt="n" />
-                          ) : (
-                            <StarDetail key={i} src={starHalf} alt="n" />
-                          )
-                        )}
-                    </StarsContainer>
-                  </Props>
-                </Props>
-                <Props>
-                  <H2>Author: {book.author?.name}</H2>
-                  <H2>Published: {book.publishedDate}</H2>
-                </Props>
-                <Props>
-                  <H2>Genre: {book.genre?.name}</H2>
-                  <H2>{book.pages} Pages</H2>
-                </Props>
-                <Props>
-                  <H2>Publisher: {book.publisher}</H2>
-                </Props>
-              </Info>
-            </CoverAndInfo>
-            <Description>{book.description}</Description>
-          </DetailContainer>
-          <ReviesContainer>
+        <Info>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              gap: "40px",
+              margin: 0,
+              padding: 0,
+            }}
+          >
+            <H1>{book.title}</H1>
+            <Props>
+              <StarsContainer>
+                {starAverage &&
+                  starAverage.map((s, i) =>
+                    s === "star" ? (
+                      <StarDetail key={i} src={starFill} alt="n" />
+                    ) : (
+                      <StarDetail key={i} src={starEmpty} alt="n" />
+                    )
+                  )}
+              </StarsContainer>
+              <H3>Published on {book.publishedDate}</H3>
+              <H3>{book.pages} Pages</H3>
+            </Props>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "flex-end",
+              margin: 0,
+              padding: 0
+            }}
+          >
+            <H2 style={{fontStyle: "italic"}}>{book.author?.name}</H2>
+            <H3>{book.publisher}</H3>
+          </div>
+          <Description>{book.description}</Description>
+          <div
+            name="buttons"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              margin: 0,
+              padding: "0px 70px 0px 70px"
+            }}
+          >
+          <ButtonDetail colorFondo={"#622CD4"} colorHover={"#7637FD"}>
+            <div style={{
+                display:"flex", alignItems: "center", gap: "10px"
+              }}>
+              <ButtonIcons src={readIcon} alt="n" />
+              Read
+            </div>
+          </ButtonDetail>
+          <ButtonDetail>
+            <div style={{
+                display:"flex", alignItems: "center", gap: "10px"
+              }}>
+              <ButtonIcons src={plus} alt="n" />
+              My List
+            </div>
+          </ButtonDetail>
+          <ButtonDetail>
+          <div style={{
+                display:"flex", alignItems: "center", gap: "10px"
+              }}>
+              <ButtonIcons src={check} alt="n" />
+              Finished
+            </div>
+          </ButtonDetail>
+          </div>
+        </Info>
+        <Cover src={book.cover} />
+        <ReviewConteiner>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <H2>Users Reviews</H2>
             <div
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                width: "100%",
-              }}
+              onClick={(e) => handleCloseClick(e)}
+              style={{ cursor: "pointer" }}
             >
-              <H2>Users Reviews</H2>
-              <div
-                onClick={(e) => handleCloseClick(e)}
-                style={{ cursor: "pointer" }}
-              >
-                x
-              </div>
+              x
             </div>
-            <div style={{ width: "100%" }}>
-              <Reviews>
-                {book.reviews &&
-                  book.reviews.map((r) => {
-                    return (
-                      <div>
-                        <Review r={r} user={currentUser} bookId={book.id} />
-                        {r.userId === currentUser.id && (
-                          <button value={r.id} onClick={handleDeleteReview}>
-                            Delete
-                          </button>
-                        )}
-                      </div>
-                    );
-                  })}
-              </Reviews>
-            </div>
-            {currentUser && currentUser.subscription ? (
-              !currentUser.reviews.find((review) => {
-                return review.bookId === book.id;
-              }) ? (
-                !newReview ? (
-                  <ButtonDetail
-                    onClick={(e) => {
-                      handleReviewClick(e);
-                    }}
-                  >
-                    Leave a Review
-                  </ButtonDetail>
-                ) : (
-                  <CreateReview
-                    currentUser={currentUser}
-                    book={book}
-                    setNewReview={setNewReview}
-                    newReview={newReview}
-                    modal={modal}
-                    setModal={setModal}
-                  />
-                )
+          </div>
+          <div style={{ width: "100%" }}>
+            <Reviews>
+              {book.reviews &&
+                book.reviews.map((r) => {
+                  return (
+                    <div>
+                      <Review r={r} user={currentUser} bookId={book.id} />
+                      {r.userId === currentUser.id && (
+                        <button value={r.id} onClick={handleDeleteReview}>
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+            </Reviews>
+          </div>
+          {currentUser && currentUser.subscription ? (
+            !currentUser.reviews.find((review) => {
+              return review.bookId === book.id;
+            }) ? (
+              !newReview ? (
+                <ButtonDetail
+                  onClick={(e) => {
+                    handleReviewClick(e);
+                  }}
+                >
+                  Leave a Review
+                </ButtonDetail>
               ) : (
-                <div>Already reviewed</div>
+                <CreateReview
+                  currentUser={currentUser}
+                  book={book}
+                  setNewReview={setNewReview}
+                  newReview={newReview}
+                />
               )
             ) : (
-              <div>Subscribe to review</div>
-            )}
-          </ReviesContainer>
-        </div>
+              <div>Already reviewed</div>
+            )
+          ) : (
+            <div>Subscribe to review</div>
+          )}
+        </ReviewConteiner>
       </OverLay>
     )
   );

@@ -143,9 +143,15 @@ export const CardImgDetail = styled.img`
 `;
 
 export const StarDetail = styled.img`
-  width: 15px;
-  height: 15px;
+  width: 20px;
+  height: 20px;
   margin: 0px;
+`;
+
+export const ButtonIcons = styled.img`
+  width: 31px;
+  height: 31px;
+  margin: 0;
 `;
 
 export const DescriptionCardConteinerDetail = styled.div`
@@ -174,41 +180,28 @@ export const ImgContainerDetail = styled.div`
   margin: 0px;
 `;
 
-export const DetailContainer = styled.div``;
-
-export const InfoSeccion = styled.div``;
-
 export const OverLay = styled.div`
   width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
+  height: 450px;
+  padding: 60px 20px 20px 20px;
+  margin: 0;
+  background-color: #1E1E1E;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  /* background-color:rgba(0, 0, 0, 0.7);  */
-  /* backdrop-filter: blur(1px); */
+  flex-direction: "row";
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  color: white
 `;
 
-export const ReviewConteiner = styled.div`
+export const DetailContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 110px;
-  width: 730px;
-  padding: 0px;
-  border-radius: 5px;
-  box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  margin: 0px;
-  margin-top: 10px;
-  margin-bottom: 1px;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 20px;
   background-color: white;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  text-overflow: ellipsis;
 `;
 
 export const UserAndStars = styled.div`
@@ -323,24 +316,22 @@ export const ButtonOptionsDetail = styled.option`
 
 export const ButtonDetail = styled.button`
   width: ${({ width }) => width || "max-content"};
-  height: ${({ height }) => height || "30px"};
-  padding: 0.3em;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 50px;
-  color: #111;
-  background-color: #fff;
+  height: ${({ height }) => height || "50px"};
+  padding: 10px 20px 10px 20px;
+  color: #FFFFFF;
+  background-color: ${({ colorFondo }) => colorFondo || "#3F3F3F"};
   border: none;
-  border-radius: 10px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
 
+  font-size: 20px;
+  font-weight: 400;
+  margin: 0px;
+
   &:hover {
-    box-shadow: 0px 15px 20px #3f3f3f;
-    //transform: translateY(-7px);
+    background-color: ${({ colorHover }) => colorHover || "#6F6F6F"};
   }
 
   &:active {

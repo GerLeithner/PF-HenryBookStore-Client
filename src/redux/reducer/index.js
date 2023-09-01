@@ -15,6 +15,7 @@ const initialState = {
   readed: [],
   filters: [],
   search: "",
+  modal: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -54,7 +55,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetail: {},
       };
-
+    
+    case "TURN_ON_MODAL":
+      return {
+        ...state,
+        modal: true,
+      }
+          
+    case "TURN_OFF_MODAL":
+      return {
+        ...state,
+        modal: false,
+      }
+      
     // ------------------- BOOK CUSTOM GETS ------------------------------------
 
     case "GET_TRENDING_BOOKS":

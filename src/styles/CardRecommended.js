@@ -121,10 +121,13 @@ export const DescriptionRecommended = styled.p`
   text-align: left;
 `;
 export const StarsContainer = styled.div`
-  height: 20px;
-  width: 150px;
+  /* height: 20px;
+  width: 150px; */
+  display: flex;
+  flex-direction: row;
   padding: 0px;
   margin: 0px;
+  gap: 10px;
   text-align: right;
   position: relative;
 `;
