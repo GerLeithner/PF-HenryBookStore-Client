@@ -12,6 +12,8 @@ import {
   LinkNavBar,
   HomeLinkNavBar,
   NavProfilePic,
+  HomeAndLibrary,
+  NavBarProfileLink,
 } from "../styles/NavBar";
 
 export default function NavBar() {
@@ -49,10 +51,11 @@ export default function NavBar() {
   return (
     <div>
       <ContainerNavBar>
-        <HomeLinkNavBar to={"/home"}>Novel Wave</HomeLinkNavBar>
+        <HomeAndLibrary>
+          <HomeLinkNavBar to={"/home"}>Novel Wave</HomeLinkNavBar>
+          <LinkNavBar to={"/library"}>My Library</LinkNavBar>
+        </HomeAndLibrary>
         <SubContainerNavBar>
-          <LinkNavBar to={"/catalogue"}>Catalogue</LinkNavBar>
-          <LinkNavBar to={"/library"}>Library</LinkNavBar>
           {currentUser && currentUser.admin && (
             <>
               <LinkNavBar to={"/books"}>Books</LinkNavBar>
@@ -61,13 +64,13 @@ export default function NavBar() {
           )}
           <SearchBar modal={modal} setModal={setModal} />
           {/* <LinkNavBar to={"/about"}>About Us</LinkNavBar> */}
-          <LinkNavBar to={"/profile"}>
+          <NavBarProfileLink to={"/profile"}>
             {currentUser && currentUser.profilePic ? (
-              <NavProfilePic src={currentUser.profilePic} />
+              <img src={currentUser.profilePic} />
             ) : (
-              <NavProfilePic src="https://firebasestorage.googleapis.com/v0/b/henry-book-explorer.appspot.com/o/image?alt=media&token=3dccc098-e2c1-48ab-9539-ce0024b12996" />
+              <img src="https://firebasestorage.googleapis.com/v0/b/henry-book-explorer.appspot.com/o/image?alt=media&token=3dccc098-e2c1-48ab-9539-ce0024b12996" />
             )}
-          </LinkNavBar>
+          </NavBarProfileLink>
         </SubContainerNavBar>
       </ContainerNavBar>
     </div>

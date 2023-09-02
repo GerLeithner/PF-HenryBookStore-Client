@@ -45,7 +45,7 @@ export default function Home() {
     setRead(condition);
   };
 
-  useEffect(() => {
+  /*   useEffect(() => {
     if (user) {
       const { email, nickname } = user;
       const userDb = {
@@ -54,7 +54,7 @@ export default function Home() {
       };
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, read, arrayReading]);
+  }, [dispatch, read, arrayReading]); */
 
   useEffect(() => {
     if (!allGenres.length) {
