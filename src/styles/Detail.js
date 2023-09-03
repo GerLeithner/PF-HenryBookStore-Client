@@ -182,7 +182,7 @@ export const ImgContainerDetail = styled.div`
 
 export const OverLay = styled.div`
   width: 100vw;
-  height: 460px;
+  height: 480px;
   padding: 70px 20px 20px 20px;
   margin: 0;
   background-color: #1E1E1E;
@@ -204,8 +204,8 @@ export const Info = styled.div`
 `;
 
 export const Cover = styled.img`
-  width: 476px;
-  height: 440px;
+  width: 250px;
+  height: 390px;
 `;
 
 export const Description = styled.span`
