@@ -182,8 +182,8 @@ export const ImgContainerDetail = styled.div`
 
 export const OverLay = styled.div`
   width: 100vw;
-  height: 450px;
-  padding: 60px 20px 20px 20px;
+  height: 460px;
+  padding: 70px 20px 20px 20px;
   margin: 0;
   background-color: #1E1E1E;
   display: flex;
@@ -192,6 +192,58 @@ export const OverLay = styled.div`
   justify-content: space-between;
   gap: 20px;
   color: white
+`;
+
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  gap: 15px
+`;
+
+export const Cover = styled.img`
+  width: 476px;
+  height: 440px;
+`;
+
+export const Description = styled.span`
+  overflow: auto;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 100;
+  color: #D9D9D9;
+`;
+
+export const Props = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+    text-align: right;
+  margin: 0;
+  padding: 10px 0px 10px 0px;
+`;
+
+export const H1 = styled.span`
+  font-size: 64px;
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+`;
+
+export const H2 = styled.span`
+  font-size: 32px;
+  font-weight: 400;
+  margin: 0px;
+`;
+
+export const H3 = styled.span`
+  font-size: 24px;
+  font-weight: 100;
+  margin: 0px;
 `;
 
 export const DetailContainer = styled.div`

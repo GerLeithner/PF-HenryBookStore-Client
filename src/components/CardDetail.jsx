@@ -15,23 +15,20 @@ import {
 
 import {
   OverLay,
+  Info,
   ButtonDetail,
   StarDetail,
-  DetailContainer,
-  ButtonIcons
-} from "../styles/Detail";
-
-import {
-  DetailReview,
-  Description,
-  ReviewConteiner,
-  CoverAndInfo,
+  ButtonIcons,
   Cover,
-  Info,
+  Description,
   Props,
   H1,
   H2,
   H3,
+} from "../styles/Detail";
+
+import {
+  ReviewConteiner,
   Reviews,
 } from "../styles/Review";
 
