@@ -88,6 +88,18 @@ export function cleanBookDetail() {
   };
 }
 
+export function turnOnModal() {
+  return {
+    type: "TURN_ON_MODAL",
+  };
+}
+
+export function turnOffModal() {
+  return {
+    type: "TURN_OFF_MODAL",
+  };
+}
+
 // ------------------- BOOK CUSTOM GETS ------------------------------------
 
 export function getTrendingBooks() {

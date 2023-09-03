@@ -11,10 +11,11 @@ import {
   deleteFavorite,
   deleteReading,
   deleteReaded,
+  turnOnModal,
   getUser,
 } from "../redux/actions";
 
-import CardDetail from "./CardDetail.jsx";
+// import CardDetail from "./CardDetail.jsx";
 import caretIcon from "../icons/caretIcon.svg";
 import favoriteIcon from "../icons/favoriteIcon.svg";
 import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
@@ -39,8 +40,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Card({
   id,
   cover,
-  modal,
-  setModal,
   arrayFavorite,
   arrayReaded,
   arrayReading,
@@ -51,9 +50,6 @@ export default function Card({
   readeds,
   readedsChange,
 }) {
-  // const [open, setOpen] = useState(false);
-
-  // console.log("includes", id, "?", arrayFavorite.includes(id))
 
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
@@ -100,15 +96,13 @@ export default function Card({
 
   function handleClick(e) {
     e.preventDefault(e);
-    setModal(true);
+    dispatch(turnOnModal());
     setIsHovering(false);
     dispatch(getBookById(id));
   }
 
   const handleMouseOver = () => {
-    if (!modal) {
-      setIsHovering(true);
-    }
+    setIsHovering(true);
   };
 
   const handleMouseOut = () => {
@@ -197,7 +191,6 @@ export default function Card({
 
   return (
     <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
-      <CardDetail book={book} modal={modal} setModal={setModal} />
       <ImgContainer>
         <CardImg
           src={cover}

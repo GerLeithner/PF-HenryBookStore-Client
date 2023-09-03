@@ -10,27 +10,17 @@ export const DetailReview = styled.div`
   gap: 10px;
 `;
 
-export const DetailContainer = styled.div`
+export const ReviewConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #ccc;
-  padding: 20px;
-  background-color: white;
-  width: 800px;
-  height: 500px;
-`;
-
-export const ReviesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #1e1e1e;
-  color: white;
-  padding: 15px 20px 20px 20px;
-  gap: 10px;
-  width: 350px;
+  width: 730px;
+  height: 100%;
+  padding: 0px;
+  margin: 0px;
+  background-color: RED;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-overflow: ellipsis;
 `;
 
 export const CoverAndInfo = styled.div`
@@ -39,11 +29,12 @@ export const CoverAndInfo = styled.div`
   justify-content: space-between;
   width: 100%;
   gap: 30px;
+  border: none;
 `;
 
 export const Cover = styled.img`
-  width: 170px;
-  height: 220px;
+  width: 220px;
+  height: 370px;
   border: 1px solid #ccc;
 `;
 
@@ -52,35 +43,46 @@ export const Info = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
+  gap: 10px
 `;
 
 export const Props = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: flex-end;
   justify-content: space-between;
-  text-align: left;
-  gap: 40px;
-  /* color: white; */
+    text-align: right;
+  margin: 0;
+  padding: 10px 0px 10px 0px;
 `;
 
-export const H1 = styled.h1`
-  font-size: 25px;
-  font-style: italic;
+export const H1 = styled.span`
+  font-size: 64px;
   font-weight: 500;
-  line-height: 29px;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+`;
+
+export const H2 = styled.span`
+  font-size: 32px;
+  font-weight: 400;
   margin: 0px;
 `;
 
-export const H2 = styled.h2`
-  font-size: 20px;
-  font-weight: 500;
+export const H3 = styled.span`
+  font-size: 24px;
+  font-weight: 100;
   margin: 0px;
 `;
 
 export const Description = styled.span`
   overflow: auto;
   text-align: left;
-  height: 220px;
+  font-size: 16px;
+  font-weight: 100;
+  color: #D9D9D9;
 `;
 
 export const Reviews = styled.div`
