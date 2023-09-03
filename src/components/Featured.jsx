@@ -7,7 +7,6 @@ import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
 import SubscribeNav from "./SubscribeNav.jsx";
 import Carousels from "./Carousels.jsx";
-import CardDetail from "./CardDetail.jsx";
 
 import {
   getAuthors,
@@ -37,18 +36,16 @@ export default function Home() {
   const allAuthors = useSelector((state) => state.authors);
   const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
-  const book = useSelector((state) => state.bookDetail);
 
+  const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
   const { user, logout } = useAuth0();
-  
 
   const readChange = (condition) => {
     setRead(condition);
   };
 
-
-  useEffect(() => {
+  /*   useEffect(() => {
     if (user) {
       const { email, nickname } = user;
       const userDb = {
@@ -57,8 +54,7 @@ export default function Home() {
       };
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, read, arrayReading]);
-
+  }, [dispatch, read, arrayReading]); */
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -113,8 +109,7 @@ export default function Home() {
   return (
     <div>
       <div>
-        <CardDetail book={ book } />
-        {/* <div>
+        <div>
           <SubscribeNav />
           {recommended && recommended?.length && (
             <Carousel
@@ -144,7 +139,7 @@ export default function Home() {
               })}
             </Carousel>
           )}
-        </div> */}
+        </div>
         {currentUser && currentUser.Reading?.length ? (
           <div>
             <Carousels
