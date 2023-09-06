@@ -6,7 +6,7 @@ export const ContainerNavBar = styled.div`
   width: 100%;
   position: fixed;
   padding: 0px 30px 0px 30px;
-  height: 60px;
+  height: 56px;
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -65,7 +65,7 @@ export const LinkNavBar = styled(NavLink)`
   }
 `;
 
-export const NavBarProfileLink = styled(NavLink)`
+export const NavBarProfileLink = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,30 +82,80 @@ export const NavBarProfileLink = styled(NavLink)`
     height: 32px;
     border-radius: 50%;
     margin: 0px;
-
-    &:hover {
-      //border: solid 2px #622cd4;
-    }
   }
   &:hover {
     background: #622cd4;
+    cursor: pointer;
     transition: 0.2s;
   }
-  &.active {
+  &.focus {
     background: #622cd4;
+    cursor: pointer;
+    transition: 0.2s;
   }
 `;
 
 export const NavProfilePic = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   margin: 0px;
   background-color: white;
   &:hover {
     transition: 0.3s;
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
     padding: 0px;
+  }
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+  align-items: baseline;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 65px;
+`;
+
+export const DropDownContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  border-radius: 10%;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0,0002s
+
+
+  }
+  &.inactive {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-200px);
+    transition: 0,0002s
+
+  }
+  button {
+    transition: background-color 0.5s ease-in-out;
+    color: white;
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-size: 18px;
+    padding: 5px;
+    span {
+      size: 25px;
+      background: transparent
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black'  class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'%3E%3C/path%3E%3C/svg%3E")
+        no-repeat center;
+      background-size: 20px;
+    }
+    &:hover {
+      cursor: pointer;
+      color: #622cd4;
+    }
   }
 `;
