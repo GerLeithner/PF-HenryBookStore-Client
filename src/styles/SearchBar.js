@@ -36,7 +36,7 @@ export const InputAndButton = styled.form`
   text-align: center;
   display: flex;
   flex-direction: row;
-  padding: 8px;
+  padding: 10px;
 `;
 
 export const InputSearch = styled.input`
