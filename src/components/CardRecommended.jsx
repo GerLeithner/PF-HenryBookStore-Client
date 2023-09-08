@@ -15,7 +15,7 @@ import {
 
 import { StarDetail } from "../styles/Detail";
 import starFill from "../icons/starFill.svg";
-import starHalf from "../icons/starHalf.svg";
+import starEmpty from "../icons/starEmpty.svg";
 
 export default function Card({
   title,
@@ -62,7 +62,7 @@ export default function Card({
                 s === "star" ? (
                   <StarDetail src={starFill} alt="n" />
                 ) : (
-                  <StarDetail src={starHalf} alt="n" />
+                  <StarDetail src={starEmpty} alt="n" />
                 )
               )}
           </StarsContainer>

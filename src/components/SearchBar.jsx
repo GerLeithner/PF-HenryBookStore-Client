@@ -44,24 +44,12 @@ const SearchBar = ({ modal, setModal }) => {
 
     dispatch(searchInput(e.target.value));
     dispatch(getBookByTitle(search));
-    console.log("Title: ", search);
-    // setAuthor(e.target.value)
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    inputRef.current.focus();
-    /*     if (inputFocus) {
-      inputRef.current.blur();
-    } else {
-      inputRef.current.focus();
-    } */
-
-    // hacer un IF y buscar la forma de diferenciar si la busqueda es un author o un title y luego despachar
-    // dispatch(getBookByAuthor)  //action que traiga libro por title o accion que traiga libro por autor
-    /*     dispatch(getBookByTitle(search)); */
+    setInputFocus(!inputFocus);
     dispatch(searchInput(""));
-    // setAuthor('');
   }
   function handleClick(e) {
     e.preventDefault(e);
@@ -71,16 +59,14 @@ const SearchBar = ({ modal, setModal }) => {
   }
   return (
     <SearchContainer>
-      <InputAndButton>
+      <InputAndButton ref={inputRef}>
         <InputSearch
-          ref={inputRef}
+          className={inputFocus ? "active" : "inactive"}
           placeholder="Search by title or author..."
           type="search"
           value={search}
           onChange={(e) => handleInputChange(e)}
           results={1}
-          onFocus={() => setInputFocus(true)}
-          onBlur={() => setInputFocus(false)}
         />
         <ButtonContainer
           type="submit"

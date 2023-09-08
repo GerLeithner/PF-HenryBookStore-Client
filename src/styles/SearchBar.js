@@ -36,7 +36,7 @@ export const InputAndButton = styled.form`
   text-align: center;
   display: flex;
   flex-direction: row;
-  padding: 8px;
+  padding: 10px;
 `;
 
 export const InputSearch = styled.input`
@@ -44,6 +44,7 @@ export const InputSearch = styled.input`
   height: 35px;
   display: flex;
   flex-direction: column;
+  visibility: hidden;
   line-height: 28px;
   font-size: 20px;
   border: none;
@@ -53,9 +54,10 @@ export const InputSearch = styled.input`
   padding: 0.2rem 1rem;
   padding-left: 5px;
   color: white;
+  transition: 0.2s;
 
-  //transition: 0.2s;
-  &:focus {
+  &.active {
+    visibility: visible;
     background: linear-gradient(#ffff, #000) center bottom 1px /
       calc(100% - 10px) 2px no-repeat;
     border-radius: 0px;
