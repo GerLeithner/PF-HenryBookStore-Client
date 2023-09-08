@@ -135,11 +135,11 @@ export const NavProfilePic = styled.img`
 
 export const MenuContainer = styled.div`
   display: flex;
-  align-items: baseline;
+  //align-items: baseline;
   flex-direction: column;
   align-items: center;
 
-  padding-top: 72px;
+  padding-top: 77px;
 `;
 
 export const DropDownContainer = styled.li`
@@ -148,6 +148,7 @@ export const DropDownContainer = styled.li`
   align-items: flex-start;
   background-color: black;
   border-radius: 10%;
+  padding: 0px 5px 5px 5px;
   &.active {
     visibility: visible;
     opacity: 1;
@@ -174,6 +175,7 @@ export const DropDownContainer = styled.li`
     padding: 5px;
     transition: background-color 0.5s ease-in-out;
     text-decoration: none;
+    gap: 5px;
     svg {
       height: 25px;
       fill: white;
