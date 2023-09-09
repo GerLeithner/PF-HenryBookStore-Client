@@ -4,15 +4,8 @@ import { ButtonCatalogue } from "../styles/Catalogue";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
-  
-  return (
-    <ButtonCatalogue
-      onClick={async () =>
-        await loginWithRedirect()
-      }
-    >
-      Get Started
-    </ButtonCatalogue>
-  );
-};
 
+  return (
+    <button onClick={async () => await loginWithRedirect()}>Get Started</button>
+  );
+}
