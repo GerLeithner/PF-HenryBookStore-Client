@@ -17,6 +17,7 @@ import {
   SloganButtonContainer,
   Balance,
 } from "../styles/Landing";
+import Footer from "./Footer";
 
 export default function LandingPage() {
   const dispatch = useDispatch();

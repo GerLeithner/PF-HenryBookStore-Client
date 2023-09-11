@@ -71,7 +71,7 @@ export const SloganButtonContainer = styled.div`
     background: #622cd4;
     &:hover {
       cursor: pointer;
-      background-color: #5b2ac4;
+      background-color: #6b33e0;
     }
     &:active {
       background-color: #3e1c85;
