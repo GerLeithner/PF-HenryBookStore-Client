@@ -15,13 +15,14 @@ import ProtectedRoute from "./auth/protected-route";
 import axios from "axios";
 import { ToastContainer } from "react-toastify";
 import SubscribeNav from "./components/SubscribeNav";
+import Footer from "./components/Footer";
 
 axios.defaults.baseURL = "http://localhost:3001";
 // axios.defaults.baseURL = "https://pf-henrybookstore-api-production.up.railway.app";
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <Route exact path="/" component={LandingPage} />
       <ProtectedRoute
         path={[
@@ -36,14 +37,17 @@ function App() {
         ]}
         component={NavBar}
       />
-      <ProtectedRoute exact path="/home" component={Home} />
-      <ProtectedRoute path="/home/:id" component={CardDetail} />
-      <ProtectedRoute exact path="/catalogue" component={Catalogue} />
-      <ProtectedRoute exact path="/about" component={AboutUs} />
-      <ProtectedRoute exact path="/books" component={BooksTable} />
-      <ProtectedRoute exact path="/users" component={UsersTable} />
-      <ProtectedRoute exact path="/profile" component={UsersProfile} />
-      <ProtectedRoute exact path="/library" component={MyLibrary} />
+      <div className="main">
+        <ProtectedRoute exact path="/home" component={Home} />
+        <ProtectedRoute path="/home/:id" component={CardDetail} />
+        <ProtectedRoute exact path="/catalogue" component={Catalogue} />
+        <ProtectedRoute exact path="/about" component={AboutUs} />
+        <ProtectedRoute exact path="/books" component={BooksTable} />
+        <ProtectedRoute exact path="/users" component={UsersTable} />
+        <ProtectedRoute exact path="/profile" component={UsersProfile} />
+        <ProtectedRoute exact path="/library" component={MyLibrary} />
+      </div>
+      <Route path="/" component={Footer} />
       <ToastContainer
         position="bottom-right"
         autoClose={3000}
