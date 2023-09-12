@@ -5,34 +5,52 @@ export const DetailReview = styled.div`
   flex-direction: column;
   background-color: #3f3f3f;
   margin: 0px;
-  height: 130px;
+  height: 140px;
   padding: 10px;
   gap: 10px;
+  border-radius: 10px;
 `;
 
-export const ReviewConteiner = styled.div`
+export const Reviews = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   width: 730px;
   height: 100%;
   padding: 0px;
   margin: 0px;
-  background-color: RED;
+  gap: 10px;
+`;
+
+export const ReviewsList = styled.div`
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
+  /* background-color: aqua; */
   overflow-x: hidden;
   overflow-y: auto;
   text-overflow: ellipsis;
 `;
 
-export const Reviews = styled.div`
-`;
-
-export const ReviewContent = styled.span`
-  overflow: auto;
+export const ReviewContent = styled.p`
   text-align: left;
   height: 100px;
+  font-size: medium;
+  margin: 0;
 `;
 
-export const ReviewInfo = styled.span`
+export const ReviewInfo = styled.p`
   text-align: left;
-  font-style: italic;
+  font-size: large;
+  margin: 0;
+`;
+
+export const Score = styled.div`
+  height: 26px;
+  border: solid 1px "#D9D9D9";
+  border-radius: 5px;
+
 `;

@@ -28,8 +28,8 @@ import {
 } from "../styles/Detail";
 
 import {
-  ReviewConteiner,
   Reviews,
+  ReviewsList,
 } from "../styles/Review";
 
 import "./CardMenu.css";
@@ -249,68 +249,88 @@ export default function CardDetail({ book }) {
           </div>
         </Info>
         <Cover src={book.cover} />
-        <ReviewConteiner>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "100%",
-            }}
-          >
-            <H2>Users Reviews</H2>
+        <Reviews>
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            padding: "0",
+            margin: "0", 
+            }}>
             <div
               onClick={(e) => handleCloseClick(e)}
-              style={{ cursor: "pointer" }}
+              style={{ display: "flex", justifyContent: "center", width: "100%", paddingLeft: "10px" }}
             >
-              x
+              <H3>Users Reviews</H3>
+            </div>  
+            <div
+              onClick={(e) => handleCloseClick(e)}
+              style={{ cursor: "pointer", padding: "0", margin: "0" }}
+            >
+              <H3>x</H3>
             </div>
           </div>
-          <div style={{ width: "100%" }}>
-            <Reviews>
-              {book.reviews &&
-                book.reviews.map((r) => {
-                  return (
-                    <div>
-                      <Review r={r} user={currentUser} bookId={book.id} />
-                      {r.userId === currentUser.id && (
-                        <button value={r.id} onClick={handleDeleteReview}>
-                          Delete
-                        </button>
-                      )}
-                    </div>
-                  );
-                })}
-            </Reviews>
-          </div>
-          {currentUser && currentUser.subscription ? (
-            !currentUser.reviews.find((review) => {
-              return review.bookId === book.id;
-            }) ? (
-              !newReview ? (
-                <ButtonDetail
-                  onClick={(e) => {
-                    handleReviewClick(e);
-                  }}
-                >
-                  Leave a Review
-                </ButtonDetail>
-              ) : (
-                <CreateReview
-                  currentUser={currentUser}
-                  book={book}
-                  setNewReview={setNewReview}
-                  newReview={newReview}
-                />
+          <ReviewsList>
+            { book.reviews?.length === 0 ? 
+            ( <H3>This title hasn't any review yet</H3> ) 
+            : 
+            ( book.reviews?.map((r) => {
+              return(
+                <Review r={r} bookId={book.id} />
               )
-            ) : (
-              <div>Already reviewed</div>
-            )
-          ) : (
-            <div>Subscribe to review</div>
+            }))}
+          </ReviewsList>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+          {currentUser && !currentUser.subscription ? (
+            <H3 style={{fontStyle: "italic"}}>Subscribe to comment</H3>
+          ) :
+          (
+            <ButtonDetail>Comment</ButtonDetail>
           )}
-        </ReviewConteiner>
+          </div>
+        </Reviews>
       </OverLay>
     )
   );
 }
+
+// {book.reviews &&
+//   book.reviews.map((r) => {
+//     return (
+//       <div>
+//         <Review r={r} user={currentUser} bookId={book.id} />
+//         {r.userId === currentUser.id && (
+//           <button value={r.id} onClick={handleDeleteReview}>
+//             Delete
+//           </button>
+//         )}
+//       </div>
+//     );
+//   })}
+//   {currentUser && currentUser.subscription ? (
+// !currentUser.reviews.find((review) => {
+//   return review.bookId === book.id;
+// }) ? (
+//   !newReview ? (
+//     <ButtonDetail onClick={(e) => {handleReviewClick(e);}}>
+//       Comment
+//     </ButtonDetail>
+//   ) : (
+//     <CreateReview
+//       currentUser={currentUser}
+//       book={book}
+//       setNewReview={setNewReview}
+//       newReview={newReview}
+//     />
+//   )
+// ) : (
+// <ButtonDetail onClick={(e) => {handleReviewClick(e);}}>
+//   Edit Review
+// </ButtonDetail>
+// )
+// ) : (
+// <ButtonDetail onClick={(e) => {}}>
+//   Subscribe to Review!
+// </ButtonDetail>
+// )}

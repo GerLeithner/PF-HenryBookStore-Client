@@ -181,7 +181,7 @@ export const ImgContainerDetail = styled.div`
 `;
 
 export const OverLay = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 480px;
   padding: 70px 20px 20px 20px;
   margin: 0;
@@ -238,6 +238,7 @@ export const H2 = styled.span`
   font-size: 32px;
   font-weight: 400;
   margin: 0px;
+  padding: 0;
 `;
 
 export const H3 = styled.span`
