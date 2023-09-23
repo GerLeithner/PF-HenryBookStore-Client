@@ -26,7 +26,8 @@ export const ReviewsList = styled.div`
   display: flex;
   height: 100%;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 20px;
   padding: 0;
   margin: 0;
   /* background-color: aqua; */
@@ -53,4 +54,13 @@ export const Score = styled.div`
   border: solid 1px "#D9D9D9";
   border-radius: 5px;
 
+`;
+
+export const ReviewContainer = styled.div`
+  display: "flex";
+  flex-direction: "row";
+  justify-content: "space-between";
+  align-items: "center";
+  padding: "0";
+  margin: "0"
 `;

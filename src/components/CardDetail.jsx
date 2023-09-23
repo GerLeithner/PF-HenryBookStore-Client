@@ -165,8 +165,11 @@ export default function CardDetail({ book }) {
     toast.success("Review Deleted Succesfully");
   }
 
-  var starAverage =
-    book && book.averageRating && starRating(book.averageRating);
+  function findMyReview(review, currentUserId) {
+    return review.userId === currentUserId
+  }
+
+  var starAverage = book && book.averageRating && starRating(book.averageRating);
 
   return (
     modal && (
@@ -275,20 +278,15 @@ export default function CardDetail({ book }) {
             { book.reviews?.length === 0 ? 
             ( <H3>This title hasn't any review yet</H3> ) 
             : 
-            ( book.reviews?.map((r) => {
+            ( book.reviews?.some(r => r.userId === currentUser.id) ?
+              <Review r={book.reviews.find(r => r.userId === currentUser.id)} bookId={book.id} />
+              :
+              book.reviews?.map((r) => {
               return(
                 <Review r={r} bookId={book.id} />
               )
             }))}
           </ReviewsList>
-          <div style={{ display: "flex", justifyContent: "center" }}>
-          {currentUser && !currentUser.subscription ? (
-            <H3 style={{fontStyle: "italic"}}>Subscribe to comment</H3>
-          ) :
-          (
-            <ButtonDetail>Comment</ButtonDetail>
-          )}
-          </div>
         </Reviews>
       </OverLay>
     )
