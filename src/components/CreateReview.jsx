@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import {
   addReview,
   getAuthors,
@@ -9,17 +9,19 @@ import {
   getCurrentUser,
   getGenres,
 } from "../redux/actions";
-import closeIcon from "../icons/closeIcon.svg";
 
 import {
   ErrorsForm,
-  ImageAndInfoContainer,
-  PropAndInput,
-  FormTextArea,
-  PropAndInputAndError,
 } from "../styles/CreateBook";
 
-import { ButtonDetail, InfoContainerReview } from "../styles/Detail";
+import {
+  NewReviewContainer,
+  CancelButton,
+  SubmitButton,
+  Buttons,
+  ReviewInput,
+} from "../styles/Review";
+
 import { toast } from "react-toastify";
 
 function validate(input) {
@@ -41,9 +43,10 @@ function validate(input) {
 }
 
 export default function CreateReview({ setNewReview, book, currentUser }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
 
+  console.log(currentUser);
+
+  const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
 
@@ -61,11 +64,12 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
   useEffect(() => {
     if (!genres) dispatch(getGenres());
     if (!authors) dispatch(getAuthors());
-
+  
     setErrors(validate(input));
   }, [dispatch, genres, authors, input]);
 
   function handleChange(e) {
+    console.log(e)
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -77,11 +81,6 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
         [e.target.name]: e.target.value,
       })
     );
-  }
-
-  function handleCloseClick(e) {
-    e.preventDefault(e);
-    setNewReview(false);
   }
 
   function handleSubmit(e) {
@@ -124,65 +123,42 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     }
   }
 
+  function handleCancel(e) {}
+  
   return (
-    <div>
-      <div onClick={(e) => handleCloseClick(e)} style={{ cursor: "pointer" }}>
-        x
-      </div>
-      <ImageAndInfoContainer>
-        <InfoContainerReview>
-          {/* ----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
-            <PropAndInput>
-              <label>
-                <span>Score </span>
-
-                <select
-                  name="score"
-                  id="scoreInput"
-                  onChange={handleChange}
-                  defaultValue={1}
-                >
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </label>
-            </PropAndInput>
-            {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
-          </PropAndInputAndError>
-          <PropAndInputAndError>
-            <p>Your Review:</p>
-            <PropAndInput>
-              <FormTextArea
-                type="text"
-                value={input.comment}
-                alto="50px"
-                ancho="350px"
-                name="comment"
-                onChange={(e) => handleChange(e)}
-                margen="0px"
-              />
-            </PropAndInput>
-            <div>
-              {errors.comment && <ErrorsForm>{errors.comment}</ErrorsForm>}
-            </div>
-          </PropAndInputAndError>
-          {/* ----------------------------------------------------------------------*/}
-
-          {/* --------------------------------------------------------------------*/}
-        </InfoContainerReview>
-      </ImageAndInfoContainer>
-      <ButtonDetail
-        type="button"
-        onClick={(e) => handleSubmit(e)}
-        ancho="100px"
-        alto="20"
-      >
-        Submit
-      </ButtonDetail>
-    </div>
+    <NewReviewContainer>
+      <span>{currentUser.userName.charAt(0).toUpperCase()+currentUser.userName.slice(1)}</span>
+      <label>
+        <span>Score </span>
+        <select
+          name="score"
+          id="scoreInput"
+          onChange={handleChange}
+          defaultValue={1}
+        >
+          <option value={1}>1,0</option>
+          <option value={2}>2,0</option>
+          <option value={3}>3,0</option>
+          <option value={4}>4,0</option>
+          <option value={5}>5,0</option>
+        </select>
+      </label>
+      {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
+      <ReviewInput 
+       name="comment"
+       placeholder="Leave a comment ..."
+      //  onChange={(e) => handleChange(e)} 
+        contentEditable="true"
+        onInput={e => handleChange(e)}
+       />
+      <Buttons>
+        <CancelButton onClick={(e) => handleCancel(e)}>
+          cancel
+        </CancelButton>
+        <SubmitButton onClick={(e) => handleSubmit(e)}>
+          submit
+        </SubmitButton>
+      </Buttons>
+    </NewReviewContainer>
   );
 }

@@ -15,7 +15,7 @@ export default function Review({ r, user, bookId }) {
       >
         <ReviewInfo>{r.user.userName}</ReviewInfo>
         <div style={{ border: "solid #D9D9D9 2px", borderRadius: "5px", height: "26px", width: "35px", display: "flex", justifyContent: "center", alignItems: "center"}}>
-        <ReviewInfo>{r.score},0</ReviewInfo>
+        <ReviewInfo>{r.score}</ReviewInfo>
         </div>
       </div>
       <ReviewContent>{r.comment ? r.comment : ""}</ReviewContent>

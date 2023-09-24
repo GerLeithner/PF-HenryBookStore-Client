@@ -217,6 +217,7 @@ export const Description = styled.span`
 `;
 
 export const Props = styled.div`
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -245,6 +246,7 @@ export const H3 = styled.span`
   font-size: 24px;
   font-weight: 100;
   margin: 0px;
+  color: #FFFFFF;
 `;
 
 export const DetailContainer = styled.div`
