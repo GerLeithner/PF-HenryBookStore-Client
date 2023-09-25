@@ -93,37 +93,13 @@ export const CloseDetail = styled.div`
 export const NewReviewContainer = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10px;
   border: 1px solid #D9D9D9;
   border-radius: 10px;
   padding: 10px;
 `;
 
-export const CancelButton = styled.button`
-  height: fit-content;
-  width: fit-content;
-  padding: 5px 20px 5px 20px;
-  color: #D9D9D9;
-  background-color: #1E1E1E;
-  border-radius: 5px;
-  border: 1px solid #D9D9D9;
-  transition: all 0.01s ease 0s;
-  cursor: pointer;
-  outline: none;
-
-  font-size: 16px;
-  font-weight: 100;
-  margin: 0px;
-
-  &:hover {
-    color: #622CD4;
-  }
-
-  &:active {
-    transform: translateY(-1px);
-  }
-`;
-
-export const SubmitButton = styled.button`
+export const ReviewButton = styled.button`
   height: fit-content;
   width: fit-content;
   padding: 5px 20px 5px 20px;
@@ -157,7 +133,6 @@ export const Buttons = styled.div`
 
 export const ReviewInput = styled.textarea`
   width: 100%;
-  /* height: 1.7em; */
   overflow: hidden;
   outline: none;
   border: none;
@@ -173,7 +148,25 @@ export const ReviewInput = styled.textarea`
   color: #D9D9D9;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: #1E1E1E;
+
   &:active {
     transform: scale(0.95);
   }
+`;
+
+export const StyledSelect = styled.select`
+  /* appearance: none; */
+  border: none;
+  border-bottom: 1px solid #d9d9d9;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #d9d9d9;
+  padding-bottom: 3px;
+`;
+
+export const StyledOption = styled.option`
+  background-color: #1E1E1E;
 `;

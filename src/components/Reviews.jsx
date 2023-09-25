@@ -13,7 +13,7 @@ import {
   turnOffModal,
 } from "../redux/actions";
 
-import { ReviewContainer, ReviewHeader, CloseDetail } from "../styles/Review";
+import { ReviewContainer, ReviewHeader, CloseDetail, ReviewsList } from "../styles/Review";
 
 import { H3 } from "../styles/Detail";
 
@@ -56,10 +56,10 @@ export default function Reviews({ book }) {
         <CloseDetail onClick={(e) => handleCloseClick(e)}>+</CloseDetail>
       </ReviewHeader>
       {book.reviews?.length === 0 && (
-        <div>
+        <ReviewsList>
           <H3>This title hasn't any review yet</H3>
           <CreateReview currentUser={currentUser}/>
-        </div>
+        </ReviewsList>
       )}
     </ReviewContainer>
   );

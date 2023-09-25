@@ -11,15 +11,12 @@ import {
 } from "../redux/actions";
 
 import {
-  ErrorsForm,
-} from "../styles/CreateBook";
-
-import {
   NewReviewContainer,
-  CancelButton,
-  SubmitButton,
+  ReviewButton,
   Buttons,
   ReviewInput,
+  StyledSelect,
+  StyledOption
 } from "../styles/Review";
 
 import { toast } from "react-toastify";
@@ -58,8 +55,10 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     score: 1,
   });
 
+  const textareaRef  = useRef(null);
   const [errors, setErrors] = useState({});
   const { user } = useAuth0();
+  
 
   useEffect(() => {
     if (!genres) dispatch(getGenres());
@@ -69,12 +68,10 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
   }, [dispatch, genres, authors, input]);
 
   function handleChange(e) {
-    console.log(e)
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log("ERRORS", errors);
     setErrors(
       validate({
         ...input,
@@ -82,6 +79,20 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
       })
     );
   }
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.rows = 1; // Asegúrate de que comience con un solo renglón
+      const maxRows = 3; // Establece un número máximo de renglones si lo deseas
+      const minHeight = 25; // Establece la altura mínima deseada en píxeles
+      const maxHeight = textareaRef.current.scrollHeight;
+
+      if (maxHeight > minHeight) {
+        const newRows = Math.min(maxRows, Math.ceil(maxHeight / minHeight));
+        textareaRef.current.rows = newRows;
+      }
+    }
+  }, [input.comment])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -127,37 +138,38 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
   
   return (
     <NewReviewContainer>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start"}}>
       <span>{currentUser.userName.charAt(0).toUpperCase()+currentUser.userName.slice(1)}</span>
-      <label>
-        <span>Score </span>
-        <select
+      <label style={{display: "flex", gap: "20px", alignItems: "flex-start"}}>
+        <span>Score :</span>
+        <StyledSelect
           name="score"
           id="scoreInput"
           onChange={handleChange}
           defaultValue={1}
         >
-          <option value={1}>1,0</option>
-          <option value={2}>2,0</option>
-          <option value={3}>3,0</option>
-          <option value={4}>4,0</option>
-          <option value={5}>5,0</option>
-        </select>
+          <StyledOption value={1}>1,0</StyledOption>
+          <StyledOption value={2}>2,0</StyledOption>
+          <StyledOption value={3}>3,0</StyledOption>
+          <StyledOption value={4}>4,0</StyledOption>
+          <StyledOption value={5}>5,0</StyledOption>
+        </StyledSelect>
       </label>
-      {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
-      <ReviewInput 
-       name="comment"
-       placeholder="Leave a comment ..."
-      //  onChange={(e) => handleChange(e)} 
-        contentEditable="true"
-        onInput={e => handleChange(e)}
+      </div>
+      <ReviewInput
+        ref={textareaRef }
+        value={input.comment}
+        name="comment"
+        placeholder="Leave a comment ..."
+        onChange={(e) => handleChange(e)}
        />
       <Buttons>
-        <CancelButton onClick={(e) => handleCancel(e)}>
+        <ReviewButton onClick={(e) => handleCancel(e)} backColor="#3F3F3F" hoverColor="#6F6F6F">
           cancel
-        </CancelButton>
-        <SubmitButton onClick={(e) => handleSubmit(e)}>
+        </ReviewButton>
+        <ReviewButton onClick={(e) => handleSubmit(e)}>
           submit
-        </SubmitButton>
+        </ReviewButton>
       </Buttons>
     </NewReviewContainer>
   );
