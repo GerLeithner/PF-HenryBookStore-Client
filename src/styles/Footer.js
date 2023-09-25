@@ -27,7 +27,7 @@ export const IconsContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-left: 50px;
+  padding-left: 300px;
   padding-top: 3px;
   width: 200px;
   text-decoration: none;
@@ -40,4 +40,8 @@ export const IconsContainer = styled.div`
       fill: #622cd4;
     }
   }
+`;
+
+export const Icon = styled.a`
+  padding: 10px;
 `;
