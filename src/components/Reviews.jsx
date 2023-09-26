@@ -65,8 +65,8 @@ export default function Reviews({ book }) {
           <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
         </ReviewsList>
       )}
-      { book.reviews?.length !== 0 && book.reviews?.some((r) => r.userId === currentUser.id) ? 
-        ( <ReviewsList>
+      { book.reviews?.length !== 0 && book.reviews?.some((r) => r.userId === currentUser.id) &&
+         <ReviewsList>
           <Review r={ book.reviews?.find(r => r.userId === currentUser.id) }/>
           { book.reviews?.filter(r => r.userId !== currentUser.id).map(r => {
           return(
@@ -74,8 +74,9 @@ export default function Reviews({ book }) {
           )
         })}
         </ReviewsList>
-      ) :
-      ( <ReviewsList>
+      }
+      { book.reviews?.length !== 0 && !book.reviews?.some((r) => r.userId === currentUser.id) &&
+        <ReviewsList>
           <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
           { book.reviews?.map(r => {
             return(
@@ -83,7 +84,7 @@ export default function Reviews({ book }) {
             )
           })}
         </ReviewsList>
-      )}
+      }
     </ReviewContainer>
   );
 }

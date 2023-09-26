@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DetailReview, ReviewContent, ReviewInfo } from "../styles/Review";
 
+import OptionsButton from "./OptionsButton.jsx";
+
 export default function Review({ r }) {
   return (
     <DetailReview>
@@ -23,10 +25,11 @@ export default function Review({ r }) {
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
         }}
       >
         <ReviewInfo fontSize={"medium"} textColor={"#D9D9D9"}>{r?.create_date}</ReviewInfo>
+        <OptionsButton/>
       </div>
     </DetailReview>
   );
