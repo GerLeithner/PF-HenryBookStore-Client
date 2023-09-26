@@ -4,7 +4,6 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
-import Reviews from "./Reviews.jsx";
 
 import {
   cleanBookDetail,
@@ -27,6 +26,11 @@ import {
   H2,
   H3,
 } from "../styles/Detail";
+
+import {
+  ReviewConteiner,
+  Reviews,
+} from "../styles/Review";
 
 import "./CardMenu.css";
 
@@ -54,6 +58,7 @@ export default function CardDetail({ book }) {
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
+  const [newReview, setNewReview] = useState(false);
 
   const userId = { userId: currentUser && currentUser.id };
 
@@ -107,6 +112,23 @@ export default function CardDetail({ book }) {
     }
   }, [dispatch, arrayReading, book.id]);
 
+  if (currentUser) {
+    console.log("Reviews del currentUser: " + currentUser.reviews.length);
+  }
+
+  function handleCloseClick(e) {
+    e.preventDefault(e);
+    dispatch(turnOffModal());
+    setNewReview(false);
+    dispatch(cleanBookDetail(e.target.value));
+  }
+
+  function handleReviewClick(e) {
+    e.preventDefault(e);
+    setNewReview(true);
+    console.log("newReview", newReview);
+    console.log("e.target.value", e.target.value);
+  }
 
   function starRating(rating) {
     let ratingFloor = Math.floor(rating);
@@ -123,7 +145,28 @@ export default function CardDetail({ book }) {
     return stars;
   }
 
-  var starAverage = book && book.averageRating && starRating(book.averageRating);
+  function handleDeleteReview(e) {
+    e.preventDefault();
+    console.log("e: ", e.target);
+    dispatch(deleteReview(book.id, e.target.value));
+
+    setTimeout(() => {
+      dispatch(getBookById(book.id));
+    }, 300);
+    setTimeout(() => {
+      const { email, nickname } = currentUser;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }, 300);
+
+    toast.success("Review Deleted Succesfully");
+  }
+
+  var starAverage =
+    book && book.averageRating && starRating(book.averageRating);
 
   return (
     modal && (
@@ -206,43 +249,67 @@ export default function CardDetail({ book }) {
           </div>
         </Info>
         <Cover src={book.cover} />
-        <Reviews book={ book } />
-        {/* <Reviews>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0",
-            margin: "0", 
-            }}>
+        <ReviewConteiner>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <H2>Users Reviews</H2>
             <div
               onClick={(e) => handleCloseClick(e)}
-              style={{ display: "flex", justifyContent: "center", width: "100%", paddingLeft: "10px" }}
+              style={{ cursor: "pointer" }}
             >
-              <H3>Users Reviews</H3>
-            </div>  
-            <div
-              onClick={(e) => handleCloseClick(e)}
-              style={{ cursor: "pointer", padding: "0", margin: "0" }}
-            >
-              <H3>x</H3>
+              x
             </div>
           </div>
-          <ReviewsList>
-            { book.reviews?.length === 0 ? 
-            ( <H3>This title hasn't any review yet</H3> ) 
-            : 
-            ( book.reviews?.some(r => r.userId === currentUser.id) ?
-              <Review r={book.reviews.find(r => r.userId === currentUser.id)} bookId={book.id} />
-              :
-              book.reviews?.map((r) => {
-              return(
-                <Review r={r} bookId={book.id} />
+          <div style={{ width: "100%" }}>
+            <Reviews>
+              {book.reviews &&
+                book.reviews.map((r) => {
+                  return (
+                    <div>
+                      <Review r={r} user={currentUser} bookId={book.id} />
+                      {r.userId === currentUser.id && (
+                        <button value={r.id} onClick={handleDeleteReview}>
+                          Delete
+                        </button>
+                      )}
+                    </div>
+                  );
+                })}
+            </Reviews>
+          </div>
+          {currentUser && currentUser.subscription ? (
+            !currentUser.reviews.find((review) => {
+              return review.bookId === book.id;
+            }) ? (
+              !newReview ? (
+                <ButtonDetail
+                  onClick={(e) => {
+                    handleReviewClick(e);
+                  }}
+                >
+                  Leave a Review
+                </ButtonDetail>
+              ) : (
+                <CreateReview
+                  currentUser={currentUser}
+                  book={book}
+                  setNewReview={setNewReview}
+                  newReview={newReview}
+                />
               )
-            }))}
-          </ReviewsList>
-        </Reviews> */}
+            ) : (
+              <div>Already reviewed</div>
+            )
+          ) : (
+            <div>Subscribe to review</div>
+          )}
+        </ReviewConteiner>
       </OverLay>
     )
   );

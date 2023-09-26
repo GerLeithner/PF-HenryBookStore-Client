@@ -18,9 +18,11 @@ import { ReviewContainer, ReviewHeader, CloseDetail, ReviewsList } from "../styl
 import { H3 } from "../styles/Detail";
 
 export default function Reviews({ book }) {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
+
+  const [newReview, setNewReview] = useState(false);
 
   function handleCloseClick(e) {
     e.preventDefault(e);
@@ -58,7 +60,7 @@ export default function Reviews({ book }) {
       {book.reviews?.length === 0 && (
         <ReviewsList>
           <H3>This title hasn't any review yet</H3>
-          <CreateReview currentUser={currentUser}/>
+          <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
         </ReviewsList>
       )}
     </ReviewContainer>

@@ -39,13 +39,13 @@ function validate(input) {
   return errors;
 }
 
-export default function CreateReview({ setNewReview, book, currentUser }) {
+export default function CreateReview({ currentUser, setNewReview }) {
 
-  console.log(currentUser);
 
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
+  const book = useSelector((state) => state.bookDetail);
 
   const userId = currentUser && currentUser.id;
   const bookId = book && book.id;
@@ -58,11 +58,13 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
   const textareaRef  = useRef(null);
   const [errors, setErrors] = useState({});
   const { user } = useAuth0();
+  const [isFocused, setIsFocused] = useState(false);
   
 
   useEffect(() => {
     if (!genres) dispatch(getGenres());
     if (!authors) dispatch(getAuthors());
+    if(!book) dispatch()
   
     setErrors(validate(input));
   }, [dispatch, genres, authors, input]);
@@ -134,7 +136,22 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     }
   }
 
-  function handleCancel(e) {}
+  function handleCancel(e) {
+    setIsFocused(false);
+    setInput({
+      ...input,
+      comment: "",
+      score: 1,
+    })
+  }
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    // No hagas nada cuando el textarea pierde el enfoque
+  };
   
   return (
     <NewReviewContainer>
@@ -147,6 +164,7 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
           id="scoreInput"
           onChange={handleChange}
           defaultValue={1}
+          value={input.score}
         >
           <StyledOption value={1}>1,0</StyledOption>
           <StyledOption value={2}>2,0</StyledOption>
@@ -162,8 +180,11 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
         name="comment"
         placeholder="Leave a comment ..."
         onChange={(e) => handleChange(e)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
        />
-      <Buttons>
+      {isFocused && (
+        <Buttons>
         <ReviewButton onClick={(e) => handleCancel(e)} backColor="#3F3F3F" hoverColor="#6F6F6F">
           cancel
         </ReviewButton>
@@ -171,6 +192,8 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
           submit
         </ReviewButton>
       </Buttons>
+      )}
+
     </NewReviewContainer>
   );
 }
