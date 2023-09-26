@@ -75,10 +75,7 @@ export const ReviewHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding-right: 10px;
-  padding-left: 10px;
   margin: 0;
-  /* background-color: aqua; */
 `;
 
 export const CloseDetail = styled.div`

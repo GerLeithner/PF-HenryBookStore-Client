@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DetailReview, ReviewContent, ReviewInfo } from "../styles/Review";
 
-import OptionsButton from "./OptionsButton.jsx";
+// import OptionsButton from "./OptionsButton.jsx";
 
 export default function Review({ r }) {
   return (
@@ -29,7 +29,7 @@ export default function Review({ r }) {
         }}
       >
         <ReviewInfo fontSize={"medium"} textColor={"#D9D9D9"}>{r?.create_date}</ReviewInfo>
-        <OptionsButton/>
+        {/* <OptionsButton/> */}
       </div>
     </DetailReview>
   );

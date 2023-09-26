@@ -214,6 +214,21 @@ export const Description = styled.span`
   font-size: 16px;
   font-weight: 100;
   color: #D9D9D9;
+  padding-right: 10px;
+
+  ::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #3F3F3F; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #D9D9D9; /* Color de fondo de la barra de desplazamiento */
+    border-radius: 5px;
+  }
 `;
 
 export const Props = styled.div`
