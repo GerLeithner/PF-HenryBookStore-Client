@@ -6,7 +6,7 @@ export const ContainerNavBar = styled.div`
   width: 100%;
   position: fixed;
   padding: 0px 30px 0px 30px;
-  height: 60px;
+  height: 56px;
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -65,7 +65,31 @@ export const LinkNavBar = styled(NavLink)`
   }
 `;
 
-export const NavBarProfileLink = styled(NavLink)`
+export const ButtonNavBar = styled.button`
+  display: flex;
+  align-items: center;
+  transition: background-color 0.5s ease-in-out;
+  color: white;
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 24px;
+  padding: 0px 0px 0px 0px;
+  background-color: transparent;
+  border-color: transparent;
+  border: 0px;
+  height: 36px;
+
+  &:hover {
+    cursor: pointer;
+    color: #622cd4;
+  }
+
+  &.active {
+    color: #622cd4;
+  }
+`;
+
+export const NavBarProfileLink = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,30 +106,88 @@ export const NavBarProfileLink = styled(NavLink)`
     height: 32px;
     border-radius: 50%;
     margin: 0px;
-
-    &:hover {
-      //border: solid 2px #622cd4;
-    }
   }
   &:hover {
     background: #622cd4;
+    cursor: pointer;
     transition: 0.2s;
   }
-  &.active {
+  &.focus {
     background: #622cd4;
+    cursor: pointer;
+    transition: 0.2s;
   }
 `;
 
 export const NavProfilePic = styled.img`
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   margin: 0px;
   background-color: white;
   &:hover {
     transition: 0.3s;
-    width: 42px;
-    height: 42px;
+    width: 48px;
+    height: 48px;
     padding: 0px;
+  }
+`;
+
+export const MenuContainer = styled.div`
+  display: flex;
+  //align-items: baseline;
+  flex-direction: column;
+  align-items: center;
+
+  padding-top: 77px;
+`;
+
+export const DropDownContainer = styled.li`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: black;
+  border-radius: 10%;
+  padding: 0px 5px 5px 5px;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    transition: 0, 0002s;
+  }
+  &.inactive {
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-200px);
+    transition: 0, 0002s;
+  }
+
+  button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    border: none;
+    background: none;
+    font-size: 18px;
+    padding: 5px;
+    transition: background-color 0.5s ease-in-out;
+    text-decoration: none;
+    gap: 5px;
+    svg {
+      height: 25px;
+      fill: white;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: #622cd4;
+
+      svg {
+        fill: #622cd4;
+      }
+    }
   }
 `;

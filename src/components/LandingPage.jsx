@@ -11,21 +11,13 @@ import Logout from "./Logout";
 
 import { ButtonCatalogue } from "../styles/Catalogue";
 import {
-  BoxContainer,
-  ButtonsConteiner,
-  PromotionalConteiner,
-  H4Landing,
-  BackgroundConteiner,
+  BackgroundContainer,
+  LandingContainer,
+  Title,
+  SloganButtonContainer,
+  Balance,
 } from "../styles/Landing";
-
-var promotionalBooks = [
-  "Cat's Eye",
-  "All the Devils Are Here",
-  "The essential Neruda",
-  "Harlan Coben Spring",
-  "Harry Potter and the Goblet of Fire",
-  "Ficciones",
-];
+import Footer from "./Footer";
 
 export default function LandingPage() {
   const dispatch = useDispatch();
@@ -100,20 +92,11 @@ export default function LandingPage() {
   //  var promotionalBooks=concatTitles.slice(0,-2)
 
   return (
-    <BackgroundConteiner>
-      <BoxContainer>
-        <div>
-          <h1>Book Explorer</h1>
-        </div>
-        <h2>
-          Welcome to the best place to find incredible books to feed your mind
-        </h2>
-        <h3>Our catalog is full of classic and trendy books like:</h3>
-        <PromotionalConteiner>
-          {promotionalBooks &&
-            promotionalBooks.map((e) => <H4Landing>{e}</H4Landing>)}
-        </PromotionalConteiner>
-        <ButtonsConteiner>
+    <BackgroundContainer>
+      <LandingContainer>
+        <Title>NOVEL WAVE</Title>
+        <SloganButtonContainer>
+          <div>Explore, Stream, Read – Your Books, Your Way!</div>
           {isAuthenticated &&
             currentUser &&
             currentUser.active &&
@@ -138,8 +121,9 @@ export default function LandingPage() {
             </>
           )}
           {!isAuthenticated && <Login />}
-        </ButtonsConteiner>
-      </BoxContainer>
-    </BackgroundConteiner>
+        </SloganButtonContainer>
+        <Balance></Balance>
+      </LandingContainer>
+    </BackgroundContainer>
   );
 }
