@@ -41,11 +41,12 @@ export const ReviewContent = styled.p`
   height: 100px;
   font-size: medium;
   margin: 0;
+  /* color: #D9D9D9; */
 `;
 
 export const ReviewInfo = styled.p`
   text-align: left;
-  font-size: large;
+  font-size: ${({ fontSize }) => fontSize || "large"};
   margin: 0;
 `;
 
@@ -64,7 +65,7 @@ export const ReviewContainer = styled.div`
   height: 100%;
   padding: 0px;
   margin: 0px;
-  gap: 10px;
+  gap: 15px;
   /* background-color: red; */
 `;
 

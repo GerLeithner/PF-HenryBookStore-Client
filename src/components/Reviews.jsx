@@ -19,9 +19,11 @@ import { H3 } from "../styles/Detail";
 
 export default function Reviews({ book }) {
 
+  
+
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
-
+  console.log(currentUser);
   const [newReview, setNewReview] = useState(false);
 
   function handleCloseClick(e) {
@@ -61,6 +63,25 @@ export default function Reviews({ book }) {
         <ReviewsList>
           <H3>This title hasn't any review yet</H3>
           <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
+        </ReviewsList>
+      )}
+      { book.reviews?.length !== 0 && book.reviews?.some((r) => r.userId === currentUser.id) ? 
+        ( <ReviewsList>
+          <Review r={ book.reviews?.find(r => r.userId === currentUser.id) }/>
+          { book.reviews?.filter(r => r.userId !== currentUser.id).map(r => {
+          return(
+            <Review r={r} id={r.id}/>
+          )
+        })}
+        </ReviewsList>
+      ) :
+      ( <ReviewsList>
+          <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
+          { book.reviews?.map(r => {
+            return(
+              <Review r={r} id={r.id}/>  
+            )
+          })}
         </ReviewsList>
       )}
     </ReviewContainer>
