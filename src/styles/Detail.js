@@ -181,7 +181,7 @@ export const ImgContainerDetail = styled.div`
 `;
 
 export const OverLay = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 480px;
   padding: 70px 20px 20px 20px;
   margin: 0;
@@ -214,9 +214,25 @@ export const Description = styled.span`
   font-size: 16px;
   font-weight: 100;
   color: #D9D9D9;
+  padding-right: 10px;
+
+  ::-webkit-scrollbar {
+    width: 10px; /* Ancho de la barra de desplazamiento */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #3F3F3F; /* Color del pulgar de la barra de desplazamiento */
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #D9D9D9; /* Color de fondo de la barra de desplazamiento */
+    border-radius: 5px;
+  }
 `;
 
 export const Props = styled.div`
+  height: 140px;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -238,12 +254,14 @@ export const H2 = styled.span`
   font-size: 32px;
   font-weight: 400;
   margin: 0px;
+  padding: 0;
 `;
 
 export const H3 = styled.span`
   font-size: 24px;
   font-weight: 100;
   margin: 0px;
+  color: #FFFFFF;
 `;
 
 export const DetailContainer = styled.div`

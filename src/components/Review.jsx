@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { DetailReview, ReviewContent, ReviewInfo } from "../styles/Review";
 
-export default function Review({ r, user, bookId }) {
+// import OptionsButton from "./OptionsButton.jsx";
+
+export default function Review({ r }) {
   return (
     <DetailReview>
       <div
@@ -10,20 +12,24 @@ export default function Review({ r, user, bookId }) {
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          alignItems: "cen"
         }}
       >
-        <ReviewInfo>By {r.user.userName}</ReviewInfo>
-        <ReviewInfo>Score {r.score}</ReviewInfo>
+      <ReviewInfo>{r?.user?.userName}</ReviewInfo>
+        <div style={{ border: "solid #D9D9D9 1px", borderRadius: "5px", height: "26px", width: "35px", display: "flex", justifyContent: "center", alignItems: "center"}}>
+        <ReviewInfo>{r?.score},0</ReviewInfo>
+        </div>
       </div>
-      <ReviewContent>{r.comment ? r.comment : ""}</ReviewContent>
+      <ReviewContent>{r?.comment ? r.comment : ""}</ReviewContent>
       <div
         style={{
           display: "flex",
           flexDirection: "row",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
         }}
       >
-        <ReviewInfo>On {r.create_date}</ReviewInfo>
+        <ReviewInfo fontSize={"medium"} textColor={"#D9D9D9"}>{r?.create_date}</ReviewInfo>
+        {/* <OptionsButton/> */}
       </div>
     </DetailReview>
   );

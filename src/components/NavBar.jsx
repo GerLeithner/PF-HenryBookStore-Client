@@ -3,9 +3,9 @@ import { getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useRef } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import SearchBar from "./SearchBar.jsx";
-import { ReactComponent as LogoutIcon } from "../icons/logout.svg";
+import DropDownItem from "./DropDownItem.jsx"
 import { ReactComponent as SettingsIcon } from "../icons/settings.svg";
 import { ReactComponent as BooksIcon } from "../icons/books.svg";
 import { ReactComponent as UsersIcon } from "../icons/users.svg";
@@ -86,35 +86,6 @@ export default function NavBar() {
     }
   }, [dispatch, isAuthenticated]);
 
-  function DropDownItem({ link, type, Icon }) {
-    if (type == "Logout") {
-      return (
-        <div>
-          <button onClick={link} type="button">
-            <LogoutIcon />
-            {type}
-          </button>
-        </div>
-      );
-    } else {
-      return (
-        <div>
-          <Link
-            to={link}
-            style={{
-              textDecoration: "none",
-            }}
-          >
-            <button type="button">
-              <Icon />
-              {type}
-            </button>
-          </Link>
-        </div>
-      );
-    }
-  }
-
   return (
     <div>
       <ContainerNavBar>
@@ -145,9 +116,9 @@ export default function NavBar() {
               onClick={() => setOpenMenu(!openMenu)}
             >
               {currentUser && currentUser.profilePic ? (
-                <img src={currentUser.profilePic} />
+                <img alt="" src={currentUser.profilePic} />
               ) : (
-                <img src="https://firebasestorage.googleapis.com/v0/b/henry-book-explorer.appspot.com/o/image?alt=media&token=3dccc098-e2c1-48ab-9539-ce0024b12996" />
+                <img alt="" src="https://firebasestorage.googleapis.com/v0/b/henry-book-explorer.appspot.com/o/image?alt=media&token=3dccc098-e2c1-48ab-9539-ce0024b12996" />
               )}
             </NavBarProfileLink>
             <DropDownContainer className={openMenu ? "active" : "inactive"}>
