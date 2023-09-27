@@ -74,7 +74,7 @@ const SearchBar = ({ modal, setModal }) => {
         ></ButtonContainer>
       </InputAndButton>
 
-      <div>
+      {/*       <div>
         <DropdownSearch>
           {allBooks
             .filter((book) => {
@@ -102,7 +102,7 @@ const SearchBar = ({ modal, setModal }) => {
               </RowSearchBar>
             ))}
         </DropdownSearch>
-      </div>
+      </div> */}
     </SearchContainer>
   );
 };

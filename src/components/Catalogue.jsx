@@ -20,11 +20,17 @@ import SearchBar from "./SearchBar.jsx";
 import SortOrFilter from "./SortOrFilter.jsx";
 import SubscribeNav from "./SubscribeNav.jsx";
 import TablePaged from "./TablePaged.jsx";
+import { Filters } from "./Filters";
 
 import { SideButton } from "../styles/SortOrFilter";
 import { BooksContainer } from "../styles/BooksTable";
 import { ContainerCards } from "../styles/Card";
-import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
+import {
+  FoundTitles,
+  SelectFilters,
+  SideBarContainer,
+  Titles,
+} from "../styles/Catalogue";
 import { H3Form } from "../styles/CreateBook";
 
 const Catalogue = () => {
@@ -42,7 +48,6 @@ const Catalogue = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
   const [, setSort] = useState({ name: "", option: "" });
-  const [, setFilter] = useState({ name: "", option: "" });
   const [modal, setModal] = useState(false);
   const [filters, setFilters] = useState([]);
   const [subscribe, setSubscribe] = useState(true);
@@ -249,7 +254,24 @@ const Catalogue = () => {
           )}
         </div>
       </SideBarContainer>
+      {/*    <Filters /> */}
       <SubscribeNav setSubscribe={setSubscribe} />
+      <FoundTitles>
+        {allBooks?.map((b, i) => {
+          return (
+            <span>
+              <Titles>{b.title}</Titles>
+
+              {i + 1 !== allBooks.length ? (
+                <span style={{ cursor: "default" }}> | </span>
+              ) : (
+                <span></span>
+              )}
+            </span>
+          );
+        })}
+      </FoundTitles>
+
       <BooksContainer
         paddingTop={
           subscribe && currentUser && !currentUser.subscription
@@ -263,6 +285,7 @@ const Catalogue = () => {
           paginado={paginado}
           currentPage={currentPage}
         />
+
         <ContainerCards>
           {currentBook?.map((b) => {
             return (

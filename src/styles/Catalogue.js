@@ -45,7 +45,7 @@ export const ButtonCatalogue = styled.button`
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
-  margin:0px;
+  margin: 0px;
 
   &:hover {
     background-color: #1b8f2b;
@@ -56,5 +56,23 @@ export const ButtonCatalogue = styled.button`
 
   &:active {
     transform: translateY(-1px);
+  }
+`;
+
+export const FoundTitles = styled.div`
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 200px;
+  background-color: black;
+  color: white;
+  gap: 9px;
+  padding: 50px;
+`;
+
+export const Titles = styled.span`
+  &:hover {
+    color: #622cd4;
+    cursor: pointer;
   }
 `;
