@@ -207,42 +207,6 @@ export default function CardDetail({ book }) {
         </Info>
         <Cover src={book.cover} />
         <Reviews book={ book } />
-        {/* <Reviews>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0",
-            margin: "0", 
-            }}>
-            <div
-              onClick={(e) => handleCloseClick(e)}
-              style={{ display: "flex", justifyContent: "center", width: "100%", paddingLeft: "10px" }}
-            >
-              <H3>Users Reviews</H3>
-            </div>  
-            <div
-              onClick={(e) => handleCloseClick(e)}
-              style={{ cursor: "pointer", padding: "0", margin: "0" }}
-            >
-              <H3>x</H3>
-            </div>
-          </div>
-          <ReviewsList>
-            { book.reviews?.length === 0 ? 
-            ( <H3>This title hasn't any review yet</H3> ) 
-            : 
-            ( book.reviews?.some(r => r.userId === currentUser.id) ?
-              <Review r={book.reviews.find(r => r.userId === currentUser.id)} bookId={book.id} />
-              :
-              book.reviews?.map((r) => {
-              return(
-                <Review r={r} bookId={book.id} />
-              )
-            }))}
-          </ReviewsList>
-        </Reviews> */}
       </OverLay>
     )
   );

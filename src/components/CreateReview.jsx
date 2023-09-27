@@ -186,10 +186,10 @@ export default function CreateReview({ currentUser, setNewReview }) {
       {isFocused && (
         <Buttons>
         <ReviewButton onClick={(e) => handleCancel(e)} backColor="#3F3F3F" hoverColor="#6F6F6F">
-          cancel
+          Cancel
         </ReviewButton>
         <ReviewButton onClick={(e) => handleSubmit(e)}>
-          submit
+          Submit
         </ReviewButton>
       </Buttons>
       )}
