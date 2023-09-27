@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+
 import {
   addReview,
   getAuthors,
@@ -9,17 +9,16 @@ import {
   getCurrentUser,
   getGenres,
 } from "../redux/actions";
-import closeIcon from "../icons/closeIcon.svg";
 
 import {
-  ErrorsForm,
-  ImageAndInfoContainer,
-  PropAndInput,
-  FormTextArea,
-  PropAndInputAndError,
-} from "../styles/CreateBook";
+  NewReviewContainer,
+  ReviewButton,
+  Buttons,
+  ReviewInput,
+  StyledSelect,
+  StyledOption
+} from "../styles/Review";
 
-import { ButtonDetail, InfoContainerReview } from "../styles/Detail";
 import { toast } from "react-toastify";
 
 function validate(input) {
@@ -40,12 +39,13 @@ function validate(input) {
   return errors;
 }
 
-export default function CreateReview({ setNewReview, book, currentUser }) {
-  const dispatch = useDispatch();
-  const history = useHistory();
+export default function CreateReview({ currentUser, setNewReview }) {
 
+
+  const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
+  const book = useSelector((state) => state.bookDetail);
 
   const userId = currentUser && currentUser.id;
   const bookId = book && book.id;
@@ -55,13 +55,17 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     score: 1,
   });
 
+  const textareaRef  = useRef(null);
   const [errors, setErrors] = useState({});
   const { user } = useAuth0();
+  const [isFocused, setIsFocused] = useState(false);
+  
 
   useEffect(() => {
     if (!genres) dispatch(getGenres());
     if (!authors) dispatch(getAuthors());
-
+    if(!book) dispatch()
+  
     setErrors(validate(input));
   }, [dispatch, genres, authors, input]);
 
@@ -70,7 +74,6 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log("ERRORS", errors);
     setErrors(
       validate({
         ...input,
@@ -79,10 +82,19 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     );
   }
 
-  function handleCloseClick(e) {
-    e.preventDefault(e);
-    setNewReview(false);
-  }
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.rows = 1; // Asegúrate de que comience con un solo renglón
+      const maxRows = 3; // Establece un número máximo de renglones si lo deseas
+      const minHeight = 25; // Establece la altura mínima deseada en píxeles
+      const maxHeight = textareaRef.current.scrollHeight;
+
+      if (maxHeight > minHeight) {
+        const newRows = Math.min(maxRows, Math.ceil(maxHeight / minHeight));
+        textareaRef.current.rows = newRows;
+      }
+    }
+  }, [input.comment])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -124,65 +136,64 @@ export default function CreateReview({ setNewReview, book, currentUser }) {
     }
   }
 
+  function handleCancel(e) {
+    setIsFocused(false);
+    setInput({
+      ...input,
+      comment: "",
+      score: 1,
+    })
+  }
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    // No hagas nada cuando el textarea pierde el enfoque
+  };
+  
   return (
-    <div>
-      <div onClick={(e) => handleCloseClick(e)} style={{ cursor: "pointer" }}>
-        x
+    <NewReviewContainer>
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start"}}>
+      <span>{currentUser.userName.charAt(0).toUpperCase()+currentUser.userName.slice(1)}</span>
+      <label style={{display: "flex", gap: "20px", alignItems: "flex-start"}}>
+        <span>Score :</span>
+        <StyledSelect
+          name="score"
+          id="scoreInput"
+          onChange={handleChange}
+          defaultValue={1}
+          value={input.score}
+        >
+          <StyledOption value={1}>1,0</StyledOption>
+          <StyledOption value={2}>2,0</StyledOption>
+          <StyledOption value={3}>3,0</StyledOption>
+          <StyledOption value={4}>4,0</StyledOption>
+          <StyledOption value={5}>5,0</StyledOption>
+        </StyledSelect>
+      </label>
       </div>
-      <ImageAndInfoContainer>
-        <InfoContainerReview>
-          {/* ----------------------------------------------------------------------*/}
-          <PropAndInputAndError>
-            <PropAndInput>
-              <label>
-                <span>Score </span>
+      <ReviewInput
+        ref={textareaRef }
+        value={input.comment}
+        name="comment"
+        placeholder="Leave a comment ..."
+        onChange={(e) => handleChange(e)}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+       />
+      {isFocused && (
+        <Buttons>
+        <ReviewButton onClick={(e) => handleCancel(e)} backColor="#3F3F3F" hoverColor="#6F6F6F">
+          cancel
+        </ReviewButton>
+        <ReviewButton onClick={(e) => handleSubmit(e)}>
+          submit
+        </ReviewButton>
+      </Buttons>
+      )}
 
-                <select
-                  name="score"
-                  id="scoreInput"
-                  onChange={handleChange}
-                  defaultValue={1}
-                >
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
-                  <option value={4}>4</option>
-                  <option value={5}>5</option>
-                </select>
-              </label>
-            </PropAndInput>
-            {errors.score && <ErrorsForm>{errors.score}</ErrorsForm>}
-          </PropAndInputAndError>
-          <PropAndInputAndError>
-            <p>Your Review:</p>
-            <PropAndInput>
-              <FormTextArea
-                type="text"
-                value={input.comment}
-                alto="50px"
-                ancho="350px"
-                name="comment"
-                onChange={(e) => handleChange(e)}
-                margen="0px"
-              />
-            </PropAndInput>
-            <div>
-              {errors.comment && <ErrorsForm>{errors.comment}</ErrorsForm>}
-            </div>
-          </PropAndInputAndError>
-          {/* ----------------------------------------------------------------------*/}
-
-          {/* --------------------------------------------------------------------*/}
-        </InfoContainerReview>
-      </ImageAndInfoContainer>
-      <ButtonDetail
-        type="button"
-        onClick={(e) => handleSubmit(e)}
-        ancho="100px"
-        alto="20"
-      >
-        Submit
-      </ButtonDetail>
-    </div>
+    </NewReviewContainer>
   );
 }
