@@ -54,8 +54,9 @@ export const ReviewsList = styled.div`
 export const ReviewContent = styled.p`
   text-align: left;
   min-height: 50px !important;
-  font-size: medium;
+  font-size: 14px;
   margin: 0;
+  color: #d9d9d9;
   /* color: #D9D9D9; */
 `;
 
@@ -63,6 +64,7 @@ export const ReviewInfo = styled.p`
   text-align: left;
   font-size: ${({ fontSize }) => fontSize || "large"};
   margin: 0;
+  color: ${({ textColor }) => textColor || "white"};
 `;
 
 export const Score = styled.div`

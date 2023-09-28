@@ -97,7 +97,7 @@ export default function Review({ r }) {
           justifyContent: "space-between",
         }}
       >
-        <ReviewInfo fontSize={"medium"} textColor={"#D9D9D9"}>
+        <ReviewInfo fontSize={"14px"} textColor={"#D9D9D9"}>
           {r?.create_date}
         </ReviewInfo>
         { currentUser?.id === r?.userId &&
