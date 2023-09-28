@@ -16,6 +16,7 @@ const initialState = {
   filters: [],
   search: "",
   modal: false,
+  edit: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -382,6 +383,12 @@ function rootReducer(state = initialState, action) {
     case "SEARCH_INPUT":
       console.log("Entre al search input ", action);
       return { ...state, search: action.payload };
+
+    case "EDIT_REVIEW":
+    return {
+      ...state,
+      edit: action.payload,
+    };
 
     default:
       return state;

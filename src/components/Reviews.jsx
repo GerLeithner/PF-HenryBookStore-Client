@@ -4,6 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
+import ReviewEdit from "./ReviewEdit.jsx";
 
 import {
   cleanBookDetail,
@@ -19,11 +20,10 @@ import { H3 } from "../styles/Detail";
 
 export default function Reviews({ book }) {
 
-  
-
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
-  console.log(currentUser);
+  const edit = useSelector((state) => state.edit);
+  console.log("edit:", edit)
   const [newReview, setNewReview] = useState(false);
 
   function handleCloseClick(e) {
@@ -31,26 +31,6 @@ export default function Reviews({ book }) {
     dispatch(turnOffModal());
     dispatch(cleanBookDetail(e.target.value));
   }
-
-  // function handleDeleteReview(e) {
-  //     e.preventDefault();
-  //     console.log("e: ", e.target);
-  //     dispatch(deleteReview(book.id, e.target.value));
-
-  //     setTimeout(() => {
-  //       dispatch(getBookById(book.id));
-  //     }, 300);
-  //     setTimeout(() => {
-  //       const { email, nickname } = currentUser;
-  //       const userDb = {
-  //         email,
-  //         nickname,
-  //       };
-  //       dispatch(getCurrentUser(userDb));
-  //     }, 300);
-
-  //     toast.success("Review Deleted Succesfully");
-  //   }
 
   return (
     <ReviewContainer>
@@ -67,7 +47,10 @@ export default function Reviews({ book }) {
       )}
       { book.reviews?.length !== 0 && book.reviews?.some((r) => r.userId === currentUser.id) &&
          <ReviewsList>
-          <Review r={ book.reviews?.find(r => r.userId === currentUser.id) }/>
+          { edit ? <ReviewEdit r={ book.reviews?.find(r => r.userId === currentUser.id)} setNewReview={setNewReview}/>
+           : 
+           <Review r={ book.reviews?.find(r => r.userId === currentUser.id)}/>
+          }
           { book.reviews?.filter(r => r.userId !== currentUser.id).map(r => {
           return(
             <Review r={r} id={r.id}/>
