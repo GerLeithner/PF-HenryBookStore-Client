@@ -8,10 +8,7 @@ import Reviews from "./Reviews.jsx";
 
 import {
   cleanBookDetail,
-  deleteReview,
-  getBookById,
-  getCurrentUser,
-  turnOffModal,
+  editState
 } from "../redux/actions";
 
 import {
@@ -56,6 +53,11 @@ export default function CardDetail({ book }) {
   const [reading, setReading] = useState(false);
 
   const userId = { userId: currentUser && currentUser.id };
+
+  useEffect( () => {
+    dispatch(editState(false));
+    dispatch(cleanBookDetail());
+ }, []);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -206,7 +208,7 @@ export default function CardDetail({ book }) {
           </div>
         </Info>
         <Cover src={book.cover} />
-        <Reviews book={ book } />
+        <Reviews book={ book }/>
       </OverLay>
     )
   );

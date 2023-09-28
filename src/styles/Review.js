@@ -183,16 +183,6 @@ export const StyledOption = styled.option`
   background-color: #1e1e1e;
 `;
 
-export const EditButton = styled.button`
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-
-  &.hover {
-  }
-`;
-
 export const EditMenu = styled.div`
   display: flex;
   flex-direction: column;

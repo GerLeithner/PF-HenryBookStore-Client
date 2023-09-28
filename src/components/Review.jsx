@@ -1,11 +1,18 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
+import {
+  deleteReview,
+  getBookById,
+  getCurrentUser,
+  editState
+} from "../redux/actions";
 
 import {
   DetailReview,
   ReviewContent,
   ReviewInfo,
-  EditButton,
   EditMenu,
   DropDownEdit,
 } from "../styles/Review";
@@ -15,6 +22,7 @@ import { ReactComponent as DeleteIcon } from "../icons/deleteIcon.svg";
 
 export default function Review({ r }) {
 
+  const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
   const [openMenu, setOpenMenu] = useState(false);
   const menuRef = useRef();
@@ -30,6 +38,31 @@ export default function Review({ r }) {
 
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  function handleDeleteReview(e) {
+    e.preventDefault();
+
+    dispatch(deleteReview(r.bookId, r.id));
+
+    setTimeout(() => {
+      dispatch(getBookById(r.bookId));
+    }, 300);
+    setTimeout(() => {
+      const { email, nickname } = currentUser;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }, 300);
+
+    toast.success("Review Deleted Succesfully");
+  }
+
+  function handleEditReview(e) {
+    e.preventDefault();
+    dispatch(editState(true)); // va a tener que ser global porque no está cambiando el edit del detail
+  }
 
   return (
     <DetailReview>
@@ -76,11 +109,11 @@ export default function Review({ r }) {
               <DotsIcon />
             </button>
             <DropDownEdit className={openMenu ? "active" : "inactive"}>
-              <button>
-                <EditIcon />
+              <button onClick={e => handleEditReview(e)}>
+                <EditIcon/>
                 Edit
               </button>
-              <button>
+              <button onClick={e => handleDeleteReview(e)}>
                 <DeleteIcon />
                 Delete
               </button>
