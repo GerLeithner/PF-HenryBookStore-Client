@@ -26,6 +26,7 @@ import { SideButton } from "../styles/SortOrFilter";
 import { BooksContainer } from "../styles/BooksTable";
 import { ContainerCards } from "../styles/Card";
 import {
+  FoundContainer,
   FoundTitles,
   SelectFilters,
   SideBarContainer,
@@ -196,7 +197,7 @@ const Catalogue = () => {
 
   return (
     <div>
-      <SideBarContainer
+      {/*       <SideBarContainer
         paddingTop={
           subscribe && currentUser && !currentUser.subscription
             ? "115px"
@@ -253,24 +254,30 @@ const Catalogue = () => {
             <div></div>
           )}
         </div>
-      </SideBarContainer>
-      {/*    <Filters /> */}
+      </SideBarContainer> */}
+      {<Filters />}
       <SubscribeNav setSubscribe={setSubscribe} />
-      <FoundTitles>
-        {allBooks?.map((b, i) => {
-          return (
-            <span>
-              <Titles>{b.title}</Titles>
+      <FoundContainer>
+        <span style={{ color: "grey", flexDirection: "start" }}>
+          You may be interested in:{" "}
+        </span>
+        <FoundTitles>
+          {allBooks?.slice(0, 4).map((b, i) => {
+            return (
+              <span>
+                <Titles>{b.title}</Titles>
 
-              {i + 1 !== allBooks.length ? (
-                <span style={{ cursor: "default" }}> | </span>
-              ) : (
-                <span></span>
-              )}
-            </span>
-          );
-        })}
-      </FoundTitles>
+                {i + 1 !== allBooks?.slice(0, 4).length ? (
+                  <span style={{ cursor: "default" }}> | </span>
+                ) : (
+                  <span></span>
+                )}
+              </span>
+            );
+          })}
+        </FoundTitles>
+        <div></div>
+      </FoundContainer>
 
       <BooksContainer
         paddingTop={

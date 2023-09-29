@@ -7,10 +7,7 @@ import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
 import Reviews from "./Reviews.jsx";
 
-import {
-  cleanBookDetail,
-  editState
-} from "../redux/actions";
+import { cleanBookDetail, editState, turnOffModal } from "../redux/actions";
 
 import {
   OverLay,
@@ -36,8 +33,6 @@ import plus from "../icons/plus.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
 export default function CardDetail({ book }) {
   const dispatch = useDispatch();
 
@@ -54,10 +49,11 @@ export default function CardDetail({ book }) {
 
   const userId = { userId: currentUser && currentUser.id };
 
-  useEffect( () => {
+  useEffect(() => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
- }, []);
+    return dispatch(turnOffModal());
+  }, []);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -125,7 +121,11 @@ export default function CardDetail({ book }) {
           >
             <H1>{book.title}</H1>
             <Props>
-              { book.averageRating? <StarRating rating={book.averageRating}/> : <StarRating rating={0}/> }
+              {book.averageRating ? (
+                <StarRating rating={book.averageRating} />
+              ) : (
+                <StarRating rating={0} />
+              )}
               <H3>Published on {book.publishedDate}</H3>
               <H3>{book.pages} Pages</H3>
             </Props>
@@ -137,10 +137,10 @@ export default function CardDetail({ book }) {
               justifyContent: "space-between",
               alignItems: "flex-end",
               margin: 0,
-              padding: 0
+              padding: 0,
             }}
           >
-            <H2 style={{fontStyle: "italic"}}>{book.author?.name}</H2>
+            <H2 style={{ fontStyle: "italic" }}>{book.author?.name}</H2>
             <H3>{book.publisher}</H3>
           </div>
           <Description>{book.description}</Description>
@@ -151,37 +151,49 @@ export default function CardDetail({ book }) {
               flexDirection: "row",
               justifyContent: "space-between",
               margin: 0,
-              padding: "0px 70px 0px 70px"
+              padding: "0px 70px 0px 70px",
             }}
           >
-          <ButtonDetail colorFondo={"#622CD4"} colorHover={"#7637FD"}>
-            <div style={{
-                display:"flex", alignItems: "center", gap: "10px"
-              }}>
-              <ButtonIcons src={readIcon} alt="n" />
-              Read
-            </div>
-          </ButtonDetail>
-          <ButtonDetail>
-            <div style={{
-                display:"flex", alignItems: "center", gap: "10px"
-              }}>
-              <ButtonIcons src={plus} alt="n" />
-              My List
-            </div>
-          </ButtonDetail>
-          <ButtonDetail>
-          <div style={{
-                display:"flex", alignItems: "center", gap: "10px"
-              }}>
-              <ButtonIcons src={check} alt="n" />
-              Finished
-            </div>
-          </ButtonDetail>
+            <ButtonDetail colorFondo={"#622CD4"} colorHover={"#7637FD"}>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <ButtonIcons src={readIcon} alt="n" />
+                Read
+              </div>
+            </ButtonDetail>
+            <ButtonDetail>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <ButtonIcons src={plus} alt="n" />
+                My List
+              </div>
+            </ButtonDetail>
+            <ButtonDetail>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "10px",
+                }}
+              >
+                <ButtonIcons src={check} alt="n" />
+                Finished
+              </div>
+            </ButtonDetail>
           </div>
         </Info>
         <Cover src={book.cover} />
-        <Reviews book={ book }/>
+        <Reviews book={book} />
       </OverLay>
     )
   );

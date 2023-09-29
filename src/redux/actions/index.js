@@ -42,7 +42,7 @@ export function getBookByTitle(title) {
         payload: obj.data,
       });
     } catch (e) {
-      alert(title + " was not found, try another title");
+      console.log(title + " was not found, try another title");
     }
   };
 }
@@ -484,12 +484,10 @@ export function editReview(id, payload) {
   };
 }
 
-
-
 export function editState(edit) {
   return {
     type: "EDIT_REVIEW",
-    payload: edit
+    payload: edit,
   };
 }
 
