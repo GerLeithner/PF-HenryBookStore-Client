@@ -4,10 +4,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import {
   addReview,
+  editReview,
   getAuthors,
   getBookById,
   getCurrentUser,
   getGenres,
+  editState
 } from "../redux/actions";
 
 import {
@@ -39,7 +41,7 @@ function validate(input) {
   return errors;
 }
 
-export default function CreateReview({ currentUser, setNewReview }) {
+export default function ReviewEdit({ setNewReview, r }) {
 
 
   const dispatch = useDispatch();
@@ -47,18 +49,17 @@ export default function CreateReview({ currentUser, setNewReview }) {
   const authors = useSelector((state) => state.authors);
   const book = useSelector((state) => state.bookDetail);
 
-  const userId = currentUser && currentUser.id;
   const bookId = book && book.id;
   const [input, setInput] = useState({
-    userId: userId,
-    comment: "",
-    score: 1,
+    id: r?.id,
+    comment: r?.comment,
+    score: r?.score,
   });
 
   const textareaRef  = useRef(null);
   const [errors, setErrors] = useState({});
   const { user } = useAuth0();
-  const [isFocused, setIsFocused] = useState(false);
+  const [isFocused, setIsFocused] = useState(true);
   
 
   useEffect(() => {
@@ -96,6 +97,15 @@ export default function CreateReview({ currentUser, setNewReview }) {
     }
   }, [input.comment])
 
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    const length = textarea.value.length;
+
+    // Coloca el foco al final del texto en el textarea
+    textarea.setSelectionRange(length, length);
+    textarea.focus();
+  }, []);
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -111,8 +121,8 @@ export default function CreateReview({ currentUser, setNewReview }) {
       toast.error("One or more fields have errors, please check them");
     } else {
       setNewReview(false);
-      dispatch(addReview(bookId, input));
-      toast.success("Review has been posted");
+      dispatch(editReview(bookId, input));
+      toast.success("Review has been updated");
 
       setTimeout(() => {
         dispatch(getBookById(book.id));
@@ -127,12 +137,12 @@ export default function CreateReview({ currentUser, setNewReview }) {
       }, 300);
 
       setInput({
-        userId: userId,
+        userId: r.userId,
         comment: "",
         score: 1,
       });
 
-      console.log("Entro a submitted???");
+      dispatch(editState(false));
     }
   }
 
@@ -143,6 +153,7 @@ export default function CreateReview({ currentUser, setNewReview }) {
       comment: "",
       score: 1,
     })
+    dispatch(editState(false));
   }
 
   const handleFocus = () => {
@@ -156,7 +167,7 @@ export default function CreateReview({ currentUser, setNewReview }) {
   return (
     <NewReviewContainer>
       <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start"}}>
-      <span>{currentUser.userName.charAt(0).toUpperCase()+currentUser.userName.slice(1)}</span>
+      <span>{r.user.userName.charAt(0).toUpperCase()+r.user.userName.slice(1)}</span>
       <label style={{display: "flex", gap: "20px", alignItems: "flex-start"}}>
         <span>Score :</span>
         <StyledSelect

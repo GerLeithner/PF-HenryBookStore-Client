@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCurrentUser } from "../redux/actions/index.js";
+import { editState, getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -96,6 +96,7 @@ export default function Card({
 
   function handleClick(e) {
     e.preventDefault(e);
+    dispatch(editState(false));
     dispatch(turnOnModal());
     setIsHovering(false);
     dispatch(getBookById(id));

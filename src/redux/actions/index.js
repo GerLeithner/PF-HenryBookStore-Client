@@ -439,10 +439,10 @@ export function addReview(id, payload) {
         payload
       );
       console.log("response:", response);
-      /*       return dispatch({
+      return dispatch({
         type: "ADD_REVIEW",
         payload: response.data,
-      }); */
+      });
     } catch (e) {
       console.log(e);
     }
@@ -463,6 +463,33 @@ export function deleteReview(bookId, reviewId) {
     } catch (e) {
       console.log(e);
     }
+  };
+}
+
+export function editReview(id, payload) {
+  return async function (dispatch) {
+    try {
+      const response = await axios.put(
+        `${deployUrl}/books/${id}/review`,
+        payload
+      );
+      console.log("response:", response);
+      return dispatch({
+        type: "EDITED_REVIEW",
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+
+
+export function editState(edit) {
+  return {
+    type: "EDIT_REVIEW",
+    payload: edit
   };
 }
 

@@ -2,16 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import StarRating from "./StarRating.jsx";
 import CreateReview from "./CreateReview.jsx";
 import Review from "./Review.jsx";
 import Reviews from "./Reviews.jsx";
 
 import {
   cleanBookDetail,
-  deleteReview,
-  getBookById,
-  getCurrentUser,
-  turnOffModal,
+  editState
 } from "../redux/actions";
 
 import {
@@ -35,7 +33,6 @@ import starEmpty from "../icons/starEmpty.svg";
 import readIcon from "../icons/readIcon.svg";
 import check from "../icons/check.svg";
 import plus from "../icons/plus.svg";
-import { StarsContainer } from "../styles/CardRecommended";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,6 +53,11 @@ export default function CardDetail({ book }) {
   const [reading, setReading] = useState(false);
 
   const userId = { userId: currentUser && currentUser.id };
+
+  useEffect( () => {
+    dispatch(editState(false));
+    dispatch(cleanBookDetail());
+ }, []);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -107,24 +109,6 @@ export default function CardDetail({ book }) {
     }
   }, [dispatch, arrayReading, book.id]);
 
-
-  function starRating(rating) {
-    let ratingFloor = Math.floor(rating);
-
-    let stars = [];
-    for (let i = 0; i < ratingFloor; i++) {
-      stars.push("star");
-    }
-    let mod = rating % ratingFloor;
-
-    if (mod > 0) {
-      stars.push("half");
-    }
-    return stars;
-  }
-
-  var starAverage = book && book.averageRating && starRating(book.averageRating);
-
   return (
     modal && (
       <OverLay>
@@ -141,16 +125,7 @@ export default function CardDetail({ book }) {
           >
             <H1>{book.title}</H1>
             <Props>
-              <StarsContainer>
-                {starAverage &&
-                  starAverage.map((s, i) =>
-                    s === "star" ? (
-                      <StarDetail key={i} src={starFill} alt="n" />
-                    ) : (
-                      <StarDetail key={i} src={starEmpty} alt="n" />
-                    )
-                  )}
-              </StarsContainer>
+              { book.averageRating? <StarRating rating={book.averageRating}/> : <StarRating rating={0}/> }
               <H3>Published on {book.publishedDate}</H3>
               <H3>{book.pages} Pages</H3>
             </Props>
@@ -206,43 +181,7 @@ export default function CardDetail({ book }) {
           </div>
         </Info>
         <Cover src={book.cover} />
-        <Reviews book={ book } />
-        {/* <Reviews>
-          <div style={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-            padding: "0",
-            margin: "0", 
-            }}>
-            <div
-              onClick={(e) => handleCloseClick(e)}
-              style={{ display: "flex", justifyContent: "center", width: "100%", paddingLeft: "10px" }}
-            >
-              <H3>Users Reviews</H3>
-            </div>  
-            <div
-              onClick={(e) => handleCloseClick(e)}
-              style={{ cursor: "pointer", padding: "0", margin: "0" }}
-            >
-              <H3>x</H3>
-            </div>
-          </div>
-          <ReviewsList>
-            { book.reviews?.length === 0 ? 
-            ( <H3>This title hasn't any review yet</H3> ) 
-            : 
-            ( book.reviews?.some(r => r.userId === currentUser.id) ?
-              <Review r={book.reviews.find(r => r.userId === currentUser.id)} bookId={book.id} />
-              :
-              book.reviews?.map((r) => {
-              return(
-                <Review r={r} bookId={book.id} />
-              )
-            }))}
-          </ReviewsList>
-        </Reviews> */}
+        <Reviews book={ book }/>
       </OverLay>
     )
   );
