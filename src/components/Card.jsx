@@ -100,6 +100,7 @@ export default function Card({
     dispatch(turnOnModal());
     setIsHovering(false);
     dispatch(getBookById(id));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   const handleMouseOver = () => {

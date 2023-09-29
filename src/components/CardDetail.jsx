@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -52,12 +52,14 @@ export default function CardDetail({ book }) {
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
 
-  const userId = { userId: currentUser && currentUser.id };
+  const userId = { userId: currentUser && currentUser.id };   
 
-  useEffect( () => {
+ useEffect( () => {
+  return () => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
- }, []);
+  }
+}, []);
 
   useEffect(() => {
     if (currentUser && modal) {
@@ -109,11 +111,26 @@ export default function CardDetail({ book }) {
     }
   }, [dispatch, arrayReading, book.id]);
 
+  const containerRef = useRef(null);
+  const spanRef = useRef(null);
+  const [fontSize, setFontSize] = useState("64px");
+
+  useEffect(() => {
+    if(book?.title?.length < 30) setFontSize("64px");
+
+    if(book?.title?.length > 30) setFontSize("48px");
+
+    if(book?.title?.length > 40) setFontSize("40px");
+
+  }, [book.title,fontSize]);
+
+
   return (
     modal && (
       <OverLay>
         <Info>
           <div
+            ref={containerRef}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -123,7 +140,7 @@ export default function CardDetail({ book }) {
               padding: 0,
             }}
           >
-            <H1>{book.title}</H1>
+            <H1 ref={spanRef} fontSize={fontSize}>{book.title}</H1>
             <Props>
               { book.averageRating? <StarRating rating={book.averageRating}/> : <StarRating rating={0}/> }
               <H3>Published on {book.publishedDate}</H3>

@@ -243,7 +243,7 @@ export const Props = styled.div`
 `;
 
 export const H1 = styled.span`
-  font-size: 64px;
+  font-size: ${({ fontSize }) => fontSize};
   font-weight: 500;
   margin: 0;
   padding: 0;

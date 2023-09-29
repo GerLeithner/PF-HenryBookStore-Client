@@ -64,6 +64,27 @@ export default function Review({ r }) {
     dispatch(editState(true)); // va a tener que ser global porque no está cambiando el edit del detail
   }
 
+  function formatDateDifference(inputDate) {
+    const currentDate = new Date();
+    const inputDateObject = new Date(inputDate);
+  
+    // Calcula la diferencia en milisegundos
+    const difference = currentDate - inputDateObject;
+  
+    // Convierte la diferencia a días, meses y años
+    const daysDifference = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const monthsDifference = Math.floor(daysDifference / 30);
+    const yearsDifference = Math.floor(monthsDifference / 12);
+  
+    if (yearsDifference > 0) {
+      return `${yearsDifference} ${yearsDifference === 1 ? 'year' : 'years'} ago`;
+    } else if (monthsDifference > 0) {
+      return `${monthsDifference} ${monthsDifference === 1 ? 'month' : 'months'} ago`;
+    } else {
+      return `${daysDifference} ${daysDifference === 1 ? 'day' : 'days'} ago`;
+    }
+  }
+
   return (
     <DetailReview>
       <div
@@ -98,7 +119,7 @@ export default function Review({ r }) {
         }}
       >
         <ReviewInfo fontSize={"14px"} textColor={"#D9D9D9"}>
-          {r?.create_date}
+          {r && formatDateDifference(r.create_date)}
         </ReviewInfo>
         { currentUser?.id === r?.userId &&
           <EditMenu ref={menuRef}>
