@@ -1,20 +1,34 @@
 import styled from "styled-components";
 
-export const AccoutContainer = styled.div`
+export const Account = styled.div`
+  padding-top: 80px;
+  padding-bottom: 80px;
   margin: 0px;
-  padding: 60px 20px 20px 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1E1E1E;
+`;
+
+export const AccountContainer = styled.div`
+  padding: 0;
+  margin: 0px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  width: 70%;
 `;
 
 export const OptionsContainer = styled.div`
   width: 100%;
-  padding: 20px 20px 0px 20px;
+  padding: 20px 0px 20px 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #D9D9D9;
+  color: #D9D9D9;
+  font-size: 20px;
+  font-weight: 200;
+  gap: 50px
 `;
 
 export const SubscriptionOptions = styled.div`
@@ -30,38 +44,43 @@ export const SubscriptionOptions = styled.div`
 
 export const ImageAndInfo = styled.div`
   padding: 0px;
+  margin: 0px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  gap: 50px;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 export const ProfilePic = styled.img`
-  height: 150px;
-  width: 150px !important;
-  border: 1px solid #ccc;
+  width: 180px;
   border-radius: 50%;
+  margin: 0;
+  margin-left: 10px;
+  margin-right: 10px;
 `;
 
 export const ProfilePicInput = styled.label`
   margin: 0px;
-  padding: 0px 20px 0px 20px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
   display: flex;
+  gap: 10px;
   align-items: center;
-  justify-content: center;
-  color: #111;
-  background-color: #fff;
+  color: #FFFFFF;
+  background: none;
   transition: all 0.01s ease 0s;
   cursor: pointer;
+  font-size: inherit;
+  font-family: inherit;
 
+  svg {
+    height: 20px;
+    width: 20px;
+    stroke: #FFFFFF;
+  }
 
   &:hover {
-    background-color: ${({ color }) => color || "#1b8f2b"};
-    color: #fff;
-    border-color: ${({ color }) => color || "#1b8f2b"};
+    color: #622cd4;
+    svg {
+    stroke: #622cd4;
+  }
   }
 
   &:active {
@@ -69,14 +88,38 @@ export const ProfilePicInput = styled.label`
   }
 `;
 
+export const Loading = styled.div`
+  font-style: italic;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  color: #622CD4;
+
+  svg {
+    height: 30px;
+    width: 30px;
+    fill: #622CD4;
+    stroke: "#622CD4";
+  }
+`;
 
 export const InfoContainer = styled.div`
-  margin: 0px;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   width: 100%;
-  gap: ${({ gap }) => gap || "0px"};
+  gap: 20px;
+`;
+
+export const FlexRow = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0;
+  margin: 0;
 `;
 
 export const FiledAndButton = styled.div`
@@ -92,14 +135,8 @@ export const FiledAndButton = styled.div`
 
 export const Field = styled.div`
   margin: 0px;
-  padding: 0px 30px 0px 30px;
-  height: 30px;
-  width: 100%;
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  border: 1px solid #ccc;
+  padding: 0px;
+  color: ${({ textColor }) => textColor }
 `;
 
 export const PlanSelect = styled.select`
@@ -110,25 +147,19 @@ export const PlanSelect = styled.select`
 
 export const EditFieldButton = styled.button`
   margin: 0px;
-  padding: 0px 20px 0px 20px;
-  height: 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  color: #111;
-  background-color: #fff;
-  font: inherit;
+  border: none;
+  background: none;
+  color: #622CD4;
+  display: inline;
+  font-size: inherit;
+  font-family: inherit;
 
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
 
   &:hover {
-    background-color: ${({ color }) => color || "#1b8f2b"};
-    color: #fff;
-    border-color: ${({ color }) => color || "#1b8f2b"};
+    color: #FFFFFF
   }
 
   &:active {
@@ -136,5 +167,13 @@ export const EditFieldButton = styled.button`
   }
 `;
 
-
+export const HeaderAccount = styled.div`
+  padding-bottom: 20px;
+  margin: 0px;
+  font-size: 32px;
+  color: #D9D9D9;
+  display: flex;
+  justify-content: flex-start;
+  border-bottom: 1px solid #D9D9D9;
+`;
 

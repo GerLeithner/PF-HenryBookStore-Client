@@ -6,7 +6,7 @@ export const ContainerNavBar = styled.div`
   width: 100%;
   position: fixed;
   padding: 0px 30px 0px 30px;
-  height: 56px;
+  height: 50px;
   background-color: black;
   display: flex;
   flex-direction: row;

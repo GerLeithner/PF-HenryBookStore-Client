@@ -7,7 +7,6 @@ export const FieldFormContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
-  height: 55px;
 `;
 // margin: 0px;
 // padding: 20px;
@@ -37,12 +36,16 @@ export const FieldInputWarning = styled.div`
 
 export const FieldInput = styled.input`
   margin: 0px;
-  padding-right: 30px;
+  padding: 0px;
+  padding-bottom: 5px;
   width: 100%;
   text-align: left;
   outline: none;
   border: none;
   font: inherit;
+  background: transparent;
+  caret-color: #d9d9d9;
+  color: #d9d9d9;
   
   &:focus {
     border: none
@@ -57,23 +60,17 @@ export const FormWarnign = styled.span`
 `;
 
 export const EditFieldFormButton = styled.button`
-  width: 100px;
   margin: 0px;
-  height: 30px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  color: #111;
-  background-color: #fff;
+  border: none;
+  color: ${({ color }) => color || "#d9d9d9"};
+  background: none;
   font: inherit;
-
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
 
   &:hover {
-    background-color: ${({ color }) => color || "#1b8f2b"};
-    color: #fff;
-    border-color: ${({ color }) => color || "#1b8f2b"};
+    color: #FFFFFF;
   }
 
   &:active {

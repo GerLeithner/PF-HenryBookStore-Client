@@ -12,13 +12,15 @@ import PaypalButton from "./PaypalButton.jsx";
 
 import { H3Form } from "../styles/CreateBook";
 import { SideBarContainer } from "../styles/Catalogue";
-import { ButtonDisable, H3Field } from "../styles/EditUser";
+import { ButtonDisable } from "../styles/EditUser";
 import { FilterHead, DownfallButton } from "../styles/SortOrFilter";
 import {
-  AccoutContainer,
+  Account,
+  AccountContainer,
   InfoContainer,
   ImageAndInfo,
   ProfilePic,
+  FlexRow,
   ProfilePicInput,
   FiledAndButton,
   Field,
@@ -26,8 +28,13 @@ import {
   OptionsContainer,
   SubscriptionOptions,
   PlanSelect,
+  HeaderAccount,
+  Loading
 } from "../styles/UserProfile";
 import { toast } from "react-toastify";
+
+import { ReactComponent as EditIcon } from "../icons/editIcon.svg";
+import { ReactComponent as LoadingIcon } from "../icons/loadingIcon.svg";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -46,10 +53,8 @@ export default function UserProfile() {
   const [loadingPic, setLoadingPic] = useState(false);
   const [subscription, setSubscription] = useState(false);
   const [cosito, setCosito] = useState(false);
-
   const [downfall, setDownfal] = useState(false);
   const [notifications, setNotifications] = useState(false);
-
   const [showButton, setShowButton] = useState(false);
   const [plan, setPlan] = useState("");
 
@@ -207,94 +212,80 @@ export default function UserProfile() {
   }
 
 
-
   return (
     <>
-      <SideBarContainer paddingTop="90px">
-        <div>
-          <FilterHead>User Info</FilterHead>
-        </div>
-        <div style={{ marginTop: "215px" }}>
-          <FilterHead>Subscription</FilterHead>
-        </div>
-        <div style={{ marginTop: !downfall ? "55px" : "155px" }}>
-          <FilterHead>Configurations</FilterHead>
-        </div>
-      </SideBarContainer>
-      {currentUser ? (
-        <AccoutContainer>
-          <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-            <H3Form margenIzq="0px">ACCOUNT OPTIONS</H3Form>
+      { currentUser ? (
+        <Account>
+          <AccountContainer>
+            <HeaderAccount>Account</HeaderAccount>
             <OptionsContainer name="account options">
               <ImageAndInfo>
-                <div style={{ width: "150px" }}>
-                  <ProfilePic src={currentUser.profilePic} />
-                </div>
-                <InfoContainer>
-                  <FiledAndButton>
-                    <Field>
-                      <div>Email</div>
-                      <div>{currentUser?.email}</div>
-                    </Field>
-                    <div style={{display: "flex", alignItems: "center", justifyContent: "center", width: "150px", height: "30px"}}>OPTIONS</div>
-                  </FiledAndButton>
-                  <FiledAndButton>
-                    <Field>
-                      <div>Password</div>
-                    </Field>
-                    { !currentUser.googleUser ? 
-                      <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
-                        Change
-                      </EditFieldButton>
-                      :
-                      <div style={{width: "150px"}}></div>
-                    }
-                  </FiledAndButton>
-                  {!userName ? (
-                    <FiledAndButton>
-                      <Field>
-                        <div>User Name</div>
-                        <div>{currentUser?.userName}</div>
-                      </Field>
-                      <EditFieldButton
-                        value={currentUser?.userName}
-                        name="userName"
-                        title="User Name"
-                        onClick={(e) => handleUserName(e)}
-                      >
-                        Change
-                      </EditFieldButton>
-                    </FiledAndButton>
-                  ) : (
-                    <FieldForm
-                      setUserName={setUserName}
-                      id={currentUser?.id}
-                      fieldName={form.fieldName}
-                      propName={form.propName}
-                      propValue={form.propValue}
-                    />
-                  )}
-                </InfoContainer>
+                USER INFORMATION             
+                <ProfilePic src={currentUser.profilePic} />
               </ImageAndInfo>
-              <FiledAndButton>
-                <Field>
-                  <div>Profile Picture</div>
-                  {loadingPic && <H3Form>Cargando...</H3Form>}
-                </Field>
-                <ProfilePicInput>
-                  Change
-                  <input
-                    style={{ width: "0px", height: "0px" }}
-                    text="Change"
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    onChange={(e) => handlePicChange(e)}
+              <InfoContainer>
+                <FlexRow>
+                  <Field textColor="#FFFFFF">{currentUser?.email}</Field>
+                  <div></div>
+                </FlexRow>
+                <FlexRow>
+                  <Field>
+                    Password : **********
+                  </Field>
+                  { !currentUser.googleUser ? 
+                    <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
+                      Change Password
+                    </EditFieldButton>
+                    :
+                    <div style={{width: "150px"}}></div>
+                  }
+                </FlexRow>
+                {!userName ? (
+                  <FlexRow>
+                    <Field>{currentUser?.userName}</Field>
+                    <EditFieldButton
+                      value={currentUser?.userName}
+                      name="userName"
+                      title="User Name"
+                      onClick={(e) => handleUserName(e)}
+                    >
+                      Change Username
+                    </EditFieldButton>
+                  </FlexRow>
+                ) : (
+                  <FieldForm
+                    setUserName={setUserName}
+                    id={currentUser?.id}
+                    fieldName={form.fieldName}
+                    propName={form.propName}
+                    propValue="New Username ..."
+                    error={false}
                   />
-                </ProfilePicInput>
-              </FiledAndButton>
+                )}
+                <FlexRow>
+                  <ProfilePicInput>
+                    <EditIcon/>
+                    Profile picture
+                    <input
+                      style={{ width: "0px", height: "0px" }}
+                      text="Change"
+                      type="file"
+                      accept="image/png, image/jpeg"
+                      onChange={(e) => handlePicChange(e)}
+                    />
+                  </ProfilePicInput>
+                  { loadingPic ? 
+                    <Loading>
+                      <LoadingIcon/>
+                      Loading
+                    </Loading> 
+                    : 
+                    <div></div> 
+                  }
+                </FlexRow>
+              </InfoContainer>        
             </OptionsContainer>
-          </div>
-          <OptionsContainer name="notifications options">
+            <OptionsContainer name="notifications options">
             <FiledAndButton>
               <Field
                 onClick={(e) => handleDownfall(e)}
@@ -347,7 +338,7 @@ export default function UserProfile() {
                 </div>
               </FiledAndButton>
             )}
-            {downfall && (
+            { downfall && (
               <FiledAndButton>
                 <Field>
                   <div>New books aviable on library</div>
@@ -466,7 +457,8 @@ export default function UserProfile() {
               {currentUser?.active ? "Disable Account" : "Activate Account"}
             </ButtonDisable>
           </div>
-        </AccoutContainer>
+          </AccountContainer>
+        </Account>
       ) : (
         <div style={{ paddingTop: "200px", paddingLeft: "180px" }}>
           <H3Form>LOADING...</H3Form>
