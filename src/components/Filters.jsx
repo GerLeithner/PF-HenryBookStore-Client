@@ -11,6 +11,8 @@ import {
   sortBooksByTitle,
 } from "../redux/actions";
 
+import { ReactComponent as ReloadIcon } from "../icons/reload.svg";
+
 export function Filters() {
   const dispatch = useDispatch();
 
@@ -19,7 +21,7 @@ export function Filters() {
 
   const [header, setHeader] = useState("ALL BOOKS");
   const [currentPage, setCurrentPage] = useState(1);
-  const [, setSort] = useState({ name: "", option: "" });
+  const [sort, setSort] = useState({ name: "", option: "" });
   const [filters, setFilters] = useState([]);
   const [subscribe, setSubscribe] = useState(true);
 
@@ -107,22 +109,23 @@ export function Filters() {
   return (
     <SideBarContainer
       paddingTop={
-        subscribe && currentUser && !currentUser.subscription ? "115px" : "65px"
+        subscribe && currentUser && !currentUser.subscription ? "115px" : "90px"
       }
     >
       <SideButton onClick={(e) => handleReload(e)} ancho={"170px"}>
+        <ReloadIcon />
         CLEAR FILTERS
       </SideButton>
       <SelectFilters>
         <SortOrFilter
           name="Sort By Title"
           options={["Ascending", "Descending"]}
-          onButton={handleSort}
+          onButton={(e) => handleSort(e)}
         />
         <SortOrFilter
           name="Sort By Year"
           options={["Oldest", "Newest"]}
-          onButton={handleSort}
+          onButton={(e) => handleSort(e)}
         />
 
         {

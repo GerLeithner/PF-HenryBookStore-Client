@@ -50,12 +50,14 @@ function App() {
           "/users",
           "/profile",
           "/library",
+          "/search",
         ]}
         component={NavBar}
       />
       <div className="main">
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute path="/home/:id" component={CardDetail} />
+        <ProtectedRoute path="/search" component={Catalogue} />
         <ProtectedRoute exact path="/catalogue" component={Catalogue} />
         <ProtectedRoute exact path="/about" component={AboutUs} />
         <ProtectedRoute exact path="/books" component={BooksTable} />

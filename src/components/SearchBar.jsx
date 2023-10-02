@@ -4,7 +4,7 @@ import { getBookById, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
 import { getAuthors, getBooks, getGenres, searchInput } from "../redux/actions";
 import searchLogo from "../icons/search.svg";
-
+import { useHistory } from "react-router-dom";
 import {
   DropdownSearch,
   InputSearch,
@@ -21,9 +21,8 @@ const SearchBar = ({ modal, setModal }) => {
   const search = useSelector((state) => state.search);
   //const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.allBooks);
-  const books = useSelector((state) => state.books);
   const inputRef = useRef(null);
-  const buttonRef = useRef(null);
+  const history = useHistory();
   // const [author,setAuthor]=useState('')
   useEffect(() => {
     if (!allGenres.length) {
@@ -42,13 +41,18 @@ const SearchBar = ({ modal, setModal }) => {
   function handleInputChange(e) {
     e.preventDefault();
 
-    dispatch(searchInput(e.target.value));
-    dispatch(getBookByTitle(search));
+    if (e.target.value !== "") {
+      dispatch(searchInput(e.target.value));
+      dispatch(getBookByTitle(e.target.value));
+      history.push("/search");
+    } else {
+      history.goBack();
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setInputFocus(!inputFocus);
+    setInputFocus((prevInputFocus) => !prevInputFocus);
     dispatch(searchInput(""));
   }
   function handleClick(e) {

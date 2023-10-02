@@ -112,7 +112,7 @@ const Catalogue = () => {
       }
       setArrayReading(allReading);
     }
-  }, [dispatch, currentUser]);
+  }, [dispatch, currentUser, allBooks]);
 
   function handleReload(e) {
     e.preventDefault();
@@ -255,7 +255,7 @@ const Catalogue = () => {
           )}
         </div>
       </SideBarContainer> */}
-      {<Filters />}
+      <Filters />
       <SubscribeNav setSubscribe={setSubscribe} />
       <FoundContainer>
         <span style={{ color: "grey", flexDirection: "start" }}>

@@ -7,7 +7,7 @@ export const SideBarContainer = styled.div`
   height: 100vh;
   width: 250px;
   background-color: black;
-  padding-top: ${({ paddingTop }) => paddingTop || "65px"};
+  padding-top: ${({ paddingTop }) => paddingTop || "90px"};
   padding-right: 15px;
   padding-left: 15px;
   display: flex;

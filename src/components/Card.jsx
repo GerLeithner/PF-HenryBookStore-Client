@@ -50,7 +50,6 @@ export default function Card({
   readeds,
   readedsChange,
 }) {
-
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);

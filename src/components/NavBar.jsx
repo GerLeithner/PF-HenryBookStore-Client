@@ -107,11 +107,14 @@ export default function NavBar() {
               <ButtonNavBar
                 type="button"
                 className={openAdmin ? "active" : "inactive"}
-                onClick={() => setOpenAdmin(!openAdmin)}
+                onClick={() => setOpenMenu((prevOpenAdmin) => !prevOpenAdmin)}
               >
                 Admin
               </ButtonNavBar>
-              <DropDownContainer className={openAdmin ? "active" : "inactive"}>
+              <DropDownContainer
+                className={openAdmin ? "active" : "inactive"}
+                onClick={() => setOpenMenu((prevOpenAdmin) => !prevOpenAdmin)}
+              >
                 <DropDownItem link={"/books"} type={"Books"} Icon={BooksIcon} />
                 <DropDownItem link={"/users"} type={"Users"} Icon={UsersIcon} />
               </DropDownContainer>
@@ -119,16 +122,12 @@ export default function NavBar() {
           )}
         </HomeAndLibrary>
         <SubContainerNavBar>
-          {window.location.pathname === "/home" ? (
-            <SearchBar modal={modal} setModal={setModal} />
-          ) : (
-            <div />
-          )}
+          <SearchBar modal={modal} setModal={setModal} />
 
           <MenuContainer ref={menuRef}>
             <NavBarProfileLink
               className={openMenu ? "focus" : "unfocus"}
-              onClick={() => setOpenMenu(!openMenu)}
+              onClick={() => setOpenMenu((prevOpenMenu) => !prevOpenMenu)}
             >
               {currentUser && currentUser.profilePic ? (
                 <img alt="" src={currentUser.profilePic} />
@@ -140,11 +139,14 @@ export default function NavBar() {
               )}
             </NavBarProfileLink>
             <DropDownContainer className={openMenu ? "active" : "inactive"}>
-              <DropDownItem
-                link={"/profile"}
-                type={"Settings"}
-                Icon={SettingsIcon}
-              />
+              <div onClick={() => setOpenMenu((prevOpenMenu) => !prevOpenMenu)}>
+                <DropDownItem
+                  link={"/profile"}
+                  type={"Settings"}
+                  Icon={SettingsIcon}
+                />
+              </div>
+
               <DropDownItem
                 link={() => logout({ returnTo: window.location.origin })}
                 type={"Logout"}

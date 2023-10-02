@@ -39,6 +39,9 @@ export const DownfallButton = styled.div`
 `;
 
 export const SideButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: ${({ ancho }) => ancho || "max-content"};
   height: 30px;
   padding: 5px;
@@ -52,9 +55,20 @@ export const SideButton = styled.button`
   cursor: pointer;
   outline: none;
 
+  svg {
+    fill: white;
+    height: 24px;
+    width: 24px;
+    transition: all 0.3s ease 0s;
+  }
+
   &:hover {
     color: #622cd4;
     border-color: #622cd4;
+    svg {
+      transition: all 0.3s ease 0s;
+      fill: #622cd4;
+    }
   }
 
   &:active {
