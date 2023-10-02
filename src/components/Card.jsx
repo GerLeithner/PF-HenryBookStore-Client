@@ -260,3 +260,39 @@ function DropdownItem(props) {
     </li>
   );
 }
+
+/* useEffect(() => {
+  currentUser?.Favorites.map((f) => {
+    console.log("Comparación: ", f.id, " y ", id);
+    if (f.id === id) {
+      return setFavorite(true);
+      // console.log("SETIE EL FAV", true)
+    } else {
+      // console.log("FAV-", false)
+      return setFavorite(false);
+      // console.log("SETIE EL FAV",false)
+    }
+  });
+}, [dispatch, currentUser]);
+
+useEffect(() => {
+  if (currentUser?.Read.includes(id)) {
+    setReaded(true);
+    // console.log("SETIE EL Readed", true)
+  } else if (!currentUser?.Read.includes(id)) {
+    // console.log("Readed-", false)
+    setReaded(false);
+    // console.log("SETIE EL READED",false)
+  }
+}, [dispatch, currentUser]);
+
+useEffect(() => {
+  if (currentUser?.Reading.includes(id)) {
+    setReading(true);
+    // console.log("SETIE EL Reading", true)
+  } else if (!currentUser?.Reading.includes(id)) {
+    // console.log("Reading-", false)
+    setReading(false);
+    // console.log("SETIE EL READING",false)
+  }
+}, [dispatch, currentUser]); */

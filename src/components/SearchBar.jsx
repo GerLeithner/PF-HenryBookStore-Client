@@ -25,6 +25,9 @@ const SearchBar = ({ modal, setModal }) => {
   const history = useHistory();
   // const [author,setAuthor]=useState('')
   useEffect(() => {
+    if (search === "") {
+      history.push("/home");
+    }
     if (!allGenres.length) {
       dispatch(getGenres());
     }
@@ -41,10 +44,12 @@ const SearchBar = ({ modal, setModal }) => {
   function handleInputChange(e) {
     e.preventDefault();
 
+    dispatch(searchInput(e.target.value));
+    dispatch(getBookByTitle(e.target.value));
     if (e.target.value !== "") {
-      dispatch(searchInput(e.target.value));
-      dispatch(getBookByTitle(e.target.value));
-      history.push("/search");
+      if (window.location.pathname !== "/search") {
+        history.push("/search");
+      }
     } else {
       history.goBack();
     }
@@ -53,7 +58,6 @@ const SearchBar = ({ modal, setModal }) => {
   function handleSubmit(e) {
     e.preventDefault();
     setInputFocus((prevInputFocus) => !prevInputFocus);
-    dispatch(searchInput(""));
   }
   function handleClick(e) {
     e.preventDefault(e);

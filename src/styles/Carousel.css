@@ -1,17 +1,57 @@
 .top-rec-wrapper {
-    padding: 60px 30px 0px 30px !important;
-    margin: 0px !important;
+  padding: 60px 30px 0px 30px !important;
+  margin: 0px !important;
 }
 .top-rec-button {
-    margin: 0px !important;
+  margin: 0px !important;
 }
 
 .rec-carousel-wrapper {
-    padding: 0px 30px 0px 30px;
-    margin: 0px;
+  padding: 0px 30px 0px 30px;
+  margin: 0px;
 }
 
 button.rec-arrow {
-    margin: 10px;
+  margin: 10px;
 }
 
+.rec.rec-arrow {
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+/* round buttons on hover */
+.rec.rec-arrow:hover {
+  color: #622cd4 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+/* hide disabled buttons */
+.rec.rec-arrow:disabled {
+  cursor: default;
+  visibility: visible;
+  color: grey !important;
+}
+
+.rec.rec-arrow:disabled:hover {
+  color: grey !important;
+}
+.rec.rec-arrow:active {
+  color: #622cd4 !important;
+  transform: translateY(-1px) !important;
+}
+/* disable default outline on focused items */
+/* add custom outline on focused items */
+.rec-carousel-item:focus {
+  outline: none;
+}
+
+button.rec-dot {
+  background-color: #764bd3;
+}
+
+button.rec-dot:hover,
+button.rec-dot:active,
+button.rec-dot:focus {
+  box-shadow: 0 0 1px 3px #622cd4;
+}

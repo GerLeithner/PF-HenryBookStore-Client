@@ -25,9 +25,9 @@ import Catalogue from "./Catalogue.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const [arrayFavorite, setArrayFavorite] = useState([]);
+  /*   const [arrayFavorite, setArrayFavorite] = useState([]);
   const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
+  const [arrayReading, setArrayReading] = useState([]); */
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
 
@@ -76,10 +76,12 @@ export default function Home() {
     if (!recommended.length) {
       dispatch(getRecommendedBooks());
     }
+
+    console.log("A ver si se renderiza");
   }, [dispatch]);
 
   // carga los favs
-  useEffect(() => {
+  /*   useEffect(() => {
     if (currentUser) {
       const userFavorites = currentUser.Favorites;
 
@@ -105,14 +107,14 @@ export default function Home() {
       }
       setArrayReading(allReading);
     }
-  }, [currentUser]);
+  }, [currentUser]); */
 
   return (
     <div>
       <div>
+        <SubscribeNav />
         <CardDetail book={book} />
         {/* <div>
-          <SubscribeNav />
           {recommended && recommended?.length && (
             <Carousel
               key="recommended"
@@ -142,44 +144,51 @@ export default function Home() {
             </Carousel>
           )}
         </div> */}
-        {currentUser && currentUser.Reading?.length ? (
+        <div
+          style={{
+            paddingTop: "80px",
+          }}
+        >
+          {currentUser && currentUser.Reading?.length ? (
+            <div>
+              <Carousels
+                key={"Reading"}
+                books={currentUser.Reading}
+                carTitle={"Continue reading"}
+              ></Carousels>
+            </div>
+          ) : (
+            <></>
+          )}
           <div>
-            <Carousels
-              books={currentUser.Reading}
-              carTitle={"Continue reading"}
-            ></Carousels>
+            {trending?.length && (
+              <>
+                <Carousels books={trending} carTitle={"Trending"}></Carousels>
+              </>
+            )}
           </div>
-        ) : (
-          <></>
-        )}
-        <div>
-          {trending?.length && (
-            <>
-              <Carousels books={trending} carTitle={"Trending"}></Carousels>
-            </>
-          )}
-        </div>
-        <div>
-          {news?.length && (
-            <>
-              <Carousels books={news} carTitle={"New Releases"}></Carousels>
-            </>
-          )}
-        </div>
-        <div>
-          {allGenres.map((g) => {
-            let booksByGenre = allBooks.filter((b) => {
-              return b.genre.name === g.name;
-            });
-            return (
-              <div>
-                <Carousels
-                  books={booksByGenre}
-                  carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
-                ></Carousels>
-              </div>
-            );
-          })}
+          <div>
+            {news?.length && (
+              <>
+                <Carousels books={news} carTitle={"New Releases"}></Carousels>
+              </>
+            )}
+          </div>
+          <div>
+            {allGenres.map((g) => {
+              let booksByGenre = allBooks.filter((b) => {
+                return b.genre.name === g.name;
+              });
+              return (
+                <div>
+                  <Carousels
+                    books={booksByGenre}
+                    carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
+                  ></Carousels>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
