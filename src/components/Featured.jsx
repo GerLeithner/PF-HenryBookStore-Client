@@ -41,12 +41,10 @@ export default function Home() {
 
   const [read, setRead] = useState(true);
   const { user, logout } = useAuth0();
-  
 
   const readChange = (condition) => {
     setRead(condition);
   };
-
 
   // useEffect(() => {
   //   if (user) {
@@ -58,7 +56,6 @@ export default function Home() {
   //     dispatch(getCurrentUser(userDb));
   //   }
   // }, [dispatch, read, arrayReading]);
-
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -113,7 +110,7 @@ export default function Home() {
   return (
     <div>
       <div>
-        <CardDetail book={ book } />
+        <CardDetail book={book} />
         {/* <div>
           <SubscribeNav />
           {recommended && recommended?.length && (

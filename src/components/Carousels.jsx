@@ -30,6 +30,10 @@ export default function Carousels({ books, carTitle }) {
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
 
+  if (carTitle == "Continue reading") {
+    console.log("Reading en carousels: ", books);
+  }
+
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());

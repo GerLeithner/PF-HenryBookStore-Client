@@ -20,6 +20,22 @@ import Footer from "./components/Footer";
 axios.defaults.baseURL = "http://localhost:3001";
 // axios.defaults.baseURL = "https://pf-henrybookstore-api-production.up.railway.app";
 
+const renderFooter = (props) => {
+  // Puedes agregar las props que quieras pasar aquí
+
+  if (window.location.pathname === "/") {
+    var propFooter = {
+      rgba: "rgba(0, 0, 0, 0.8)",
+    };
+  } else {
+    var propFooter = {
+      rgba: "rgba(0, 0, 0, 1)",
+    };
+  }
+
+  return <Footer {...props} {...propFooter} />;
+};
+
 function App() {
   return (
     <div className="app">
@@ -34,12 +50,14 @@ function App() {
           "/users",
           "/profile",
           "/library",
+          "/search",
         ]}
         component={NavBar}
       />
       <div className="main">
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute path="/home/:id" component={CardDetail} />
+        <ProtectedRoute path="/search" component={Catalogue} />
         <ProtectedRoute exact path="/catalogue" component={Catalogue} />
         <ProtectedRoute exact path="/about" component={AboutUs} />
         <ProtectedRoute exact path="/books" component={BooksTable} />
@@ -47,7 +65,7 @@ function App() {
         <ProtectedRoute exact path="/profile" component={UsersProfile} />
         <ProtectedRoute exact path="/library" component={MyLibrary} />
       </div>
-      <Route path="/" component={Footer} />
+      <Route path="/" render={renderFooter} />
       <ToastContainer
         position="bottom-right"
         autoClose={3000}

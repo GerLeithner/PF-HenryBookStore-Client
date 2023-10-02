@@ -6,14 +6,15 @@ export const SideBarContainer = styled.div`
   z-index: 0;
   height: 100vh;
   width: 250px;
-  background-color: #efefef;
-  padding-top: ${({ paddingTop }) => paddingTop || "65px"};
+  background-color: black;
+  padding-top: ${({ paddingTop }) => paddingTop || "90px"};
   padding-right: 15px;
   padding-left: 15px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
+  color: white;
   /* overflow-y: scroll; */
 `;
 
@@ -45,7 +46,7 @@ export const ButtonCatalogue = styled.button`
   transition: all 0.01s ease 0s;
   cursor: pointer;
   outline: none;
-  margin:0px;
+  margin: 0px;
 
   &:hover {
     background-color: #1b8f2b;
@@ -56,5 +57,26 @@ export const ButtonCatalogue = styled.button`
 
   &:active {
     transform: translateY(-1px);
+  }
+`;
+
+export const FoundContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 150px;
+  background-color: black;
+  color: white;
+
+  padding: 70px 300px 20px 300px;
+`;
+
+export const FoundTitles = styled.div``;
+
+export const Titles = styled.span`
+  &:hover {
+    color: #622cd4;
+    cursor: pointer;
   }
 `;
