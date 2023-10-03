@@ -384,7 +384,6 @@ function rootReducer(state = initialState, action) {
       };
 
     case "SEARCH_INPUT":
-      console.log("Entre al search input ", action);
       return { ...state, search: action.payload };
 
     case "EDIT_REVIEW":

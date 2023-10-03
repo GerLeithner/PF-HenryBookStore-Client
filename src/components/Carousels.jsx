@@ -24,15 +24,8 @@ export default function Carousels({ books, carTitle }) {
   const recommended = useSelector((state) => state.news);
   const currentUser = useSelector((state) => state.currentUser);
 
-  const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
-
-  if (carTitle == "Continue reading") {
-    console.log("Reading en carousels: ", books);
-  }
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -53,38 +46,13 @@ export default function Carousels({ books, carTitle }) {
     if (!recommended.length) {
       dispatch(getRecommendedBooks());
     }
-  }, [dispatch]);
+    console.log("Se re renderiza Carousels?");
+  }, [dispatch, read]);
 
   const readChange = (condition) => {
+    console.log("Entro acá");
     setRead(condition);
   };
-  useEffect(() => {
-    if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      let allFavorites = [];
-      let allReaded = [];
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Favorites?.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-
-      for (let i = 0; i < currentUser.Read?.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-
-      for (let i = 0; i < currentUser.Reading?.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]);
 
   return (
     <>
@@ -106,9 +74,6 @@ export default function Carousels({ books, carTitle }) {
               back_cover={b.back_cover}
               modal={modal}
               setModal={setModal}
-              arrayFavorite={arrayFavorite}
-              arrayReaded={arrayReaded}
-              arrayReading={arrayReading}
               readChange={readChange}
               read={read}
             />

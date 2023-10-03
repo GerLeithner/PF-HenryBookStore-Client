@@ -25,9 +25,7 @@ import Catalogue from "./Catalogue.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
-  /*   const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]); */
+
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
 
@@ -39,23 +37,22 @@ export default function Home() {
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
 
+  const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
+  const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
 
-  const readChange = (condition) => {
-    setRead(condition);
+  const readChange = () => {
+    console.log("Entra en setRead");
+    setRead((prevRead) => !prevRead);
+  };
+  const readedsChange = (condition) => {
+    setReadeds(condition);
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const { email, nickname } = user;
-  //     const userDb = {
-  //       email,
-  //       nickname,
-  //     };
-  //     dispatch(getCurrentUser(userDb));
-  //   }
-  // }, [dispatch, read, arrayReading]);
+  const favoritesChange = (condition) => {
+    setFavorites(condition);
+  };
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -76,44 +73,21 @@ export default function Home() {
     if (!recommended.length) {
       dispatch(getRecommendedBooks());
     }
-
-    console.log("A ver si se renderiza");
   }, [dispatch]);
-
-  // carga los favs
-  /*   useEffect(() => {
-    if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      let allFavorites = [];
-      let allReaded = [];
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Favorites?.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-
-      for (let i = 0; i < currentUser.Read?.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-
-      for (let i = 0; i < currentUser.Reading?.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]); */
 
   return (
     <div>
       <div>
         <SubscribeNav />
-        <CardDetail book={book} />
+        <CardDetail
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
         {/* <div>
           {recommended && recommended?.length && (
             <Carousel

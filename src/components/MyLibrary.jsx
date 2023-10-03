@@ -22,9 +22,7 @@ const MyLibrary = () => {
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
-  const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
+
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
@@ -81,45 +79,6 @@ const MyLibrary = () => {
     }
   }, [dispatch]);
 
-  // carga los favs
-  useEffect(() => {
-    if (currentUser) {
-      let allFavorites = [];
-
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-    }
-  }, [currentUser]);
-
-  // carga los readed
-  useEffect(() => {
-    if (currentUser) {
-      let allReaded = [];
-
-      for (let i = 0; i < currentUser.Read.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-    }
-  }, [currentUser]);
-
-  // carga los reading
-  useEffect(() => {
-    if (currentUser) {
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Reading.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]);
-
   return (
     <LibraryConteiner>
       <div>
@@ -141,9 +100,6 @@ const MyLibrary = () => {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -181,9 +137,6 @@ const MyLibrary = () => {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -223,9 +176,6 @@ const MyLibrary = () => {
                     authors={b.authors}
                     modal={modal}
                     setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
