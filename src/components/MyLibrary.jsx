@@ -16,6 +16,7 @@ import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
+import CardDetail from "./CardDetail";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const MyLibrary = () => {
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
 
+  const book = useSelector((state) => state.bookDetail);
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
@@ -80,8 +82,22 @@ const MyLibrary = () => {
   }, [dispatch]);
 
   return (
-    <LibraryConteiner>
+    <div>
       <div>
+        <CardDetail
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
+        <div
+          style={{
+            paddingTop: "80px",
+          }}
+        ></div>
         <H2Home>Continue reading</H2Home>
         {currentUser && currentUser.Reading.length ? (
           <>
@@ -194,12 +210,8 @@ const MyLibrary = () => {
           </div>
         )}
       </div>
-    </LibraryConteiner>
+    </div>
   );
 };
-
-const LibraryConteiner = styled.div`
-  padding-top: 90px;
-`;
 
 export default MyLibrary;

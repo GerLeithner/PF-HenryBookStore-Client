@@ -12,6 +12,7 @@ import {
   filterBy,
   deleteFilter,
   cleanSortedBooks,
+  searchInput,
 } from "../redux/actions";
 
 import Card from "./Card.jsx";
@@ -33,6 +34,7 @@ import {
   Titles,
 } from "../styles/Catalogue";
 import { H3Form } from "../styles/CreateBook";
+import CardDetail from "./CardDetail";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -41,10 +43,11 @@ const Catalogue = () => {
   const allGenres = useSelector((state) => state.genres);
   const currentUser = useSelector((state) => state.currentUser);
   //const filters = useSelector((state) => state.filters);
+  const book = useSelector((state) => state.bookDetail);
+  const [readeds, setReadeds] = useState(true);
+  const [read, setRead] = useState(true);
+  const [favorites, setFavorites] = useState(true);
 
-  const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
   const [header, setHeader] = useState("ALL BOOKS");
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
@@ -63,63 +66,10 @@ const Catalogue = () => {
   };
 
   useEffect(() => {
-    dispatch(getGenres());
-
-    dispatch(getAuthors());
-
-    dispatch(getBooks());
-  }, [dispatch]);
-
-  // carga los favs
-  useEffect(() => {
-    if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      let allFavorites = [];
-
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-    }
-  }, [dispatch, currentUser]);
-
-  // carga los readed
-  useEffect(() => {
-    if (currentUser) {
-      const userReaded = currentUser.Read;
-
-      let allReaded = [];
-
-      for (let i = 0; i < currentUser.Read.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-    }
-  }, [dispatch, currentUser]);
-
-  // carga los reading
-  useEffect(() => {
-    if (currentUser) {
-      const userReading = currentUser.Reading;
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Reading.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [dispatch, currentUser, allBooks]);
-
-  function handleReload(e) {
-    e.preventDefault();
-
-    dispatch(getBooks());
-    setFilters([]);
-  }
+    return () => {
+      dispatch(searchInput(""));
+    };
+  }, []);
 
   function handleSort(e) {
     e.preventDefault();
@@ -134,66 +84,16 @@ const Catalogue = () => {
     setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
     setCurrentPage(1);
   }
+  const readChange = () => {
+    setRead((prevRead) => !prevRead);
+  };
+  const readedsChange = (condition) => {
+    setReadeds(condition);
+  };
 
-  async function handleFilter(e) {
-    e.preventDefault();
-
-    let includesGenre = false;
-    let includesLength = false;
-
-    if (!filters.length) {
-      if (e.target.name === "Filter By Genre") {
-        dispatch(filterBy(["Genre-" + e.target.innerText]));
-        setFilters([...filters, "Genre-" + e.target.innerText]);
-      }
-      if (e.target.name === "Filter By Length") {
-        console.log(e.target.innerText);
-        dispatch(filterBy(["Length-" + e.target.innerText]));
-        setFilters([...filters, "Length-" + e.target.innerText]);
-      }
-    } else {
-      if (e.target.name === "Filter By Genre") {
-        filters.forEach((filter) => {
-          if (filter.includes("Genre-")) includesGenre = true;
-        });
-        if (!includesGenre) {
-          dispatch(filterBy([...filters, "Genre-" + e.target.innerText]));
-          setFilters([...filters, "Genre-" + e.target.innerText]);
-        }
-      }
-
-      if (e.target.name === "Filter By Length") {
-        filters.forEach((filter) => {
-          if (filter.includes("Length-")) includesLength = true;
-        });
-        if (!includesLength) {
-          dispatch(filterBy([...filters, "Length-" + e.target.innerText]));
-          setFilters([...filters, "Length-" + e.target.innerText]);
-        }
-      }
-    }
-
-    dispatch(filterBy(filters));
-
-    setCurrentPage(1);
-  }
-
-  function handleDeleteFilter(e) {
-    e.preventDefault();
-
-    let deletedFilter = e.target.textContent.substring(
-      0,
-      e.target.textContent.indexOf("X") - 1
-    );
-
-    let currentFilters = filters.filter((f) => f !== deletedFilter);
-
-    dispatch(cleanSortedBooks());
-
-    dispatch(filterBy(currentFilters));
-
-    setFilters(filters.filter((f) => f !== deletedFilter));
-  }
+  const favoritesChange = (condition) => {
+    setFavorites(condition);
+  };
 
   return (
     <div>
@@ -255,7 +155,16 @@ const Catalogue = () => {
           )}
         </div>
       </SideBarContainer> */}
-      <Filters />
+      <CardDetail
+        book={book}
+        readChange={readChange}
+        read={read}
+        readedsChange={readedsChange}
+        readeds={readeds}
+        favorites={favorites}
+        favoritesChange={favoritesChange}
+      />
+      <Filters handleSort={handleSort} />
       <SubscribeNav setSubscribe={setSubscribe} />
       <FoundContainer>
         <span style={{ color: "grey", flexDirection: "start" }}>
@@ -308,9 +217,6 @@ const Catalogue = () => {
                   authors={b.authors}
                   modal={modal}
                   setModal={setModal}
-                  arrayFavorite={arrayFavorite}
-                  arrayReaded={arrayReaded}
-                  arrayReading={arrayReading}
                 />
               </div>
             );

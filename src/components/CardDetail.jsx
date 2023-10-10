@@ -63,8 +63,6 @@ export default function CardDetail({
 
   const userId = { userId: currentUser && currentUser.id };
 
-  console.log("Favorite en Detail: ", favorite);
-
   useEffect(() => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
@@ -128,10 +126,8 @@ export default function CardDetail({
         return f.id;
       }).includes(book.id)
     ) {
-      console.log("Entro en true?");
       setFavorite(true);
     } else {
-      console.log("Entro en false?");
       setFavorite(false);
     }
 
@@ -186,18 +182,14 @@ export default function CardDetail({
     // console.log("e.target.value",e.target.value)
 
     if (!readed) {
-      console.log("Entré a add readed :", book.id);
       setReaded(true);
-      console.log("READ+", readed);
 
       dispatch(addReaded(book.id, userId));
       toast.success("Book mark as readed");
     }
 
     if (readed) {
-      console.log("Entré a delete readed :", book.id);
       setReaded(false);
-      console.log("READ-", readed);
 
       dispatch(deleteReaded(book.id, userId));
       toast.warning("Book mark as unread");

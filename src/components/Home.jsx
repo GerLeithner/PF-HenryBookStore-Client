@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-elastic-carousel";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
@@ -27,7 +27,6 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser ", currentUser);
 
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
@@ -43,7 +42,6 @@ export default function Home() {
   const { user, logout } = useAuth0();
 
   const readChange = () => {
-    console.log("Entra en setRead");
     setRead((prevRead) => !prevRead);
   };
   const readedsChange = (condition) => {
@@ -53,6 +51,17 @@ export default function Home() {
   const favoritesChange = (condition) => {
     setFavorites(condition);
   };
+
+  useEffect(() => {
+    if (user) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
+  }, [dispatch, read, readeds, favorites]);
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -129,6 +138,7 @@ export default function Home() {
                 key={"Reading"}
                 books={currentUser.Reading}
                 carTitle={"Continue reading"}
+                readChange={readChange}
               ></Carousels>
             </div>
           ) : (
@@ -137,14 +147,22 @@ export default function Home() {
           <div>
             {trending?.length && (
               <>
-                <Carousels books={trending} carTitle={"Trending"}></Carousels>
+                <Carousels
+                  books={trending}
+                  carTitle={"Trending"}
+                  readChange={readChange}
+                ></Carousels>
               </>
             )}
           </div>
           <div>
             {news?.length && (
               <>
-                <Carousels books={news} carTitle={"New Releases"}></Carousels>
+                <Carousels
+                  books={news}
+                  carTitle={"New Releases"}
+                  readChange={readChange}
+                ></Carousels>
               </>
             )}
           </div>
@@ -158,6 +176,7 @@ export default function Home() {
                   <Carousels
                     books={booksByGenre}
                     carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
+                    readChange={readChange}
                   ></Carousels>
                 </div>
               );

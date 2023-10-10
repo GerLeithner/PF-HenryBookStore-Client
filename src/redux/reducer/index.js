@@ -11,8 +11,6 @@ const initialState = {
   users: [],
   userDetail: {},
   currentUser: null,
-  favorites: [],
-  readed: [],
   filters: [],
   search: "",
   modal: false,
@@ -240,7 +238,6 @@ function rootReducer(state = initialState, action) {
               return 0;
             });
 
-      console.log("Sorted Books: ", sortedBooks);
       return {
         ...state,
         books: sortedBooks,

@@ -13,7 +13,7 @@ import {
 } from "../redux/actions/index.js";
 import { H2Home } from "../styles/Card.js";
 
-export default function Carousels({ books, carTitle }) {
+export default function Carousels({ books, carTitle, readChange }) {
   const dispatch = useDispatch();
 
   const allGenres = useSelector((state) => state.genres);
@@ -48,11 +48,6 @@ export default function Carousels({ books, carTitle }) {
     }
     console.log("Se re renderiza Carousels?");
   }, [dispatch, read]);
-
-  const readChange = (condition) => {
-    console.log("Entro acá");
-    setRead(condition);
-  };
 
   return (
     <>

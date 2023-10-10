@@ -333,11 +333,6 @@ export function addFavorite(id, userId) {
         userId
       );
       console.log("RESPONSE:", response);
-
-      return dispatch({
-        type: "ADD_FAVORITE",
-        payload: response.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -354,10 +349,6 @@ export function deleteFavorite(id, userId) {
         }
       );
       console.log("RESPONSE DELETE", deleteResponse);
-      return dispatch({
-        type: "DELETE_FAVORITE",
-        payload: deleteResponse.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -372,10 +363,6 @@ export function addReaded(id, userId) {
         userId
       );
       console.log("response:", response);
-      return dispatch({
-        type: "ADD_READED",
-        payload: response.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -391,11 +378,6 @@ export function deleteReaded(id, userId) {
           data: { userId },
         }
       );
-
-      return dispatch({
-        type: "DELETE_READED",
-        payload: deleteResponse.data,
-      });
     } catch (e) {
       console.log(e);
     }
