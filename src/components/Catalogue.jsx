@@ -44,6 +44,7 @@ const Catalogue = () => {
   const currentUser = useSelector((state) => state.currentUser);
   //const filters = useSelector((state) => state.filters);
   const book = useSelector((state) => state.bookDetail);
+  const modal = useSelector((state) => state.modal);
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
@@ -52,7 +53,6 @@ const Catalogue = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [booksPerPage, setBooksPerPage] = useState(20);
   const [, setSort] = useState({ name: "", option: "" });
-  const [modal, setModal] = useState(false);
   const [filters, setFilters] = useState([]);
   const [subscribe, setSubscribe] = useState(true);
 
@@ -69,7 +69,9 @@ const Catalogue = () => {
     return () => {
       dispatch(searchInput(""));
     };
-  }, []);
+  }, [dispatch, readeds, read, favorites]);
+
+  console.log("Modal:", modal);
 
   function handleSort(e) {
     e.preventDefault();
@@ -97,65 +99,8 @@ const Catalogue = () => {
 
   return (
     <div>
-      {/*       <SideBarContainer
-        paddingTop={
-          subscribe && currentUser && !currentUser.subscription
-            ? "115px"
-            : "65px"
-        }
-      >
-        <SideButton onClick={(e) => handleReload(e)} ancho={"170px"}>
-          RELOAD BOOKS
-        </SideButton>
-        <SelectFilters>
-          <SortOrFilter
-            name="Sort By Title"
-            options={["Ascending", "Descending"]}
-            onButton={handleSort}
-          />
-          <SortOrFilter
-            name="Sort By Year"
-            options={["Oldest", "Newest"]}
-            onButton={handleSort}
-          />
-
-          {
-            <SortOrFilter
-              name="Filter By Length"
-              options={["Large", "Medium", "Short"]}
-              onButton={(e) => handleFilter(e)}
-            />
-          }
-          <SortOrFilter
-            name="Filter By Genre"
-            options={allGenres.map((g) => g.name)}
-            onButton={(e) => handleFilter(e)}
-          />
-        </SelectFilters>
-
-        <div>
-          {filters.length ? (
-            filters.map((f) => (
-              <div
-                onClick={(e) => handleDeleteFilter(e)}
-                key={f}
-                id={f}
-                title={f}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  cursor: "pointer",
-                }}
-              >
-                <p>{f} X </p>
-              </div>
-            ))
-          ) : (
-            <div></div>
-          )}
-        </div>
-      </SideBarContainer> */}
       <CardDetail
+        catalogue={true}
         book={book}
         readChange={readChange}
         read={read}
@@ -164,65 +109,71 @@ const Catalogue = () => {
         favorites={favorites}
         favoritesChange={favoritesChange}
       />
-      <Filters handleSort={handleSort} />
-      <SubscribeNav setSubscribe={setSubscribe} />
-      <FoundContainer>
-        <span style={{ color: "grey", flexDirection: "start" }}>
-          You may be interested in:{" "}
-        </span>
-        <FoundTitles>
-          {allBooks?.slice(0, 4).map((b, i) => {
-            return (
-              <span>
-                <Titles>{b.title}</Titles>
-
-                {i + 1 !== allBooks?.slice(0, 4).length ? (
-                  <span style={{ cursor: "default" }}> | </span>
-                ) : (
-                  <span></span>
-                )}
-              </span>
-            );
-          })}
-        </FoundTitles>
-        <div></div>
-      </FoundContainer>
-
-      <BooksContainer
-        paddingTop={
-          subscribe && currentUser && !currentUser.subscription
-            ? "20px"
-            : "70px"
-        }
+      <div
+        style={{
+          zIndex: "1",
+          position: "relative",
+          paddingTop: modal ? "420px" : "0px",
+        }}
       >
-        <TablePaged
-          booksPerPage={booksPerPage}
-          allBooks={allBooks.length}
-          paginado={paginado}
-          currentPage={currentPage}
-        />
+        <Filters handleSort={handleSort} />
+        <SubscribeNav setSubscribe={setSubscribe} />
+        <FoundContainer>
+          <span style={{ color: "grey", flexDirection: "start" }}>
+            You may be interested in:{" "}
+          </span>
+          <FoundTitles>
+            {allBooks?.slice(0, 4).map((b, i) => {
+              return (
+                <span>
+                  <Titles>{b.title}</Titles>
 
-        <ContainerCards>
-          {currentBook?.map((b) => {
-            return (
-              <div key={b.id}>
-                <Card
-                  id={b.id}
-                  title={b.title}
-                  publishedDate={b.publishedDate}
-                  description={b.description}
-                  averageRating={b.averageRating}
-                  cover={b.cover}
-                  genres={b.genres}
-                  authors={b.authors}
-                  modal={modal}
-                  setModal={setModal}
-                />
-              </div>
-            );
-          })}
-        </ContainerCards>
-      </BooksContainer>
+                  {i + 1 !== allBooks?.slice(0, 4).length ? (
+                    <span style={{ cursor: "default" }}> | </span>
+                  ) : (
+                    <span></span>
+                  )}
+                </span>
+              );
+            })}
+          </FoundTitles>
+          <div></div>
+        </FoundContainer>
+
+        <BooksContainer
+          paddingTop={
+            subscribe && currentUser && !currentUser.subscription
+              ? "20px"
+              : "70px"
+          }
+        >
+          <TablePaged
+            booksPerPage={booksPerPage}
+            allBooks={allBooks.length}
+            paginado={paginado}
+            currentPage={currentPage}
+          />
+
+          <ContainerCards>
+            {currentBook?.map((b) => {
+              return (
+                <div key={b.id}>
+                  <Card
+                    id={b.id}
+                    title={b.title}
+                    publishedDate={b.publishedDate}
+                    description={b.description}
+                    averageRating={b.averageRating}
+                    cover={b.cover}
+                    genres={b.genres}
+                    authors={b.authors}
+                  />
+                </div>
+              );
+            })}
+          </ContainerCards>
+        </BooksContainer>
+      </div>
     </div>
   );
 };

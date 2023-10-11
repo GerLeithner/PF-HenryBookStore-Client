@@ -51,6 +51,7 @@ export default function CardDetail({
   favoritesChange,
   readeds,
   readedsChange,
+  catalogue,
 }) {
   const dispatch = useDispatch();
 
@@ -228,7 +229,7 @@ export default function CardDetail({
 
   return (
     modal && (
-      <OverLay>
+      <OverLay className={catalogue ? "catalogue" : "normal"}>
         <Info>
           <div
             style={{

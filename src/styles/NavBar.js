@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { NavLink, Link } from "react-router-dom";
 
 export const ContainerNavBar = styled.div`
-  z-index: 1;
+  z-index: 10;
   width: 100%;
   position: fixed;
   padding: 0px 30px 0px 30px;

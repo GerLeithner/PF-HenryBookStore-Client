@@ -97,6 +97,7 @@ export default function Card({
     dispatch(editState(false));
     dispatch(turnOnModal());
     setIsHovering(false);
+    window.scrollTo(0, 0);
     dispatch(getBookById(id));
   }
 
