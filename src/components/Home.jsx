@@ -67,21 +67,29 @@ export default function Home() {
     if (!allGenres.length) {
       dispatch(getGenres());
     }
-    if (!allAuthors.length) {
-      dispatch(getAuthors());
-    }
-    if (!allBooks.length) {
-      dispatch(getBooks());
-    }
-    if (!trending.length) {
-      dispatch(getTrendingBooks());
-    }
-    if (!news.length) {
-      dispatch(getNewsBooks());
-    }
-    if (!recommended.length) {
-      dispatch(getRecommendedBooks());
-    }
+    setTimeout(() => {
+      if (!allBooks.length) {
+        dispatch(getBooks());
+      }
+    }, 300);
+
+    setTimeout(() => {
+      if (!trending.length) {
+        dispatch(getTrendingBooks());
+      }
+    }, 300);
+
+    setTimeout(() => {
+      if (!news.length) {
+        dispatch(getNewsBooks());
+      }
+    }, 300);
+
+    setTimeout(() => {
+      if (!recommended.length) {
+        dispatch(getRecommendedBooks());
+      }
+    }, 300);
   }, [dispatch]);
 
   return (

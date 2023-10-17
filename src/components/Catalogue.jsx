@@ -13,6 +13,7 @@ import {
   deleteFilter,
   cleanSortedBooks,
   searchInput,
+  getCurrentUser,
 } from "../redux/actions";
 
 import Card from "./Card.jsx";
@@ -35,6 +36,7 @@ import {
 } from "../styles/Catalogue";
 import { H3Form } from "../styles/CreateBook";
 import CardDetail from "./CardDetail";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const Catalogue = () => {
   const dispatch = useDispatch();
@@ -55,6 +57,7 @@ const Catalogue = () => {
   const [, setSort] = useState({ name: "", option: "" });
   const [filters, setFilters] = useState([]);
   const [subscribe, setSubscribe] = useState(true);
+  const { user, logout } = useAuth0();
 
   let indexOfLastBook = currentPage * booksPerPage;
   let indexOfFirstBook = indexOfLastBook - booksPerPage;
@@ -66,12 +69,18 @@ const Catalogue = () => {
   };
 
   useEffect(() => {
+    if (user) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
     return () => {
       dispatch(searchInput(""));
     };
-  }, [dispatch, readeds, read, favorites]);
-
-  console.log("Modal:", modal);
+  }, [dispatch, read, readeds, favorites]);
 
   function handleSort(e) {
     e.preventDefault();

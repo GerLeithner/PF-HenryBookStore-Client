@@ -41,12 +41,12 @@ export const ReviewsList = styled.div`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #3F3F3F; /* Color del pulgar de la barra de desplazamiento */
+    background-color: #3f3f3f; /* Color del pulgar de la barra de desplazamiento */
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #D9D9D9; /* Color de fondo de la barra de desplazamiento */
+    background: #d9d9d9; /* Color de fondo de la barra de desplazamiento */
     border-radius: 5px;
   }
 `;
@@ -91,6 +91,7 @@ export const ReviewHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  cursor: default;
   margin: 0;
 `;
 
@@ -207,7 +208,7 @@ export const EditMenu = styled.div`
     fill: #d9d9d9;
 
     &:active {
-    transform: translateY(-1px);
+      transform: translateY(-1px);
     }
 
     &.active {

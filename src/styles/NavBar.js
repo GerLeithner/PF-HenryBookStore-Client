@@ -101,6 +101,7 @@ export const NavBarProfileLink = styled.div`
   margin: 0px;
   //padding: 0px 15px 0px 15px;
   transition: 0.2s;
+  pointer-events: auto;
   img {
     width: 32px;
     height: 32px;
@@ -125,6 +126,7 @@ export const NavProfilePic = styled.img`
   border-radius: 50%;
   margin: 0px;
   background-color: white;
+
   &:hover {
     transition: 0.3s;
     width: 48px;
@@ -138,8 +140,8 @@ export const MenuContainer = styled.div`
   //align-items: baseline;
   flex-direction: column;
   align-items: center;
-
   padding-top: 77px;
+  pointer-events: none;
 `;
 
 export const DropDownContainer = styled.li`
@@ -149,6 +151,7 @@ export const DropDownContainer = styled.li`
   background-color: black;
   border-radius: 10%;
   padding: 0px 5px 5px 5px;
+  pointer-events: auto;
   &.active {
     visibility: visible;
     opacity: 1;

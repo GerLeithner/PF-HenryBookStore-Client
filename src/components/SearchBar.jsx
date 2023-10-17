@@ -45,7 +45,7 @@ const SearchBar = ({ modal, setModal }) => {
     e.preventDefault();
 
     dispatch(searchInput(e.target.value));
-    dispatch(getBookByTitle(e.target.value));
+    //dispatch(getBookByTitle(e.target.value));
     if (e.target.value !== "") {
       if (window.location.pathname !== "/search") {
         history.push("/search");

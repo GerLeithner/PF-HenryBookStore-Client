@@ -114,8 +114,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -151,8 +149,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -190,8 +186,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
