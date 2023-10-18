@@ -76,9 +76,9 @@ const MyLibrary = () => {
     if (!news.length) {
       dispatch(getNewsBooks());
     }
-    if (!recommended.length) {
+    /*     if (!recommended.length) {
       dispatch(getRecommendedBooks());
-    }
+    } */
   }, [dispatch]);
 
   return (

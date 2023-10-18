@@ -14,6 +14,9 @@ import {
   cleanSortedBooks,
   searchInput,
   getCurrentUser,
+  editState,
+  turnOnModal,
+  getBookById,
 } from "../redux/actions";
 
 import Card from "./Card.jsx";
@@ -78,6 +81,7 @@ const Catalogue = () => {
       dispatch(getCurrentUser(userDb));
     }
     return () => {
+      dispatch(getBooks());
       dispatch(searchInput(""));
     };
   }, [dispatch, read, readeds, favorites]);
@@ -105,6 +109,14 @@ const Catalogue = () => {
   const favoritesChange = (condition) => {
     setFavorites(condition);
   };
+
+  function handleTitleClick(e, id) {
+    e.preventDefault(e);
+    dispatch(editState(false));
+    dispatch(turnOnModal());
+    window.scrollTo(0, 0);
+    dispatch(getBookById(id));
+  }
 
   return (
     <div>
@@ -134,13 +146,18 @@ const Catalogue = () => {
           <FoundTitles>
             {allBooks?.slice(0, 4).map((b, i) => {
               return (
-                <span>
-                  <Titles>{b.title}</Titles>
+                <span key={b.id}>
+                  <Titles onClick={(e) => handleTitleClick(e, b.id)}>
+                    {b.title}
+                  </Titles>
 
                   {i + 1 !== allBooks?.slice(0, 4).length ? (
-                    <span style={{ cursor: "default" }}> | </span>
+                    <span style={{ cursor: "default" }} key={b.id + "breaker"}>
+                      {" "}
+                      |{" "}
+                    </span>
                   ) : (
-                    <span></span>
+                    <span key={b.id + "spacer"}></span>
                   )}
                 </span>
               );

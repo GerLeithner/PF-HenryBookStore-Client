@@ -13,7 +13,7 @@ import {
   getAuthors,
   getBooks,
   getGenres,
-  getRecommendedBooks,
+  //getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,
@@ -32,7 +32,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
-  const recommended = useSelector((state) => state.recommended);
+  //const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
 
@@ -85,11 +85,11 @@ export default function Home() {
       }
     }, 300);
 
-    setTimeout(() => {
+    /*    setTimeout(() => {
       if (!recommended.length) {
         dispatch(getRecommendedBooks());
       }
-    }, 300);
+    }, 300); */
   }, [dispatch]);
 
   return (
@@ -97,6 +97,7 @@ export default function Home() {
       <div>
         <SubscribeNav />
         <CardDetail
+          key={book.id + "detail"}
           book={book}
           readChange={readChange}
           read={read}
@@ -156,6 +157,7 @@ export default function Home() {
             {trending?.length && (
               <>
                 <Carousels
+                  key={"Trending"}
                   books={trending}
                   carTitle={"Trending"}
                   readChange={readChange}
@@ -167,6 +169,7 @@ export default function Home() {
             {news?.length && (
               <>
                 <Carousels
+                  key={"New Releases"}
                   books={news}
                   carTitle={"New Releases"}
                   readChange={readChange}
@@ -174,22 +177,26 @@ export default function Home() {
               </>
             )}
           </div>
-          <div>
-            {allGenres.map((g) => {
-              let booksByGenre = allBooks.filter((b) => {
-                return b.genre.name === g.name;
-              });
-              return (
-                <div>
-                  <Carousels
-                    books={booksByGenre}
-                    carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
-                    readChange={readChange}
-                  ></Carousels>
-                </div>
-              );
-            })}
-          </div>
+          {
+            <div key={"Genres Div"}>
+              {allGenres.map((g) => {
+                let booksByGenre = allBooks.filter((b) => {
+                  return b.genre.name === g.name;
+                });
+                return (
+                  <div key={g.id + "div"}>
+                    <Carousels
+                      books={booksByGenre}
+                      carTitle={
+                        g.name.charAt(0).toUpperCase() + g.name.slice(1)
+                      }
+                      readChange={readChange}
+                    ></Carousels>
+                  </div>
+                );
+              })}
+            </div>
+          }
         </div>
       </div>
     </div>

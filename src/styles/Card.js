@@ -52,8 +52,8 @@ export const DescriptionCardConteiner = styled.div`
 `;
 
 export const CardImg = styled.img`
-  width: 150px;
-  height: 200px;
+  width: 200px;
+  height: 300px;
 `;
 
 export const ImgContainer = styled.div`

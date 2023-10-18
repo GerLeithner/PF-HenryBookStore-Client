@@ -34,7 +34,6 @@ export function getBookById(id) {
 
 export function getBookByTitle(title) {
   return async function (dispatch) {
-    console.log("Searching book", title);
     try {
       var obj = await axios.get(`${deployUrl}/books?title=` + title);
       return dispatch({
@@ -122,7 +121,7 @@ export function getNewsBooks() {
   };
 }
 
-export function getRecommendedBooks() {
+/* export function getRecommendedBooks() {
   return async function (dispatch) {
     //
     var json = await axios.get(
@@ -133,7 +132,7 @@ export function getRecommendedBooks() {
       payload: json.data,
     });
   };
-}
+} */
 
 // ------------------- BOOK SORTS AND FILTERS ------------------------------------
 

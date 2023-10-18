@@ -8,7 +8,7 @@ import {
   getAuthors,
   getTrendingBooks,
   getNewsBooks,
-  getRecommendedBooks,
+  //getRecommendedBooks,
   getBooks,
 } from "../redux/actions/index.js";
 import { H2Home } from "../styles/Card.js";
@@ -28,7 +28,7 @@ export default function Carousels({ books, carTitle, readChange }) {
   const [read, setRead] = useState(true);
 
   useEffect(() => {
-    if (!allGenres.length) {
+    /*    if (!allGenres.length) {
       dispatch(getGenres());
     }
     if (!allAuthors.length) {
@@ -45,8 +45,7 @@ export default function Carousels({ books, carTitle, readChange }) {
     }
     if (!recommended.length) {
       dispatch(getRecommendedBooks());
-    }
-    console.log("Se re renderiza Carousels?");
+    } */
   }, [dispatch, read]);
 
   return (
