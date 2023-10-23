@@ -48,9 +48,9 @@ export default function LandingPage() {
 
       dispatch(getCurrentUser(userDb));
     }
-    if (!recommended.length) {
+    /*     if (!recommended.length) {
       dispatch(getRecommendedBooks());
-    }
+    } */
   }, [dispatch, isAuthenticated]);
 
   function handleActiveUser(e) {

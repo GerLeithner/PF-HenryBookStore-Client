@@ -13,7 +13,7 @@ import {
 
 import { ReactComponent as ReloadIcon } from "../icons/reload.svg";
 
-export function Filters() {
+export function Filters({ setSort, handleSort }) {
   const dispatch = useDispatch();
 
   const allGenres = useSelector((state) => state.genres);
@@ -21,7 +21,7 @@ export function Filters() {
 
   const [header, setHeader] = useState("ALL BOOKS");
   const [currentPage, setCurrentPage] = useState(1);
-  const [sort, setSort] = useState({ name: "", option: "" });
+  //const [sort, setSort] = useState({ name: "", option: "" });
   const [filters, setFilters] = useState([]);
   const [subscribe, setSubscribe] = useState(true);
 
@@ -30,20 +30,6 @@ export function Filters() {
 
     dispatch(getBooks());
     setFilters([]);
-  }
-
-  function handleSort(e) {
-    e.preventDefault();
-
-    if (e.target.name === "Sort By Title") {
-      dispatch(sortBooksByTitle(e.target.innerText));
-    }
-    if (e.target.name === "Sort By Year") {
-      dispatch(sortBooksByPublishedDate(e.target.innerText));
-    }
-    setSort({ name: e.target.name, option: e.target.innerText });
-    setHeader(`BOOKS - ${e.target.name} - ${e.target.innerText}`);
-    setCurrentPage(1);
   }
 
   async function handleFilter(e) {

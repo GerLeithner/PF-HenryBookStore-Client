@@ -16,19 +16,19 @@ import { H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
+import CardDetail from "./CardDetail";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
   console.log("currentUser ", currentUser);
-  const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
+
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
 
+  const book = useSelector((state) => state.bookDetail);
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
@@ -76,53 +76,28 @@ const MyLibrary = () => {
     if (!news.length) {
       dispatch(getNewsBooks());
     }
-    if (!recommended.length) {
+    /*     if (!recommended.length) {
       dispatch(getRecommendedBooks());
-    }
+    } */
   }, [dispatch]);
 
-  // carga los favs
-  useEffect(() => {
-    if (currentUser) {
-      let allFavorites = [];
-
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-    }
-  }, [currentUser]);
-
-  // carga los readed
-  useEffect(() => {
-    if (currentUser) {
-      let allReaded = [];
-
-      for (let i = 0; i < currentUser.Read.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-    }
-  }, [currentUser]);
-
-  // carga los reading
-  useEffect(() => {
-    if (currentUser) {
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Reading.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]);
-
   return (
-    <LibraryConteiner>
+    <div>
       <div>
+        <CardDetail
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
+        <div
+          style={{
+            paddingTop: "80px",
+          }}
+        ></div>
         <H2Home>Continue reading</H2Home>
         {currentUser && currentUser.Reading.length ? (
           <>
@@ -139,11 +114,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -179,11 +149,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -221,11 +186,6 @@ const MyLibrary = () => {
                     cover={b.cover}
                     genres={b.genres}
                     authors={b.authors}
-                    modal={modal}
-                    setModal={setModal}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
                     readChange={readChange}
                     read={read}
                     readedsChange={readedsChange}
@@ -244,12 +204,8 @@ const MyLibrary = () => {
           </div>
         )}
       </div>
-    </LibraryConteiner>
+    </div>
   );
 };
-
-const LibraryConteiner = styled.div`
-  padding-top: 90px;
-`;
 
 export default MyLibrary;

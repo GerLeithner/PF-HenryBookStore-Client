@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Carousel from "react-elastic-carousel";
-import { useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import Card from "./Card.jsx";
@@ -13,7 +13,7 @@ import {
   getAuthors,
   getBooks,
   getGenres,
-  getRecommendedBooks,
+  //getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,
@@ -25,95 +25,87 @@ import Catalogue from "./Catalogue.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
-  /*   const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]); */
+
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser ", currentUser);
 
   const trending = useSelector((state) => state.trending);
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
-  const recommended = useSelector((state) => state.recommended);
+  //const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
 
+  const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
+  const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
 
-  const readChange = (condition) => {
-    setRead(condition);
+  const readChange = () => {
+    setRead((prevRead) => !prevRead);
+  };
+  const readedsChange = (condition) => {
+    setReadeds(condition);
   };
 
-  // useEffect(() => {
-  //   if (user) {
-  //     const { email, nickname } = user;
-  //     const userDb = {
-  //       email,
-  //       nickname,
-  //     };
-  //     dispatch(getCurrentUser(userDb));
-  //   }
-  // }, [dispatch, read, arrayReading]);
+  const favoritesChange = (condition) => {
+    setFavorites(condition);
+  };
+
+  useEffect(() => {
+    if (user) {
+      const { email, nickname } = user;
+      const userDb = {
+        email,
+        nickname,
+      };
+      dispatch(getCurrentUser(userDb));
+    }
+  }, [dispatch, read, readeds, favorites]);
 
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
     }
-    if (!allAuthors.length) {
-      dispatch(getAuthors());
-    }
-    if (!allBooks.length) {
-      dispatch(getBooks());
-    }
-    if (!trending.length) {
-      dispatch(getTrendingBooks());
-    }
-    if (!news.length) {
-      dispatch(getNewsBooks());
-    }
-    if (!recommended.length) {
-      dispatch(getRecommendedBooks());
-    }
+    setTimeout(() => {
+      if (!allBooks.length) {
+        dispatch(getBooks());
+      }
+    }, 300);
 
-    console.log("A ver si se renderiza");
+    setTimeout(() => {
+      if (!trending.length) {
+        dispatch(getTrendingBooks());
+      }
+    }, 300);
+
+    setTimeout(() => {
+      if (!news.length) {
+        dispatch(getNewsBooks());
+      }
+    }, 300);
+
+    /*    setTimeout(() => {
+      if (!recommended.length) {
+        dispatch(getRecommendedBooks());
+      }
+    }, 300); */
   }, [dispatch]);
-
-  // carga los favs
-  /*   useEffect(() => {
-    if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      let allFavorites = [];
-      let allReaded = [];
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Favorites?.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-
-      for (let i = 0; i < currentUser.Read?.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-
-      for (let i = 0; i < currentUser.Reading?.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]); */
 
   return (
     <div>
       <div>
         <SubscribeNav />
-        <CardDetail book={book} />
+        <CardDetail
+          key={book.id + "detail"}
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
         {/* <div>
           {recommended && recommended?.length && (
             <Carousel
@@ -155,6 +147,7 @@ export default function Home() {
                 key={"Reading"}
                 books={currentUser.Reading}
                 carTitle={"Continue reading"}
+                readChange={readChange}
               ></Carousels>
             </div>
           ) : (
@@ -163,32 +156,47 @@ export default function Home() {
           <div>
             {trending?.length && (
               <>
-                <Carousels books={trending} carTitle={"Trending"}></Carousels>
+                <Carousels
+                  key={"Trending"}
+                  books={trending}
+                  carTitle={"Trending"}
+                  readChange={readChange}
+                ></Carousels>
               </>
             )}
           </div>
           <div>
             {news?.length && (
               <>
-                <Carousels books={news} carTitle={"New Releases"}></Carousels>
+                <Carousels
+                  key={"New Releases"}
+                  books={news}
+                  carTitle={"New Releases"}
+                  readChange={readChange}
+                ></Carousels>
               </>
             )}
           </div>
-          <div>
-            {allGenres.map((g) => {
-              let booksByGenre = allBooks.filter((b) => {
-                return b.genre.name === g.name;
-              });
-              return (
-                <div>
-                  <Carousels
-                    books={booksByGenre}
-                    carTitle={g.name.charAt(0).toUpperCase() + g.name.slice(1)}
-                  ></Carousels>
-                </div>
-              );
-            })}
-          </div>
+          {
+            <div key={"Genres Div"}>
+              {allGenres.map((g) => {
+                let booksByGenre = allBooks.filter((b) => {
+                  return b.genre.name === g.name;
+                });
+                return (
+                  <div key={g.id + "div"}>
+                    <Carousels
+                      books={booksByGenre}
+                      carTitle={
+                        g.name.charAt(0).toUpperCase() + g.name.slice(1)
+                      }
+                      readChange={readChange}
+                    ></Carousels>
+                  </div>
+                );
+              })}
+            </div>
+          }
         </div>
       </div>
     </div>

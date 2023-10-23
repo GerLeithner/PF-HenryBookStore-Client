@@ -59,12 +59,7 @@ const SearchBar = ({ modal, setModal }) => {
     e.preventDefault();
     setInputFocus((prevInputFocus) => !prevInputFocus);
   }
-  function handleClick(e) {
-    e.preventDefault(e);
-    setModal(true);
-    let id = allBooks.find((book) => book.title === e.target.textContent).id;
-    dispatch(getBookById(id));
-  }
+
   return (
     <SearchContainer>
       <InputAndButton ref={inputRef}>

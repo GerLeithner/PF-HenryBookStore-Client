@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import { ReactComponent as StarFill } from "../icons/starFill.svg";
 import { ReactComponent as StarEmpty } from "../icons/starEmpty.svg";
@@ -11,15 +11,11 @@ export default function StarRating({ rating }) {
 
   for (let i = 0; i < maxStars; i++) {
     if (i < Math.floor(rating)) {
-      stars.push(<StarFill/>);
+      stars.push(<StarFill key={i} />);
     } else {
-      stars.push(<StarEmpty/>);
+      stars.push(<StarEmpty key={i} />);
     }
   }
 
-  return (
-    <StarsContainer>
-      { stars }
-    </StarsContainer>
-  );
+  return <StarsContainer>{stars}</StarsContainer>;
 }

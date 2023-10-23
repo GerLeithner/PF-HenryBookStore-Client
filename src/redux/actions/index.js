@@ -34,7 +34,6 @@ export function getBookById(id) {
 
 export function getBookByTitle(title) {
   return async function (dispatch) {
-    console.log("Searching book", title);
     try {
       var obj = await axios.get(`${deployUrl}/books?title=` + title);
       return dispatch({
@@ -122,7 +121,7 @@ export function getNewsBooks() {
   };
 }
 
-export function getRecommendedBooks() {
+/* export function getRecommendedBooks() {
   return async function (dispatch) {
     //
     var json = await axios.get(
@@ -133,7 +132,7 @@ export function getRecommendedBooks() {
       payload: json.data,
     });
   };
-}
+} */
 
 // ------------------- BOOK SORTS AND FILTERS ------------------------------------
 
@@ -333,11 +332,6 @@ export function addFavorite(id, userId) {
         userId
       );
       console.log("RESPONSE:", response);
-
-      return dispatch({
-        type: "ADD_FAVORITE",
-        payload: response.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -354,10 +348,6 @@ export function deleteFavorite(id, userId) {
         }
       );
       console.log("RESPONSE DELETE", deleteResponse);
-      return dispatch({
-        type: "DELETE_FAVORITE",
-        payload: deleteResponse.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -372,10 +362,6 @@ export function addReaded(id, userId) {
         userId
       );
       console.log("response:", response);
-      return dispatch({
-        type: "ADD_READED",
-        payload: response.data,
-      });
     } catch (e) {
       console.log(e);
     }
@@ -391,11 +377,6 @@ export function deleteReaded(id, userId) {
           data: { userId },
         }
       );
-
-      return dispatch({
-        type: "DELETE_READED",
-        payload: deleteResponse.data,
-      });
     } catch (e) {
       console.log(e);
     }

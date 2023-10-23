@@ -38,7 +38,12 @@ button.rec-arrow {
 }
 .rec.rec-arrow:active {
   color: #622cd4 !important;
-  transform: translateY(-1px) !important;
+}
+.rec.rec-arrow:focus {
+  color: black !important;
+}
+.rec.rec-arrow:focus:hover {
+  color: #622cd4 !important;
 }
 /* disable default outline on focused items */
 /* add custom outline on focused items */
