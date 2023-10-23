@@ -13,7 +13,7 @@ export const FooterContainer = styled.div`
   padding: 0%;
   width: 100%;
   height: 40px;
-  background: rgba(0, 0, 0, 0.8);
+  background: ${(props) => props.rgba};
   color: #fff;
   font-family: Inter;
   font-size: 18px;
@@ -31,6 +31,7 @@ export const IconsContainer = styled.div`
   padding-top: 3px;
   width: 200px;
   text-decoration: none;
+  gap: 20px;
   svg {
     height: 20px;
     width: 20px;
@@ -43,5 +44,5 @@ export const IconsContainer = styled.div`
 `;
 
 export const Icon = styled.a`
-  padding: 10px;
+  padding: 0px;
 `;

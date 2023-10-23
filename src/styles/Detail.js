@@ -185,13 +185,17 @@ export const OverLay = styled.div`
   height: 480px;
   padding: 70px 20px 20px 20px;
   margin: 0;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
   display: flex;
   flex-direction: "row";
   align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  color: white
+  color: white;
+  &.catalogue {
+    position: fixed;
+    z-index: 2;
+  }
 `;
 
 export const Info = styled.div`
@@ -200,7 +204,7 @@ export const Info = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  gap: 15px
+  gap: 15px;
 `;
 
 export const Cover = styled.img`
@@ -213,7 +217,7 @@ export const Description = styled.span`
   text-align: left;
   font-size: 16px;
   font-weight: 100;
-  color: #D9D9D9;
+  color: #d9d9d9;
   padding-right: 10px;
 
   ::-webkit-scrollbar {
@@ -221,12 +225,12 @@ export const Description = styled.span`
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #3F3F3F; /* Color del pulgar de la barra de desplazamiento */
+    background-color: #3f3f3f; /* Color del pulgar de la barra de desplazamiento */
     border-radius: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #D9D9D9; /* Color de fondo de la barra de desplazamiento */
+    background: #d9d9d9; /* Color de fondo de la barra de desplazamiento */
     border-radius: 5px;
   }
 `;
@@ -237,7 +241,7 @@ export const Props = styled.div`
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-    text-align: right;
+  text-align: right;
   margin: 0;
   padding: 10px 0px 10px 0px;
 `;
@@ -261,7 +265,7 @@ export const H3 = styled.span`
   font-size: 24px;
   font-weight: 100;
   margin: 0px;
-  color: #FFFFFF;
+  color: #ffffff;
 `;
 
 export const DetailContainer = styled.div`
@@ -388,7 +392,7 @@ export const ButtonDetail = styled.button`
   width: ${({ width }) => width || "max-content"};
   height: ${({ height }) => height || "50px"};
   padding: 10px 20px 10px 20px;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: ${({ colorFondo }) => colorFondo || "#3F3F3F"};
   border: none;
   border-radius: 5px;

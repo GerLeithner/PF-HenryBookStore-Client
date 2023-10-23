@@ -4,7 +4,7 @@ import { getBookById, getBookByTitle } from "../redux/actions";
 import { ButtonCatalogue } from "../styles/Catalogue";
 import { getAuthors, getBooks, getGenres, searchInput } from "../redux/actions";
 import searchLogo from "../icons/search.svg";
-
+import { useHistory } from "react-router-dom";
 import {
   DropdownSearch,
   InputSearch,
@@ -21,11 +21,13 @@ const SearchBar = ({ modal, setModal }) => {
   const search = useSelector((state) => state.search);
   //const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.allBooks);
-  const books = useSelector((state) => state.books);
   const inputRef = useRef(null);
-  const buttonRef = useRef(null);
+  const history = useHistory();
   // const [author,setAuthor]=useState('')
   useEffect(() => {
+    if (search === "") {
+      history.push("/home");
+    }
     if (!allGenres.length) {
       dispatch(getGenres());
     }
@@ -43,20 +45,21 @@ const SearchBar = ({ modal, setModal }) => {
     e.preventDefault();
 
     dispatch(searchInput(e.target.value));
-    dispatch(getBookByTitle(search));
+    dispatch(getBookByTitle(e.target.value));
+    if (e.target.value !== "") {
+      if (window.location.pathname !== "/search") {
+        history.push("/search");
+      }
+    } else {
+      history.goBack();
+    }
   }
 
   function handleSubmit(e) {
     e.preventDefault();
-    setInputFocus(!inputFocus);
-    dispatch(searchInput(""));
+    setInputFocus((prevInputFocus) => !prevInputFocus);
   }
-  function handleClick(e) {
-    e.preventDefault(e);
-    setModal(true);
-    let id = allBooks.find((book) => book.title === e.target.textContent).id;
-    dispatch(getBookById(id));
-  }
+
   return (
     <SearchContainer>
       <InputAndButton ref={inputRef}>
@@ -74,7 +77,7 @@ const SearchBar = ({ modal, setModal }) => {
         ></ButtonContainer>
       </InputAndButton>
 
-      <div>
+      {/*       <div>
         <DropdownSearch>
           {allBooks
             .filter((book) => {
@@ -102,7 +105,7 @@ const SearchBar = ({ modal, setModal }) => {
               </RowSearchBar>
             ))}
         </DropdownSearch>
-      </div>
+      </div> */}
     </SearchContainer>
   );
 };

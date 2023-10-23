@@ -14,7 +14,6 @@ export const ButtonContainer = styled.button`
   background-size: 25px;
   color: white;
   cursor: pointer;
-  opacity: 0.7;
   transition: 0.3s;
   &:hover {
     transition: 0.3s;

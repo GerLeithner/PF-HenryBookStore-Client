@@ -8,12 +8,12 @@ import {
   getAuthors,
   getTrendingBooks,
   getNewsBooks,
-  getRecommendedBooks,
+  //getRecommendedBooks,
   getBooks,
 } from "../redux/actions/index.js";
 import { H2Home } from "../styles/Card.js";
 
-export default function Carousels({ books, carTitle }) {
+export default function Carousels({ books, carTitle, readChange }) {
   const dispatch = useDispatch();
 
   const allGenres = useSelector((state) => state.genres);
@@ -24,14 +24,11 @@ export default function Carousels({ books, carTitle }) {
   const recommended = useSelector((state) => state.news);
   const currentUser = useSelector((state) => state.currentUser);
 
-  const [arrayFavorite, setArrayFavorite] = useState([]);
-  const [arrayReaded, setArrayReaded] = useState([]);
-  const [arrayReading, setArrayReading] = useState([]);
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
 
   useEffect(() => {
-    if (!allGenres.length) {
+    /*    if (!allGenres.length) {
       dispatch(getGenres());
     }
     if (!allAuthors.length) {
@@ -48,39 +45,8 @@ export default function Carousels({ books, carTitle }) {
     }
     if (!recommended.length) {
       dispatch(getRecommendedBooks());
-    }
-  }, [dispatch]);
-
-  const readChange = (condition) => {
-    setRead(condition);
-  };
-  useEffect(() => {
-    if (currentUser) {
-      const userFavorites = currentUser.Favorites;
-
-      let allFavorites = [];
-      let allReaded = [];
-      let allReading = [];
-
-      for (let i = 0; i < currentUser.Favorites?.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-
-      for (let i = 0; i < currentUser.Read?.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      setArrayReaded(allReaded);
-
-      for (let i = 0; i < currentUser.Reading?.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      setArrayReading(allReading);
-    }
-  }, [currentUser]);
+    } */
+  }, [dispatch, read]);
 
   return (
     <>
@@ -102,9 +68,6 @@ export default function Carousels({ books, carTitle }) {
               back_cover={b.back_cover}
               modal={modal}
               setModal={setModal}
-              arrayFavorite={arrayFavorite}
-              arrayReaded={arrayReaded}
-              arrayReading={arrayReading}
               readChange={readChange}
               read={read}
             />

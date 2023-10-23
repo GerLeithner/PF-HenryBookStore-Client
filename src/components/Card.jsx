@@ -40,9 +40,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Card({
   id,
   cover,
-  arrayFavorite,
-  arrayReaded,
-  arrayReading,
   readChange,
   read,
   favorites,
@@ -50,7 +47,6 @@ export default function Card({
   readeds,
   readedsChange,
 }) {
-
   const [isHovering, setIsHovering] = useState(false);
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
@@ -62,43 +58,46 @@ export default function Card({
   const currentUser = useSelector((state) => state.currentUser);
 
   useEffect(() => {
-    if (arrayFavorite.includes(id)) {
+    //Veo si es favorito
+    if (
+      currentUser?.Favorites.map((f) => {
+        return f.id;
+      }).includes(id)
+    ) {
       setFavorite(true);
-      // console.log("SETIE EL FAV", true)
-    } else if (!arrayFavorite.includes(id)) {
-      // console.log("FAV-", false)
+    } else {
       setFavorite(false);
-      // console.log("SETIE EL FAV",false)
     }
-  }, [dispatch, arrayFavorite]);
 
-  useEffect(() => {
-    if (arrayReaded.includes(id)) {
+    //Veo si fue Leído
+    if (
+      currentUser?.Read.map((f) => {
+        return f.id;
+      }).includes(id)
+    ) {
       setReaded(true);
-      // console.log("SETIE EL Readed", true)
-    } else if (!arrayReaded.includes(id)) {
-      // console.log("Readed-", false)
+    } else {
       setReaded(false);
-      // console.log("SETIE EL READED",false)
     }
-  }, [dispatch, arrayReaded]);
 
-  useEffect(() => {
-    if (arrayReading.includes(id)) {
+    //Veo si está siendo leído
+    if (
+      currentUser?.Reading.map((f) => {
+        return f.id;
+      }).includes(id)
+    ) {
       setReading(true);
-      // console.log("SETIE EL Reading", true)
-    } else if (!arrayReading.includes(id)) {
-      // console.log("Reading-", false)
+    } else {
       setReading(false);
-      // console.log("SETIE EL READING",false)
     }
-  }, [dispatch, arrayReading]);
+  }, [dispatch, currentUser]);
 
   function handleClick(e) {
     e.preventDefault(e);
     dispatch(editState(false));
     dispatch(turnOnModal());
     setIsHovering(false);
+    window.scrollTo(0, 0);
     dispatch(getBookById(id));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -187,7 +186,7 @@ export default function Card({
     }
 
     if (readChange) {
-      setTimeout(() => readChange(!read), 300);
+      setTimeout(() => readChange((prevRead) => !prevRead), 300);
     }
   }
 

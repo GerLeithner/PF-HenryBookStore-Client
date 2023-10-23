@@ -11,8 +11,6 @@ const initialState = {
   users: [],
   userDetail: {},
   currentUser: null,
-  favorites: [],
-  readed: [],
   filters: [],
   search: "",
   modal: false,
@@ -56,19 +54,19 @@ function rootReducer(state = initialState, action) {
         ...state,
         bookDetail: {},
       };
-    
+
     case "TURN_ON_MODAL":
       return {
         ...state,
         modal: true,
-      }
-          
+      };
+
     case "TURN_OFF_MODAL":
       return {
         ...state,
         modal: false,
-      }
-      
+      };
+
     // ------------------- BOOK CUSTOM GETS ------------------------------------
 
     case "GET_TRENDING_BOOKS":
@@ -215,6 +213,7 @@ function rootReducer(state = initialState, action) {
       };
 
     case "FILTER_BOOKS_BY_STATUS":
+      console.log("Entre al coso de sort by title");
       if (action.payload.toLowerCase() === "active") {
         filteredBooks = allBooks.filter((b) => b.active);
       } else {
@@ -238,6 +237,7 @@ function rootReducer(state = initialState, action) {
               if (a.title.toLowerCase() > b.title.toLowerCase()) return -1;
               return 0;
             });
+
       return {
         ...state,
         books: sortedBooks,
@@ -381,14 +381,13 @@ function rootReducer(state = initialState, action) {
       };
 
     case "SEARCH_INPUT":
-      console.log("Entre al search input ", action);
       return { ...state, search: action.payload };
 
     case "EDIT_REVIEW":
-    return {
-      ...state,
-      edit: action.payload,
-    };
+      return {
+        ...state,
+        edit: action.payload,
+      };
 
     default:
       return state;

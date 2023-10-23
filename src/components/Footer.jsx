@@ -4,9 +4,9 @@ import { ReactComponent as FacebookIcon } from "../icons/facebook.svg";
 import { ReactComponent as TwitterIcon } from "../icons/twitter.svg";
 import { ReactComponent as InstagramIcon } from "../icons/instagram.svg";
 
-export default function Footer() {
+export default function Footer({ rgba }) {
   return (
-    <FooterContainer>
+    <FooterContainer rgba={rgba}>
       <IconsContainer>
         <Icon href="https://www.facebook.com/" target="_blank">
           <FacebookIcon />
