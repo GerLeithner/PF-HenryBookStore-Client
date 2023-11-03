@@ -96,16 +96,18 @@ export default function Home() {
     <div>
       <div>
         <SubscribeNav />
-        <CardDetail
-          key={book.id + "detail"}
-          book={book}
-          readChange={readChange}
-          read={read}
-          readedsChange={readedsChange}
-          readeds={readeds}
-          favorites={favorites}
-          favoritesChange={favoritesChange}
-        />
+        {book && (
+          <CardDetail
+            book={book}
+            readChange={readChange}
+            read={read}
+            readedsChange={readedsChange}
+            readeds={readeds}
+            favorites={favorites}
+            favoritesChange={favoritesChange}
+          />
+        )}
+
         {/* <div>
           {recommended && recommended?.length && (
             <Carousel

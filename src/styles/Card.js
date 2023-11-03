@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerCards = styled.div`
-  padding-top: 20px;
-  padding-bottom: 50px;
+  padding-top: 70px;
+  padding-bottom: 120px;
   height: auto;
   display: grid;
   justify-content: center;
@@ -10,7 +10,7 @@ export const ContainerCards = styled.div`
   align-items: center;
   grid-template-columns: repeat(5, minmax(20px, 100px));
   grid-auto-rows: minmax(auto, 200px);
-  gap: 100px;
+  gap: 150px;
   flex-grow: 1;
 `;
 

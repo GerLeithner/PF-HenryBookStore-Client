@@ -49,7 +49,8 @@ export const LinkNavBar = styled(NavLink)`
   display: flex;
   align-items: center;
   transition: background-color 0.5s ease-in-out;
-  color: white;
+  //  color: white;
+  color: #622cd4;
   text-decoration: none;
   font-weight: 400;
   font-size: 24px;
@@ -57,11 +58,21 @@ export const LinkNavBar = styled(NavLink)`
   padding: 0px 15px 0px 15px;
 
   &:hover {
-    color: #622cd4;
+    color: #784cd7;
+    svg {
+      fill: #784cd7;
+    }
   }
 
   &.active {
-    color: #622cd4;
+    color: white;
+    svg {
+      fill: white;
+    }
+  }
+
+  svg {
+    fill: #622cd4;
   }
 `;
 

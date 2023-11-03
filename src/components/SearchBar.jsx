@@ -19,6 +19,8 @@ const SearchBar = ({ modal, setModal }) => {
 
   const [inputFocus, setInputFocus] = useState(false);
   const search = useSelector((state) => state.search);
+  const allGenres = useSelector((state) => state.genres);
+  const allAuthors = useSelector((state) => state.authors);
   //const [title, setTitle] = useState("");
   const allBooks = useSelector((state) => state.allBooks);
   const inputRef = useRef(null);
@@ -38,8 +40,6 @@ const SearchBar = ({ modal, setModal }) => {
       dispatch(getBooks());
     }
   }, [dispatch]);
-  const allGenres = useSelector((state) => state.genres);
-  const allAuthors = useSelector((state) => state.authors);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -60,6 +60,17 @@ const SearchBar = ({ modal, setModal }) => {
     setInputFocus((prevInputFocus) => !prevInputFocus);
   }
 
+  useEffect(() => {
+    let input = (e) => {
+      if (!inputRef.current.contains(e.target)) {
+        setInputFocus(false);
+      }
+    };
+
+    document.addEventListener("mousedown", input);
+
+    return () => document.removeEventListener("mousedown", input);
+  }, []);
   return (
     <SearchContainer>
       <InputAndButton ref={inputRef}>

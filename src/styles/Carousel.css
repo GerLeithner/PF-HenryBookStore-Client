@@ -50,6 +50,10 @@ button.rec-arrow {
 .rec-carousel-item:focus {
   outline: none;
 }
+.rec-carousel-item {
+  display: flex;
+  align-items: left;
+}
 
 button.rec-dot {
   background-color: #764bd3;

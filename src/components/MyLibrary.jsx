@@ -22,7 +22,6 @@ const MyLibrary = () => {
   const dispatch = useDispatch();
 
   const currentUser = useSelector((state) => state.currentUser);
-  console.log("currentUser ", currentUser);
 
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
