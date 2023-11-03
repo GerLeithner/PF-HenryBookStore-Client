@@ -184,48 +184,61 @@ export const ButtonOptionsCard = styled.option`
 export const MenuConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  width: 26px;
-  height: 20px;
+  align-items: center;
+
+  width: 200px;
+  height: 300px;
   margin: 0px;
-  padding: 0px;
+  padding-top: 20px;
   position: absolute;
-  cursor: pointer;
-  right: ${(props) => props.right || ""};
-  top: ${(props) => props.top || ""};
-`;
+  color: white;
 
-export const MenuTrigger = styled.div`
-  display: flex;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   cursor: pointer;
-  width: 20px;
-  height: 70px;
-  opacity: 0.7;
-  color: grey;
-  background-color: rgba(255, 255, 255.6);
-  align-self: center;
-  border-radius: 3px;
-`;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
 
-export const DropDownMenu = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  margin: 0px;
-  padding: 10px;
-  text-decoration: none;
-  list-style-type: none;
-`;
-
-export const UlCard = styled.ul`
-  display: flex;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(1, 1, 1, 0.6);
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  flex-direction: column;
-  width: 30px;
-  height: 180px;
-  margin: 0px;
-  padding: 10px 3px 5px 3px;
+
   list-style-type: none;
-  justify-content: center;
+
   align-self: center;
+  &.inactive {
+    visibility: hidden;
+    opacity: 0;
+  }
+`;
+export const IconsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-top: 60px;
+`;
+
+export const CardIcon = styled.div`
+  cursor: pointer;
+
+  padding: 10px;
+
+  svg {
+    fill: white;
+    height: 56px;
+    width: 55px;
+  }
+  &:hover {
+    color: #622cd4;
+    svg {
+      fill: #622cd4;
+    }
+  }
 `;

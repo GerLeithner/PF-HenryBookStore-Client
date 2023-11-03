@@ -49,8 +49,7 @@ export const LinkNavBar = styled(NavLink)`
   display: flex;
   align-items: center;
   transition: background-color 0.5s ease-in-out;
-  //  color: white;
-  color: #622cd4;
+  color: white;
   text-decoration: none;
   font-weight: 400;
   font-size: 24px;
@@ -65,14 +64,14 @@ export const LinkNavBar = styled(NavLink)`
   }
 
   &.active {
-    color: white;
+    color: #622cd4;
     svg {
-      fill: white;
+      fill: #622cd4;
     }
   }
 
   svg {
-    fill: #622cd4;
+    fill: white;
   }
 `;
 
