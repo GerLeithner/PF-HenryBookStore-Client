@@ -73,6 +73,10 @@ export const LinkNavBar = styled(NavLink)`
   svg {
     fill: white;
   }
+
+  &:active {
+    transform: translateY(+2px);
+  }
 `;
 
 export const ButtonNavBar = styled.button`

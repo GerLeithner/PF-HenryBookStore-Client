@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { editState, getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
-import { ReactComponent as FavoriteIcon } from "../icons/plus-circle.svg";
+import { ReactComponent as FavoriteIcon } from "../icons/add-circle.svg";
 import { ReactComponent as ReadIcon } from "../icons/book-circle.svg";
+import { ReactComponent as FinishedIcon } from "../icons/checkRead.svg";
+import { ReactComponent as UnfinishedIcon } from "../icons/circle-x.svg";
+import { ReactComponent as UnfavoriteIcon } from "../icons/minus-circle.svg";
 
 import {
   getBookById,
@@ -23,6 +26,7 @@ import {
   ImgContainer,
   CardIcon,
   IconsContainer,
+  TitleContainer,
 } from "../styles/Card";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -135,7 +139,7 @@ export default function Card({
       console.log("READ+", readed);
 
       dispatch(addReaded(id, userId));
-      toast.success("Book mark as readed");
+      toast.success("Book added to finished");
     }
 
     if (readed) {
@@ -144,7 +148,7 @@ export default function Card({
       console.log("READ-", readed);
 
       dispatch(deleteReaded(id, userId));
-      toast.warning("Book mark as unread");
+      toast.warning("Book removed from finished");
     }
     if (readedsChange) {
       setTimeout(() => readedsChange(!readeds), 300);
@@ -188,20 +192,35 @@ export default function Card({
           }}
           className={isHovering ? "active" : "inactive"}
         >
-          <div>{title}</div>
+          <TitleContainer className={title.length > 40 ? "long" : "short"}>
+            {title}
+          </TitleContainer>
           <IconsContainer>
             <CardIcon>
-              <FavoriteIcon
-                title={!favorite ? "Add Favorite" : "Delete Favorite"}
-                onClick={(e) => {
-                  handleFavorite(id, userId);
-                  e.stopPropagation();
-                }}
-              />
+              {!favorite ? (
+                <FavoriteIcon
+                  className="fillWhite"
+                  title="Add Favorite"
+                  onClick={(e) => {
+                    handleFavorite(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              ) : (
+                <UnfavoriteIcon
+                  className="finished"
+                  title="Delete Favorite"
+                  onClick={(e) => {
+                    handleFavorite(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              )}
             </CardIcon>
 
-            <CardIcon>
+            {/*             <CardIcon>
               <ReadIcon
+                className="fillWhite"
                 onClick={(e) => {
                   handleReading(id, userId);
                   e.stopPropagation();
@@ -211,6 +230,32 @@ export default function Card({
                   height: "62px",
                 }}
               />
+            </CardIcon> */}
+            <CardIcon>
+              {!readed ? (
+                <FinishedIcon
+                  className="finished"
+                  title="Add to Finished"
+                  onClick={(e) => {
+                    handleReaded(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              ) : (
+                <UnfinishedIcon
+                  className="finished"
+                  title="Remove from Finished"
+                  style={{
+                    width: "67px",
+                    height: "68px",
+                    transform: "translateY(-3px)",
+                  }}
+                  onClick={(e) => {
+                    handleReaded(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              )}
             </CardIcon>
           </IconsContainer>
         </MenuConteiner>

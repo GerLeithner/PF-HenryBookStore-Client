@@ -216,6 +216,16 @@ export const MenuConteiner = styled.div`
     opacity: 0;
   }
 `;
+
+export const TitleContainer = styled.div`
+  &.long {
+    font-size: 15px;
+  }
+  &.short {
+    font-size: 20px;
+  }
+`;
+
 export const IconsContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -231,14 +241,31 @@ export const CardIcon = styled.div`
   padding: 10px;
 
   svg {
-    fill: white;
-    height: 56px;
-    width: 55px;
+    &.fillWhite {
+      fill: white;
+    }
+    &.finished {
+      stroke: white;
+      fill: none;
+      width: 61px;
+      height: 62px;
+    }
+
+    width: 61px;
+    height: 62px;
   }
   &:hover {
     color: #622cd4;
     svg {
-      fill: #622cd4;
+      &.fillWhite {
+        fill: #622cd4;
+      }
+      &.finished {
+        stroke: #622cd4;
+      }
     }
+  }
+  &:active {
+    transform: translateY(+2px);
   }
 `;

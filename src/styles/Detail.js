@@ -384,7 +384,7 @@ export const ButtonOptionsDetail = styled.option`
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(+2px);
   }
 `;
 
@@ -409,7 +409,7 @@ export const ButtonDetail = styled.button`
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(+2px);
   }
 `;
 
