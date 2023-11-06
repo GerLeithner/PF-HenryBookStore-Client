@@ -202,6 +202,7 @@ export default function CardDetail({
 
   function handleReading(e) {
     // console.log("e.target.value",e.target.value)
+    e.preventDefault();
 
     if (!reading) {
       console.log("Entré a add reading :", book.id);

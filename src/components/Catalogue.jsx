@@ -81,8 +81,11 @@ const Catalogue = () => {
       dispatch(getCurrentUser(userDb));
     }
     return () => {
-      dispatch(getBooks());
-      dispatch(searchInput(""));
+      //dispatch(getBooks());
+
+      if (window.location.pathname !== "/search") {
+        dispatch(searchInput(""));
+      }
     };
   }, [dispatch, read, readeds, favorites]);
 

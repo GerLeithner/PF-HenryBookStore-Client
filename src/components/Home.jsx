@@ -18,7 +18,7 @@ import {
   getNewsBooks,
   getCurrentUser,
 } from "../redux/actions";
-import { H2Home } from "../styles/Card";
+import { ContainerCards, H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
 import Catalogue from "./Catalogue.jsx";
@@ -96,16 +96,18 @@ export default function Home() {
     <div>
       <div>
         <SubscribeNav />
-        <CardDetail
-          key={book.id + "detail"}
-          book={book}
-          readChange={readChange}
-          read={read}
-          readedsChange={readedsChange}
-          readeds={readeds}
-          favorites={favorites}
-          favoritesChange={favoritesChange}
-        />
+        {book && (
+          <CardDetail
+            book={book}
+            readChange={readChange}
+            read={read}
+            readedsChange={readedsChange}
+            readeds={readeds}
+            favorites={favorites}
+            favoritesChange={favoritesChange}
+          />
+        )}
+
         {/* <div>
           {recommended && recommended?.length && (
             <Carousel
@@ -143,12 +145,34 @@ export default function Home() {
         >
           {currentUser && currentUser.Reading?.length ? (
             <div>
-              <Carousels
-                key={"Reading"}
-                books={currentUser.Reading}
-                carTitle={"Continue reading"}
-                readChange={readChange}
-              ></Carousels>
+              {currentUser.Reading.length > 5 ? (
+                <Carousels
+                  key={"Reading"}
+                  books={currentUser.Reading}
+                  carTitle={"Continue Reading"}
+                  readChange={readChange}
+                ></Carousels>
+              ) : (
+                <div>
+                  <H2Home>Continue Reading</H2Home>
+                  <ContainerCards className="Uncarrousel">
+                    {currentUser.Reading.map((b) => {
+                      return (
+                        <Card
+                          id={b.id}
+                          title={b.title}
+                          publishedDate={b.publishedDate}
+                          description={b.description}
+                          averageRating={b.averageRating}
+                          cover={b.cover}
+                          genres={b.genres}
+                          authors={b.authors}
+                        />
+                      );
+                    })}{" "}
+                  </ContainerCards>
+                </div>
+              )}
             </div>
           ) : (
             <></>
@@ -184,7 +208,41 @@ export default function Home() {
                   return b.genre.name === g.name;
                 });
                 return (
-                  <div key={g.id + "div"}>
+                  <div>
+                    {g.length > 5 ? (
+                      <Carousels
+                        books={booksByGenre}
+                        carTitle={
+                          g.name.charAt(0).toUpperCase() + g.name.slice(1)
+                        }
+                        readChange={readChange}
+                      ></Carousels>
+                    ) : (
+                      <div>
+                        <H2Home>
+                          {g.name.charAt(0).toUpperCase() + g.name.slice(1)}
+                        </H2Home>
+                        <ContainerCards className="Uncarrousel">
+                          {booksByGenre.map((b) => {
+                            return (
+                              <Card
+                                id={b.id}
+                                title={b.title}
+                                publishedDate={b.publishedDate}
+                                description={b.description}
+                                averageRating={b.averageRating}
+                                cover={b.cover}
+                                genres={b.genres}
+                                authors={b.authors}
+                              />
+                            );
+                          })}{" "}
+                        </ContainerCards>
+                      </div>
+                    )}
+                  </div>
+
+                  /*   <div key={g.id + "div"}>
                     <Carousels
                       books={booksByGenre}
                       carTitle={
@@ -192,7 +250,7 @@ export default function Home() {
                       }
                       readChange={readChange}
                     ></Carousels>
-                  </div>
+                  </div> */
                 );
               })}
             </div>

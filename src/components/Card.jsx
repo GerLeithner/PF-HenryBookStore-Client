@@ -2,6 +2,11 @@ import React, { useState, useEffect } from "react";
 import { editState, getCurrentUser } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
+import { ReactComponent as FavoriteIcon } from "../icons/add-circle.svg";
+import { ReactComponent as ReadIcon } from "../icons/book-circle.svg";
+import { ReactComponent as FinishedIcon } from "../icons/checkRead.svg";
+import { ReactComponent as UnfinishedIcon } from "../icons/circle-x.svg";
+import { ReactComponent as UnfavoriteIcon } from "../icons/minus-circle.svg";
 
 import {
   getBookById,
@@ -15,24 +20,13 @@ import {
   getUser,
 } from "../redux/actions";
 
-// import CardDetail from "./CardDetail.jsx";
-import caretIcon from "../icons/caretIcon.svg";
-import favoriteIcon from "../icons/favoriteIcon.svg";
-import favoriteFillIcon from "../icons/favoriteFillIcon.svg";
-import readedIcon from "../icons/readedIcon.svg";
-import readedIconFill from "../icons/readedIconFill.svg";
-import reviewIcon from "../icons/reviewIcon.svg";
-import bookIcon from "../icons/bookIcon.svg";
-import bookHalfIcon from "../icons/bookHalfIcon.svg";
 import {
   CardImg,
-  UlCard,
-  // ButtonSelectCard,
-  // ButtonOptionsCard,
   MenuConteiner,
   ImgContainer,
-  MenuTrigger,
-  DropDownMenu,
+  CardIcon,
+  IconsContainer,
+  TitleContainer,
 } from "../styles/Card";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -41,6 +35,7 @@ export default function Card({
   id,
   cover,
   readChange,
+  title,
   read,
   favorites,
   favoritesChange,
@@ -51,7 +46,7 @@ export default function Card({
   const [favorite, setFavorite] = useState(false);
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
-
+  const book = useSelector((state) => state.bookDetail);
   const dispatch = useDispatch();
 
   const { isAuthenticated, user, isLoading } = useAuth0();
@@ -109,8 +104,6 @@ export default function Card({
     setIsHovering(false);
   };
 
-  const book = useSelector((state) => state.bookDetail);
-
   const userId = { userId: currentUser && currentUser.id };
 
   function handleFavorite(id, userId) {
@@ -146,7 +139,7 @@ export default function Card({
       console.log("READ+", readed);
 
       dispatch(addReaded(id, userId));
-      toast.success("Book mark as readed");
+      toast.success("Book added to finished");
     }
 
     if (readed) {
@@ -155,7 +148,7 @@ export default function Card({
       console.log("READ-", readed);
 
       dispatch(deleteReaded(id, userId));
-      toast.warning("Book mark as unread");
+      toast.warning("Book removed from finished");
     }
     if (readedsChange) {
       setTimeout(() => readedsChange(!readeds), 300);
@@ -192,71 +185,81 @@ export default function Card({
   return (
     <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       <ImgContainer>
-        <CardImg
-          src={cover}
-          alt="img not found"
+        <CardImg src={cover} alt="img not found" />
+        <MenuConteiner
           onClick={(id) => {
             handleClick(id);
           }}
-        />
-        <MenuConteiner>
-          {/* <MenuTrigger
-            onMouseOver={handleMouseOver} >
-            <img src={caretIcon} />
-          </MenuTrigger> */}
-          <DropDownMenu
-            className={`dropdown-menu ${isHovering ? "active" : "inactive"}`}
-          >
-            <UlCard>
-              {/* <DropdownItem icon={reviewIcon} value={id} role="button" /> */}
+          className={isHovering ? "active" : "inactive"}
+        >
+          <TitleContainer className={title.length > 40 ? "long" : "short"}>
+            {title}
+          </TitleContainer>
+          <IconsContainer>
+            <CardIcon>
+              {!favorite ? (
+                <FavoriteIcon
+                  className="fillWhite"
+                  title="Add Favorite"
+                  onClick={(e) => {
+                    handleFavorite(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              ) : (
+                <UnfavoriteIcon
+                  className="finished"
+                  title="Delete Favorite"
+                  onClick={(e) => {
+                    handleFavorite(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              )}
+            </CardIcon>
 
-              <DropdownItem
-                key={id + "1"}
-                icon={!reading ? bookIcon : bookHalfIcon}
-                value={id}
-                handle={(e) => {
+            {/*             <CardIcon>
+              <ReadIcon
+                className="fillWhite"
+                onClick={(e) => {
                   handleReading(id, userId);
+                  e.stopPropagation();
                 }}
-                role="button"
-              />
-              <DropdownItem
-                key={id + "2"}
-                icon={!readed ? readedIcon : readedIconFill}
-                value={id}
-                handle={(e) => {
-                  handleReaded(id, userId);
+                style={{
+                  width: "61px",
+                  height: "62px",
                 }}
-                role="button"
               />
-              <DropdownItem
-                key={id + "3"}
-                icon={!favorite ? favoriteIcon : favoriteFillIcon}
-                value={id}
-                name={book.title}
-                handle={(e) => {
-                  handleFavorite(id, userId);
-                }}
-                role="button"
-              />
-            </UlCard>
-          </DropDownMenu>
+            </CardIcon> */}
+            <CardIcon>
+              {!readed ? (
+                <FinishedIcon
+                  className="finished"
+                  title="Add to Finished"
+                  onClick={(e) => {
+                    handleReaded(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              ) : (
+                <UnfinishedIcon
+                  className="finished"
+                  title="Remove from Finished"
+                  style={{
+                    width: "67px",
+                    height: "68px",
+                    transform: "translateY(-3px)",
+                  }}
+                  onClick={(e) => {
+                    handleReaded(id, userId);
+                    e.stopPropagation();
+                  }}
+                />
+              )}
+            </CardIcon>
+          </IconsContainer>
         </MenuConteiner>
       </ImgContainer>
-      {/* onpointerleave={()=>{setOpen(!open)}} */}
     </div>
-  );
-}
-
-function DropdownItem(props) {
-  return (
-    <li>
-      <img
-        src={props.icon}
-        alt="n"
-        role="button"
-        onClick={props.handle}
-        value={props.id}
-      />
-    </li>
   );
 }

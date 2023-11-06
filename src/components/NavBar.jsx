@@ -9,6 +9,7 @@ import DropDownItem from "./DropDownItem.jsx";
 import { ReactComponent as SettingsIcon } from "../icons/settings.svg";
 import { ReactComponent as BooksIcon } from "../icons/books.svg";
 import { ReactComponent as UsersIcon } from "../icons/users.svg";
+import { ReactComponent as MyLibraryIcon } from "../icons/myLibrary.svg";
 
 import {
   ContainerNavBar,
@@ -101,7 +102,11 @@ export default function NavBar() {
           >
             Novel Wave
           </HomeLinkNavBar>
-          <LinkNavBar to={"/library"}>My Library</LinkNavBar>
+          <LinkNavBar to={"/library"}>
+            {" "}
+            <MyLibraryIcon />
+            My Library
+          </LinkNavBar>
           {currentUser && currentUser.admin && (
             <MenuContainer ref={adminRef}>
               <ButtonNavBar

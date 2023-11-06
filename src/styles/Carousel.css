@@ -29,12 +29,13 @@ button.rec-arrow {
 /* hide disabled buttons */
 .rec.rec-arrow:disabled {
   cursor: default;
-  visibility: visible;
-  color: grey !important;
+  visibility: hidden;
+  /* color: grey !important; */
 }
 
 .rec.rec-arrow:disabled:hover {
-  color: grey !important;
+  visibility: hidden;
+  /* color: grey !important; */
 }
 .rec.rec-arrow:active {
   color: #622cd4 !important;
@@ -49,6 +50,10 @@ button.rec-arrow {
 /* add custom outline on focused items */
 .rec-carousel-item:focus {
   outline: none;
+}
+.rec-carousel-item {
+  display: flex;
+  align-items: left;
 }
 
 button.rec-dot {
