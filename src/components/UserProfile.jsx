@@ -218,7 +218,7 @@ export default function UserProfile() {
         <Account>
           <AccountContainer>
             <HeaderAccount>Account</HeaderAccount>
-            <OptionsContainer name="account options">
+            <OptionsContainer name="account">
               <ImageAndInfo>
                 USER INFORMATION             
                 <ProfilePic src={currentUser.profilePic} />
@@ -277,7 +277,7 @@ export default function UserProfile() {
                   { loadingPic ? 
                     <Loading>
                       <LoadingIcon/>
-                      Loading
+                      Loading ...
                     </Loading> 
                     : 
                     <div></div> 
@@ -285,32 +285,35 @@ export default function UserProfile() {
                 </FlexRow>
               </InfoContainer>        
             </OptionsContainer>
-            <OptionsContainer name="notifications options">
-            <FiledAndButton>
-              <Field
-                onClick={(e) => handleDownfall(e)}
-                style={{ cursor: "pointer" }}
-              >
-                <div
-                  style={{ display: "flex", flexDirection: "row", gap: "30px" }}
+            <OptionsContainer name="notifications">
+              <ImageAndInfo>
+                <div style={{width: "200px"}}>
+                  NOTIFICATIONS
+                </div>            
+                <div></div>
+              </ImageAndInfo>
+              <InfoContainer>
+                <FlexRow>
+                  <Field
+                  onClick={(e) => handleDownfall(e)}
+                  style={{ cursor: "pointer" }}
                 >
-                  <div>All Mail Notifications</div>
                   <div
-                    style={{
-                      transform: `rotate(${downfall ? "45deg" : "0deg"})`,
-                      transition: "300ms ease all",
-                    }}
+                    style={{ display: "flex", flexDirection: "row", gap: "50px" }}
                   >
-                    <DownfallButton onClick={(e) => handleDownfall(e)}>
-                      +
-                    </DownfallButton>
+                    <div>Mail Notifications</div>
+                    <div
+                      style={{
+                        transform: `rotate(${downfall ? "45deg" : "0deg"})`,
+                        transition: "300ms ease all",
+                      }}
+                    >
+                      <DownfallButton onClick={(e) => handleDownfall(e)}>
+                        +
+                      </DownfallButton>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  {currentUser?.notifications.all ? "ACTIVE" : "DISABLED"}
-                </div>
-              </Field>
-              <div style={{ width: "120px" }}>
+                </Field>
                 <EditFieldButton
                   name="all"
                   value="all"
@@ -318,48 +321,32 @@ export default function UserProfile() {
                 >
                   {currentUser?.notifications.all ? "Disable" : "Enable"}
                 </EditFieldButton>
-              </div>
-            </FiledAndButton>
-            {downfall && (
-              <FiledAndButton>
-                <Field>
-                  <div>Expiration date warning</div>
-                  <div>
-                    {currentUser?.notifications.expDate ? "ACTIVE" : "DISABLED"}
-                  </div>
-                </Field>
-                <div style={{ width: "120px" }}>
-                  <EditFieldButton
-                    name="expDate"
-                    onClick={(e) => handleNotification(e)}
-                  >
-                    {currentUser?.notifications.expDate ? "Disable" : "Enable"}
-                  </EditFieldButton>
-                </div>
-              </FiledAndButton>
+                </FlexRow>
+                {downfall && (
+              <FlexRow>
+                <Field>Expiration date</Field>
+                <EditFieldButton
+                  name="expDate"
+                  onClick={(e) => handleNotification(e)}
+                >
+                  {currentUser?.notifications.expDate ? "Disable" : "Enable"}
+                </EditFieldButton>
+              </FlexRow>
             )}
             { downfall && (
-              <FiledAndButton>
-                <Field>
-                  <div>New books aviable on library</div>
-                  <div>
-                    {currentUser?.notifications.newBooks
-                      ? "ACTIVE"
-                      : "DISABLED"}
-                  </div>
-                </Field>
-                <div style={{ width: "120px" }}>
-                  <EditFieldButton
-                    name="newBooks"
-                    onClick={(e) => handleNotification(e)}
-                  >
-                    {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
-                  </EditFieldButton>
-                </div>
-              </FiledAndButton>
-            )}
+              <FlexRow>
+                <Field>New books aviables</Field>
+                <EditFieldButton
+                  name="newBooks"
+                  onClick={(e) => handleNotification(e)}
+                >
+                  {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
+                </EditFieldButton>
+              </FlexRow>
+              )}
+            </InfoContainer>
           </OptionsContainer>
-          <SubscriptionOptions name="subcription options">
+          <SubscriptionOptions name="subcription">
             <InfoContainer gap="25px">
               <div
                 style={{ display: "flex", flexDirection: "row", gap: "50px" }}

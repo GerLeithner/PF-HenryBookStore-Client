@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Account = styled.div`
   padding-top: 80px;
-  padding-bottom: 80px;
+  padding-bottom: 93.4px;
   margin: 0px;
   display: flex;
   align-items: center;
@@ -48,6 +48,7 @@ export const ImageAndInfo = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  text-align: left;
 `;
 
 export const ProfilePic = styled.img`

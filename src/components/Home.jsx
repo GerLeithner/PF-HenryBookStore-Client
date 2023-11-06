@@ -97,7 +97,6 @@ export default function Home() {
       <div>
         <SubscribeNav />
         <CardDetail
-          key={book.id + "detail"}
           book={book}
           readChange={readChange}
           read={read}

@@ -62,14 +62,21 @@ export default function CardDetail({
   const [readed, setReaded] = useState(false);
   const [reading, setReading] = useState(false);
 
-  const userId = { userId: currentUser && currentUser.id };   
+  const userId = { userId: currentUser && currentUser.id };
 
 
+//  useEffect( () => {
+//   return () => {
+//     dispatch(editState(false));
+//     dispatch(cleanBookDetail());
+//   }
+// }, []);
+// =======
   useEffect(() => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
     return dispatch(turnOffModal());
-  }, []);
+  }, []);width: "200px"
 
 
   /*   useEffect(() => {
