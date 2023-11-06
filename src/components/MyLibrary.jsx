@@ -12,11 +12,12 @@ import {
   getNewsBooks,
   getCurrentUser,
 } from "../redux/actions";
-import { H2Home } from "../styles/Card";
+import { ContainerCards, H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
 import CardDetail from "./CardDetail";
+import Carousels from "./Carousels.jsx";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
@@ -97,44 +98,132 @@ const MyLibrary = () => {
             paddingTop: "80px",
           }}
         ></div>
-        <H2Home>Continue reading</H2Home>
+
         {currentUser && currentUser.Reading.length ? (
-          <>
-            <Carousel itemsToShow={5}>
-              {currentUser.Reading.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    readChange={readChange}
-                    read={read}
-                    readedsChange={readedsChange}
-                    readeds={readeds}
-                    favorites={favorites}
-                    favoritesChange={favoritesChange}
-                  />
-                );
-              })}
-            </Carousel>
-          </>
+          <div>
+            {currentUser.Reading.length > 5 ? (
+              <>
+                <H2Home>Continue Reading</H2Home>
+                <Carousel itemsToShow={5}>
+                  {currentUser.Reading.map((b) => {
+                    return (
+                      <Card
+                        id={b.id}
+                        key={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </>
+            ) : (
+              <div>
+                <H2Home>Continue Reading</H2Home>
+                <ContainerCards className="Uncarrousel">
+                  {currentUser.Reading.map((b) => {
+                    return (
+                      <Card
+                        id={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}{" "}
+                </ContainerCards>
+              </div>
+            )}
+          </div>
         ) : (
           <div>
+            <H2Home>Continue Reading</H2Home>
             <h3>No books are being read yet</h3>
           </div>
         )}
       </div>
 
       <div>
-        <H2Home>Your Favorites</H2Home>
         {currentUser && currentUser.Favorites.length ? (
-          <>
+          <div>
+            {currentUser.Favorites.length > 5 ? (
+              <div>
+                <H2Home>Your Favorites</H2Home>
+                <Carousel itemsToShow={5}>
+                  {currentUser.Favorites.map((b) => {
+                    return (
+                      <Card
+                        id={b.id}
+                        key={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </div>
+            ) : (
+              <div>
+                <H2Home>Your Favorites</H2Home>
+                <ContainerCards className="Uncarrousel">
+                  {currentUser.Favorites.map((b) => {
+                    return (
+                      <Card
+                        id={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}{" "}
+                </ContainerCards>
+              </div>
+            )}
+          </div>
+        ) : (
+          /*  {<>
             <Carousel itemsToShow={5}>
               {currentUser.Favorites.map((b) => {
                 return (
@@ -158,18 +247,79 @@ const MyLibrary = () => {
                 );
               })}
             </Carousel>
-          </>
-        ) : (
+          </>} */
           <div>
+            <H2Home>Your Favorites</H2Home>
             <h3>You don't have any favorites yet</h3>
           </div>
         )}
       </div>
 
       <div>
-        <H2Home>Read again</H2Home>
         {currentUser && currentUser.Read.length ? (
-          <>
+          <div>
+            {currentUser.Read.length > 5 ? (
+              <>
+                <H2Home>Read Again</H2Home>
+                <Carousel itemsToShow={5}>
+                  {currentUser.Read.map((b) => {
+                    console.log(
+                      "favoritesChange type:",
+                      typeof favoritesChange
+                    );
+
+                    return (
+                      <Card
+                        id={b.id}
+                        key={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}
+                </Carousel>
+              </>
+            ) : (
+              <div>
+                <H2Home>Read Again</H2Home>
+                <ContainerCards className="Uncarrousel">
+                  {currentUser.Read.map((b) => {
+                    return (
+                      <Card
+                        id={b.id}
+                        title={b.title}
+                        publishedDate={b.publishedDate}
+                        description={b.description}
+                        averageRating={b.averageRating}
+                        cover={b.cover}
+                        genres={b.genres}
+                        authors={b.authors}
+                        readChange={readChange}
+                        read={read}
+                        readedsChange={readedsChange}
+                        readeds={readeds}
+                        favorites={favorites}
+                        favoritesChange={favoritesChange}
+                      />
+                    );
+                  })}{" "}
+                </ContainerCards>
+              </div>
+            )}
+          </div>
+        ) : (
+          /*  {<>
             <Carousel itemsToShow={5}>
               {currentUser.Read.map((b) => {
                 console.log("favoritesChange type:", typeof favoritesChange);
@@ -195,11 +345,9 @@ const MyLibrary = () => {
                 );
               })}
             </Carousel>
-          </>
-        ) : (
+          </>} */
           <div>
-            {" "}
-            <h3>You haven't read any books yet</h3>
+            <H2Home>Read Again</H2Home> <h3>You haven't read any books yet</h3>
           </div>
         )}
       </div>
