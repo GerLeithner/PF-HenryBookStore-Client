@@ -5,7 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { ReactComponent as FavoriteIcon } from "../icons/add-circle.svg";
 import { ReactComponent as ReadIcon } from "../icons/book-circle.svg";
 import { ReactComponent as FinishedIcon } from "../icons/checkRead.svg";
-import { ReactComponent as UnfinishedIcon } from "../icons/circle-x.svg";
+import { ReactComponent as UnfinishedIcon } from "../icons/cross-circle2.svg";
 import { ReactComponent as UnfavoriteIcon } from "../icons/minus-circle.svg";
 
 import {
@@ -94,6 +94,7 @@ export default function Card({
     setIsHovering(false);
     window.scrollTo(0, 0);
     dispatch(getBookById(id));
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   const handleMouseOver = () => {
@@ -245,11 +246,6 @@ export default function Card({
                 <UnfinishedIcon
                   className="finished"
                   title="Remove from Finished"
-                  style={{
-                    width: "67px",
-                    height: "68px",
-                    transform: "translateY(-3px)",
-                  }}
                   onClick={(e) => {
                     handleReaded(id, userId);
                     e.stopPropagation();

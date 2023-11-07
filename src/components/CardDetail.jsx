@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -64,6 +64,14 @@ export default function CardDetail({
 
   const userId = { userId: currentUser && currentUser.id };
 
+
+//  useEffect( () => {
+//   return () => {
+//     dispatch(editState(false));
+//     dispatch(cleanBookDetail());
+//   }
+// }, []);
+// =======
   useEffect(() => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
@@ -228,11 +236,26 @@ export default function CardDetail({
     }
   }
 
+  const containerRef = useRef(null);
+  const spanRef = useRef(null);
+  const [fontSize, setFontSize] = useState("64px");
+
+  useEffect(() => {
+    if(book?.title?.length < 30) setFontSize("64px");
+
+    if(book?.title?.length > 30) setFontSize("48px");
+
+    if(book?.title?.length > 40) setFontSize("40px");
+
+  }, [book.title,fontSize]);
+
+
   return (
     modal && (
       <OverLay className={catalogue ? "catalogue" : "normal"}>
         <Info>
           <div
+            ref={containerRef}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -242,7 +265,7 @@ export default function CardDetail({
               padding: 0,
             }}
           >
-            <H1>{book.title}</H1>
+            <H1 ref={spanRef} fontSize={fontSize}>{book.title}</H1>
             <Props>
               {book.averageRating ? (
                 <StarRating rating={book.averageRating} />

@@ -12,13 +12,7 @@ import {
   FormWarnign,
 } from "../styles/FieldForm";
 
-export default function FieldForm({
-  setUserName,
-  id,
-  fieldName,
-  propName,
-  propValue,
-}) {
+export default function FieldForm({ setUserName, id, fieldName, propName, propValue, error }) {
   const dispatch = useDispatch();
 
   const [input, setInput] = useState("");
@@ -67,10 +61,9 @@ export default function FieldForm({
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            width: "100%",
-            border: "1px solid #ccc",
-            padding: "0px 30px 0px 30px",
-            height: "30px",
+            width: "280px",
+            border: "none",
+            borderBottom: "1px solid #D9D9D9",
           }}
         >
           <FieldInput
@@ -86,20 +79,19 @@ export default function FieldForm({
             justifyContent: "flex-end",
             alignItems: "center",
             width: "max-content",
-            padding: "0px 0px 0px 60px",
-            height: "30px",
-            gap: "150px",
+            padding: "0px",
+            gap: "42px",
           }}
         >
           <EditFieldFormButton onClick={(e) => handleClose(e)} color="red">
-            Discard
+            Cancel
           </EditFieldFormButton>
-          <EditFieldFormButton onClick={(e) => handleSave(e)}>
+          <EditFieldFormButton onClick={(e) => handleSave(e)} color="#622CD4">
             Save
           </EditFieldFormButton>
         </div>
       </div>
-      <FormWarnign>{!input && "*this field is required"}</FormWarnign>
+      {error && <FormWarnign>{!input && "*this field is required"}</FormWarnign> }
     </FieldFormContainer>
   );
 }

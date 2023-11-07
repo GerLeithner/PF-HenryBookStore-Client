@@ -105,7 +105,10 @@ export default function NavBar() {
           <LinkNavBar to={"/library"}>
             {" "}
             <MyLibraryIcon />
-            My Library
+            <div>
+             My Library
+            </div>
+            
           </LinkNavBar>
           {currentUser && currentUser.admin && (
             <MenuContainer ref={adminRef}>

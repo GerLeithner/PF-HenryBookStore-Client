@@ -195,6 +195,8 @@ export const MenuConteiner = styled.div`
   height: 300px;
   margin: 0px;
   padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   position: absolute;
   color: white;
 
@@ -237,7 +239,7 @@ export const IconsContainer = styled.div`
   align-items: center;
   justify-content: center;
   position: absolute;
-  padding-top: 60px;
+  padding-top: 80px;
 `;
 
 export const CardIcon = styled.div`
@@ -256,8 +258,8 @@ export const CardIcon = styled.div`
       height: 62px;
     }
 
-    width: 61px;
-    height: 62px;
+    width: 60px;
+    height: 60px;
   }
   &:hover {
     color: #622cd4;

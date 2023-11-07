@@ -6,7 +6,7 @@ export const ContainerNavBar = styled.div`
   width: 100%;
   position: fixed;
   padding: 0px 30px 0px 30px;
-  height: 56px;
+  height: 50px;
   background-color: black;
   display: flex;
   flex-direction: row;
@@ -47,6 +47,7 @@ export const HomeLinkNavBar = styled(Link)`
 
 export const LinkNavBar = styled(NavLink)`
   display: flex;
+  gap: 5px;
   align-items: center;
   transition: background-color 0.5s ease-in-out;
   color: white;
