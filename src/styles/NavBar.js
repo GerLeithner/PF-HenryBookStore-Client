@@ -47,6 +47,7 @@ export const HomeLinkNavBar = styled(Link)`
 
 export const LinkNavBar = styled(NavLink)`
   display: flex;
+  gap: 5px;
   align-items: center;
   transition: background-color 0.5s ease-in-out;
   color: white;
@@ -57,11 +58,25 @@ export const LinkNavBar = styled(NavLink)`
   padding: 0px 15px 0px 15px;
 
   &:hover {
-    color: #622cd4;
+    color: #784cd7;
+    svg {
+      fill: #784cd7;
+    }
   }
 
   &.active {
     color: #622cd4;
+    svg {
+      fill: #622cd4;
+    }
+  }
+
+  svg {
+    fill: white;
+  }
+
+  &:active {
+    transform: translateY(+2px);
   }
 `;
 

@@ -72,8 +72,8 @@ export const ProfilePicInput = styled.label`
   font-family: inherit;
 
   svg {
-    height: 20px;
-    width: 20px;
+    height: 25px;
+    width: 25px;
     stroke: #FFFFFF;
   }
 

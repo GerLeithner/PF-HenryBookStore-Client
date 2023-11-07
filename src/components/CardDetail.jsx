@@ -76,8 +76,7 @@ export default function CardDetail({
     dispatch(editState(false));
     dispatch(cleanBookDetail());
     return dispatch(turnOffModal());
-  }, []);width: "200px"
-
+  }, []);
 
   /*   useEffect(() => {
     if (currentUser && modal) {
@@ -211,6 +210,7 @@ export default function CardDetail({
 
   function handleReading(e) {
     // console.log("e.target.value",e.target.value)
+    e.preventDefault();
 
     if (!reading) {
       console.log("Entré a add reading :", book.id);

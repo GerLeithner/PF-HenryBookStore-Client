@@ -1,8 +1,8 @@
 import styled from "styled-components";
 
 export const ContainerCards = styled.div`
-  padding-top: 20px;
-  padding-bottom: 50px;
+  padding-top: 70px;
+  padding-bottom: 120px;
   height: auto;
   display: grid;
   justify-content: center;
@@ -10,8 +10,13 @@ export const ContainerCards = styled.div`
   align-items: center;
   grid-template-columns: repeat(5, minmax(20px, 100px));
   grid-auto-rows: minmax(auto, 200px);
-  gap: 100px;
+  gap: 150px;
   flex-grow: 1;
+
+  &.Uncarrousel {
+    gap: 235px;
+    padding-top: 50px;
+  }
 `;
 
 export const H2Home = styled.h2`
@@ -184,48 +189,90 @@ export const ButtonOptionsCard = styled.option`
 export const MenuConteiner = styled.div`
   display: flex;
   flex-direction: column;
-  width: 26px;
-  height: 20px;
+  align-items: center;
+
+  width: 200px;
+  height: 300px;
   margin: 0px;
-  padding: 0px;
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
   position: absolute;
-  cursor: pointer;
-  right: ${(props) => props.right || ""};
-  top: ${(props) => props.top || ""};
-`;
+  color: white;
 
-export const MenuTrigger = styled.div`
-  display: flex;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
   cursor: pointer;
-  width: 20px;
-  height: 70px;
-  opacity: 0.7;
-  color: grey;
-  background-color: rgba(255, 255, 255.6);
-  align-self: center;
-  border-radius: 3px;
-`;
+  &.active {
+    visibility: visible;
+    opacity: 1;
+  }
 
-export const DropDownMenu = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  margin: 0px;
-  padding: 10px;
-  text-decoration: none;
-  list-style-type: none;
-`;
-
-export const UlCard = styled.ul`
-  display: flex;
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: rgba(1, 1, 1, 0.6);
   box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
-  flex-direction: column;
-  width: 30px;
-  height: 180px;
-  margin: 0px;
-  padding: 10px 3px 5px 3px;
+
   list-style-type: none;
-  justify-content: center;
+
   align-self: center;
+  &.inactive {
+    visibility: hidden;
+    opacity: 0;
+  }
+`;
+
+export const TitleContainer = styled.div`
+  &.long {
+    font-size: 15px;
+  }
+  &.short {
+    font-size: 20px;
+  }
+`;
+
+export const IconsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  padding-top: 80px;
+`;
+
+export const CardIcon = styled.div`
+  cursor: pointer;
+
+  padding: 10px;
+
+  svg {
+    &.fillWhite {
+      fill: white;
+    }
+    &.finished {
+      stroke: white;
+      fill: none;
+      width: 61px;
+      height: 62px;
+    }
+
+    width: 60px;
+    height: 60px;
+  }
+  &:hover {
+    color: #622cd4;
+    svg {
+      &.fillWhite {
+        fill: #622cd4;
+      }
+      &.finished {
+        stroke: #622cd4;
+      }
+    }
+  }
+  &:active {
+    transform: translateY(+2px);
+  }
 `;
