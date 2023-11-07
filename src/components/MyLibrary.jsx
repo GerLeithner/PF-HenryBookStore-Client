@@ -223,31 +223,6 @@ const MyLibrary = () => {
             )}
           </div>
         ) : (
-          /*  {<>
-            <Carousel itemsToShow={5}>
-              {currentUser.Favorites.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    readChange={readChange}
-                    read={read}
-                    readedsChange={readedsChange}
-                    readeds={readeds}
-                    favorites={favorites}
-                    favoritesChange={favoritesChange}
-                  />
-                );
-              })}
-            </Carousel>
-          </>} */
           <div>
             <H2Home>Your Favorites</H2Home>
             <h3>You don't have any favorites yet</h3>
@@ -319,33 +294,6 @@ const MyLibrary = () => {
             )}
           </div>
         ) : (
-          /*  {<>
-            <Carousel itemsToShow={5}>
-              {currentUser.Read.map((b) => {
-                console.log("favoritesChange type:", typeof favoritesChange);
-
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    readChange={readChange}
-                    read={read}
-                    readedsChange={readedsChange}
-                    readeds={readeds}
-                    favorites={favorites}
-                    favoritesChange={favoritesChange}
-                  />
-                );
-              })}
-            </Carousel>
-          </>} */
           <div>
             <H2Home>Read Again</H2Home> <h3>You haven't read any books yet</h3>
           </div>
