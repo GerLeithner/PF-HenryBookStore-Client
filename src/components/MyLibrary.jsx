@@ -104,7 +104,11 @@ const MyLibrary = () => {
             {currentUser.Reading.length > 5 ? (
               <>
                 <H2Home>Continue Reading</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Reading.map((b) => {
                     return (
                       <Card
@@ -170,7 +174,11 @@ const MyLibrary = () => {
             {currentUser.Favorites.length > 5 ? (
               <div>
                 <H2Home>Your Favorites</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Favorites.map((b) => {
                     return (
                       <Card
@@ -236,7 +244,11 @@ const MyLibrary = () => {
             {currentUser.Read.length > 5 ? (
               <>
                 <H2Home>Read Again</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Read.map((b) => {
                     console.log(
                       "favoritesChange type:",

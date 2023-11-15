@@ -37,6 +37,10 @@ export default function NavBar() {
   const [modal, setModal] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
   const menuRef = useRef();
   const adminRef = useRef();
 
@@ -88,6 +92,23 @@ export default function NavBar() {
     }
   }, [dispatch, isAuthenticated]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
   function handleNavLink() {
     return dispatch(searchInput(""));
   }
@@ -96,19 +117,26 @@ export default function NavBar() {
     <div>
       <ContainerNavBar>
         <HomeAndLibrary>
-          <HomeLinkNavBar
-            to={"/home"}
-            onClick={() => dispatch(searchInput(""))}
-          >
-            Novel Wave
-          </HomeLinkNavBar>
+          {windowSize.width > 1150 ? (
+            <HomeLinkNavBar
+              to={"/home"}
+              onClick={() => dispatch(searchInput(""))}
+            >
+              Novel Wave
+            </HomeLinkNavBar>
+          ) : (
+            <HomeLinkNavBar
+              to={"/home"}
+              onClick={() => dispatch(searchInput(""))}
+            >
+              NW
+            </HomeLinkNavBar>
+          )}
+
           <LinkNavBar to={"/library"}>
             {" "}
-            <MyLibraryIcon />
-            <div>
-             My Library
-            </div>
-            
+            <MyLibraryIcon title="My Library" />
+            {windowSize.width > 1150 && <div>My Library</div>}
           </LinkNavBar>
           {currentUser && currentUser.admin && (
             <MenuContainer ref={adminRef}>

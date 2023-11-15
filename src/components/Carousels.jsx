@@ -51,7 +51,12 @@ export default function Carousels({ books, carTitle, readChange }) {
   return (
     <>
       <H2Home>{carTitle}</H2Home>
-      <Carousel key={carTitle} itemsToShow={5}>
+      <Carousel
+        pagination={false}
+        key={carTitle}
+        itemsToShow={5}
+        showEmptySlots={true}
+      >
         {books.map((b) => {
           return (
             <Card
