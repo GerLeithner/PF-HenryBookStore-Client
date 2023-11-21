@@ -67,6 +67,9 @@ export default function Home() {
     if (!allGenres.length) {
       dispatch(getGenres());
     }
+    if (!allAuthors.length) {
+      dispatch(getAuthors());
+    }
     setTimeout(() => {
       if (!allBooks.length) {
         dispatch(getBooks());

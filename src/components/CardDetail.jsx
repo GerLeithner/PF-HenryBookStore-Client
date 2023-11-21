@@ -64,14 +64,13 @@ export default function CardDetail({
 
   const userId = { userId: currentUser && currentUser.id };
 
-
-//  useEffect( () => {
-//   return () => {
-//     dispatch(editState(false));
-//     dispatch(cleanBookDetail());
-//   }
-// }, []);
-// =======
+  //  useEffect( () => {
+  //   return () => {
+  //     dispatch(editState(false));
+  //     dispatch(cleanBookDetail());
+  //   }
+  // }, []);
+  // =======
   useEffect(() => {
     dispatch(editState(false));
     dispatch(cleanBookDetail());
@@ -241,14 +240,12 @@ export default function CardDetail({
   const [fontSize, setFontSize] = useState("64px");
 
   useEffect(() => {
-    if(book?.title?.length < 30) setFontSize("64px");
+    if (book?.title?.length < 30) setFontSize("64px");
 
-    if(book?.title?.length > 30) setFontSize("48px");
+    if (book?.title?.length > 30) setFontSize("48px");
 
-    if(book?.title?.length > 40) setFontSize("40px");
-
-  }, [book.title,fontSize]);
-
+    if (book?.title?.length > 40) setFontSize("40px");
+  }, [book.title, fontSize]);
 
   return (
     modal && (
@@ -265,7 +262,9 @@ export default function CardDetail({
               padding: 0,
             }}
           >
-            <H1 ref={spanRef} fontSize={fontSize}>{book.title}</H1>
+            <H1 ref={spanRef} fontSize={fontSize}>
+              {book.title}
+            </H1>
             <Props>
               {book.averageRating ? (
                 <StarRating rating={book.averageRating} />
