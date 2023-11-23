@@ -15,6 +15,7 @@ const initialState = {
   search: "",
   modal: false,
   edit: false,
+  loading: true,
 };
 
 function rootReducer(state = initialState, action) {
@@ -35,6 +36,7 @@ function rootReducer(state = initialState, action) {
         allBooks: action.payload,
         books: action.payload,
         filters: [],
+        loading: false,
       };
 
     case "GET_BOOK_BY_TITLE":

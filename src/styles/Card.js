@@ -1,29 +1,17 @@
 import styled from "styled-components";
 
 export const ContainerCards = styled.div`
-  padding-top: 0px;
-  padding-bottom: 50px;
-  padding-left: 180px;
-
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  /*   justify-content: center;
-  justify-items: center; */
-  //align-items: center;
-  /*   grid-template-columns: repeat(5, minmax(20px, 100px));
-  grid-auto-rows: minmax(auto, 200px); */
+  padding-top: 70px;
+  padding-bottom: 120px;
+  height: auto;
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(5, minmax(20px, 100px));
+  grid-auto-rows: minmax(auto, 200px);
   gap: 150px;
-  //flex-grow: 1;
-
-  &.Uncarrousel {
-    @media (max-width: 1920px) {
-      gap: 7vw;
-    }
-    @media (max-width: 1280px) {
-      gap: 2vw;
-    }
-  }
+  flex-grow: 1;
 `;
 
 export const H2Home = styled.h2`

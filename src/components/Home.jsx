@@ -32,6 +32,7 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
+  const loading = useSelector((state) => state.loading);
   //const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
@@ -40,6 +41,8 @@ export default function Home() {
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
+
+  console.log("AllBooks: ", allBooks);
 
   const readChange = () => {
     setRead((prevRead) => !prevRead);
@@ -61,7 +64,7 @@ export default function Home() {
       };
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, read, readeds, favorites]);
+  }, [dispatch, read, readeds, favorites, loading]);
 
   useEffect(() => {
     if (!allGenres.length) {
@@ -69,6 +72,9 @@ export default function Home() {
     }
     if (!allAuthors.length) {
       dispatch(getAuthors());
+    }
+    if (!allBooks.length) {
+      dispatch(getBooks());
     }
     setTimeout(() => {
       if (!allBooks.length) {
@@ -97,113 +103,116 @@ export default function Home() {
 
   return (
     <div>
-      <div>
-        <SubscribeNav />
-        {book && (
-          <CardDetail
-            book={book}
-            readChange={readChange}
-            read={read}
-            readedsChange={readedsChange}
-            readeds={readeds}
-            favorites={favorites}
-            favoritesChange={favoritesChange}
-          />
-        )}
+      {" "}
+      {!loading && (
+        <div>
+          <SubscribeNav />
+          {book && (
+            <CardDetail
+              book={book}
+              readChange={readChange}
+              read={read}
+              readedsChange={readedsChange}
+              readeds={readeds}
+              favorites={favorites}
+              favoritesChange={favoritesChange}
+            />
+          )}
 
-        {/* <div>
-          {recommended && recommended?.length && (
-            <Carousel
-              key="recommended"
-              itemsToShow={1}
-              className="top-rec-wrapper "
-            >
-              {recommended.map((b) => {
-                return (
-                  <CardRecommended
-                    key={b.id + "recommended"}
-                    id={b.id}
-                    title={b.title}
-                    subtitle={b.subtitle}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genre={b.genre}
-                    author={b.author}
-                    back_cover={b.back_cover}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
-                  />
-                );
-              })}
-            </Carousel>
-          )}
-        </div> */}
-        <div
-          style={{
-            paddingTop: "80px",
-          }}
-        >
-          {currentUser && currentUser.Reading?.length ? (
+          {/* <div>
+        {recommended && recommended?.length && (
+          <Carousel
+            key="recommended"
+            itemsToShow={1}
+            className="top-rec-wrapper "
+          >
+            {recommended.map((b) => {
+              return (
+                <CardRecommended
+                  key={b.id + "recommended"}
+                  id={b.id}
+                  title={b.title}
+                  subtitle={b.subtitle}
+                  publishedDate={b.publishedDate}
+                  description={b.description}
+                  averageRating={b.averageRating}
+                  cover={b.cover}
+                  genre={b.genre}
+                  author={b.author}
+                  back_cover={b.back_cover}
+                  arrayFavorite={arrayFavorite}
+                  arrayReaded={arrayReaded}
+                  arrayReading={arrayReading}
+                />
+              );
+            })}
+          </Carousel>
+        )}
+      </div> */}
+          <div
+            style={{
+              paddingTop: "80px",
+            }}
+          >
+            {currentUser && currentUser.Reading?.length ? (
+              <div>
+                <Carousels
+                  key={"Reading"}
+                  books={currentUser.Reading}
+                  carTitle={"Continue Reading"}
+                  readChange={readChange}
+                ></Carousels>
+              </div>
+            ) : (
+              <></>
+            )}
             <div>
-              <Carousels
-                key={"Reading"}
-                books={currentUser.Reading}
-                carTitle={"Continue Reading"}
-                readChange={readChange}
-              ></Carousels>
+              {trending?.length && (
+                <>
+                  <Carousels
+                    key={"Trending"}
+                    books={trending}
+                    carTitle={"Trending"}
+                    readChange={readChange}
+                  ></Carousels>
+                </>
+              )}
             </div>
-          ) : (
-            <></>
-          )}
-          <div>
-            {trending?.length && (
-              <>
-                <Carousels
-                  key={"Trending"}
-                  books={trending}
-                  carTitle={"Trending"}
-                  readChange={readChange}
-                ></Carousels>
-              </>
-            )}
-          </div>
-          <div>
-            {news?.length && (
-              <>
-                <Carousels
-                  key={"New Releases"}
-                  books={news}
-                  carTitle={"New Releases"}
-                  readChange={readChange}
-                ></Carousels>
-              </>
-            )}
-          </div>
-          {
-            <div key={"Genres Div"}>
-              {allGenres.map((g) => {
-                let booksByGenre = allBooks.filter((b) => {
-                  return b.genre.name === g.name;
-                });
-                return (
-                  <div key={g.name}>
-                    <Carousels
-                      books={booksByGenre}
-                      carTitle={
-                        g.name.charAt(0).toUpperCase() + g.name.slice(1)
-                      }
-                      readChange={readChange}
-                    ></Carousels>
-                  </div>
-                );
-              })}
+            <div>
+              {news?.length && (
+                <>
+                  <Carousels
+                    key={"New Releases"}
+                    books={news}
+                    carTitle={"New Releases"}
+                    readChange={readChange}
+                  ></Carousels>
+                </>
+              )}
             </div>
-          }
+            {
+              <div key={"Genres Div"}>
+                {allGenres.map((g) => {
+                  let booksByGenre = allBooks.filter((b) => {
+                    return b.genre.name === g.name;
+                  });
+                  return (
+                    <div key={g.name}>
+                      <Carousels
+                        books={booksByGenre}
+                        carTitle={
+                          g.name.charAt(0).toUpperCase() + g.name.slice(1)
+                        }
+                        readChange={readChange}
+                      ></Carousels>
+                    </div>
+                  );
+                })}
+              </div>
+            }
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

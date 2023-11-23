@@ -130,7 +130,7 @@ export default function CardDetail({
   useEffect(() => {
     //Veo si es favorito
     if (
-      currentUser?.Favorites.map((f) => {
+      currentUser?.Favorites?.map((f) => {
         return f.id;
       }).includes(book.id)
     ) {

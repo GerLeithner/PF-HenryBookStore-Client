@@ -27,6 +27,8 @@ export default function Carousels({ books, carTitle, readChange }) {
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
 
+  console.log("Carousels books: ", books, " Title: ", carTitle);
+
   useEffect(() => {
     /*    if (!allGenres.length) {
       dispatch(getGenres());
@@ -59,23 +61,25 @@ export default function Carousels({ books, carTitle, readChange }) {
       >
         {books.map((b) => {
           return (
-            <Card
-              key={b.id + carTitle}
-              id={b.id}
-              title={b.title}
-              subtitle={b.subtitle}
-              publishedDate={b.publishedDate}
-              description={b.description}
-              averageRating={b.averageRating}
-              cover={b.cover}
-              genre={b.genre}
-              author={b.author}
-              back_cover={b.back_cover}
-              modal={modal}
-              setModal={setModal}
-              readChange={readChange}
-              read={read}
-            />
+            b && (
+              <Card
+                key={b.id + carTitle}
+                id={b.id}
+                title={b.title}
+                subtitle={b.subtitle}
+                publishedDate={b.publishedDate}
+                description={b.description}
+                averageRating={b.averageRating}
+                cover={b.cover}
+                genre={b.genre}
+                author={b.author}
+                back_cover={b.back_cover}
+                modal={modal}
+                setModal={setModal}
+                readChange={readChange}
+                read={read}
+              />
+            )
           );
         })}
       </Carousel>
