@@ -27,7 +27,7 @@ export default function Reviews({ book }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
   const edit = useSelector((state) => state.edit);
-  console.log("edit:", edit);
+
   const [newReview, setNewReview] = useState(false);
 
   function handleCloseClick(e) {

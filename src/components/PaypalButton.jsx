@@ -25,8 +25,6 @@ export default function PaypalButton({
     }
   }, [currentUser]);
 
-  console.log("Despues del useEffect id:", userId);
-
   const [approbed, setApprobed] = useState(false);
 
   if (currentUser) {

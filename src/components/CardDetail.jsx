@@ -33,6 +33,12 @@ import {
   H3,
 } from "../styles/Detail";
 
+import { ReactComponent as FavoriteIcon } from "../icons/add-circle.svg";
+import { ReactComponent as FinishedIcon } from "../icons/checkRead.svg";
+import { ReactComponent as UnfinishedIcon } from "../icons/cross-circle2.svg";
+import { ReactComponent as UnfavoriteIcon } from "../icons/minus-circle.svg";
+import { ReactComponent as ReadingIcon } from "../icons/readIcon.svg";
+
 import "./CardMenu.css";
 
 import starFill from "../icons/starFill.svg";
@@ -42,6 +48,7 @@ import check from "../icons/check.svg";
 import plus from "../icons/plus.svg";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { CardIcon } from "../styles/Card.js";
 
 export default function CardDetail({
   book,
@@ -73,8 +80,11 @@ export default function CardDetail({
   // =======
   useEffect(() => {
     dispatch(editState(false));
-    dispatch(cleanBookDetail());
-    return dispatch(turnOffModal());
+
+    return () => {
+      dispatch(turnOffModal());
+      dispatch(cleanBookDetail());
+    };
   }, []);
 
   /*   useEffect(() => {
@@ -311,7 +321,13 @@ export default function CardDetail({
                   gap: "10px",
                 }}
               >
-                <ButtonIcons src={readIcon} alt="n" />
+                <ReadingIcon
+                  style={{
+                    fill: "white",
+                    width: "40px",
+                    height: "40px",
+                  }}
+                />
                 Read
               </div>
             </ButtonDetail>
@@ -323,8 +339,26 @@ export default function CardDetail({
                   gap: "10px",
                 }}
               >
-                <ButtonIcons src={plus} alt="n" />
-                My List
+                {!favorite ? (
+                  <FavoriteIcon
+                    style={{
+                      fill: "white",
+                      width: "40px",
+                      height: "40px",
+                    }}
+                    title="Add Favorite"
+                  />
+                ) : (
+                  <UnfavoriteIcon
+                    style={{
+                      stroke: "white",
+                      fill: "none",
+                      width: "40px",
+                      height: "40px",
+                    }}
+                  />
+                )}
+                Favorite
               </div>
             </ButtonDetail>
             <ButtonDetail onClick={(e) => handleReaded(e)}>
@@ -335,7 +369,27 @@ export default function CardDetail({
                   gap: "10px",
                 }}
               >
-                <ButtonIcons src={check} alt="n" />
+                {readed ? (
+                  <FinishedIcon
+                    style={{
+                      stroke: "white",
+                      fill: "none",
+                      width: "40px",
+                      height: "40px",
+                    }}
+                    title="Add to Finished"
+                  />
+                ) : (
+                  <UnfinishedIcon
+                    style={{
+                      stroke: "white",
+                      fill: "none",
+                      width: "40px",
+                      height: "40px",
+                    }}
+                    title="Remove from Finished"
+                  />
+                )}
                 Finished
               </div>
             </ButtonDetail>

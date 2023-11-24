@@ -1,7 +1,17 @@
+import Carousel from "react-elastic-carousel";
 import React from "react";
-import Carousels from "./Carousels.jsx";
-import Card from "./Card.jsx";
 
-function Loading() {
-  return <Card />;
+export default function Loading(props) {
+  const times = 5;
+  return (
+    <div
+      style={{
+        paddingTop: "180px",
+      }}
+    >
+      <Carousel itemsToShow={5} pagination={false}>
+        {[...Array(times)].map((e, i) => {})}
+      </Carousel>
+    </div>
+  );
 }

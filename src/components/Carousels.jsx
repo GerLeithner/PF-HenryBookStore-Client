@@ -27,8 +27,6 @@ export default function Carousels({ books, carTitle, readChange }) {
   const [modal, setModal] = useState(false);
   const [read, setRead] = useState(true);
 
-  console.log("Carousels books: ", books, " Title: ", carTitle);
-
   useEffect(() => {
     /*    if (!allGenres.length) {
       dispatch(getGenres());

@@ -22,6 +22,7 @@ import { ContainerCards, H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
 import Catalogue from "./Catalogue.jsx";
+import Loading from "./Loading.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -36,13 +37,13 @@ export default function Home() {
   //const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
+  const modal = useSelector((state) => state.modal);
 
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
-
-  console.log("AllBooks: ", allBooks);
+  const [trendingCar, setTendingCar] = useState(true);
 
   const readChange = () => {
     setRead((prevRead) => !prevRead);
@@ -101,25 +102,47 @@ export default function Home() {
     }, 300); */
   }, [dispatch]);
 
+  console.log("Modal: ", modal, " Book: ", book);
+
   return (
     <div>
-      {" "}
-      {!loading && (
-        <div>
-          <SubscribeNav />
-          {book && (
-            <CardDetail
-              book={book}
-              readChange={readChange}
-              read={read}
-              readedsChange={readedsChange}
-              readeds={readeds}
-              favorites={favorites}
-              favoritesChange={favoritesChange}
-            />
-          )}
+      <div>
+        <SubscribeNav />
 
-          {/* <div>
+        <CardDetail
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
+        {/*           ) : (
+            <div className="Trending Cards" style={{ width: "100%" }}>
+              <Carousel
+                pagination={false}
+                enableAutoPlay={false}
+                itemsToShow={1}
+              >
+                {trending.map((t) => (
+                  <div key={"Trending Catalogue" + t.id}>
+                    <CardDetail
+                      book={t}
+                      readChange={readChange}
+                      read={read}
+                      readedsChange={readedsChange}
+                      readeds={readeds}
+                      favorites={favorites}
+                      favoritesChange={favoritesChange}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )} */}
+
+        {/* <div>
         {recommended && recommended?.length && (
           <Carousel
             key="recommended"
@@ -149,70 +172,69 @@ export default function Home() {
           </Carousel>
         )}
       </div> */}
-          <div
-            style={{
-              paddingTop: "80px",
-            }}
-          >
-            {currentUser && currentUser.Reading?.length ? (
-              <div>
+        <div
+          style={{
+            paddingTop: "80px",
+          }}
+        >
+          {currentUser && currentUser.Reading?.length ? (
+            <div>
+              <Carousels
+                key={"Reading"}
+                books={currentUser.Reading}
+                carTitle={"Continue Reading"}
+                readChange={readChange}
+              ></Carousels>
+            </div>
+          ) : (
+            <></>
+          )}
+          <div>
+            {trending?.length && (
+              <>
                 <Carousels
-                  key={"Reading"}
-                  books={currentUser.Reading}
-                  carTitle={"Continue Reading"}
+                  key={"Trending"}
+                  books={trending}
+                  carTitle={"Trending"}
                   readChange={readChange}
                 ></Carousels>
-              </div>
-            ) : (
-              <></>
+              </>
             )}
-            <div>
-              {trending?.length && (
-                <>
-                  <Carousels
-                    key={"Trending"}
-                    books={trending}
-                    carTitle={"Trending"}
-                    readChange={readChange}
-                  ></Carousels>
-                </>
-              )}
-            </div>
-            <div>
-              {news?.length && (
-                <>
-                  <Carousels
-                    key={"New Releases"}
-                    books={news}
-                    carTitle={"New Releases"}
-                    readChange={readChange}
-                  ></Carousels>
-                </>
-              )}
-            </div>
-            {
-              <div key={"Genres Div"}>
-                {allGenres.map((g) => {
-                  let booksByGenre = allBooks.filter((b) => {
-                    return b.genre.name === g.name;
-                  });
-                  return (
-                    <div key={g.name}>
-                      <Carousels
-                        books={booksByGenre}
-                        carTitle={
-                          g.name.charAt(0).toUpperCase() + g.name.slice(1)
-                        }
-                        readChange={readChange}
-                      ></Carousels>
-                    </div>
-                  );
-                })}
-              </div>
-            }
           </div>
+          <div>
+            {news?.length && (
+              <>
+                <Carousels
+                  key={"New Releases"}
+                  books={news}
+                  carTitle={"New Releases"}
+                  readChange={readChange}
+                ></Carousels>
+              </>
+            )}
+          </div>
+          {
+            <div key={"Genres Div"}>
+              {allGenres.map((g) => {
+                let booksByGenre = allBooks.filter((b) => {
+                  return b.genre.name === g.name;
+                });
+                return (
+                  <div key={g.name}>
+                    <Carousels
+                      books={booksByGenre}
+                      carTitle={
+                        g.name.charAt(0).toUpperCase() + g.name.slice(1)
+                      }
+                      readChange={readChange}
+                    ></Carousels>
+                  </div>
+                );
+              })}
+            </div>
+          }
         </div>
-      )}
+      </div>
     </div>
   );
 }
