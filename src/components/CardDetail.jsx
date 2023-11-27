@@ -299,101 +299,110 @@ export default function CardDetail({
             <H3>{book.publisher}</H3>
           </div>
           <Description>{book.description}</Description>
-          <div
-            name="buttons"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              margin: 0,
-              padding: "0px 70px 0px 70px",
-            }}
-          >
-            <ButtonDetail
-              onClick={(e) => handleReading(e)}
-              colorFondo={"#622CD4"}
-              colorHover={"#7637FD"}
+          {currentUser.subscription ? (
+            <div
+              name="buttons"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                margin: 0,
+                padding: "0px 70px 0px 70px",
+              }}
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
+              <ButtonDetail
+                onClick={(e) => handleReading(e)}
+                colorFondo={"#622CD4"}
+                colorHover={"#7637FD"}
               >
-                <ReadingIcon
+                <div
                   style={{
-                    fill: "white",
-                    width: "40px",
-                    height: "40px",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
                   }}
-                />
-                Read
-              </div>
-            </ButtonDetail>
-            <ButtonDetail onClick={(e) => handleFavorite(e)}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
-              >
-                {!favorite ? (
-                  <FavoriteIcon
+                >
+                  <ReadingIcon
                     style={{
                       fill: "white",
                       width: "40px",
                       height: "40px",
                     }}
-                    title="Add Favorite"
                   />
-                ) : (
-                  <UnfavoriteIcon
-                    style={{
-                      stroke: "white",
-                      fill: "none",
-                      width: "40px",
-                      height: "40px",
-                    }}
-                  />
-                )}
-                Favorite
-              </div>
-            </ButtonDetail>
-            <ButtonDetail onClick={(e) => handleReaded(e)}>
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "10px",
-                }}
+                  Read
+                </div>
+              </ButtonDetail>
+              <ButtonDetail
+                onClick={(e) => handleFavorite(e)}
+                title={!favorite ? "Add to Favorites" : "Remove from Favorites"}
               >
-                {readed ? (
-                  <FinishedIcon
-                    style={{
-                      stroke: "white",
-                      fill: "none",
-                      width: "40px",
-                      height: "40px",
-                    }}
-                    title="Add to Finished"
-                  />
-                ) : (
-                  <UnfinishedIcon
-                    style={{
-                      stroke: "white",
-                      fill: "none",
-                      width: "40px",
-                      height: "40px",
-                    }}
-                    title="Remove from Finished"
-                  />
-                )}
-                Finished
-              </div>
-            </ButtonDetail>
-          </div>
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  {!favorite ? (
+                    <FavoriteIcon
+                      style={{
+                        fill: "white",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                    />
+                  ) : (
+                    <UnfavoriteIcon
+                      style={{
+                        stroke: "white",
+                        fill: "none",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                    />
+                  )}
+                  Favorite
+                </div>
+              </ButtonDetail>
+              <ButtonDetail
+                onClick={(e) => handleReaded(e)}
+                title={!readed ? "Add to Finished" : "Remove from Finished"}
+              >
+                <div
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: "10px",
+                  }}
+                >
+                  {!readed ? (
+                    <FinishedIcon
+                      style={{
+                        stroke: "white",
+                        fill: "none",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                    />
+                  ) : (
+                    <UnfinishedIcon
+                      style={{
+                        stroke: "white",
+                        fill: "none",
+                        width: "40px",
+                        height: "40px",
+                      }}
+                    />
+                  )}
+                  Finished
+                </div>
+              </ButtonDetail>
+            </div>
+          ) : (
+            <div style={{ fontWeight: 800, fontSize: 20 }}>
+              SUBSCRIBE NOW TO START READING
+            </div>
+          )}
         </Info>
         <Cover src={book.cover} />
         <Reviews book={book} />

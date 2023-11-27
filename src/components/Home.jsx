@@ -102,8 +102,6 @@ export default function Home() {
     }, 300); */
   }, [dispatch]);
 
-  console.log("Modal: ", modal, " Book: ", book);
-
   return (
     <div>
       <div>

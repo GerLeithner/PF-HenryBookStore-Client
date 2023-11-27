@@ -16,6 +16,7 @@ const initialState = {
   modal: false,
   edit: false,
   loading: true,
+  subscribe: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -390,6 +391,9 @@ function rootReducer(state = initialState, action) {
         ...state,
         edit: action.payload,
       };
+
+    case "SUBSCRIBE_NAV":
+      return { ...state, subscribe: action.payload };
 
     default:
       return state;

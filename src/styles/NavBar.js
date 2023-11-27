@@ -96,11 +96,16 @@ export const ButtonNavBar = styled.button`
 
   &:hover {
     cursor: pointer;
-    color: #622cd4;
+    color: #784cd7;
   }
 
-  &.active {
+  &:active {
     color: #622cd4;
+    transform: translateY(+2px);
+  }
+
+  &.subscribe {
+    font-weight: 700;
   }
 `;
 

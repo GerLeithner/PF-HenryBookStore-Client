@@ -18,6 +18,7 @@ import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
 import CardDetail from "./CardDetail";
 import Carousels from "./Carousels.jsx";
+import SubscribeNav from "./SubscribeNav.jsx";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const MyLibrary = () => {
 
   return (
     <div>
+      <SubscribeNav />
       <div>
         <CardDetail
           book={book}

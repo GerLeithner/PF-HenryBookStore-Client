@@ -497,3 +497,10 @@ export function searchInput(input) {
     payload: input,
   };
 }
+
+export function subscribeNAV(payload) {
+  return {
+    type: "SUBSCRIBE_NAV",
+    payload,
+  };
+}
