@@ -151,7 +151,7 @@ export default function CardDetail({
 
     //Veo si fue Leído
     if (
-      currentUser?.Read.map((f) => {
+      currentUser?.Read?.map((f) => {
         return f.id;
       }).includes(book.id)
     ) {
@@ -162,7 +162,7 @@ export default function CardDetail({
 
     //Veo si está siendo leído
     if (
-      currentUser?.Reading.map((f) => {
+      currentUser?.Reading?.map((f) => {
         return f.id;
       }).includes(book.id)
     ) {

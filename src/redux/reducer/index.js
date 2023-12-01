@@ -300,6 +300,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload,
+        loading: false,
       };
 
     case "CLEAN_USER_DETAIL":
@@ -394,6 +395,9 @@ function rootReducer(state = initialState, action) {
 
     case "SUBSCRIBE_NAV":
       return { ...state, subscribe: action.payload };
+
+    case "LOADING":
+      return { ...state, loading: action.payload };
 
     default:
       return state;

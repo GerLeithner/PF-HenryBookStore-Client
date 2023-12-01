@@ -22,7 +22,7 @@ export const UserPic = styled.img`
 export const FieldContainer = styled.div`
   margin: 0px;
   padding: 0px, 10px 0px 10px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 820px;
@@ -33,7 +33,7 @@ export const Field = styled.div`
   padding: 0px;
   padding-left: 20px;
   padding-right: 20px;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -49,8 +49,8 @@ export const ButtonDisable = styled.button`
   padding: 5px;
   font-size: 14px;
   font-weight: 300;
-  color: #111;
-  background-color: white;
+  color: ${({ fontColor }) => fontColor};
+  background-color: ${({ bcolor }) => bcolor};
   border: ${({ border }) => border || "3px solid #ccc"};
   transition: all 0.01s ease 0s;
   cursor: pointer;

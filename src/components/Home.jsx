@@ -65,7 +65,7 @@ export default function Home() {
       };
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, read, readeds, favorites, loading]);
+  }, [dispatch, read, readeds, favorites]);
 
   useEffect(() => {
     if (!allGenres.length) {
