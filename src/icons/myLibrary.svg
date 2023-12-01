@@ -3,20 +3,20 @@
 
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg 
-   xmlnsDc="http://purl.org/dc/elements/1.1/"
-   xmlnsCc="http://creativecommons.org/ns#"
-   xmlnsRdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlnsSvg="http://www.w3.org/2000/svg"
+   xmlnsdc="http://purl.org/dc/elements/1.1/"
+   xmlnscc="http://creativecommons.org/ns#"
+   xmlnsrdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlnssvg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
-   xmlnsSodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlnsInkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlnssodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlnsinkscape="http://www.inkscape.org/namespaces/inkscape"
    width="30"
    height="30"
    viewBox="0 0 30 30"
    version="1.1"
    id="svg822"
-   inkscapeVersion="0.92.4 (f8dce91, 2019-08-02)"
-   sodipodiDocname="library.svg">
+   inkscapeversion="0.92.4 (f8dce91, 2019-08-02)"
+   sodipodidocname="library.svg">
   <defs
      id="defs816" />
   <sodipodiNamedview
@@ -24,20 +24,20 @@
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
-     inkscapePageopacity="0.0"
-     inkscapePageshadow="2"
-     inkscapeZoom="17.833333"
-     inkscapeCx="15"
-     inkscapeCy="15"
-     inkscapeDocument-units="px"
-     inkscapeCurrent-layer="layer1"
+     inkscapepageopacity="0.0"
+     inkscapepageshadow="2"
+     inkscapezoom="17.833333"
+     inkscapecx="15"
+     inkscapecy="15"
+     inkscapedocument-units="px"
+     inkscapecurrent-layer="layer1"
      showgrid="true"
      units="px"
-     inkscapeWindow-width="1366"
-     inkscapeWindow-height="713"
-     inkscapeWindow-x="0"
-     inkscapeWindow-y="0"
-     inkscapeWindow-maximized="1"
+     inkscapewindow-width="1366"
+     inkscapewindow-height="713"
+     inkscapewindow-x="0"
+     inkscapewindow-y="0"
+     inkscapewindow-maximized="1"
      showguides="false">
     <inkscapeGrid
        type="xygrid"
@@ -47,10 +47,10 @@
      id="metadata819">
     <rdfRDF>
       <ccWork
-         rdfAbout="">
+         rdfabout="">
         <dcFormat>image/svg+xml</dcFormat>
         <dcType
-           rdfResource="http://purl.org/dc/dcmitype/StillImage" />
+           rdfresource="http://purl.org/dc/dcmitype/StillImage" />
         <dcTitle>
 
 </dcTitle>
@@ -58,8 +58,8 @@
     </rdfRDF>
   </metadata>
   <g
-     inkscapeLabel="Layer 1"
-     inkscapeGroupmode="layer"
+     inkscapelabel="Layer 1"
+     inkscapegroupmode="layer"
      id="layer1"
      transform="translate(0,-289.0625)">
     <rect

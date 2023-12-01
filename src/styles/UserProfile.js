@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
 export const Account = styled.div`
-  padding-top: 80px;
-  padding-bottom: 93.4px;
+  padding-top: 89px;
+  padding-bottom: 171px;
   margin: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
+  //height: 100vh;
 `;
 
 export const AccountContainer = styled.div`
@@ -24,11 +25,15 @@ export const OptionsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom: 1px solid #D9D9D9;
-  color: #D9D9D9;
+  border-bottom: 1px solid #d9d9d9;
+  color: #d9d9d9;
   font-size: 20px;
   font-weight: 200;
-  gap: 50px
+  gap: 50px;
+
+  &.subscription {
+    min-height: 180px;
+  }
 `;
 
 export const SubscriptionOptions = styled.div`
@@ -38,8 +43,7 @@ export const SubscriptionOptions = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  border: 1px solid #ccc;
-  gap: 50px
+  border-bottom: 1px solid #ccc;
 `;
 
 export const ImageAndInfo = styled.div`
@@ -64,7 +68,7 @@ export const ProfilePicInput = styled.label`
   display: flex;
   gap: 10px;
   align-items: center;
-  color: #FFFFFF;
+  color: #ffffff;
   background: none;
   transition: all 0.01s ease 0s;
   cursor: pointer;
@@ -74,14 +78,14 @@ export const ProfilePicInput = styled.label`
   svg {
     height: 25px;
     width: 25px;
-    stroke: #FFFFFF;
+    stroke: #ffffff;
   }
 
   &:hover {
     color: #622cd4;
     svg {
-    stroke: #622cd4;
-  }
+      stroke: #622cd4;
+    }
   }
 
   &:active {
@@ -95,12 +99,12 @@ export const Loading = styled.div`
   flex-direction: row;
   gap: 20px;
   align-items: center;
-  color: #622CD4;
+  color: #622cd4;
 
   svg {
     height: 30px;
     width: 30px;
-    fill: #622CD4;
+    fill: #622cd4;
     stroke: "#622CD4";
   }
 `;
@@ -111,6 +115,7 @@ export const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+
   width: 100%;
   gap: 20px;
 `;
@@ -137,34 +142,69 @@ export const FiledAndButton = styled.div`
 export const Field = styled.div`
   margin: 0px;
   padding: 0px;
-  color: ${({ textColor }) => textColor }
+  color: ${({ textColor }) => textColor};
 `;
 
 export const PlanSelect = styled.select`
-  border: none;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  background: transparent;
   outline: none;
-  font: inherit;
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #d9d9d9;
+  padding-bottom: 3px;
+  width: auto;
+  height: 45px;
+  text-align: center;
 `;
 
 export const EditFieldButton = styled.button`
+  cursor: pointer;
   margin: 0px;
   border: none;
   background: none;
-  color: #622CD4;
-  display: inline;
+  color: #622cd4;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
   font-size: inherit;
   font-family: inherit;
 
   transition: all 0.01s ease 0s;
-  cursor: pointer;
+
   outline: none;
 
   &:hover {
-    color: #FFFFFF
+    color: #ffffff;
   }
 
   &:active {
     transform: translateY(-1px);
+  }
+
+  &.on {
+    circle {
+      fill: #622cd4;
+      stroke: #622cd4;
+    }
+  }
+  svg {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    fill: white;
+
+    path {
+      stroke: none;
+    }
+
+    circle {
+      fill: #666666;
+      stroke: #666666;
+    }
   }
 `;
 
@@ -172,9 +212,19 @@ export const HeaderAccount = styled.div`
   padding-bottom: 20px;
   margin: 0px;
   font-size: 32px;
-  color: #D9D9D9;
+  color: #d9d9d9;
   display: flex;
   justify-content: flex-start;
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid #d9d9d9;
 `;
 
+export const NotificationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  color: #622cd4;
+  gap: 10px;
+
+  &.off {
+    color: #666666;
+  }
+`;

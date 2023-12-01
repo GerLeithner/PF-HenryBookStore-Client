@@ -16,7 +16,7 @@ import {
   Buttons,
   ReviewInput,
   StyledSelect,
-  StyledOption
+  StyledOption,
 } from "../styles/Review";
 
 import { toast } from "react-toastify";
@@ -40,8 +40,6 @@ function validate(input) {
 }
 
 export default function CreateReview({ currentUser, setNewReview }) {
-
-
   const dispatch = useDispatch();
   const genres = useSelector((state) => state.genres);
   const authors = useSelector((state) => state.authors);
@@ -55,17 +53,16 @@ export default function CreateReview({ currentUser, setNewReview }) {
     score: 1,
   });
 
-  const textareaRef  = useRef(null);
+  const textareaRef = useRef(null);
   const [errors, setErrors] = useState({});
   const { user } = useAuth0();
   const [isFocused, setIsFocused] = useState(false);
-  
 
   useEffect(() => {
     if (!genres) dispatch(getGenres());
     if (!authors) dispatch(getAuthors());
-    if(!book) dispatch()
-  
+    if (!book) dispatch();
+
     setErrors(validate(input));
   }, [dispatch, genres, authors, input]);
 
@@ -94,7 +91,7 @@ export default function CreateReview({ currentUser, setNewReview }) {
         textareaRef.current.rows = newRows;
       }
     }
-  }, [input.comment])
+  }, [input.comment]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -142,7 +139,7 @@ export default function CreateReview({ currentUser, setNewReview }) {
       ...input,
       comment: "",
       score: 1,
-    })
+    });
   }
 
   const handleFocus = () => {
@@ -152,48 +149,63 @@ export default function CreateReview({ currentUser, setNewReview }) {
   const handleBlur = () => {
     // No hagas nada cuando el textarea pierde el enfoque
   };
-  
-  return (
+
+  return currentUser.subscription ? (
     <NewReviewContainer>
-      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-start"}}>
-      <span>{currentUser.userName.charAt(0).toUpperCase()+currentUser.userName.slice(1)}</span>
-      <label style={{display: "flex", gap: "20px", alignItems: "flex-start"}}>
-        <span>Score :</span>
-        <StyledSelect
-          name="score"
-          id="scoreInput"
-          onChange={handleChange}
-          defaultValue={1}
-          value={input.score}
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+        }}
+      >
+        <span>
+          {currentUser.userName.charAt(0).toUpperCase() +
+            currentUser.userName.slice(1)}
+        </span>
+        <label
+          style={{ display: "flex", gap: "20px", alignItems: "flex-start" }}
         >
-          <StyledOption value={1}>1,0</StyledOption>
-          <StyledOption value={2}>2,0</StyledOption>
-          <StyledOption value={3}>3,0</StyledOption>
-          <StyledOption value={4}>4,0</StyledOption>
-          <StyledOption value={5}>5,0</StyledOption>
-        </StyledSelect>
-      </label>
+          <span>Score :</span>
+          <StyledSelect
+            name="score"
+            id="scoreInput"
+            onChange={handleChange}
+            defaultValue={1}
+            value={input.score}
+          >
+            <StyledOption value={1}>1,0</StyledOption>
+            <StyledOption value={2}>2,0</StyledOption>
+            <StyledOption value={3}>3,0</StyledOption>
+            <StyledOption value={4}>4,0</StyledOption>
+            <StyledOption value={5}>5,0</StyledOption>
+          </StyledSelect>
+        </label>
       </div>
       <ReviewInput
-        ref={textareaRef }
+        ref={textareaRef}
         value={input.comment}
         name="comment"
         placeholder="Leave a comment ..."
         onChange={(e) => handleChange(e)}
         onFocus={handleFocus}
         onBlur={handleBlur}
-       />
+      />
       {isFocused && (
         <Buttons>
-        <ReviewButton onClick={(e) => handleCancel(e)} backColor="#3F3F3F" hoverColor="#6F6F6F">
-          Cancel
-        </ReviewButton>
-        <ReviewButton onClick={(e) => handleSubmit(e)}>
-          Submit
-        </ReviewButton>
-      </Buttons>
+          <ReviewButton
+            onClick={(e) => handleCancel(e)}
+            backColor="#3F3F3F"
+            hoverColor="#6F6F6F"
+          >
+            Cancel
+          </ReviewButton>
+          <ReviewButton onClick={(e) => handleSubmit(e)}>Submit</ReviewButton>
+        </Buttons>
       )}
-
     </NewReviewContainer>
+  ) : (
+    <div>Subscribe to leave a review</div>
   );
 }

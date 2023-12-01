@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCurrentUser } from "../redux/actions/index.js";
+import { getCurrentUser, subscribeNAV } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useHistory } from "react-router-dom";
@@ -20,10 +20,10 @@ export default function SubscribeNav({ setSubscribe }) {
 
   const { user } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
+  const subNav = useSelector((state) => state.subscribe);
 
   const [plan, setPlan] = useState("");
   const [showButton, setShowButton] = useState(false);
-  const [close, setClose] = useState(false);
   const [subscription, setSubscription] = useState(false);
 
   const paypalStyle = {
@@ -56,7 +56,7 @@ export default function SubscribeNav({ setSubscribe }) {
     }
     if (currentUser?.subscription) {
       setSubscription(false);
-    }
+    } else dispatch(subscribeNAV(true));
   }, [currentUser, subscription]);
 
   function editSubscription(value) {
@@ -73,13 +73,13 @@ export default function SubscribeNav({ setSubscribe }) {
   function handleClose(e) {
     e.preventDefault();
 
-    if(setSubscribe) {
+    if (setSubscribe) {
       setSubscribe(false);
     }
-    setClose(true);
+    dispatch(subscribeNAV(false));
   }
 
-  return currentUser && !currentUser.subscription && !close ? (
+  return currentUser && !currentUser.subscription && subNav ? (
     <SubscribeContainer>
       <Nav>
         <div style={{ display: "flex", flexDirection: "column" }}>
@@ -93,7 +93,7 @@ export default function SubscribeNav({ setSubscribe }) {
             alignItems: "center",
           }}
         >
-          <H3NAV>{plan === "Six months" && "*1 Months For Free"}</H3NAV>
+          <H3NAV>{plan === "Six months" && "*1 Month For Free"}</H3NAV>
           <H3NAV>{plan === "One year" && "*3 Months For Free"}</H3NAV>
         </div>
         <PlanSelectNav onChange={(e) => handlePlan(e)}>
@@ -115,7 +115,7 @@ export default function SubscribeNav({ setSubscribe }) {
           />
         </div>
         <div
-          style={{ height: "36px", cursor: "pointer", color: "white"}}
+          style={{ height: "36px", cursor: "pointer", color: "white" }}
           onClick={(e) => handleClose(e)}
         >
           x

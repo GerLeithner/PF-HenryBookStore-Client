@@ -22,6 +22,7 @@ import { ContainerCards, H2Home } from "../styles/Card";
 import "../styles/Carousel.css";
 import "../styles/Carousel.css";
 import Catalogue from "./Catalogue.jsx";
+import Loading from "./Loading.jsx";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -32,14 +33,17 @@ export default function Home() {
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
   const allAuthors = useSelector((state) => state.authors);
+  const loading = useSelector((state) => state.loading);
   //const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
   const book = useSelector((state) => state.bookDetail);
+  const modal = useSelector((state) => state.modal);
 
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
+  const [trendingCar, setTendingCar] = useState(true);
 
   const readChange = () => {
     setRead((prevRead) => !prevRead);
@@ -66,6 +70,12 @@ export default function Home() {
   useEffect(() => {
     if (!allGenres.length) {
       dispatch(getGenres());
+    }
+    if (!allAuthors.length) {
+      dispatch(getAuthors());
+    }
+    if (!allBooks.length) {
+      dispatch(getBooks());
     }
     setTimeout(() => {
       if (!allBooks.length) {
@@ -96,48 +106,70 @@ export default function Home() {
     <div>
       <div>
         <SubscribeNav />
-        {book && (
-          <CardDetail
-            book={book}
-            readChange={readChange}
-            read={read}
-            readedsChange={readedsChange}
-            readeds={readeds}
-            favorites={favorites}
-            favoritesChange={favoritesChange}
-          />
-        )}
+
+        <CardDetail
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
+        {/*           ) : (
+            <div className="Trending Cards" style={{ width: "100%" }}>
+              <Carousel
+                pagination={false}
+                enableAutoPlay={false}
+                itemsToShow={1}
+              >
+                {trending.map((t) => (
+                  <div key={"Trending Catalogue" + t.id}>
+                    <CardDetail
+                      book={t}
+                      readChange={readChange}
+                      read={read}
+                      readedsChange={readedsChange}
+                      readeds={readeds}
+                      favorites={favorites}
+                      favoritesChange={favoritesChange}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )} */}
 
         {/* <div>
-          {recommended && recommended?.length && (
-            <Carousel
-              key="recommended"
-              itemsToShow={1}
-              className="top-rec-wrapper "
-            >
-              {recommended.map((b) => {
-                return (
-                  <CardRecommended
-                    key={b.id + "recommended"}
-                    id={b.id}
-                    title={b.title}
-                    subtitle={b.subtitle}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genre={b.genre}
-                    author={b.author}
-                    back_cover={b.back_cover}
-                    arrayFavorite={arrayFavorite}
-                    arrayReaded={arrayReaded}
-                    arrayReading={arrayReading}
-                  />
-                );
-              })}
-            </Carousel>
-          )}
-        </div> */}
+        {recommended && recommended?.length && (
+          <Carousel
+            key="recommended"
+            itemsToShow={1}
+            className="top-rec-wrapper "
+          >
+            {recommended.map((b) => {
+              return (
+                <CardRecommended
+                  key={b.id + "recommended"}
+                  id={b.id}
+                  title={b.title}
+                  subtitle={b.subtitle}
+                  publishedDate={b.publishedDate}
+                  description={b.description}
+                  averageRating={b.averageRating}
+                  cover={b.cover}
+                  genre={b.genre}
+                  author={b.author}
+                  back_cover={b.back_cover}
+                  arrayFavorite={arrayFavorite}
+                  arrayReaded={arrayReaded}
+                  arrayReading={arrayReading}
+                />
+              );
+            })}
+          </Carousel>
+        )}
+      </div> */}
         <div
           style={{
             paddingTop: "80px",
@@ -145,34 +177,12 @@ export default function Home() {
         >
           {currentUser && currentUser.Reading?.length ? (
             <div>
-              {currentUser.Reading.length > 5 ? (
-                <Carousels
-                  key={"Reading"}
-                  books={currentUser.Reading}
-                  carTitle={"Continue Reading"}
-                  readChange={readChange}
-                ></Carousels>
-              ) : (
-                <div>
-                  <H2Home>Continue Reading</H2Home>
-                  <ContainerCards className="Uncarrousel">
-                    {currentUser.Reading.map((b) => {
-                      return (
-                        <Card
-                          id={b.id}
-                          title={b.title}
-                          publishedDate={b.publishedDate}
-                          description={b.description}
-                          averageRating={b.averageRating}
-                          cover={b.cover}
-                          genres={b.genres}
-                          authors={b.authors}
-                        />
-                      );
-                    })}{" "}
-                  </ContainerCards>
-                </div>
-              )}
+              <Carousels
+                key={"Reading"}
+                books={currentUser.Reading}
+                carTitle={"Continue Reading"}
+                readChange={readChange}
+              ></Carousels>
             </div>
           ) : (
             <></>
@@ -208,41 +218,7 @@ export default function Home() {
                   return b.genre.name === g.name;
                 });
                 return (
-                  <div>
-                    {g.length > 5 ? (
-                      <Carousels
-                        books={booksByGenre}
-                        carTitle={
-                          g.name.charAt(0).toUpperCase() + g.name.slice(1)
-                        }
-                        readChange={readChange}
-                      ></Carousels>
-                    ) : (
-                      <div>
-                        <H2Home>
-                          {g.name.charAt(0).toUpperCase() + g.name.slice(1)}
-                        </H2Home>
-                        <ContainerCards className="Uncarrousel">
-                          {booksByGenre.map((b) => {
-                            return (
-                              <Card
-                                id={b.id}
-                                title={b.title}
-                                publishedDate={b.publishedDate}
-                                description={b.description}
-                                averageRating={b.averageRating}
-                                cover={b.cover}
-                                genres={b.genres}
-                                authors={b.authors}
-                              />
-                            );
-                          })}{" "}
-                        </ContainerCards>
-                      </div>
-                    )}
-                  </div>
-
-                  /*   <div key={g.id + "div"}>
+                  <div key={g.name}>
                     <Carousels
                       books={booksByGenre}
                       carTitle={
@@ -250,7 +226,7 @@ export default function Home() {
                       }
                       readChange={readChange}
                     ></Carousels>
-                  </div> */
+                  </div>
                 );
               })}
             </div>

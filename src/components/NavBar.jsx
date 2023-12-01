@@ -1,5 +1,5 @@
 import React from "react";
-import { getCurrentUser } from "../redux/actions/index.js";
+import { getCurrentUser, subscribeNAV } from "../redux/actions/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useState, useRef } from "react";
@@ -33,10 +33,16 @@ export default function NavBar() {
 
   const { isAuthenticated, user, isLoading, logout } = useAuth0();
   const currentUser = useSelector((state) => state.currentUser);
+  const subNav = useSelector((state) => state.subscribe);
 
   const [modal, setModal] = useState(false);
   const [openMenu, setOpenMenu] = useState(false);
   const [openAdmin, setOpenAdmin] = useState(false);
+  const [windowSize, setWindowSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
   const menuRef = useRef();
   const adminRef = useRef();
 
@@ -88,6 +94,28 @@ export default function NavBar() {
     }
   }, [dispatch, isAuthenticated]);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      function handleResize() {
+        setWindowSize({
+          width: window.innerWidth,
+          height: window.innerHeight,
+        });
+      }
+
+      window.addEventListener("resize", handleResize);
+
+      handleResize();
+
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, []);
+
+  function handleSubscribeButton(e) {
+    e.preventDefault();
+    dispatch(dispatch(subscribeNAV(true)));
+  }
+
   function handleNavLink() {
     return dispatch(searchInput(""));
   }
@@ -96,20 +124,35 @@ export default function NavBar() {
     <div>
       <ContainerNavBar>
         <HomeAndLibrary>
-          <HomeLinkNavBar
-            to={"/home"}
-            onClick={() => dispatch(searchInput(""))}
-          >
-            Novel Wave
-          </HomeLinkNavBar>
+          {windowSize.width > 1150 ? (
+            <HomeLinkNavBar
+              to={"/home"}
+              onClick={() => dispatch(searchInput(""))}
+            >
+              Novel Wave
+            </HomeLinkNavBar>
+          ) : (
+            <HomeLinkNavBar
+              to={"/home"}
+              onClick={() => dispatch(searchInput(""))}
+            >
+              NW
+            </HomeLinkNavBar>
+          )}
+
           <LinkNavBar to={"/library"}>
             {" "}
-            <MyLibraryIcon />
-            <div>
-             My Library
-            </div>
-            
+            <MyLibraryIcon title="My Library" />
+            {windowSize.width > 1150 && <div>My Library</div>}
           </LinkNavBar>
+          {currentUser && !currentUser.subscription && (
+            <ButtonNavBar
+              onClick={(e) => handleSubscribeButton(e)}
+              className="subscribe"
+            >
+              SUBSCRIBE NOW
+            </ButtonNavBar>
+          )}
           {currentUser && currentUser.admin && (
             <MenuContainer ref={adminRef}>
               <ButtonNavBar

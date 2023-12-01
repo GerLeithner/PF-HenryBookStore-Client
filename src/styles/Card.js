@@ -12,11 +12,6 @@ export const ContainerCards = styled.div`
   grid-auto-rows: minmax(auto, 200px);
   gap: 150px;
   flex-grow: 1;
-
-  &.Uncarrousel {
-    gap: 235px;
-    padding-top: 50px;
-  }
 `;
 
 export const H2Home = styled.h2`

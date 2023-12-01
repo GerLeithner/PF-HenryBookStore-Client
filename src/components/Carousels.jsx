@@ -51,26 +51,33 @@ export default function Carousels({ books, carTitle, readChange }) {
   return (
     <>
       <H2Home>{carTitle}</H2Home>
-      <Carousel key={carTitle} itemsToShow={5}>
+      <Carousel
+        pagination={false}
+        key={carTitle}
+        itemsToShow={5}
+        showEmptySlots={true}
+      >
         {books.map((b) => {
           return (
-            <Card
-              key={b.id + carTitle}
-              id={b.id}
-              title={b.title}
-              subtitle={b.subtitle}
-              publishedDate={b.publishedDate}
-              description={b.description}
-              averageRating={b.averageRating}
-              cover={b.cover}
-              genre={b.genre}
-              author={b.author}
-              back_cover={b.back_cover}
-              modal={modal}
-              setModal={setModal}
-              readChange={readChange}
-              read={read}
-            />
+            b && (
+              <Card
+                key={b.id + carTitle}
+                id={b.id}
+                title={b.title}
+                subtitle={b.subtitle}
+                publishedDate={b.publishedDate}
+                description={b.description}
+                averageRating={b.averageRating}
+                cover={b.cover}
+                genre={b.genre}
+                author={b.author}
+                back_cover={b.back_cover}
+                modal={modal}
+                setModal={setModal}
+                readChange={readChange}
+                read={read}
+              />
+            )
           );
         })}
       </Carousel>

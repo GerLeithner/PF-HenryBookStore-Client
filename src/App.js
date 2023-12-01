@@ -76,6 +76,7 @@ function App() {
         pauseOnFocusLoss
         pauseOnHover={false}
         theme="light"
+        limit={4}
       />
     </div>
   );

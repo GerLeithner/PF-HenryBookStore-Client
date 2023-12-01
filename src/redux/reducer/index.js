@@ -15,6 +15,8 @@ const initialState = {
   search: "",
   modal: false,
   edit: false,
+  loading: true,
+  subscribe: false,
 };
 
 function rootReducer(state = initialState, action) {
@@ -35,6 +37,7 @@ function rootReducer(state = initialState, action) {
         allBooks: action.payload,
         books: action.payload,
         filters: [],
+        loading: false,
       };
 
     case "GET_BOOK_BY_TITLE":
@@ -297,6 +300,7 @@ function rootReducer(state = initialState, action) {
       return {
         ...state,
         currentUser: action.payload,
+        loading: false,
       };
 
     case "CLEAN_USER_DETAIL":
@@ -388,6 +392,12 @@ function rootReducer(state = initialState, action) {
         ...state,
         edit: action.payload,
       };
+
+    case "SUBSCRIBE_NAV":
+      return { ...state, subscribe: action.payload };
+
+    case "LOADING":
+      return { ...state, loading: action.payload };
 
     default:
       return state;

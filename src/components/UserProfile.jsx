@@ -29,12 +29,16 @@ import {
   SubscriptionOptions,
   PlanSelect,
   HeaderAccount,
-  Loading
+  Loading,
+  ToggleSwitch,
+  NotificationContainer,
 } from "../styles/UserProfile";
 import { toast } from "react-toastify";
 
+import { ReactComponent as SwitchIcon } from "../icons/switch-on.svg";
 import { ReactComponent as EditIcon } from "../icons/editIcon.svg";
 import { ReactComponent as LoadingIcon } from "../icons/loadingIcon.svg";
+import { StyledOption } from "../styles/Review.js";
 
 export default function UserProfile() {
   const dispatch = useDispatch();
@@ -42,6 +46,7 @@ export default function UserProfile() {
   const { user, logout } = useAuth0();
 
   const currentUser = useSelector((state) => state.currentUser);
+  const loading = useSelector((state) => state.loading);
 
   const [form, setForm] = useState({
     fieldName: "",
@@ -65,6 +70,16 @@ export default function UserProfile() {
     label: "paypal",
     tagline: "false",
   };
+  console.log(
+    "Notifitations: ",
+    notifications,
+    " currentUser.notifications.all: ",
+    currentUser.notifications.all,
+    " currentUser.notifications.expDate: ",
+    currentUser.notifications.expDate,
+    " currentUser.notifications.newBooks: ",
+    currentUser.notifications.newBooks
+  );
 
   useEffect(() => {
     if (user) {
@@ -73,9 +88,10 @@ export default function UserProfile() {
         email,
         nickname,
       };
+
       dispatch(getCurrentUser(userDb));
     }
-  }, [dispatch, userName, notifications, cosito]);
+  }, [dispatch, user, userName, notifications, cosito]);
 
   useEffect(() => {
     if (user && subscription) {
@@ -90,7 +106,7 @@ export default function UserProfile() {
       setSubscription(false);
       setShowButton(false);
     }
-  }, [currentUser, subscription]);
+  }, [dispatch, user, currentUser, subscription]);
 
   function editSubscription(value) {
     setSubscription(value);
@@ -162,7 +178,7 @@ export default function UserProfile() {
   function handleNotification(e) {
     e.preventDefault();
 
-    if (e.target.name === "all") {
+    if (e.currentTarget.name === "all") {
       if (currentUser.notifications.all) {
         dispatch(
           editUser({
@@ -192,17 +208,19 @@ export default function UserProfile() {
           id: currentUser.id,
           notifications: {
             ...currentUser.notifications,
-            [e.target.name]: !currentUser.notifications[e.target.name],
+            [e.currentTarget.name]:
+              !currentUser.notifications[e.currentTarget.name],
           },
         })
       );
     }
 
-    setNotifications(!notifications);
-
-    !currentUser.notifications[e.target.name]
-      ? toast.success(`${e.target.value} mail notifications has been activated`)
-      : toast.success(`${e.target.value} mail notifications has been disable`);
+    /*   !currentUser.notifications[e.currentTarget.name]
+      ? toast.success(`${e.currentTarget.value} Mail Notifications Enabled`)
+      : toast.success(`${e.currentTarget.value} Mail Notifications Disabled`); */
+    setTimeout(() => {
+      setNotifications((prevNotifications) => !prevNotifications);
+    }, 100);
   }
 
   function handlePlan(e) {
@@ -211,16 +229,16 @@ export default function UserProfile() {
     setShowButton(true);
   }
 
-
   return (
     <>
-      { currentUser ? (
+      {currentUser ? (
         <Account>
           <AccountContainer>
             <HeaderAccount>Account</HeaderAccount>
             <OptionsContainer name="account">
               <ImageAndInfo>
-                USER INFORMATION             
+                <div style={{ width: "244px" }}>USER INFORMATION</div>
+
                 <ProfilePic src={currentUser.profilePic} />
               </ImageAndInfo>
               <InfoContainer>
@@ -229,16 +247,14 @@ export default function UserProfile() {
                   <div></div>
                 </FlexRow>
                 <FlexRow>
-                  <Field>
-                    Password : **********
-                  </Field>
-                  { !currentUser.googleUser ? 
+                  <Field>Password : **********</Field>
+                  {!currentUser.googleUser ? (
                     <EditFieldButton onClick={(e) => handlePasswordChange(e)}>
                       Change Password
                     </EditFieldButton>
-                    :
-                    <div style={{width: "150px"}}></div>
-                  }
+                  ) : (
+                    <div style={{ width: "150px" }}></div>
+                  )}
                 </FlexRow>
                 {!userName ? (
                   <FlexRow>
@@ -264,7 +280,7 @@ export default function UserProfile() {
                 )}
                 <FlexRow>
                   <ProfilePicInput>
-                    <EditIcon/>
+                    <EditIcon />
                     Profile picture
                     <input
                       style={{ width: "0px", height: "0px" }}
@@ -274,176 +290,297 @@ export default function UserProfile() {
                       onChange={(e) => handlePicChange(e)}
                     />
                   </ProfilePicInput>
-                  { loadingPic ? 
+                  {loadingPic ? (
                     <Loading>
-                      <LoadingIcon/>
+                      <LoadingIcon />
                       Loading ...
-                    </Loading> 
-                    : 
-                    <div></div> 
-                  }
+                    </Loading>
+                  ) : (
+                    <div></div>
+                  )}
                 </FlexRow>
-              </InfoContainer>        
+              </InfoContainer>
             </OptionsContainer>
             <OptionsContainer name="notifications">
               <ImageAndInfo>
-                <div style={{width: "200px"}}>
-                  NOTIFICATIONS
-                </div>            
+                <div style={{ width: "244px" }}>NOTIFICATIONS</div>
                 <div></div>
               </ImageAndInfo>
               <InfoContainer>
                 <FlexRow>
                   <Field
-                  onClick={(e) => handleDownfall(e)}
-                  style={{ cursor: "pointer" }}
-                >
-                  <div
-                    style={{ display: "flex", flexDirection: "row", gap: "50px" }}
+                    onClick={(e) => handleDownfall(e)}
+                    style={{ cursor: "pointer" }}
                   >
-                    <div>Mail Notifications</div>
                     <div
                       style={{
-                        transform: `rotate(${downfall ? "45deg" : "0deg"})`,
-                        transition: "300ms ease all",
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: "50px",
                       }}
                     >
-                      <DownfallButton onClick={(e) => handleDownfall(e)}>
-                        +
-                      </DownfallButton>
+                      <div>Mail Notifications</div>
+                      <div
+                        style={{
+                          transform: `rotate(${downfall ? "45deg" : "0deg"})`,
+                          transition: "300ms ease all",
+                        }}
+                      >
+                        <DownfallButton onClick={(e) => handleDownfall(e)}>
+                          +
+                        </DownfallButton>
+                      </div>
                     </div>
-                  </div>
-                </Field>
-                <EditFieldButton
-                  name="all"
-                  value="all"
-                  onClick={(e) => handleNotification(e)}
-                >
-                  {currentUser?.notifications.all ? "Disable" : "Enable"}
-                </EditFieldButton>
+                  </Field>{" "}
+                  {currentUser?.notifications.all ? (
+                    <NotificationContainer>
+                      Enabled{" "}
+                      <EditFieldButton
+                        onClick={(e) => handleNotification(e)}
+                        name="all"
+                        value="All"
+                        style={{ transform: "translateY(-9px) " }}
+                        className="on"
+                      >
+                        <SwitchIcon />
+                      </EditFieldButton>
+                    </NotificationContainer>
+                  ) : (
+                    <NotificationContainer className="off">
+                      Disabled{" "}
+                      <EditFieldButton
+                        onClick={(e) => handleNotification(e)}
+                        name="all"
+                        value="All"
+                        style={{
+                          transform: "translateY(-9px) rotate(180deg) ",
+                        }}
+                      >
+                        <SwitchIcon />
+                      </EditFieldButton>
+                    </NotificationContainer>
+                  )}{" "}
                 </FlexRow>
                 {downfall && (
-              <FlexRow>
-                <Field>Expiration date</Field>
-                <EditFieldButton
-                  name="expDate"
-                  onClick={(e) => handleNotification(e)}
-                >
-                  {currentUser?.notifications.expDate ? "Disable" : "Enable"}
-                </EditFieldButton>
-              </FlexRow>
-            )}
-            { downfall && (
-              <FlexRow>
-                <Field>New books aviables</Field>
-                <EditFieldButton
-                  name="newBooks"
-                  onClick={(e) => handleNotification(e)}
-                >
-                  {currentUser?.notifications.newBooks ? "Disable" : "Enable"}
-                </EditFieldButton>
-              </FlexRow>
-              )}
-            </InfoContainer>
-          </OptionsContainer>
-          <SubscriptionOptions name="subcription">
-            <InfoContainer gap="25px">
-              <div
-                style={{ display: "flex", flexDirection: "row", gap: "50px" }}
-              >
-                <Field>
-                  <div>Active Date</div>
-                  <div>
-                    {currentUser.subscription
-                      ? currentUser.subscription.startDate
-                      : "-"}
-                  </div>
-                </Field>
-                {currentUser.subscription ? (
-                  <Field>
-                    <div>Subcription</div>
-                    <div>ACTIVE</div>
-                  </Field>
-                ) : (
-                  <Field>
-                    <div style={{ width: "100%", textAlign: "left", fontStyle: "italic"}}>
-                    { (!plan || plan === "One month") && <span style={{width: "100%"}}>SUBSCRIBE !</span>} 
-                    { plan === "Six months" && <span style={{width: "100%"}}>GET 1 MONTH FOR FREE !</span>}
-                    { plan === "One year" && <span style={{width: "100%"}}>GET 3 MONTHS FOR FREE !</span>}
-                    </div>
-                  </Field>
+                  <FlexRow>
+                    <Field>Subscription Expiration Date</Field>
+                    {currentUser?.notifications.expDate ? (
+                      <NotificationContainer>
+                        Enabled{" "}
+                        <EditFieldButton
+                          onClick={(e) => handleNotification(e)}
+                          name="expDate"
+                          value="Subscription Expiration Date"
+                          className="on"
+                          style={{
+                            transform: "translateY(-9px) ",
+                          }}
+                        >
+                          <SwitchIcon />
+                        </EditFieldButton>
+                      </NotificationContainer>
+                    ) : (
+                      <NotificationContainer className="off">
+                        Disabled{" "}
+                        <EditFieldButton
+                          onClick={(e) => handleNotification(e)}
+                          name="expDate"
+                          value="Subscription Expiration Date"
+                          style={{
+                            transform: "translateY(-9px) rotate(180deg)",
+                          }}
+                        >
+                          <SwitchIcon />
+                        </EditFieldButton>
+                      </NotificationContainer>
+                    )}
+                  </FlexRow>
                 )}
-              </div>
-              <div
-                style={{ display: "flex", flexDirection: "row", gap: "50px" }}
-              >
-                <Field>
-                  <div>Finish Date</div>
-                  <div>
-                    {currentUser?.subscription
-                      ? currentUser.subscription.finishDate
-                      : "-"}
+                {downfall && (
+                  <FlexRow>
+                    <Field>Book Releases</Field>
+                    {currentUser?.notifications.newBooks ? (
+                      <NotificationContainer>
+                        Enabled{" "}
+                        <EditFieldButton
+                          onClick={(e) => handleNotification(e)}
+                          name="newBooks"
+                          value="Book Releases"
+                          className="on"
+                          style={{
+                            transform: "translateY(-9px) ",
+                          }}
+                        >
+                          <SwitchIcon />
+                        </EditFieldButton>
+                      </NotificationContainer>
+                    ) : (
+                      <NotificationContainer className="off">
+                        Disabled{" "}
+                        <EditFieldButton
+                          onClick={(e) => handleNotification(e)}
+                          name="newBooks"
+                          value="Book Releases"
+                          style={{
+                            transform: "translateY(-9px) rotate(180deg)",
+                          }}
+                        >
+                          <SwitchIcon />
+                        </EditFieldButton>
+                      </NotificationContainer>
+                    )}
+                  </FlexRow>
+                )}
+              </InfoContainer>
+            </OptionsContainer>
+            <OptionsContainer name="subscription" className="subscription">
+              <ImageAndInfo>
+                <div style={{ width: "244px" }}>MEMBERSHIP & PLAN</div>
+                <div></div>
+              </ImageAndInfo>
+
+              {currentUser.subscription ? (
+                <InfoContainer
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "40px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      <FlexRow style={{ width: "1050px" }}>
+                        <div>Subscription active since </div>
+                        <div> {currentUser.subscription.startDate} </div>
+                      </FlexRow>
+                      <FlexRow style={{ width: "1050px" }}>
+                        <div> Subscription will end on </div>
+                        <div>{currentUser.subscription.finishDate}</div>
+                      </FlexRow>
+                    </div>
+                    <FlexRow style={{ width: "1050px" }}>
+                      <div>Current Plan</div>
+                      <div
+                        style={{
+                          color: "#622cd4",
+                          fontSize: "20px",
+                          fontStyle: "italic",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {currentUser?.subscription?.plan}
+                      </div>
+                    </FlexRow>
                   </div>
-                </Field>
-                {currentUser.subscription ? (
-                  <Field>
-                    <div>Plan</div>
-                    <div>{currentUser?.subscription?.plan}</div>
-                  </Field>
-                ) : ( 
-                  <Field>
-                    <div>
+                </InfoContainer>
+              ) : (
+                <InfoContainer
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
+                  <FlexRow>
+                    <Field
+                      style={{
+                        color: "#622cd4",
+                        fontFamily: "Inter",
+                        fontStyle: "italic",
+                        fontWeight: "600",
+                        lineHeight: "normal",
+                        paddingBottom: "5px",
+                      }}
+                    >
+                      What are you waiting? Subscribe now!
+                    </Field>
+                  </FlexRow>{" "}
+                  <FlexRow>
+                    <Field>
                       <PlanSelect onChange={(e) => handlePlan(e)}>
-                        <option hidden value="Select Plan">
+                        <StyledOption hidden value="Select Plan">
                           {currentUser?.subscription?.plan
                             ? currentUser.subscription.plan
                             : "Select Plan"}
-                        </option>
-                        <option value="One month">One Month USD$ 6.99</option>
-                        <option value="Six months">Six Months USD$ 34.99</option>
-                        <option value="One year">One Year USD$ 62.99</option>
+                        </StyledOption>
+                        <StyledOption value="One month">
+                          One Month USD$ 6.99
+                        </StyledOption>
+                        <StyledOption value="Six months">
+                          Six Months USD$ 34.99
+                        </StyledOption>
+                        <StyledOption value="One year">
+                          One Year USD$ 62.99
+                        </StyledOption>
                       </PlanSelect>
-                    </div>
-                  </Field>
-                )}
+                    </Field>
+                  </FlexRow>
+                  <FlexRow>
+                    {" "}
+                    <Field
+                      style={{
+                        width: "100%",
+                        fontFamily: "Inter",
+                        fontSize: "20px",
+                        fontStyle: "italic",
+                        fontWeight: "400",
+                        lineHeight: "normal",
+                      }}
+                    >
+                      {plan === "Six months" && (
+                        <div>Get 1 Month for Free!</div>
+                      )}
+                      {plan === "One year" && <div>Get 3 Months for Free!</div>}
+                    </Field>
+                  </FlexRow>
+                </InfoContainer>
+              )}
+
+              <div
+                style={{ height: "80px", paddingTop: "2px", width: "270px" }}
+              >
+                <PaypalButton
+                  editSubscription={editSubscription}
+                  plan={plan}
+                  currentUser={currentUser}
+                  key={plan}
+                  showButton={showButton}
+                  style={paypalStyle}
+                />
               </div>
-            </InfoContainer>
-            <div style={{ height: "80px", paddingTop: "2px", width: "270px" }}>
-              <PaypalButton
-                editSubscription={editSubscription}
-                plan={plan}
-                currentUser={currentUser}
-                key={plan}
-                showButton={showButton}
-                style={paypalStyle}
-              />
+            </OptionsContainer>
+            <div
+              name="butons"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center",
+                paddingTop: "20px",
+              }}
+            >
+              {" "}
+              <div></div>
+              <ButtonDisable
+                type="button"
+                onClick={(e) => handleDisable(e)}
+                ancho="220px"
+                color="red"
+                bcolor="#3F3F3F"
+                border="none"
+                fontColor="#FFF"
+              >
+                {currentUser?.active ? "Disable Account" : "Activate Account"}
+              </ButtonDisable>
             </div>
-          </SubscriptionOptions>
-          <div
-            name="butons"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <ButtonDisable
-              onClick={() => logout({ returnTo: window.location.origin })}
-              ancho="220px"
-              color="red"
-            >
-              Logout
-            </ButtonDisable>
-            <ButtonDisable
-              type="button"
-              onClick={(e) => handleDisable(e)}
-              ancho="220px"
-              color="red"
-            >
-              {currentUser?.active ? "Disable Account" : "Activate Account"}
-            </ButtonDisable>
-          </div>
           </AccountContainer>
         </Account>
       ) : (

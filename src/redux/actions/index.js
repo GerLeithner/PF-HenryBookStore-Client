@@ -254,6 +254,10 @@ export function getUserById(id) {
 export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
+      dispatch({
+        type: "LOADING",
+        payload: true,
+      });
       const user = await axios.post(`${deployUrl}/user/register`, payload);
       return dispatch({
         type: "GET_CURRENT_USER",
@@ -495,5 +499,12 @@ export function searchInput(input) {
   return {
     type: "SEARCH_INPUT",
     payload: input,
+  };
+}
+
+export function subscribeNAV(payload) {
+  return {
+    type: "SUBSCRIBE_NAV",
+    payload,
   };
 }

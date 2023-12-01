@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
 export const SubscribeContainer = styled.div`
+  position: relative;
   padding-top: 50px;
   width: 100%;
-  z-index: 0;
-  position: relative;
+  z-index: 1;
 `;
 
 export const Nav = styled.nav`
@@ -16,7 +16,7 @@ export const Nav = styled.nav`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  gap: 30px
+  gap: 30px;
 `;
 
 export const PlanSelectNav = styled.select`

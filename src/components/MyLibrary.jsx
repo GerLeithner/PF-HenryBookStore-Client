@@ -18,6 +18,7 @@ import Card from "./Card.jsx";
 import CardRecommended from "./CardRecommended.jsx";
 import CardDetail from "./CardDetail";
 import Carousels from "./Carousels.jsx";
+import SubscribeNav from "./SubscribeNav.jsx";
 
 const MyLibrary = () => {
   const dispatch = useDispatch();
@@ -83,6 +84,7 @@ const MyLibrary = () => {
 
   return (
     <div>
+      <SubscribeNav />
       <div>
         <CardDetail
           book={book}
@@ -104,7 +106,11 @@ const MyLibrary = () => {
             {currentUser.Reading.length > 5 ? (
               <>
                 <H2Home>Continue Reading</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Reading.map((b) => {
                     return (
                       <Card
@@ -170,7 +176,11 @@ const MyLibrary = () => {
             {currentUser.Favorites.length > 5 ? (
               <div>
                 <H2Home>Your Favorites</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Favorites.map((b) => {
                     return (
                       <Card
@@ -223,31 +233,6 @@ const MyLibrary = () => {
             )}
           </div>
         ) : (
-          /*  {<>
-            <Carousel itemsToShow={5}>
-              {currentUser.Favorites.map((b) => {
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    readChange={readChange}
-                    read={read}
-                    readedsChange={readedsChange}
-                    readeds={readeds}
-                    favorites={favorites}
-                    favoritesChange={favoritesChange}
-                  />
-                );
-              })}
-            </Carousel>
-          </>} */
           <div>
             <H2Home>Your Favorites</H2Home>
             <h3>You don't have any favorites yet</h3>
@@ -261,7 +246,11 @@ const MyLibrary = () => {
             {currentUser.Read.length > 5 ? (
               <>
                 <H2Home>Read Again</H2Home>
-                <Carousel itemsToShow={5}>
+                <Carousel
+                  pagination={false}
+                  itemsToShow={5}
+                  showEmptySlots={true}
+                >
                   {currentUser.Read.map((b) => {
                     console.log(
                       "favoritesChange type:",
@@ -319,33 +308,6 @@ const MyLibrary = () => {
             )}
           </div>
         ) : (
-          /*  {<>
-            <Carousel itemsToShow={5}>
-              {currentUser.Read.map((b) => {
-                console.log("favoritesChange type:", typeof favoritesChange);
-
-                return (
-                  <Card
-                    id={b.id}
-                    key={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                    readChange={readChange}
-                    read={read}
-                    readedsChange={readedsChange}
-                    readeds={readeds}
-                    favorites={favorites}
-                    favoritesChange={favoritesChange}
-                  />
-                );
-              })}
-            </Carousel>
-          </>} */
           <div>
             <H2Home>Read Again</H2Home> <h3>You haven't read any books yet</h3>
           </div>

@@ -27,7 +27,7 @@ export default function Reviews({ book }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.currentUser);
   const edit = useSelector((state) => state.edit);
-  console.log("edit:", edit);
+
   const [newReview, setNewReview] = useState(false);
 
   function handleCloseClick(e) {
@@ -40,12 +40,12 @@ export default function Reviews({ book }) {
     <ReviewContainer>
       <ReviewHeader>
         <div></div>
-        <H3>Users Reviews</H3>
+        <H3>User Reviews</H3>
         <CloseDetail onClick={(e) => handleCloseClick(e)}>+</CloseDetail>
       </ReviewHeader>
       {book.reviews?.length === 0 && (
         <ReviewsList>
-          <H3>This title hasn't any review yet</H3>
+          <H3>This title doesn't have any review yet</H3>
           <CreateReview currentUser={currentUser} setNewReview={setNewReview} />
         </ReviewsList>
       )}

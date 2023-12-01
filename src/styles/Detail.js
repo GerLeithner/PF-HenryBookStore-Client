@@ -148,10 +148,66 @@ export const StarDetail = styled.img`
   margin: 0px;
 `;
 
-export const ButtonIcons = styled.img`
+export const ButtonIcons = styled.div`
   width: 31px;
   height: 31px;
   margin: 0;
+  svg {
+    &.fillWhite {
+      fill: white;
+    }
+    &.finished {
+      stroke: white;
+      fill: none;
+      width: 61px;
+      height: 62px;
+    }
+
+    width: 60px;
+    height: 60px;
+  }
+  &:hover {
+    color: #622cd4;
+    svg {
+      &.fillWhite {
+        fill: #622cd4;
+      }
+      &.finished {
+        stroke: #622cd4;
+      }
+    }
+  }
+  &:active {
+    transform: translateY(+2px);
+  }
+  svg {
+    &.fillWhite {
+      fill: white;
+    }
+    &.finished {
+      stroke: white;
+      fill: none;
+      width: 61px;
+      height: 62px;
+    }
+
+    width: 60px;
+    height: 60px;
+  }
+  &:hover {
+    color: #622cd4;
+    svg {
+      &.fillWhite {
+        fill: #622cd4;
+      }
+      &.finished {
+        stroke: #622cd4;
+      }
+    }
+  }
+  &:active {
+    transform: translateY(+2px);
+  }
 `;
 
 export const DescriptionCardConteinerDetail = styled.div`
@@ -389,6 +445,8 @@ export const ButtonOptionsDetail = styled.option`
 `;
 
 export const ButtonDetail = styled.button`
+  display: flex;
+  align-items: center;
   width: ${({ width }) => width || "max-content"};
   height: ${({ height }) => height || "50px"};
   padding: 10px 20px 10px 20px;
@@ -406,6 +464,15 @@ export const ButtonDetail = styled.button`
 
   &:hover {
     background-color: ${({ colorHover }) => colorHover || "#6F6F6F"};
+
+    svg {
+      &.fillWhite {
+        fill: #622cd4;
+      }
+      &.finished {
+        stroke: #622cd4;
+      }
+    }
   }
 
   &:active {
