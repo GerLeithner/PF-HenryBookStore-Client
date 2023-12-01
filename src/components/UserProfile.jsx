@@ -445,44 +445,57 @@ export default function UserProfile() {
                 <div style={{ width: "244px" }}>MEMBERSHIP & PLAN</div>
                 <div></div>
               </ImageAndInfo>
-              <InfoContainer
-                style={{
-                  alignItems: "flex-start",
-                }}
-              >
-                {currentUser.subscription ? (
+
+              {currentUser.subscription ? (
+                <InfoContainer
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
                   <div
                     style={{
+                      display: "flex",
                       flexDirection: "column",
+                      gap: "40px",
                     }}
                   >
-                    <FlexRow>
-                      <Field>
-                        Subscription active since{" "}
-                        {currentUser.subscription.startDate}{" "}
-                      </Field>
-                    </FlexRow>
-                    <FlexRow>
-                      <Field>
-                        Subscription will end on
-                        {currentUser.subscription.finishDate}
-                      </Field>
-                    </FlexRow>
-                    <FlexRow>
-                      <Field>
-                        <div>Plan</div>
-                        <div>{currentUser?.subscription?.plan}</div>
-                      </Field>
-                    </FlexRow>
-                    <FlexRow>
-                      {" "}
-                      <Field>
-                        <div>Subcription</div>
-                        <div>ACTIVE</div>
-                      </Field>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "20px",
+                      }}
+                    >
+                      <FlexRow style={{ width: "1050px" }}>
+                        <div>Subscription active since </div>
+                        <div> {currentUser.subscription.startDate} </div>
+                      </FlexRow>
+                      <FlexRow style={{ width: "1050px" }}>
+                        <div> Subscription will end on </div>
+                        <div>{currentUser.subscription.finishDate}</div>
+                      </FlexRow>
+                    </div>
+                    <FlexRow style={{ width: "1050px" }}>
+                      <div>Current Plan</div>
+                      <div
+                        style={{
+                          color: "#622cd4",
+                          fontSize: "20px",
+                          fontStyle: "italic",
+                          fontWeight: "600",
+                        }}
+                      >
+                        {currentUser?.subscription?.plan}
+                      </div>
                     </FlexRow>
                   </div>
-                ) : (
+                </InfoContainer>
+              ) : (
+                <InfoContainer
+                  style={{
+                    alignItems: "flex-start",
+                  }}
+                >
                   <FlexRow>
                     <Field
                       style={{
@@ -496,45 +509,48 @@ export default function UserProfile() {
                     >
                       What are you waiting? Subscribe now!
                     </Field>
+                  </FlexRow>{" "}
+                  <FlexRow>
+                    <Field>
+                      <PlanSelect onChange={(e) => handlePlan(e)}>
+                        <StyledOption hidden value="Select Plan">
+                          {currentUser?.subscription?.plan
+                            ? currentUser.subscription.plan
+                            : "Select Plan"}
+                        </StyledOption>
+                        <StyledOption value="One month">
+                          One Month USD$ 6.99
+                        </StyledOption>
+                        <StyledOption value="Six months">
+                          Six Months USD$ 34.99
+                        </StyledOption>
+                        <StyledOption value="One year">
+                          One Year USD$ 62.99
+                        </StyledOption>
+                      </PlanSelect>
+                    </Field>
                   </FlexRow>
-                )}{" "}
-                <FlexRow>
-                  <Field>
-                    <PlanSelect onChange={(e) => handlePlan(e)}>
-                      <StyledOption hidden value="Select Plan">
-                        {currentUser?.subscription?.plan
-                          ? currentUser.subscription.plan
-                          : "Select Plan"}
-                      </StyledOption>
-                      <StyledOption value="One month">
-                        One Month USD$ 6.99
-                      </StyledOption>
-                      <StyledOption value="Six months">
-                        Six Months USD$ 34.99
-                      </StyledOption>
-                      <StyledOption value="One year">
-                        One Year USD$ 62.99
-                      </StyledOption>
-                    </PlanSelect>
-                  </Field>
-                </FlexRow>
-                <FlexRow>
-                  {" "}
-                  <Field
-                    style={{
-                      width: "100%",
-                      fontFamily: "Inter",
-                      fontSize: "20px",
-                      fontStyle: "italic",
-                      fontWeight: "400",
-                      lineHeight: "normal",
-                    }}
-                  >
-                    {plan === "Six months" && <div>Get 1 Month for Free!</div>}
-                    {plan === "One year" && <div>Get 3 Months for Free!</div>}
-                  </Field>
-                </FlexRow>
-              </InfoContainer>
+                  <FlexRow>
+                    {" "}
+                    <Field
+                      style={{
+                        width: "100%",
+                        fontFamily: "Inter",
+                        fontSize: "20px",
+                        fontStyle: "italic",
+                        fontWeight: "400",
+                        lineHeight: "normal",
+                      }}
+                    >
+                      {plan === "Six months" && (
+                        <div>Get 1 Month for Free!</div>
+                      )}
+                      {plan === "One year" && <div>Get 3 Months for Free!</div>}
+                    </Field>
+                  </FlexRow>
+                </InfoContainer>
+              )}
+
               <div
                 style={{ height: "80px", paddingTop: "2px", width: "270px" }}
               >
