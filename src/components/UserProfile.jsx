@@ -80,6 +80,7 @@ export default function UserProfile() {
     " currentUser.notifications.newBooks: ",
     currentUser.notifications.newBooks
   );
+
   useEffect(() => {
     if (user) {
       const { email, nickname } = user;
@@ -214,20 +215,12 @@ export default function UserProfile() {
       );
     }
 
-    /*    if (user) {
-      const { email, nickname } = user;
-      const userDb = {
-        email,
-        nickname,
-      };
-      dispatch(getCurrentUser(userDb));
-    } */
-
     /*   !currentUser.notifications[e.currentTarget.name]
       ? toast.success(`${e.currentTarget.value} Mail Notifications Enabled`)
       : toast.success(`${e.currentTarget.value} Mail Notifications Disabled`); */
-
-    setNotifications((prevNotifications) => !prevNotifications);
+    setTimeout(() => {
+      setNotifications((prevNotifications) => !prevNotifications);
+    }, 100);
   }
 
   function handlePlan(e) {
