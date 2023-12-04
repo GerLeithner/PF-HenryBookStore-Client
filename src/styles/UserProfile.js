@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const Account = styled.div`
   padding-top: 89px;
-  padding-bottom: 171px;
+  padding-bottom: 20px;
   margin: 0px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #1e1e1e;
+  //background-color: #1e1e1e;
   //height: 100vh;
 `;
 
