@@ -1,15 +1,15 @@
 import styled from "styled-components";
 
 export const SubscribeContainer = styled.div`
-  position: relative;
+  position: fixed;
   padding-top: 50px;
   width: 100%;
-  z-index: 1;
+  z-index: 9;
 `;
 
 export const Nav = styled.nav`
   padding-right: 20px;
-  background-color: #1e1e1e;
+  background-color: #111111;
   width: 100%;
   height: 50px;
   display: flex;

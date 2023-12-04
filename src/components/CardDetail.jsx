@@ -87,56 +87,6 @@ export default function CardDetail({
     };
   }, []);
 
-  /*   useEffect(() => {
-    if (currentUser && modal) {
-      let allFavorites = [];
-      let allReading = [];
-      let allReaded = [];
-
-      for (let i = 0; i < currentUser.Read.length; i++) {
-        let read = currentUser.Read[i].id;
-        allReaded.push(read);
-      }
-      for (let i = 0; i < currentUser.Reading.length; i++) {
-        let reading = currentUser.Reading[i].id;
-        allReading.push(reading);
-      }
-      for (let i = 0; i < currentUser.Favorites.length; i++) {
-        let fav = currentUser.Favorites[i].id;
-
-        allFavorites.push(fav);
-      }
-      setArrayFavorite(allFavorites);
-      setArrayReading(allReading);
-      setArrayReaded(allReaded);
-    }
-    return;
-  }, [dispatch, currentUser, book]);
-
-  useEffect(() => {
-    if (arrayFavorite.includes(book.id)) {
-      setFavorite(true);
-    } else if (!arrayFavorite.includes(book.id)) {
-      setFavorite(false);
-    }
-  }, [dispatch, arrayFavorite, book.id]);
-
-  useEffect(() => {
-    if (arrayReaded.includes(book.id)) {
-      setReaded(true);
-    } else if (!arrayReaded.includes(book.id)) {
-      setReaded(false);
-    }
-  }, [dispatch, arrayReaded, book.id]);
-
-  useEffect(() => {
-    if (arrayReading.includes(book.id)) {
-      setReading(true);
-    } else if (!arrayReading.includes(book.id)) {
-      setReading(false);
-    }
-  }, [dispatch, arrayReading, book.id]); */
-
   useEffect(() => {
     //Veo si es favorito
     if (
