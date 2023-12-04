@@ -19,7 +19,6 @@ import { CarouselContainer } from "../styles/Home";
 
 import "../styles/Carousel.css";
 
-
 export default function Home() {
   const dispatch = useDispatch();
 
@@ -38,7 +37,7 @@ export default function Home() {
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
-  const { user, logout } = useAuth0();
+  const { user, logout, isAuthenticated } = useAuth0();
   const [trendingCar, setTendingCar] = useState(true);
   const subNav = useSelector((state) => state.subscribe);
 
@@ -103,18 +102,26 @@ export default function Home() {
     <div>
       <div>
         <SubscribeNav />
-        <div style={{
-          paddingTop: subNav ? (modal ? "100px" : "120px") : (modal ? "50px" : "80px"),
-          paddingBottom: "40px"
-        }}>
+        <div
+          style={{
+            paddingTop: subNav
+              ? modal
+                ? "100px"
+                : "120px"
+              : modal
+              ? "50px"
+              : "80px",
+            paddingBottom: "40px",
+          }}
+        >
           <CardDetail
-          book={book}
-          readChange={readChange}
-          read={read}
-          readedsChange={readedsChange}
-          readeds={readeds}
-          favorites={favorites}
-          favoritesChange={favoritesChange}
+            book={book}
+            readChange={readChange}
+            read={read}
+            readedsChange={readedsChange}
+            readeds={readeds}
+            favorites={favorites}
+            favoritesChange={favoritesChange}
           />
           {currentUser && currentUser.Reading?.length ? (
             <div>
