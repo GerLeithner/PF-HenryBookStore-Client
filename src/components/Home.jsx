@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Carousel from "react-elastic-carousel";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import Card from "./Card.jsx";
-import CardRecommended from "./CardRecommended.jsx";
 import SubscribeNav from "./SubscribeNav.jsx";
 import Carousels from "./Carousels.jsx";
 import CardDetail from "./CardDetail.jsx";
@@ -13,16 +10,15 @@ import {
   getAuthors,
   getBooks,
   getGenres,
-  //getRecommendedBooks,
   getTrendingBooks,
   getNewsBooks,
   getCurrentUser,
 } from "../redux/actions";
-import { ContainerCards, H2Home } from "../styles/Card";
+
+import { CarouselContainer } from "../styles/Home";
+
 import "../styles/Carousel.css";
-import "../styles/Carousel.css";
-import Catalogue from "./Catalogue.jsx";
-import Loading from "./Loading.jsx";
+
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -44,6 +40,7 @@ export default function Home() {
   const [favorites, setFavorites] = useState(true);
   const { user, logout } = useAuth0();
   const [trendingCar, setTendingCar] = useState(true);
+  const subNav = useSelector((state) => state.subscribe);
 
   const readChange = () => {
     setRead((prevRead) => !prevRead);
@@ -106,8 +103,11 @@ export default function Home() {
     <div>
       <div>
         <SubscribeNav />
-
-        <CardDetail
+        <div style={{
+          paddingTop: subNav ? (modal ? "100px" : "120px") : (modal ? "50px" : "80px"),
+          paddingBottom: "40px"
+        }}>
+          <CardDetail
           book={book}
           readChange={readChange}
           read={read}
@@ -115,66 +115,7 @@ export default function Home() {
           readeds={readeds}
           favorites={favorites}
           favoritesChange={favoritesChange}
-        />
-        {/*           ) : (
-            <div className="Trending Cards" style={{ width: "100%" }}>
-              <Carousel
-                pagination={false}
-                enableAutoPlay={false}
-                itemsToShow={1}
-              >
-                {trending.map((t) => (
-                  <div key={"Trending Catalogue" + t.id}>
-                    <CardDetail
-                      book={t}
-                      readChange={readChange}
-                      read={read}
-                      readedsChange={readedsChange}
-                      readeds={readeds}
-                      favorites={favorites}
-                      favoritesChange={favoritesChange}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )} */}
-
-        {/* <div>
-        {recommended && recommended?.length && (
-          <Carousel
-            key="recommended"
-            itemsToShow={1}
-            className="top-rec-wrapper "
-          >
-            {recommended.map((b) => {
-              return (
-                <CardRecommended
-                  key={b.id + "recommended"}
-                  id={b.id}
-                  title={b.title}
-                  subtitle={b.subtitle}
-                  publishedDate={b.publishedDate}
-                  description={b.description}
-                  averageRating={b.averageRating}
-                  cover={b.cover}
-                  genre={b.genre}
-                  author={b.author}
-                  back_cover={b.back_cover}
-                  arrayFavorite={arrayFavorite}
-                  arrayReaded={arrayReaded}
-                  arrayReading={arrayReading}
-                />
-              );
-            })}
-          </Carousel>
-        )}
-      </div> */}
-        <div
-          style={{
-            paddingTop: "80px",
-          }}
-        >
+          />
           {currentUser && currentUser.Reading?.length ? (
             <div>
               <Carousels

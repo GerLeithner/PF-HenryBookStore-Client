@@ -239,7 +239,7 @@ export const ImgContainerDetail = styled.div`
 export const OverLay = styled.div`
   width: 100%;
   height: 480px;
-  padding: 70px 20px 20px 20px;
+  padding: 20px 20px 20px 20px;
   margin: 0;
   background-color: #1e1e1e;
   display: flex;
