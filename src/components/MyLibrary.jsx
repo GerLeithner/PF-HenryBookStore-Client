@@ -36,9 +36,10 @@ const MyLibrary = () => {
   const allAuthors = useSelector((state) => state.authors);
   const recommended = useSelector((state) => state.recommended);
   const news = useSelector((state) => state.news);
+  const subNav = useSelector((state) => state.subscribe);
   const { user, logout } = useAuth0();
 
-  const [modal, setModal] = useState(false);
+  const modal = useSelector((state) => state.modal);
   const readChange = (condition) => {
     setRead(condition);
   };
@@ -84,96 +85,70 @@ const MyLibrary = () => {
 
   return (
     <div>
-      <SubscribeNav />
       <div>
-        <CardDetail
-          book={book}
-          readChange={readChange}
-          read={read}
-          readedsChange={readedsChange}
-          readeds={readeds}
-          favorites={favorites}
-          favoritesChange={favoritesChange}
-        />
+        <SubscribeNav />
         <div
           style={{
-            paddingTop: "80px",
+            paddingTop: subNav
+              ? modal
+                ? "100px"
+                : "120px"
+              : modal
+              ? "50px"
+              : "80px",
+            paddingBottom: "40px",
           }}
-        ></div>
+        >
+          <CardDetail
+            book={book}
+            readChange={readChange}
+            read={read}
+            readedsChange={readedsChange}
+            readeds={readeds}
+            favorites={favorites}
+            favoritesChange={favoritesChange}
+          />
 
-        {currentUser && currentUser.Reading.length ? (
-          <div>
-            {currentUser.Reading.length > 5 ? (
-              <>
-                <H2Home>Continue Reading</H2Home>
-                <Carousel
-                  pagination={false}
-                  itemsToShow={5}
-                  showEmptySlots={true}
-                >
-                  {currentUser.Reading.map((b) => {
-                    return (
-                      <Card
-                        id={b.id}
-                        key={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        readChange={readChange}
-                        read={read}
-                        readedsChange={readedsChange}
-                        readeds={readeds}
-                        favorites={favorites}
-                        favoritesChange={favoritesChange}
-                      />
-                    );
-                  })}
-                </Carousel>
-              </>
-            ) : (
-              <div>
-                <H2Home>Continue Reading</H2Home>
-                <ContainerCards className="Uncarrousel">
-                  {currentUser.Reading.map((b) => {
-                    return (
-                      <Card
-                        id={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        readChange={readChange}
-                        read={read}
-                        readedsChange={readedsChange}
-                        readeds={readeds}
-                        favorites={favorites}
-                        favoritesChange={favoritesChange}
-                      />
-                    );
-                  })}{" "}
-                </ContainerCards>
-              </div>
-            )}
-          </div>
-        ) : (
-          <div>
-            <H2Home>Continue Reading</H2Home>
-            <h3>No books are being read yet</h3>
-          </div>
-        )}
-      </div>
+          {currentUser && currentUser.Reading.length ? (
+            <div>
+              <H2Home>Continue Reading</H2Home>
+              <Carousel
+                pagination={false}
+                itemsToShow={5}
+                showEmptySlots={true}
+              >
+                {currentUser.Reading.map((b) => {
+                  return (
+                    <Card
+                      id={b.id}
+                      key={b.id}
+                      title={b.title}
+                      publishedDate={b.publishedDate}
+                      description={b.description}
+                      averageRating={b.averageRating}
+                      cover={b.cover}
+                      genres={b.genres}
+                      authors={b.authors}
+                      readChange={readChange}
+                      read={read}
+                      readedsChange={readedsChange}
+                      readeds={readeds}
+                      favorites={favorites}
+                      favoritesChange={favoritesChange}
+                    />
+                  );
+                })}
+              </Carousel>
+            </div>
+          ) : (
+            <div>
+              <H2Home>Continue Reading</H2Home>
+              <h3>No books are being read yet</h3>
+            </div>
+          )}
 
-      <div>
-        {currentUser && currentUser.Favorites.length ? (
           <div>
-            {currentUser.Favorites.length > 5 ? (
+            {currentUser && currentUser.Favorites.length ? (
               <div>
                 <H2Home>Your Favorites</H2Home>
                 <Carousel
@@ -207,111 +182,58 @@ const MyLibrary = () => {
             ) : (
               <div>
                 <H2Home>Your Favorites</H2Home>
-                <ContainerCards className="Uncarrousel">
-                  {currentUser.Favorites.map((b) => {
-                    return (
-                      <Card
-                        id={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        readChange={readChange}
-                        read={read}
-                        readedsChange={readedsChange}
-                        readeds={readeds}
-                        favorites={favorites}
-                        favoritesChange={favoritesChange}
-                      />
-                    );
-                  })}{" "}
-                </ContainerCards>
+                <h3>You don't have any favorites yet</h3>
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            <H2Home>Your Favorites</H2Home>
-            <h3>You don't have any favorites yet</h3>
-          </div>
-        )}
-      </div>
 
-      <div>
-        {currentUser && currentUser.Read.length ? (
           <div>
-            {currentUser.Read.length > 5 ? (
-              <>
-                <H2Home>Read Again</H2Home>
-                <Carousel
-                  pagination={false}
-                  itemsToShow={5}
-                  showEmptySlots={true}
-                >
-                  {currentUser.Read.map((b) => {
-                    console.log(
-                      "favoritesChange type:",
-                      typeof favoritesChange
-                    );
+            {currentUser && currentUser.Read.length ? (
+              <div>
+                <>
+                  <H2Home>Read Again</H2Home>
+                  <Carousel
+                    pagination={false}
+                    itemsToShow={5}
+                    showEmptySlots={true}
+                  >
+                    {currentUser.Read.map((b) => {
+                      console.log(
+                        "favoritesChange type:",
+                        typeof favoritesChange
+                      );
 
-                    return (
-                      <Card
-                        id={b.id}
-                        key={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        readChange={readChange}
-                        read={read}
-                        readedsChange={readedsChange}
-                        readeds={readeds}
-                        favorites={favorites}
-                        favoritesChange={favoritesChange}
-                      />
-                    );
-                  })}
-                </Carousel>
-              </>
+                      return (
+                        <Card
+                          id={b.id}
+                          key={b.id}
+                          title={b.title}
+                          publishedDate={b.publishedDate}
+                          description={b.description}
+                          averageRating={b.averageRating}
+                          cover={b.cover}
+                          genres={b.genres}
+                          authors={b.authors}
+                          readChange={readChange}
+                          read={read}
+                          readedsChange={readedsChange}
+                          readeds={readeds}
+                          favorites={favorites}
+                          favoritesChange={favoritesChange}
+                        />
+                      );
+                    })}
+                  </Carousel>
+                </>
+              </div>
             ) : (
               <div>
-                <H2Home>Read Again</H2Home>
-                <ContainerCards className="Uncarrousel">
-                  {currentUser.Read.map((b) => {
-                    return (
-                      <Card
-                        id={b.id}
-                        title={b.title}
-                        publishedDate={b.publishedDate}
-                        description={b.description}
-                        averageRating={b.averageRating}
-                        cover={b.cover}
-                        genres={b.genres}
-                        authors={b.authors}
-                        readChange={readChange}
-                        read={read}
-                        readedsChange={readedsChange}
-                        readeds={readeds}
-                        favorites={favorites}
-                        favoritesChange={favoritesChange}
-                      />
-                    );
-                  })}{" "}
-                </ContainerCards>
+                <H2Home>Read Again</H2Home>{" "}
+                <h3>You haven't read any books yet</h3>
               </div>
             )}
           </div>
-        ) : (
-          <div>
-            <H2Home>Read Again</H2Home> <h3>You haven't read any books yet</h3>
-          </div>
-        )}
+        </div>
       </div>
     </div>
   );
