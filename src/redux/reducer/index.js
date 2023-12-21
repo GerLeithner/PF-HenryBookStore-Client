@@ -323,7 +323,7 @@ function rootReducer(state = initialState, action) {
     case "FILTER_USERS_BY_SUBSCRIPTION":
       console.log("Subs:", action.payload);
       filteredUsers = allUsers.filter(
-        (u) => u.subscription.plan === action.payload
+        (u) => u.subscription?.plan === action.payload
       );
 
       return {

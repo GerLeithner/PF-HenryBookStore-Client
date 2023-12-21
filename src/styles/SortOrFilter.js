@@ -25,6 +25,9 @@ export const FilterButton = styled.button`
   color: white;
   cursor: pointer;
   font: inherit;
+  &:hover {
+    color: #622cd4;
+  }
 `;
 
 export const DownfallButton = styled.div`

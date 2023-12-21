@@ -23,9 +23,7 @@ import { BooksContainer, Table } from "../styles/BooksTable";
 import { PagedButton } from "../styles/Paged";
 import { H3Form } from "../styles/CreateBook";
 
-
 export default function BooksTable() {
-
   const dispatch = useDispatch();
 
   const allBooks = useSelector((state) => state.books);
@@ -111,113 +109,110 @@ export default function BooksTable() {
     setModal(true);
     window.scrollTo(0, 0);
   }
-  
+
   // HACER AL USER AMDMIN ANTES DE DESCOMENTAR LA AUTENTIFICACION
-  return (
-    !currentUser ? 
+  return !currentUser ? (
     <></>
-    :
-    ( !currentUser.admin ?
-      <div>404 Page Not Found</div>
-      : 
-      <div>
-        <SideBarContainer>
-          <SideButton onClick={(e) => handleCreateBook(e)} ancho="170px">
-            ADD NEW BOOK
-          </SideButton>
-          <SideButton onClick={(e) => handleReload(e)} ancho="170px">
-            RELOAD BOOKS
-          </SideButton>
-          <SearchBar paginado={paginado} modal={modal} setModal={setModal} />
-          <SelectFilters>
-            <SortOrFilter 
-              name="Sort By Title" 
-              options={["Ascending", "Descending"]} 
-              onButton={handleSort}
+  ) : !currentUser.admin ? (
+    <div>404 Page Not Found</div>
+  ) : (
+    <div>
+      <SideBarContainer>
+        <SideButton onClick={(e) => handleCreateBook(e)} ancho="170px">
+          ADD NEW BOOK
+        </SideButton>
+        <SideButton onClick={(e) => handleReload(e)} ancho="170px">
+          RELOAD BOOKS
+        </SideButton>
+        {/* <SearchBar paginado={paginado} modal={modal} setModal={setModal} /> */}
+        <SelectFilters>
+          <SortOrFilter
+            name="Sort By Title"
+            options={["Ascending", "Descending"]}
+            onButton={handleSort}
+          />
+          <SortOrFilter
+            name="Sort By Year"
+            options={["Oldest", "Newest"]}
+            onButton={handleSort}
+          />
+          <SortOrFilter
+            name="Filter By Genre"
+            options={allGenres.map((g) => g.name)}
+            onButton={handleFilter}
+          />
+          <SortOrFilter
+            name="Filter By Status"
+            options={["active", "disabled"]}
+            onButton={handleFilter}
+          />
+        </SelectFilters>
+      </SideBarContainer>
+      <BooksContainer>
+        {modal && (
+          <>
+            <H3Form margenIzq="0px">
+              {newBook ? "NEW BOOK" : "EDIT BOOK"}
+            </H3Form>
+            <CreateBook
+              setModal={setModal}
+              newBook={newBook}
+              setNewBook={setNewBook}
             />
-            <SortOrFilter 
-              name="Sort By Year" 
-              options={["Oldest", "Newest"]} 
-              onButton={handleSort}
-            />
-            <SortOrFilter
-              name="Filter By Genre"
-              options={allGenres.map((g) => g.name)}
-              onButton={handleFilter}
-            />
-            <SortOrFilter
-              name="Filter By Status"
-              options={["active", "disabled"]}
-              onButton={handleFilter}
-            />
-          </SelectFilters>
-        </SideBarContainer>
-        <BooksContainer>
-          {modal && (
-            <>
-              <H3Form margenIzq="0px">
-                {newBook ? "NEW BOOK" : "EDIT BOOK"}
-              </H3Form>
-              <CreateBook
-                setModal={setModal}
-                newBook={newBook}
-                setNewBook={setNewBook}
-              />
-            </>
-          )}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              width: "60%",
-            }}
-          >
-            <H3Form margenIzq="0px">{header}</H3Form>
-            <TablePaged
-              booksPerPage={booksPerPage}
-              allBooks={allBooks.length}
-              paginado={paginado}
-              currentPage={currentPage}
-            />
-          </div>
-          <Table>
-            <thead style={{ backgroundColor: "#ccc", height: "30px"}}>
-              <tr style={{ height: "40px" }}>
-                <th>Title</th>
-                <th>Author</th>
-                <th>Year</th>
-                <th>Publisher</th>
-                <th>Genre</th>
-                <th>Identifier</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {currentBook?.map((book) => {
-                return (
-                  <tr key={book.id} style={{ height: "40px" }}>
-                    <td>
-                      <PagedButton
-                        value={book.id}
-                        onClick={(e) => handleEditBook(e)}
-                      >
-                        {book.title}
-                      </PagedButton>
-                    </td>
-                    <td>{book.author.name}</td>
-                    <td>{book.publishedDate}</td>
-                    <td>{book.publisher}</td>
-                    <td>{book.genre.name}</td>
-                    <td>{book.identifier}</td>
-                    <td>{book.active ? "active" : "disabled"}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </BooksContainer>
-      </div> 
-    )
+          </>
+        )}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            width: "60%",
+          }}
+        >
+          <H3Form margenIzq="0px">{header}</H3Form>
+          <TablePaged
+            booksPerPage={booksPerPage}
+            allBooks={allBooks.length}
+            paginado={paginado}
+            currentPage={currentPage}
+          />
+        </div>
+        <Table>
+          <thead style={{ backgroundColor: "#ccc", height: "30px" }}>
+            <tr style={{ height: "40px" }}>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Year</th>
+              <th>Publisher</th>
+              <th>Genre</th>
+              <th>Identifier</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            {currentBook?.map((book) => {
+              return (
+                <tr key={book.id} style={{ height: "40px" }}>
+                  <td>
+                    <PagedButton
+                      value={book.id}
+                      onClick={(e) => handleEditBook(e)}
+                    >
+                      {book.title}
+                    </PagedButton>
+                  </td>
+                  <td>{book.author.name}</td>
+                  <td>{book.publishedDate}</td>
+                  <td>{book.publisher}</td>
+                  <td>{book.genre.name}</td>
+                  <td>{book.identifier}</td>
+                  <td>{book.active ? "active" : "disabled"}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </Table>
+      </BooksContainer>
+    </div>
   );
 }

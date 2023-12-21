@@ -12,6 +12,7 @@ import {
 import EditUser from "./EditUser";
 import TablePaged from "./TablePaged";
 import SortOrFilter from "./SortOrFilter";
+import { ReactComponent as ReloadIcon } from "../icons/reload.svg";
 
 import { SideButton } from "../styles/SortOrFilter";
 import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
@@ -101,7 +102,8 @@ export default function UserTable() {
     <div>
       <SideBarContainer>
         <SideButton onClick={(e) => handleReload(e)} ancho="163px">
-          RELOAD USERS
+          <ReloadIcon />
+          CLEAR FILTERS
         </SideButton>
         <SelectFilters>
           <SortOrFilter
@@ -171,7 +173,7 @@ export default function UserTable() {
                   <td>
                     {user.subscription
                       ? user.subscription.plan
-                      : "Not subscribed"}
+                      : "Not Subscribed"}
                   </td>
                   <td>
                     {user.subscription ? user.subscription.startDate : "-"}
