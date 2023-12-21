@@ -11,7 +11,7 @@ import {
   sortBooksByTitle,
   cleanBookDetail,
 } from "../redux/actions";
-
+import { useHistory } from "react-router-dom";
 import CreateBook from "./CreateBook";
 import TablePaged from "./TablePaged";
 import SortOrFilter from "./SortOrFilter";
@@ -25,6 +25,8 @@ import { H3Form } from "../styles/CreateBook";
 
 export default function BooksTable() {
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const allBooks = useSelector((state) => state.books);
   const allGenres = useSelector((state) => state.genres);
@@ -45,6 +47,11 @@ export default function BooksTable() {
   let currentBook = allBooks.slice(indexOfFirstBook, indexOfLastBook);
   let countPages2 = Math.ceil(allBooks.length / booksPerPage);
 
+  useEffect(() => {
+    if (!currentUser?.admin) {
+      history.push("/home");
+    }
+  }, []);
   useEffect(() => {
     dispatch(getGenres());
     dispatch(getAuthors());
@@ -111,9 +118,7 @@ export default function BooksTable() {
   }
 
   // HACER AL USER AMDMIN ANTES DE DESCOMENTAR LA AUTENTIFICACION
-  return !currentUser ? (
-    <></>
-  ) : !currentUser.admin ? (
+  return !currentUser?.admin ? (
     <div>404 Page Not Found</div>
   ) : (
     <div>

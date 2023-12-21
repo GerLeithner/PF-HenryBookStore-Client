@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { cleanUserDetail, editUser } from "../redux/actions";
+import {
+  cleanUserDetail,
+  editUser,
+  getAllUsers,
+  getUserById,
+} from "../redux/actions";
 import { useHistory } from "react-router";
 
 import {
@@ -19,19 +24,26 @@ import {
   H3Field,
 } from "../styles/EditUser";
 
-export default function EditUser({ setModal }) {
+export default function EditUser({ setModal, setChanged, changed }) {
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const user = useSelector((state) => state.userDetail);
 
+  const [refresh, setRefresh] = useState(true);
+
+  useEffect(() => {
+    const userId = user.id;
+    dispatch(getUserById(userId));
+  }, [dispatch, changed, refresh, user.id]);
+
   function close(e) {
     e.preventDefault();
     dispatch(cleanUserDetail());
     setModal(false);
   }
-
+  console.log("User: ", user.id);
   function handleDisable(e) {
     e.preventDefault();
 
@@ -43,14 +55,20 @@ export default function EditUser({ setModal }) {
       )
     ) {
       dispatch(editUser({ id: user.id, banned: !user.banned }));
-
-      console.log(user.banned);
-      toast.warning(
-        user.banned ? "Account has been activated" : "Account has been disabled"
-      );
+      setTimeout(() => {
+        setChanged((prevChanged) => !prevChanged);
+      }, 100);
+      setTimeout(() => {
+        setRefresh((prevRefresh) => !prevRefresh);
+      }, 200);
     }
-    setModal(false);
+    console.log(user.banned);
+    toast.warning(
+      user.banned ? "Account has been activated" : "Account has been disabled"
+    );
   }
+
+  console.log("Refresh: ", refresh);
 
   return (
     <UserEditContainer>
