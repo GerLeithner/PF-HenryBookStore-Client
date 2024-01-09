@@ -15,7 +15,7 @@ const initialState = {
   search: "",
   modal: false,
   edit: false,
-  loading: true,
+  loading: false,
   subscribe: false,
 };
 

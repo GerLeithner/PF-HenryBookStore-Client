@@ -28,6 +28,7 @@ export default function UserTable() {
 
   const history = useHistory();
   const currentUser = useSelector((state) => state.currentUser);
+  const isLoading = useSelector((state) => state.loading);
 
   const [, setSort] = useState({ name: "", option: "" });
   const [, setFilter] = useState({ name: "", option: "" });
@@ -56,7 +57,7 @@ export default function UserTable() {
     /*    if (!modal) {
       setChanged(!changed);
     } */
-  }, [dispatch, modal, changed]);
+  }, [dispatch, modal, changed, isLoading]);
 
   console.log("Changed Table: ", changed);
 

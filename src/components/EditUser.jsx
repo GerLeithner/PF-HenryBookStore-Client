@@ -6,6 +6,7 @@ import {
   editUser,
   getAllUsers,
   getUserById,
+  loading,
 } from "../redux/actions";
 import { useHistory } from "react-router";
 
@@ -30,13 +31,16 @@ export default function EditUser({ setModal, setChanged, changed }) {
   const history = useHistory();
 
   const user = useSelector((state) => state.userDetail);
+  const isLoading = useSelector((state) => state.loading);
+
+  console.log("Loading: ", isLoading);
 
   const [refresh, setRefresh] = useState(true);
 
   useEffect(() => {
     const userId = user.id;
     dispatch(getUserById(userId));
-  }, [dispatch, changed, refresh, user.id]);
+  }, [dispatch, changed, refresh, user.id, isLoading]);
 
   function close(e) {
     e.preventDefault();
@@ -46,26 +50,21 @@ export default function EditUser({ setModal, setChanged, changed }) {
   console.log("User: ", user.id);
   function handleDisable(e) {
     e.preventDefault();
-
-    if (
-      window.confirm(
-        user.banned
-          ? "Are you sure you want to reactivate this account?"
-          : "Are you sure you want to disable this account?"
-      )
-    ) {
-      dispatch(editUser({ id: user.id, banned: !user.banned }));
-      setTimeout(() => {
-        setChanged((prevChanged) => !prevChanged);
-      }, 100);
-      setTimeout(() => {
-        setRefresh((prevRefresh) => !prevRefresh);
-      }, 200);
+    if (!isLoading) {
+      if (
+        window.confirm(
+          user.banned
+            ? "Are you sure you want to reactivate this account?"
+            : "Are you sure you want to disable this account?"
+        )
+      ) {
+        dispatch(editUser({ id: user.id, banned: !user.banned }));
+      }
+      console.log(user.banned);
+      toast.warning(
+        user.banned ? "Account has been activated" : "Account has been disabled"
+      );
     }
-    console.log(user.banned);
-    toast.warning(
-      user.banned ? "Account has been activated" : "Account has been disabled"
-    );
   }
 
   console.log("Refresh: ", refresh);
