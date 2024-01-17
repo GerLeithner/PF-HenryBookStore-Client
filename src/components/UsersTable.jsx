@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 import {
   getAllUsers,
@@ -12,6 +13,7 @@ import {
 import EditUser from "./EditUser";
 import TablePaged from "./TablePaged";
 import SortOrFilter from "./SortOrFilter";
+import { ReactComponent as ReloadIcon } from "../icons/reload.svg";
 
 import { SideButton } from "../styles/SortOrFilter";
 import { SelectFilters, SideBarContainer } from "../styles/Catalogue";
@@ -23,6 +25,10 @@ export default function UserTable() {
   const dispatch = useDispatch();
 
   const allUsers = useSelector((state) => state.users);
+
+  const history = useHistory();
+  const currentUser = useSelector((state) => state.currentUser);
+  const isLoading = useSelector((state) => state.loading);
 
   const [, setSort] = useState({ name: "", option: "" });
   const [, setFilter] = useState({ name: "", option: "" });
@@ -41,13 +47,19 @@ export default function UserTable() {
   console.log("CURRENT USERS: ", currentUsers);
 
   useEffect(() => {
-    dispatch(getAllUsers());
-    if (!modal) {
-      setChanged(!changed);
+    if (!currentUser?.admin) {
+      history.push("/home");
     }
-  }, [dispatch, modal]);
+  }, []);
 
-  console.log("Changed: ", changed);
+  useEffect(() => {
+    dispatch(getAllUsers());
+    /*    if (!modal) {
+      setChanged(!changed);
+    } */
+  }, [dispatch, modal, changed, isLoading]);
+
+  console.log("Changed Table: ", changed);
 
   const paginado = (pageNumber) => {
     if (pageNumber > 0 && pageNumber <= countPages) setCurrentPage(pageNumber);
@@ -101,7 +113,8 @@ export default function UserTable() {
     <div>
       <SideBarContainer>
         <SideButton onClick={(e) => handleReload(e)} ancho="163px">
-          RELOAD USERS
+          <ReloadIcon />
+          CLEAR FILTERS
         </SideButton>
         <SelectFilters>
           <SortOrFilter
@@ -125,7 +138,11 @@ export default function UserTable() {
         {modal && (
           <>
             <H3Form margenIzq="0px">EDIT USER</H3Form>
-            <EditUser setModal={setModal} />
+            <EditUser
+              setModal={setModal}
+              setChanged={setChanged}
+              changed={changed}
+            />
           </>
         )}
         <div
@@ -171,7 +188,7 @@ export default function UserTable() {
                   <td>
                     {user.subscription
                       ? user.subscription.plan
-                      : "Not subscribed"}
+                      : "Not Subscribed"}
                   </td>
                   <td>
                     {user.subscription ? user.subscription.startDate : "-"}

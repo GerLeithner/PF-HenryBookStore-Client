@@ -158,13 +158,13 @@ export default function NavBar() {
               <ButtonNavBar
                 type="button"
                 className={openAdmin ? "active" : "inactive"}
-                onClick={() => setOpenMenu((prevOpenAdmin) => !prevOpenAdmin)}
+                onClick={() => setOpenAdmin((prevOpenAdmin) => !prevOpenAdmin)}
               >
                 Admin
               </ButtonNavBar>
               <DropDownContainer
                 className={openAdmin ? "active" : "inactive"}
-                onClick={() => setOpenMenu((prevOpenAdmin) => !prevOpenAdmin)}
+                onClick={() => setOpenAdmin((prevOpenAdmin) => !prevOpenAdmin)}
               >
                 <DropDownItem link={"/books"} type={"Books"} Icon={BooksIcon} />
                 <DropDownItem link={"/users"} type={"Users"} Icon={UsersIcon} />

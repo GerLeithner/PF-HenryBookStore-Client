@@ -50,6 +50,7 @@ const Catalogue = () => {
   //const filters = useSelector((state) => state.filters);
   const book = useSelector((state) => state.bookDetail);
   const modal = useSelector((state) => state.modal);
+  const subNav = useSelector((state) => state.subscribe);
   const [readeds, setReadeds] = useState(true);
   const [read, setRead] = useState(true);
   const [favorites, setFavorites] = useState(true);
@@ -121,87 +122,106 @@ const Catalogue = () => {
     dispatch(getBookById(id));
   }
 
+  console.log("Modal : ", modal, " and subnav: ", subNav);
+
   return (
     <div>
-      <CardDetail
-        catalogue={true}
-        book={book}
-        readChange={readChange}
-        read={read}
-        readedsChange={readedsChange}
-        readeds={readeds}
-        favorites={favorites}
-        favoritesChange={favoritesChange}
-      />
+      <SubscribeNav setSubscribe={setSubscribe} />
       <div
         style={{
-          zIndex: "1",
-          position: "relative",
-          paddingTop: modal ? "420px" : "0px",
+          paddingTop: subNav
+            ? modal
+              ? "100px"
+              : "40px"
+            : modal
+            ? "50px"
+            : "0px",
+          paddingBottom: "40px",
         }}
       >
-        <Filters handleSort={handleSort} />
-        <SubscribeNav setSubscribe={setSubscribe} />
-        <FoundContainer>
-          <span style={{ color: "grey", flexDirection: "start" }}>
-            You may be interested in:{" "}
-          </span>
-          <FoundTitles>
-            {allBooks?.slice(0, 4).map((b, i) => {
-              return (
-                <span key={b.id}>
-                  <Titles onClick={(e) => handleTitleClick(e, b.id)}>
-                    {b.title}
-                  </Titles>
-
-                  {i + 1 !== allBooks?.slice(0, 4).length ? (
-                    <span style={{ cursor: "default" }} key={b.id + "breaker"}>
-                      {" "}
-                      |{" "}
-                    </span>
-                  ) : (
-                    <span key={b.id + "spacer"}></span>
-                  )}
-                </span>
-              );
-            })}
-          </FoundTitles>
-          <div></div>
-        </FoundContainer>
-
-        <BooksContainer
-          paddingTop={
-            subscribe && currentUser && !currentUser.subscription
-              ? "20px"
-              : "70px"
-          }
+        <CardDetail
+          catalogue={true}
+          book={book}
+          readChange={readChange}
+          read={read}
+          readedsChange={readedsChange}
+          readeds={readeds}
+          favorites={favorites}
+          favoritesChange={favoritesChange}
+        />
+        <div
+          style={{
+            zIndex: "1",
+            position: "relative",
+            paddingTop: modal ? "420px" : "0px",
+          }}
         >
-          <TablePaged
-            booksPerPage={booksPerPage}
-            allBooks={allBooks.length}
-            paginado={paginado}
-            currentPage={currentPage}
-          />
+          <Filters handleSort={handleSort} />
 
-          <ContainerCards>
-            {currentBook?.map((b) => {
-              return (
-                <div key={b.id}>
-                  <Card
-                    id={b.id}
-                    title={b.title}
-                    publishedDate={b.publishedDate}
-                    description={b.description}
-                    averageRating={b.averageRating}
-                    cover={b.cover}
-                    genres={b.genres}
-                    authors={b.authors}
-                  />
-                </div>
-              );
-            })}
-          </ContainerCards>
-        </BooksContainer>
+          <FoundContainer>
+            <span style={{ color: "grey", flexDirection: "start" }}>
+              You may be interested in:{" "}
+            </span>
+            <FoundTitles>
+              {allBooks?.slice(0, 4).map((b, i) => {
+                return (
+                  <span key={b.id}>
+                    <Titles onClick={(e) => handleTitleClick(e, b.id)}>
+                      {b.title}
+                    </Titles>
+
+                    {i + 1 !== allBooks?.slice(0, 4).length ? (
+                      <span
+                        style={{ cursor: "default" }}
+                        key={b.id + "breaker"}
+                      >
+                        {" "}
+                        |{" "}
+                      </span>
+                    ) : (
+                      <span key={b.id + "spacer"}></span>
+                    )}
+                  </span>
+                );
+              })}
+            </FoundTitles>
+            <div></div>
+          </FoundContainer>
+
+          <BooksContainer
+            paddingTop={
+              subscribe && currentUser && !currentUser.subscription
+                ? "20px"
+                : "70px"
+            }
+          >
+            <TablePaged
+              booksPerPage={booksPerPage}
+              allBooks={allBooks.length}
+              paginado={paginado}
+              currentPage={currentPage}
+            />
+
+            <ContainerCards>
+              {currentBook?.map((b) => {
+                return (
+                  <div key={b.id}>
+                    <Card
+                      id={b.id}
+                      title={b.title}
+                      publishedDate={b.publishedDate}
+                      description={b.description}
+                      averageRating={b.averageRating}
+                      cover={b.cover}
+                      genres={b.genres}
+                      authors={b.authors}
+                    />
+                  </div>
+                );
+              })}
+            </ContainerCards>
+          </BooksContainer>
+        </div>
       </div>
     </div>
   );

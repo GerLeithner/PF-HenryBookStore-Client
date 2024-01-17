@@ -10,7 +10,7 @@ export const FormContainer = styled.form`
   gap: 20px;
   align-items: left;
   width: ${({ ancho }) => ancho || "100%"};
-  height: ${({ alto }) => alto || "40px"};
+  height: ${({ alto }) => alto || "auto"};
   text-align: left;
 `;
 
