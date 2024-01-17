@@ -15,6 +15,8 @@ ReactDOM.render(
       domain={REACT_APP_AUTH_DOMAIN}
       clientId={REACT_APP_AUTH_CLIENTID}
       redirectUri={window.location.origin}
+      useRefreshTokens
+      cacheLocation="localstorage"
     >
       <Provider store={store}>
         <App />
