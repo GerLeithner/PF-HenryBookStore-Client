@@ -19,12 +19,13 @@ import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min.js";
 import { useAuth0 } from "@auth0/auth0-react";
+const { AXIOS_URL } = process.env;
 
 // localhost axios
 // axios.defaults.baseURL = "http://localhost:3001";
 
 // deploy axios
-axios.defaults.baseURL = "https://novel-wave-back-9xgw91ki1-ger-leithners-projects.vercel.app";
+axios.defaults.baseURL = AXIOS_URL;
 
 
 const ProtectedRoute = ({
