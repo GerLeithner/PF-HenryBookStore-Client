@@ -1,12 +1,12 @@
 import axios from "axios";
 import { toast } from "react-toastify";
-const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
+const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN, AXIOS_URL } = process.env;
 
 //local url
 // const deployUrl = "http://localhost:3001";
 
 //deployed url
-const deployUrl = "https://novel-wave-back-9xgw91ki1-ger-leithners-projects.vercel.app";
+const deployUrl = AXIOS_URL;
 
 
 // ------------------- BOOK CRUD ------------------------------------
