@@ -2,8 +2,12 @@ import axios from "axios";
 import { toast } from "react-toastify";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN } = process.env;
 
-//const deployUrl = "https://pf-henrybookstore-api-production.up.railway.app";
-const deployUrl = "http://localhost:3001";
+//local url
+// const deployUrl = "http://localhost:3001";
+
+//deployed url
+const deployUrl = "https://novel-wave-back-9xgw91ki1-ger-leithners-projects.vercel.app";
+
 
 // ------------------- BOOK CRUD ------------------------------------
 
