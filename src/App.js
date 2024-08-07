@@ -1,5 +1,5 @@
 import "./App.css";
-import { Route, useLocation } from "react-router-dom";
+import { Route, useLocation, useHistory } from "react-router-dom";
 import LandingPage from "./components/LandingPage.jsx";
 import Home from "./components/Home.jsx";
 import CardDetail from "./components/CardDetail.jsx";
@@ -22,7 +22,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 // localhost axios
-axios.defaults.baseURL = "https://novel-wave-h3dpg22v0-ger-leithners-projects.vercel.app";
+axios.defaults.baseURL = "https://novel-wave-api.onrender.com";
 
 // deploy axios
 // const { AXIOS_URL } = process.env;
@@ -37,14 +37,18 @@ const ProtectedRoute = ({
   // Aquí puedes agregar lógica de autenticación si es necesario
   const { isAuthenticated, user, isLoading } = useAuth0();
 
+  useEffect(() => {}, [isAuthenticated, isLoading]);
+
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthenticated ? (
+        !isLoading && isAuthenticated ? (
           <Component {...props} changeBackgroundColor={changeBackgroundColor} />
-        ) : (
+        ) : !isLoading && !isAuthenticated ? (
           <Redirect to="/" />
+        ) : (
+          <></>
         )
       }
     />
@@ -68,10 +72,28 @@ const renderFooter = (props) => {
 
 function App() {
   const [backgroundColor, setBackgroundColor] = useState("white");
-  const { isAuthenticated, user, isLoading } = useAuth0();
-  console.log("Auth?: ", isAuthenticated);
+
+  const location = useLocation();
+  const history = useHistory();
+
   function changeBackgroundColor(color) {
     setBackgroundColor(color);
+  }
+
+  const paths = [
+    "/home",
+    "/home/:id",
+    "/catalogue",
+    "/about",
+    "/books",
+    "/users",
+    "/profile",
+    "/library",
+    "/search",
+  ];
+
+  if (!paths.includes(location.pathname) && location.pathname !== "/") {
+    history.push("/home");
   }
 
   return (
@@ -82,20 +104,7 @@ function App() {
       }}
     >
       <Route exact path="/" component={LandingPage} />
-      <ProtectedRoute
-        path={[
-          "/home",
-          "/home/:id",
-          "/catalogue",
-          "/about",
-          "/books",
-          "/users",
-          "/profile",
-          "/library",
-          "/search",
-        ]}
-        component={NavBar}
-      />
+      <ProtectedRoute path={paths} component={NavBar} />
       <div className="main">
         <ProtectedRoute exact path="/home" component={Home} />
         <ProtectedRoute path="/home/:id" component={CardDetail} />

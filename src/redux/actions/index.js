@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN, AXIOS_URL } = process.env;
 
 //local url
-const deployUrl = "https://novel-wave-h3dpg22v0-ger-leithners-projects.vercel.app";
+const deployUrl = "https://novel-wave-api.onrender.com";
 
 //deployed url
 // const deployUrl = AXIOS_URL;
@@ -255,6 +255,20 @@ export function getUserById(id) {
   };
 }
 
+export function loading(payload) {
+  console.log("Entro a Loading");
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "LOADING",
+        payload,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
@@ -274,8 +288,10 @@ export function getCurrentUser(payload) {
 }
 
 export function editUser(input) {
-  return async function () {
+  return async function (dispatch) {
+    dispatch(loading(true));
     await axios.put(`${deployUrl}/user/edit`, input);
+    return dispatch(loading(false));
   };
 }
 
