@@ -25,6 +25,9 @@ export const FilterButton = styled.button`
   color: white;
   cursor: pointer;
   font: inherit;
+  &:hover {
+    color: #622cd4;
+  }
 `;
 
 export const DownfallButton = styled.div`
@@ -65,6 +68,7 @@ export const SideButton = styled.button`
   &:hover {
     color: #622cd4;
     border-color: #622cd4;
+    transition: all 0.3s ease 0s;
     svg {
       transition: all 0.3s ease 0s;
       fill: #622cd4;
@@ -72,6 +76,6 @@ export const SideButton = styled.button`
   }
 
   &:active {
-    transform: translateY(-1px);
+    transform: translateY(2px);
   }
 `;

@@ -27,9 +27,9 @@ const SearchBar = ({ modal, setModal }) => {
   const history = useHistory();
   // const [author,setAuthor]=useState('')
   useEffect(() => {
-    if (search === "") {
+    /*    if (search === "") {
       history.push("/home");
-    }
+    } */
     if (!allGenres.length) {
       dispatch(getGenres());
     }

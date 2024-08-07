@@ -93,6 +93,7 @@ export const ButtonNavBar = styled.button`
   border-color: transparent;
   border: 0px;
   height: 36px;
+  pointer-events: auto;
 
   &:hover {
     cursor: pointer;

@@ -40,10 +40,10 @@ import { ReactComponent as EditIcon } from "../icons/editIcon.svg";
 import { ReactComponent as LoadingIcon } from "../icons/loadingIcon.svg";
 import { StyledOption } from "../styles/Review.js";
 
-export default function UserProfile() {
+export default function UserProfile({ changeBackgroundColor }) {
   const dispatch = useDispatch();
 
-  const { user, logout } = useAuth0();
+  const { user, logout, isAuthenticated } = useAuth0();
 
   const currentUser = useSelector((state) => state.currentUser);
   const loading = useSelector((state) => state.loading);
@@ -70,16 +70,14 @@ export default function UserProfile() {
     label: "paypal",
     tagline: "false",
   };
-  console.log(
-    "Notifitations: ",
-    notifications,
-    " currentUser.notifications.all: ",
-    currentUser.notifications.all,
-    " currentUser.notifications.expDate: ",
-    currentUser.notifications.expDate,
-    " currentUser.notifications.newBooks: ",
-    currentUser.notifications.newBooks
-  );
+
+  useEffect(() => {
+    changeBackgroundColor("#1e1e1e");
+
+    return () => {
+      changeBackgroundColor("white");
+    };
+  }, []);
 
   useEffect(() => {
     if (user) {

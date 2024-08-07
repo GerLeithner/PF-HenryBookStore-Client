@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { cleanUserDetail, editUser } from "../redux/actions";
+import {
+  cleanUserDetail,
+  editUser,
+  getAllUsers,
+  getUserById,
+  loading,
+} from "../redux/actions";
 import { useHistory } from "react-router";
 
 import {
@@ -19,38 +25,49 @@ import {
   H3Field,
 } from "../styles/EditUser";
 
-export default function EditUser({ setModal }) {
+export default function EditUser({ setModal, setChanged, changed }) {
   const dispatch = useDispatch();
 
   const history = useHistory();
 
   const user = useSelector((state) => state.userDetail);
+  const isLoading = useSelector((state) => state.loading);
+
+  console.log("Loading: ", isLoading);
+
+  const [refresh, setRefresh] = useState(true);
+
+  useEffect(() => {
+    const userId = user.id;
+    dispatch(getUserById(userId));
+  }, [dispatch, changed, refresh, user.id, isLoading]);
 
   function close(e) {
     e.preventDefault();
     dispatch(cleanUserDetail());
     setModal(false);
   }
-
+  console.log("User: ", user.id);
   function handleDisable(e) {
     e.preventDefault();
-
-    if (
-      window.confirm(
-        user.banned
-          ? "Are you sure you want to reactivate this account?"
-          : "Are you sure you want to disable this account?"
-      )
-    ) {
-      dispatch(editUser({ id: user.id, banned: !user.banned }));
-
+    if (!isLoading) {
+      if (
+        window.confirm(
+          user.banned
+            ? "Are you sure you want to reactivate this account?"
+            : "Are you sure you want to disable this account?"
+        )
+      ) {
+        dispatch(editUser({ id: user.id, banned: !user.banned }));
+      }
       console.log(user.banned);
       toast.warning(
         user.banned ? "Account has been activated" : "Account has been disabled"
       );
     }
-    setModal(false);
   }
+
+  console.log("Refresh: ", refresh);
 
   return (
     <UserEditContainer>
