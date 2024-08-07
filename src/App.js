@@ -22,7 +22,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 
 // localhost axios
-axios.defaults.baseURL = "https://novel-wave-h3dpg22v0-ger-leithners-projects.vercel.app";
+axios.defaults.baseURL = "https://novel-wave-store-dkgpy5lqx-ger-leithners-projects.vercel.app";
 
 // deploy axios
 // const { AXIOS_URL } = process.env;

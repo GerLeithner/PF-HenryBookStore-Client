@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 const { REACT_APP_AUTH_CLIENTID, REACT_APP_AUTH_DOMAIN, AXIOS_URL } = process.env;
 
 //local url
-const deployUrl = "https://novel-wave-h3dpg22v0-ger-leithners-projects.vercel.app";
+const deployUrl = "https://novel-wave-store-dkgpy5lqx-ger-leithners-projects.vercel.app";
 
 //deployed url
 // const deployUrl = AXIOS_URL;
