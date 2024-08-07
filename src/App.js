@@ -20,8 +20,8 @@ import { useState, useEffect } from "react";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min.js";
 import { useAuth0 } from "@auth0/auth0-react";
 
-axios.defaults.baseURL = "http://localhost:3001";
-// axios.defaults.baseURL = "https://pf-henrybookstore-api-production.up.railway.app";
+// axios.defaults.baseURL = "http://localhost:3001";
+axios.defaults.baseURL = "https://novel-wave-api.onrender.com";
 
 const ProtectedRoute = ({
   component: Component,
