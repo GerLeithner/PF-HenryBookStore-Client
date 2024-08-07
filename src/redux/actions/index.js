@@ -255,6 +255,20 @@ export function getUserById(id) {
   };
 }
 
+export function loading(payload) {
+  console.log("Entro a Loading");
+  return async function (dispatch) {
+    try {
+      return dispatch({
+        type: "LOADING",
+        payload,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function getCurrentUser(payload) {
   return async function (dispatch) {
     try {
@@ -274,8 +288,10 @@ export function getCurrentUser(payload) {
 }
 
 export function editUser(input) {
-  return async function () {
+  return async function (dispatch) {
+    dispatch(loading(true));
     await axios.put(`${deployUrl}/user/edit`, input);
+    return dispatch(loading(false));
   };
 }
 
